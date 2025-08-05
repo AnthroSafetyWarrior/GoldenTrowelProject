@@ -1,147 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Research With Consent</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f8f5ec;
-      color: #2d2d2d;
+      font-family: 'Inter', sans-serif;
     }
-
-    header {
-      background-color: #955b3f;
-      color: white;
-      text-align: center;
-      padding: 1.5rem 1rem 0.5rem;
-    }
-
-    nav {
-      background-color: #a86f4f;
-      padding: 0.75rem 0;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin: 0 1rem;
-      font-weight: bold;
-      padding: 0.5rem;
-    }
-
-    nav a:hover {
-      background-color: #c4875b;
-      border-radius: 4px;
-    }
-
-    .tan-section {
-      background-color: #d3b787;
-      padding: 2rem 1rem 1rem;
-      text-align: center;
-    }
-
-    .tan-section h1 {
-      font-size: 2rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .resources-section {
-      background-color: #fdfaf1;
-      padding: 2rem 1rem;
-      text-align: center;
-      border-radius: 12px;
-      width: 90%;
-      max-width: 960px;
-      margin: 0 auto 3rem;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    }
-
-    .resources-section p {
-      margin-top: 0;
-    }
-
-    .card-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2rem;
-      margin-top: 2rem;
-    }
-
-    .card {
-      background-color: white;
-      padding: 1.5rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      max-width: 300px;
-      flex: 1 1 250px;
-      text-align: left;
-    }
-
-    .card h3 {
-      margin-top: 0;
-      color: #2d2d2d;
-    }
-
-    .card p {
-      color: #4a4a4a;
-    }
-
-    .card a {
-      display: inline-block;
-      margin-top: 1rem;
-      color: #955b3f;
-      font-weight: bold;
-      text-decoration: none;
-    }
-
-    .card a:hover {
-      text-decoration: underline;
+    .dropdown:hover .dropdown-menu {
+      display: block;
     }
   </style>
 </head>
-<body>
-  <header>
-    <h2>Research With Consent</h2>
-    <p>A hub for safe, ethical, and informed fieldwork</p>
+
+<body class="bg-[#f5f0e6]">
+  <header class="bg-[#8c5c3f] text-white py-6">
+    <div class="text-center">
+      <h1 class="text-2xl font-bold">Research With Consent</h1>
+      <p class="text-sm mt-1">A hub for safe, ethical, and informed fieldwork</p>
+    </div>
   </header>
 
-  <nav>
-    <a href="#">Preparing for Fieldwork</a>
-    <a href="#">Reporting & Resources</a>
-    <a href="#">Anonymous Survey for Fieldwork Conduct Violations</a>
-    <a href="#">Contact Us</a>
-  </nav>
-
-  <div class="tan-section">
-    <h1>Build Your Fieldwork Safety Plan</h1>
-
-    <section class="resources-section">
-      <p>Download and customize your safety materials below to protect yourself and your team.</p>
-
-      <div class="card-container">
-        <div class="card">
-          <h3>Safety Planning Document</h3>
-          <p>A personal safety plan template for researchers.</p>
-          <a href="https://docs.google.com/document/d/10xpWJR_aVQElZdbaSffYdfm7TOH2g-nyjSWm5mp03wo/edit?usp=sharing" target="_blank">
-            Open Google Doc
-          </a>
-        </div>
-        <div class="card">
-          <h3>Fieldwork Safety Commitment</h3>
-          <p>A team-wide agreement on ethical and safe fieldwork protocols.</p>
-          <a href="https://docs.google.com/document/d/1-wqnBSBSLdKfexiQoFAfvSyWSx_iTesPNKInMX36bQ8/edit?usp=sharing" target="_blank">
-            Open Google Doc
-          </a>
+  <nav class="bg-[#a26d45] text-white py-4">
+    <div class="flex flex-wrap justify-center space-x-6 font-semibold">
+      <div class="relative dropdown">
+        <button class="hover:underline">Preparing for Fieldwork</button>
+        <div class="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white text-black dropdown-menu hidden z-10">
+          <a href="#" class="block px-4 py-2 hover:bg-gray-100">Beginner Safety Checklist</a>
         </div>
       </div>
-    </section>
-  </div>
+
+      <div class="relative dropdown">
+        <button class="hover:underline">Reporting & Resources</button>
+        <div class="absolute left-0 mt-2 w-64 rounded-md shadow-lg bg-white text-black dropdown-menu hidden z-10">
+          <a href="#" class="block px-4 py-2 hover:bg-gray-100">USA Laws by State</a>
+          <a href="#" class="block px-4 py-2 hover:bg-gray-100">International Laws by Country</a>
+          <a href="#" class="block px-4 py-2 hover:bg-gray-100">University Title IX Info</a>
+          <a href="#" class="block px-4 py-2 hover:bg-gray-100">Reporting to Funders</a>
+        </div>
+      </div>
+
+      <div class="relative dropdown">
+        <button class="hover:underline">Anonymous Surveys</button>
+        <div class="absolute left-0 mt-2 w-80 rounded-md shadow-lg bg-white text-black dropdown-menu hidden z-10">
+          <a href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank" class="block px-4 py-2 hover:bg-gray-100">Fieldwork Sexual Misconduct Survey</a>
+          <a href="https://forms.gle/9DjrMVNP2oUu1GDD8" target="_blank" class="block px-4 py-2 hover:bg-gray-100">Website and Resources Feedback</a>
+        </div>
+      </div>
+
+      <a href="#" class="hover:underline">Contact Us</a>
+    </div>
+  </nav>
+
+  <main class="bg-[#d3b785] py-10 px-4">
+    <h2 class="text-3xl text-center font-bold text-gray-800 mb-6">Build Your Fieldwork Safety Plan</h2>
+
+    <div class="max-w-5xl mx-auto bg-[#fcf9f3] rounded-xl shadow-md p-8">
+      <p class="text-center text-gray-700 mb-6">
+        Download and customize your safety materials below to protect yourself and your team.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white rounded-lg p-6 shadow text-center">
+          <h3 class="text-lg font-bold text-gray-900 mb-2">Safety Planning Document</h3>
+          <p class="text-sm text-gray-700 mb-4">A personal safety plan template for researchers.</p>
+          <a href="https://docs.google.com/document/d/10xpWJR_aVQElZdbaSffYdfm7TOH2g-nyjSWm5mp03wo/edit?usp=sharing" target="_blank" class="text-[#8c5c3f] font-semibold hover:underline">Open Google Doc</a>
+        </div>
+
+        <div class="bg-white rounded-lg p-6 shadow text-center">
+          <h3 class="text-lg font-bold text-gray-900 mb-2">Fieldwork Safety Commitment</h3>
+          <p class="text-sm text-gray-700 mb-4">A team-wide agreement on ethical and safe fieldwork protocols.</p>
+          <a href="https://docs.google.com/document/d/1-wqnBSBSLdKfexiQoFAfvSyWSx_iTesPNKInMX36bQ8/edit?usp=sharing" target="_blank" class="text-[#8c5c3f] font-semibold hover:underline">Open Google Doc</a>
+        </div>
+      </div>
+    </div>
+  </main>
 </body>
+
 </html>
