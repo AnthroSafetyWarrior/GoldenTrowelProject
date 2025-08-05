@@ -2,103 +2,101 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Research With Consent</title>
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f5f1e3;
-      color: #333;
+      background-color: #f8f5ec;
+      color: #2d2d2d;
     }
+
     header {
-      background-color: #8a5a44;
+      background-color: #955b3f;
       color: white;
-      padding: 2rem;
       text-align: center;
+      padding: 1.5rem 1rem 0.5rem;
     }
+
     nav {
-      background-color: #a66e4a;
+      background-color: #a86f4f;
+      padding: 0.75rem 0;
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      padding: 1rem;
-      gap: 1.5rem;
     }
-    nav .dropdown {
-      position: relative;
-    }
-    nav a,
-    nav .dropbtn {
+
+    nav a {
       color: white;
       text-decoration: none;
+      margin: 0 1rem;
       font-weight: bold;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
+      padding: 0.5rem;
     }
-    nav .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: #f5f1e3;
-      color: #333;
-      box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-      z-index: 1;
-      min-width: 200px;
+
+    nav a:hover {
+      background-color: #c4875b;
+      border-radius: 4px;
     }
-    nav .dropdown-content a {
-      display: block;
-      padding: 0.5rem 1rem;
-      color: #333;
-    }
-    nav .dropdown:hover .dropdown-content {
-      display: block;
-    }
-    nav a:hover,
-    nav .dropdown-content a:hover {
-      background-color: #e1d3bb;
-    }
-    .banner {
-      background-color: #d6c39b;
-      height: 250px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      color: #4a392d;
-      text-shadow: 1px 1px 2px #fff;
-    }
-    main {
-      padding: 2rem;
+
+    .intro-section {
+      background-color: #d3b787;
       text-align: center;
+      padding: 1rem 1rem 0.5rem;
     }
+
+    .resources-section {
+      background-color: #fdfaf1;
+      padding: 3rem 1rem;
+      text-align: center;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 960px;
+      margin: -2rem auto 3rem;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
     .card-container {
       display: flex;
       flex-wrap: wrap;
-      gap: 2rem;
       justify-content: center;
+      gap: 2rem;
       margin-top: 2rem;
     }
+
     .card {
       background-color: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       padding: 1.5rem;
-      width: 300px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      max-width: 300px;
+      flex: 1 1 250px;
       text-align: left;
     }
+
     .card h3 {
       margin-top: 0;
+      color: #2d2d2d;
     }
+
+    .card p {
+      color: #4a4a4a;
+    }
+
     .card a {
       display: inline-block;
       margin-top: 1rem;
-      color: #8a5a44;
-      text-decoration: none;
+      color: #955b3f;
       font-weight: bold;
+      text-decoration: none;
     }
+
     .card a:hover {
       text-decoration: underline;
     }
@@ -106,45 +104,40 @@
 </head>
 <body>
   <header>
-    <h1>Research With Consent</h1>
+    <h2>Research With Consent</h2>
     <p>A hub for safe, ethical, and informed fieldwork</p>
   </header>
+
   <nav>
-    <div class="dropdown">
-      <button class="dropbtn">Preparing for Fieldwork</button>
-      <div class="dropdown-content">
-        <a href="#checklist">Beginner Safety Checklist</a>
-      </div>
-    </div>
-    <div class="dropdown">
-      <button class="dropbtn">Reporting & Resources</button>
-      <div class="dropdown-content">
-        <a href="#usa">USA Laws by State</a>
-        <a href="#intl">International Laws by Country</a>
-        <a href="#titleix">University Title IX Info</a>
-        <a href="#funding">Reporting to Funders</a>
-      </div>
-    </div>
-    <a href="#survey">Anonymous Survey for Fieldwork Conduct Violations</a>
-    <a href="#contact">Contact Us</a>
+    <a href="#">Preparing for Fieldwork</a>
+    <a href="#">Reporting & Resources</a>
+    <a href="#">Anonymous Survey for Fieldwork Conduct Violations</a>
+    <a href="#">Contact Us</a>
   </nav>
-  <div class="banner">
-    Start Here: Build Your Fieldwork Safety Plan
+
+  <div class="intro-section">
+    <h1>Build Your Fieldwork Safety Plan</h1>
   </div>
-  <main>
+
+  <section class="resources-section">
     <p>Download and customize your safety materials below to protect yourself and your team.</p>
+
     <div class="card-container">
       <div class="card">
         <h3>Safety Planning Document</h3>
         <p>A personal safety plan template for researchers.</p>
-        <a href="https://docs.google.com/document/d/10xpWJR_aVQElZdbaSffYdfm7TOH2g-nyjSWm5mp03wo/edit?usp=sharing" target="_blank">Open Google Doc</a>
+        <a href="https://docs.google.com/document/d/10xpWJR_aVQElZdbaSffYdfm7TOH2g-nyjSWm5mp03wo/edit?usp=sharing" target="_blank">
+          Open Google Doc
+        </a>
       </div>
       <div class="card">
         <h3>Fieldwork Safety Commitment</h3>
         <p>A team-wide agreement on ethical and safe fieldwork protocols.</p>
-        <a href="https://docs.google.com/document/d/1-wqnBSBSLdKfexiQoFAfvSyWSx_iTesPNKInMX36bQ8/edit?usp=sharing" target="_blank">Open Google Doc</a>
+        <a href="https://docs.google.com/document/d/1-wqnBSBSLdKfexiQoFAfvSyWSx_iTesPNKInMX36bQ8/edit?usp=sharing" target="_blank">
+          Open Google Doc
+        </a>
       </div>
     </div>
-  </main>
+  </section>
 </body>
 </html>
