@@ -1,18 +1,116 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Research With Consent</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Research With Consent</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fafafa;
+      color: #333;
+    }
+    header {
+      background-color: #0a3d62;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+    nav {
+      background-color: #3c6382;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .banner {
+      background-image: url('https://images.unsplash.com/photo-1581092787761-bc68c1b0d6cf');
+      background-size: cover;
+      background-position: center;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-shadow: 1px 1px 4px #000;
+      font-size: 2rem;
+    }
+    main {
+      padding: 2rem;
+      text-align: center;
+    }
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+    .card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 1.5rem;
+      width: 300px;
+      text-align: left;
+    }
+    .card h3 {
+      margin-top: 0;
+    }
+    .card a {
+      display: inline-block;
+      margin-top: 1rem;
+      color: #0a3d62;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .card a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-    <h1>Welcome to Research With Consent</h1>
-    <p>A centralized hub for fieldwork safety, ethical research protocols, and reporting resources across disciplines.</p>
-    <ul>
-        <li><a href="resources/">Legal Resources</a></li>
-        <li><a href="safety-docs/">Safety Documents</a></li>
-        <li><a href="surveys/">Anonymous Survey</a></li>
-        <li><a href="about/">About</a></li>
-    </ul>
+  <header>
+    <h1>Research With Consent</h1>
+    <p>A hub for safe, ethical, and informed fieldwork</p>
+  </header>
+  <nav>
+    <a href="#prep">Preparing for Fieldwork</a>
+    <a href="#reporting">Reporting & Resources</a>
+    <a href="#usa">USA Laws by State</a>
+    <a href="#intl">International Laws by Country</a>
+    <a href="#titleix">University Title IX Info</a>
+    <a href="#funding">Reporting to Funders</a>
+    <a href="#survey">Anonymous Survey</a>
+    <a href="#contact">Contact Us</a>
+  </nav>
+  <div class="banner">
+    Start Here: Build Your Fieldwork Safety Plan
+  </div>
+  <main>
+    <p>Download and customize your safety materials below to protect yourself and your team.</p>
+    <div class="card-container">
+      <div class="card">
+        <h3>Safety Planning Document</h3>
+        <p>A personal safety plan template for researchers.</p>
+        <a href="https://docs.google.com/document/d/your_safety_plan_link" target="_blank">Open Google Doc</a>
+      </div>
+      <div class="card">
+        <h3>Fieldwork Safety Commitment</h3>
+        <p>A team-wide agreement on ethical and safe fieldwork protocols.</p>
+        <a href="/safety-docs/fieldwork_safety_commitment.pdf" target="_blank">Download PDF</a>
+      </div>
+    </div>
+  </main>
 </body>
 </html>
