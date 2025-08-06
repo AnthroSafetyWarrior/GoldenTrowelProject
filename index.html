@@ -5,107 +5,114 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Research With Consent</title>
   <style>
-    body {
-      margin: 0;
-      font-family: 'Open Sans', sans-serif;
-      background-color: #f8f4e3;
-      color: #2f2f2f;
-      text-align: center;
-    }
-    header {
-      background-color: #3c2f2f;
-      color: #fff;
-      padding: 1rem;
-    }
-    nav {
-      background-color: #1c2a12;
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      padding: 1rem;
-    }
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .section-box {
-      background-color: #f8f4e3;
-      margin: 2rem auto;
-      padding: 2rem;
-      max-width: 800px;
-      border-radius: 10px;
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-    }
-    .section-box:nth-child(even) {
-      background-color: #e09c5c;
-    }
-    .infographic {
-      background-color: #fbe6be;
-      padding: 2rem;
-      border-radius: 10px;
-    }
-    .infographic img {
-      width: 100%;
-      max-width: 500px;
-      display: block;
-      margin: 1rem auto;
-    }
-    .doc-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      margin-top: 2rem;
-    }
-    .doc-buttons a {
-      background-color: #d45532;
-      color: #fff;
-      padding: 1rem 2rem;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>Research With Consent</h1>
-    <p>A hub for safe, ethical, and informed fieldwork</p>
-  </header>
-  <nav>
-    <a href="#fieldwork">Preparing for Fieldwork</a>
-    <a href="#reporting">Reporting & Resources</a>
-    <a href="#survey">Anonymous Surveys</a>
-    <a href="#contact">Contact Us</a>
-  </nav>
+  body {
+    margin: 0;
+    font-family: Calibri, sans-serif;
+    background-color: #fdf6e4;
+    font-size: 18px;
+  }
 
-  <div class="section-box">
-    <h2>Let’s work together to make fieldwork safe.</h2>
-  </div>
+  header {
+    background-color: #3a2a28;
+    color: white;
+    padding: 2em;
+    text-align: center;
+    font-size: 2em;
+  }
 
-  <div class="section-box infographic">
-    <h2>In a 2014 study surveying &gt;650 anthropologists,</h2>
-    <img src="infographic_dots.png" alt="Infographic representing study results">
-    <div>
-      <p><strong>64%</strong> of participants experienced sexual harassment</p>
-      <p>Sexual assault was experienced by <strong>&gt;20%</strong> of participants</p>
-      <p>Only <strong>20%</strong> were aware of reporting mechanisms</p>
-    </div>
-    <p style="margin-top: 1rem; font-size: 0.9em">
-      Clancy et al. 2014: <a href="https://doi.org/10.1371/journal.pone.0102172">https://doi.org/10.1371/journal.pone.0102172</a>
-    </p>
-  </div>
+  nav {
+    background-color: #1f3a1f;
+    padding: 1em 0;
+    display: flex;
+    justify-content: center;
+    gap: 3em;
+    font-size: 1.1em;
+  }
 
-  <div class="section-box">
-    <p>The goal of this website is to provide researchers with accessible resources and action plans to prevent and report sexual misconduct.</p>
-  </div>
+  nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+  }
 
-  <div class="section-box">
-    <h2>Build Your Fieldwork Safety Plan</h2>
-    <div class="doc-buttons">
-      <a href="#">Safety Planning DOC</a>
-      <a href="#">Fieldwork Commitment DOC</a>
-    </div>
+  .box {
+    background-color: #fffaf0;
+    border-radius: 12px;
+    margin: 2em auto;
+    padding: 2.5em 3em;
+    max-width: 1000px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+
+  .box.orange {
+    background-color: #e69850;
+    color: #2e1d16;
+  }
+
+  .box.dark {
+    background-color: #faf7ef;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 2em;
+    margin-top: 1em;
+  }
+
+  .buttons a {
+    background-color: #c6452c;
+    color: white;
+    padding: 1em 2em;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1em;
+  }
+
+  .infographic-img {
+    max-width: 90%;
+    height: auto;
+    margin-top: 1em;
+  }
+</style>
+
+<header>
+  Research With Consent<br>
+  <small>A hub for safe, ethical, and informed fieldwork</small>
+</header>
+
+<nav>
+  <a href="#">Preparing for Fieldwork</a>
+  <a href="#">Reporting & Resources</a>
+  <a href="#">Anonymous Surveys</a>
+  <a href="#">Contact Us</a>
+</nav>
+
+<div class="box">
+  <h2>Let’s work together to make fieldwork safe.</h2>
+</div>
+
+<div class="box orange">
+  <h3>In a 2014 study surveying >650 anthropologists,</h3>
+  <img class="infographic-img" src="infographic_dots.png" alt="Infographic representing study results">
+  <p><strong>64%</strong> of participants experienced sexual harassment</p>
+  <p>Sexual assault was experienced by <strong>>20%</strong> of participants</p>
+  <p>Only <strong>20%</strong> were aware of reporting mechanisms</p>
+  <p><small>Clancy et al. 2014: <a href="https://doi.org/10.1371/journal.pone.0102172">https://doi.org/10.1371/journal.pone.0102172</a></small></p>
+</div>
+
+<div class="box dark">
+  <p>The goal of this website is to provide researchers with accessible resources and action plans to prevent and report sexual misconduct.</p>
+</div>
+
+<div class="box orange">
+  <h3>Build Your Fieldwork Safety Plan</h3>
+  <div class="buttons">
+    <a href="#">Safety Planning DOC</a>
+    <a href="#">Fieldwork Commitment DOC</a>
   </div>
+</div>
 </body>
 </html>
