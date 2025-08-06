@@ -59,15 +59,15 @@
     }
 
     h1 {
-      font-size: 2.4em;
-    }
-
-    h2 {
       font-size: 2em;
     }
 
+    h2 {
+      font-size: 1em;
+    }
+
     .main-section {
-      padding: 3em 1em;
+      padding: 2em 1em;
       text-align: center;
     }
 
@@ -87,25 +87,25 @@
       color: white;
     }
 
-    .doc-links {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      gap: 2em;
-      margin-top: 2em;
-      flex-wrap: wrap;
-    }
+    /* Optional: wrap layout for responsiveness */
+.doc-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2em; /* spacing between cards */
+  margin-top: 2em;
+}
 
-    .doc-card {
-      background-color: #e8a084;
-      border-radius: 10px;
-      padding: 1.5em;
-      width: 90%;
-      max-width: 400px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      text-align: center;
-    }
-
+/* Responsive layout: side-by-side on desktop, stack on mobile */
+.doc-card {
+  flex: 1 1 300px;
+  max-width: 400px;
+  background-color: #e8a084;
+  border-radius: 10px;
+  padding: 1.5em;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
     .doc-card h3 {
       margin-top: 0;
     }
@@ -157,7 +157,9 @@
         <a href="https://forms.gle/9DjrMVNP2oUu1GDD8" target="_blank">Website and Resources Feedback</a>
       </div>
     </div>
+     <div class="dropdown">
     <a href="#">Contact Us</a>
+  </div>
   </nav>
 
   <section class="main-section">
@@ -175,7 +177,7 @@
       <img 
         src="./project-2025-08-06_01-08_AM.png" 
         alt="Infographic summarizing results from a 2014 study: 64% experienced sexual harassment, 21% experienced sexual assault, and 20% were aware of reporting mechanisms prior to the survey." 
-        style="max-width:100%; border-radius: 0px; box-shadow: 0 2px 6px rgba(0,0,0,0.15); margin-top: 1em;"
+        style="max-width:100%; border-radius: 12px; box-shadow: none; margin-top: 1em;"
       />
     </div>
   </section>
