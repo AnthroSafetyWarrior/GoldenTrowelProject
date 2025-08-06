@@ -34,32 +34,6 @@
       font-weight: bold;
     }
 
-    .dropdown {
-      position: relative;
-      display: inline-block;
-    }
-
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: white;
-      min-width: 300px;
-      z-index: 1;
-      text-align: left;
-      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    }
-
-    .dropdown-content a {
-      color: black;
-      padding: 12px 16px;
-      text-decoration: none;
-      display: block;
-    }
-
-    .dropdown:hover .dropdown-content {
-      display: block;
-    }
-
     h1 {
       font-size: 2.4em;
     }
@@ -78,14 +52,13 @@
       padding: 2em;
       margin: 2em auto;
       width: 90%;
-      max-width: 1200px;
       border-radius: 12px;
     }
 
     .doc-links {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+      flex-direction: column;
+      align-items: center;
       gap: 2em;
       margin-top: 2em;
     }
@@ -95,7 +68,7 @@
       border-radius: 10px;
       padding: 1.5em;
       width: 90%;
-      max-width: 500px;
+      max-width: 600px;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     }
 
@@ -122,31 +95,9 @@
   </header>
 
   <nav>
-    <div class="dropdown">
-      <a href="#">Preparing for Fieldwork</a>
-      <div class="dropdown-content">
-        <a href="#">Beginner Safety Checklist</a>
-      </div>
-    </div>
-
-    <div class="dropdown">
-      <a href="#">Reporting & Resources</a>
-      <div class="dropdown-content">
-        <a href="#">USA Laws by State</a>
-        <a href="#">International Laws by Country</a>
-        <a href="#">University Title IX Info</a>
-        <a href="#">Reporting to Funders</a>
-      </div>
-    </div>
-
-    <div class="dropdown">
-      <a href="#">Anonymous Surveys</a>
-      <div class="dropdown-content">
-        <a href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank">Fieldwork Sexual Misconduct Survey</a>
-        <a href="https://forms.gle/9DjrMVNP2oUu1GDD8" target="_blank">Website and Resources Feedback</a>
-      </div>
-    </div>
-
+    <a href="#">Preparing for Fieldwork</a>
+    <a href="#">Reporting & Resources</a>
+    <a href="#">Anonymous Surveys</a>
     <a href="#">Contact Us</a>
   </nav>
 
@@ -171,8 +122,8 @@
   </section>
 
   <section class="main-section">
-    <h2>Build Your Fieldwork Safety Plan</h2>
     <div class="docs-container">
+      <h2>Build Your Fieldwork Safety Plan</h2>
       <p>Download and customize your safety materials below to protect yourself and your team.</p>
       <div class="doc-links">
         <div class="doc-card">
