@@ -2,3 +2,7 @@ title: Research With Consent
 description: Resources for fieldwork ethics, safety, and documentation rights
 markdown: kramdown
 theme: minima
+baseurl: "" # leave empty unless your site is in a subfolder
+url: "https://anthrosafetywarrior.github.io/Research-with-Consent" # your GitHub Pages URL
+plugins:
+  - jekyll-feed
