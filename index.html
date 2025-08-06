@@ -6,97 +6,113 @@
   <title>Research With Consent</title>
   <style>
     body {
+      font-family: Arial, sans-serif;
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #fff7e6;
-      color: #2e2e2e;
-      text-align: center;
+      padding: 0;
+      background-color: #eaf0dc;
+      color: #2a2a2a;
     }
 
     header {
-      background-color: #3c1e1e;
+      background-color: #582b38;
       color: white;
-      padding: 30px 20px 10px;
-      font-size: 36px;
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.8rem;
       font-weight: bold;
     }
 
-    header p {
-      margin-top: 10px;
-      font-size: 20px;
+    .subtitle {
+      font-size: 0.9rem;
       font-weight: normal;
+      margin-top: 0.3rem;
     }
 
     nav {
-      background-color: #2b471c;
+      background-color: #36592b;
       display: flex;
       justify-content: center;
-      padding: 16px 0;
-      gap: 50px;
+      flex-wrap: wrap;
+      padding: 0.5rem;
     }
 
     nav a {
       color: white;
+      margin: 0.5rem 1rem;
       text-decoration: none;
       font-weight: bold;
-      font-size: 20px;
     }
 
-    .content-box {
-      background-color: white;
-      width: 90%;
-      margin: 40px auto;
-      padding: 50px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      font-size: 28px;
+    .section {
+      margin: 1.5rem auto;
+      padding: 1.5rem;
+      max-width: 800px;
+      border-radius: 10px;
+      background-color: #fff7dc;
+      text-align: center;
     }
 
-    .highlight-box {
-      background-color: #e79444;
-      width: 90%;
-      margin: 40px auto;
-      padding: 60px 40px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      font-size: 28px;
-      color: #2e2e2e;
+    .infographic {
+      background-color: #fcd46d;
+      border-radius: 10px;
+      padding: 1rem;
+      margin-top: 1rem;
     }
 
-    .highlight-box img {
-      width: 200px;
+    .infographic img {
+      width: 100%;
+      max-width: 500px;
       height: auto;
-      margin: 20px auto;
       display: block;
+      margin: 1rem auto;
     }
 
-    .button-row {
-      margin-top: 40px;
+    .infographic a {
+      color: #1a76d2;
+      font-weight: bold;
+    }
+
+    .cta-box {
+      background-color: #582b38;
+      color: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      text-align: center;
+      margin: 2rem auto;
+      max-width: 800px;
+    }
+
+    .cta-box h2 {
+      margin-bottom: 1rem;
+    }
+
+    .doc-buttons {
       display: flex;
       justify-content: center;
-      gap: 50px;
+      gap: 1.5rem;
+      flex-wrap: wrap;
     }
 
-    .doc-button {
-      background-color: #b5361d;
-      color: white;
-      font-weight: bold;
+    .doc-buttons button {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      background-color: #f2aa7d;
+      color: #2a2a2a;
       border: none;
-      padding: 20px 40px;
-      font-size: 22px;
-      border-radius: 8px;
+      border-radius: 6px;
+      font-weight: bold;
       cursor: pointer;
     }
 
-    .doc-button:hover {
-      background-color: #8e2c17;
+    .doc-buttons button:hover {
+      background-color: #e28a59;
     }
   </style>
 </head>
 <body>
   <header>
     Research With Consent
-    <p>A hub for safe, ethical, and informed fieldwork</p>
+    <div class="subtitle">A hub for safe, ethical, and informed fieldwork</div>
   </header>
 
   <nav>
@@ -106,34 +122,23 @@
     <a href="#">Contact Us</a>
   </nav>
 
-  <div class="content-box">
-    <strong>Let’s work together to make fieldwork safe.</strong>
-  </div>
+  <section class="section">
+    <h2>Let’s work together to make fieldwork safe.</h2>
+    <p>The goal of this website is to provide researchers with accessible resources and action plans to prevent and report sexual misconduct.</p>
+  </section>
 
-  <div class="highlight-box">
-    <strong>In a 2014 study surveying >650 anthropologists,</strong>
-    <br><br>
-    <img src="infographic_dots.png" alt="Infographic representing study results">
-    <br>
-    <div style="font-size:24px;">
-      <p><strong>64%</strong> of participants experienced sexual harassment</p>
-      <p>Sexual assault was experienced by <strong>>20%</strong> of participants</p>
-      <p>Only <strong>20%</strong> were aware of reporting mechanisms</p>
-      <p style="font-size:20px;">Clancy et al. 2014: <a href="https://doi.org/10.1371/journal.pone.0102172" target="_blank">https://doi.org/10.1371/journal.pone.0102172</a></p>
+  <section class="section infographic">
+    <h3>Prevalence of Fieldwork Harassment and Assault</h3>
+    <p>A 2014 survey sampling &gt;650 anthropologists revealed high frequencies of harassment and assault, and low frequencies of awareness of reporting procedures (Clancy et al. 2014: <a href="https://doi.org/10.1371/journal.pone.0102172" target="_blank">https://doi.org/10.1371/journal.pone.0102172</a>)</p>
+    <img src="infographic.png" alt="Infographic summarizing results from a 2014 study: 64% experienced sexual harassment, 21% experienced sexual assault, and 20% were aware of reporting mechanisms prior to the survey.">
+  </section>
+
+  <section class="cta-box">
+    <h2>Build Your Fieldwork Safety Plan</h2>
+    <div class="doc-buttons">
+      <button>DOC</button>
+      <button>DOC</button>
     </div>
-  </div>
-
-  <div class="content-box">
-    The goal of this website is to provide researchers with accessible resources and action plans to prevent and report sexual misconduct.
-  </div>
-
-  <div class="highlight-box">
-    <strong>Build Your Fieldwork Safety Plan</strong>
-    <div class="button-row">
-      <button class="doc-button">Safety Planning DOC</button>
-      <button class="doc-button">Fieldwork Commitment DOC</button>
-    </div>
-  </div>
-
+  </section>
 </body>
 </html>
