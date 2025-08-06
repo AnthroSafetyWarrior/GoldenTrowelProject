@@ -1,118 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Research With Consent</title>
   <style>
-  body {
-    margin: 0;
-    font-family: Calibri, sans-serif;
-    background-color: #fdf6e4;
-    font-size: 18px;
-  }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fff7e6;
+      color: #2e2e2e;
+      text-align: center;
+    }
 
-  header {
-    background-color: #3a2a28;
-    color: white;
-    padding: 2em;
-    text-align: center;
-    font-size: 2em;
-  }
+    header {
+      background-color: #3c1e1e;
+      color: white;
+      padding: 30px 20px 10px;
+      font-size: 36px;
+      font-weight: bold;
+    }
 
-  nav {
-    background-color: #1f3a1f;
-    padding: 1em 0;
-    display: flex;
-    justify-content: center;
-    gap: 3em;
-    font-size: 1.1em;
-  }
+    header p {
+      margin-top: 10px;
+      font-size: 20px;
+      font-weight: normal;
+    }
 
-  nav a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-  }
+    nav {
+      background-color: #2b471c;
+      display: flex;
+      justify-content: center;
+      padding: 16px 0;
+      gap: 50px;
+    }
 
-  .box {
-    background-color: #fffaf0;
-    border-radius: 12px;
-    margin: 2em auto;
-    padding: 2.5em 3em;
-    max-width: 1000px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 20px;
+    }
 
-  .box.orange {
-    background-color: #e69850;
-    color: #2e1d16;
-  }
+    .content-box {
+      background-color: white;
+      width: 90%;
+      margin: 40px auto;
+      padding: 50px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      font-size: 28px;
+    }
 
-  .box.dark {
-    background-color: #faf7ef;
-  }
+    .highlight-box {
+      background-color: #e79444;
+      width: 90%;
+      margin: 40px auto;
+      padding: 60px 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      font-size: 28px;
+      color: #2e2e2e;
+    }
 
-  .buttons {
-    display: flex;
-    justify-content: center;
-    gap: 2em;
-    margin-top: 1em;
-  }
+    .highlight-box img {
+      width: 200px;
+      height: auto;
+      margin: 20px auto;
+      display: block;
+    }
 
-  .buttons a {
-    background-color: #c6452c;
-    color: white;
-    padding: 1em 2em;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1em;
-  }
+    .button-row {
+      margin-top: 40px;
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+    }
 
-  .infographic-img {
-    max-width: 90%;
-    height: auto;
-    margin-top: 1em;
-  }
-</style>
+    .doc-button {
+      background-color: #b5361d;
+      color: white;
+      font-weight: bold;
+      border: none;
+      padding: 20px 40px;
+      font-size: 22px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
 
-<header>
-  Research With Consent<br>
-  <small>A hub for safe, ethical, and informed fieldwork</small>
-</header>
+    .doc-button:hover {
+      background-color: #8e2c17;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    Research With Consent
+    <p>A hub for safe, ethical, and informed fieldwork</p>
+  </header>
 
-<nav>
-  <a href="#">Preparing for Fieldwork</a>
-  <a href="#">Reporting & Resources</a>
-  <a href="#">Anonymous Surveys</a>
-  <a href="#">Contact Us</a>
-</nav>
+  <nav>
+    <a href="#">Preparing for Fieldwork</a>
+    <a href="#">Reporting & Resources</a>
+    <a href="#">Anonymous Surveys</a>
+    <a href="#">Contact Us</a>
+  </nav>
 
-<div class="box">
-  <h2>Let’s work together to make fieldwork safe.</h2>
-</div>
-
-<div class="box orange">
-  <h3>In a 2014 study surveying >650 anthropologists,</h3>
-  <img class="infographic-img" src="infographic_dots.png" alt="Infographic representing study results">
-  <p><strong>64%</strong> of participants experienced sexual harassment</p>
-  <p>Sexual assault was experienced by <strong>>20%</strong> of participants</p>
-  <p>Only <strong>20%</strong> were aware of reporting mechanisms</p>
-  <p><small>Clancy et al. 2014: <a href="https://doi.org/10.1371/journal.pone.0102172">https://doi.org/10.1371/journal.pone.0102172</a></small></p>
-</div>
-
-<div class="box dark">
-  <p>The goal of this website is to provide researchers with accessible resources and action plans to prevent and report sexual misconduct.</p>
-</div>
-
-<div class="box orange">
-  <h3>Build Your Fieldwork Safety Plan</h3>
-  <div class="buttons">
-    <a href="#">Safety Planning DOC</a>
-    <a href="#">Fieldwork Commitment DOC</a>
+  <div class="content-box">
+    <strong>Let’s work together to make fieldwork safe.</strong>
   </div>
-</div>
+
+  <div class="highlight-box">
+    <strong>In a 2014 study surveying >650 anthropologists,</strong>
+    <br><br>
+    <img src="infographic_dots.png" alt="Infographic representing study results">
+    <br>
+    <div style="font-size:24px;">
+      <p><strong>64%</strong> of participants experienced sexual harassment</p>
+      <p>Sexual assault was experienced by <strong>>20%</strong> of participants</p>
+      <p>Only <strong>20%</strong> were aware of reporting mechanisms</p>
+      <p style="font-size:20px;">Clancy et al. 2014: <a href="https://doi.org/10.1371/journal.pone.0102172" target="_blank">https://doi.org/10.1371/journal.pone.0102172</a></p>
+    </div>
+  </div>
+
+  <div class="content-box">
+    The goal of this website is to provide researchers with accessible resources and action plans to prevent and report sexual misconduct.
+  </div>
+
+  <div class="highlight-box">
+    <strong>Build Your Fieldwork Safety Plan</strong>
+    <div class="button-row">
+      <button class="doc-button">Safety Planning DOC</button>
+      <button class="doc-button">Fieldwork Commitment DOC</button>
+    </div>
+  </div>
+
 </body>
 </html>
