@@ -8,10 +8,11 @@
   <style>
     /* Olive Garden Feast Palette */
     :root {
-      --forest-green: #588157;
+      --forest-green: #283618;
       --olive: #a3b18a;
       --beige: #fefae0;
-      --brown: #7f4f24;
+      --brown: #dda15e;
+      --burnt-orange: #bc6c25;
       --dark-olive: #3a5a40;
       --font-dark: #2c2c2c;
     }
@@ -26,14 +27,14 @@
     }
 
     header {
-      background-color: var(--forest-green);
+      background-color: var(--burnt-orange);
       color: white;
       padding: 1em;
       text-align: center;
     }
 
     nav {
-      background-color: var(--olive);
+      background-color: var(--brown);
       padding: 0.5em;
       display: flex;
       justify-content: center;
@@ -42,7 +43,7 @@
 
     nav a,
     .dropdown > a {
-      color: var(--dark-olive);
+      color: var(--white);
       text-decoration: none;
       font-weight: bold;
       position: relative;
@@ -57,7 +58,7 @@
     .dropdown-content {
       display: none;
       position: absolute;
-      background-color: white;
+      background-color: --burnt-orange;
       min-width: 250px;
       box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
       z-index: 999;
@@ -71,14 +72,14 @@
     }
 
     .dropdown-content a {
-      color: var(--brown);
+      color: var(white);
       padding: 10px 20px;
       display: block;
       text-decoration: none;
     }
 
     .dropdown-content a:hover {
-      background-color: var(--olive);
+      background-color: var(--brown);
     }
 
     h1 {
@@ -115,7 +116,7 @@
     }
 
     .doc-card {
-      background: white;
+      background: var(--beige);
       border-radius: 8px;
       padding: 1.5em;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
