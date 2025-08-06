@@ -7,100 +7,109 @@
   <title>Research With Consent</title>
   <style>
     body {
-      font-family: Calibri, sans-serif;
-      background-color: #fdf6e3;
-      margin: 0;
-      padding: 0;
-      font-size: 22pt;
-    }
+  font-family: Calibri, sans-serif;
+  background-color: #abc5a1;  /* overall page background */
+  margin: 0;
+  padding: 0;
+  font-size: 22pt;
+}
 
-    header {
-      background-color: #633747ff;
-      color: white;
-      padding: 1.2em;
-      text-align: center;
-    }
+header {
+  background-color: #633747;  /* heading background */
+  color: white;
+  padding: 1.2em;
+  text-align: center;
+}
 
-    nav {
-      background-color: #e8a084ff;
-      padding: 0.5em;
-      text-align: center;
-    }
+nav {
+  background-color: #e8a084;  /* navigation background */
+  padding: 0.5em;
+  text-align: center;
+}
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin: 0 1em;
-      font-weight: bold;
-    }
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 1em;
+  font-weight: bold;
+}
 
-    h1 {
-      font-size: 3em;
-    }
+h1 {
+  font-size: 2.4em;
+}
 
-    h2 {
-      font-size: 2em;
-    }
+h2 {
+  font-size: 2em;
+}
 
-    p {
-      font-size: 1.2em;
-    }
+p {
+  font-size: 1.2em;
+}
 
-    .main-section {
-      padding: 3em 1em;
-      text-align: center;
-    }
+.main-section {
+  padding: 3em 1em;
+  text-align: center;
+}
 
-    .docs-container {
-      background-color: #fdd885;
-      padding: 2em;
-      margin: 0.3em auto;  /* <-- 🔧 THIS controls the top and bottom spacing between yellow boxes */
-      width: 90%;
-      border-radius: 12px;
-    }
+.docs-container {
+  background-color: #fdd885;
+  padding: 2em;
+  margin: 1.2em auto;  /* tightened spacing */
+  width: 90%;
+  border-radius: 12px;
+}
 
-    .doc-links {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2em; /* tighten card spacing */
-      margin-top: 2em; /* reduce space from heading */
-    }
+/* SPECIFIC COLOR for "Build Your Fieldwork Safety Plan" section */
+.docs-container:nth-of-type(3) {
+  background-color: #633747;
+  color: white;
+}
 
-    /* Responsive layout: side-by-side on larger screens */
-    @media (min-width: 768px) {
-      .doc-links {
-        flex-direction: row;
-        justify-content: center;
-      }
-    }
+.docs-container:nth-of-type(3) h2,
+.docs-container:nth-of-type(3) p {
+  color: white;
+}
 
-    .doc-card {
-      background-color: #f4af86;
-      border-radius: 10px;
-      padding: 1.5em;
-      width: 90%;
-      max-width: 500px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    }
+.doc-links {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 2em;
+  margin-top: 2em;
+}
 
-    .doc-card h3 {
-      margin-top: 0;
-    }
+.doc-card {
+  background-color: #e8a084;
+  border-radius: 10px;
+  padding: 1.5em;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
 
-    .doc-card a {
-      display: inline-block;
-      margin-top: 1em;
-      background-color: ##e8a084ff;
-      color: white;
-      text-decoration: none;
-      padding: 0.5em 1em;
-      border-radius: 6px;
-    }
+.doc-card h3 {
+  margin-top: 0;
+  color: black;
+}
 
-    .doc-card a:hover {
-      background-color: #7a3a5d;
-    }
+.doc-card p {
+  color: black;
+}
+
+.doc-card a {
+  display: inline-block;
+  margin-top: 1em;
+  background-color: #633747;  /* button background */
+  color: white;
+  text-decoration: none;
+  padding: 0.5em 1em;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.doc-card a:hover {
+  background-color: #c4551e;  /* hover color */
+}
   </style>
 </head>
 
