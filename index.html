@@ -1,145 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Research With Consent</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
-      font-family: Calibri, sans-serif;
-      background-color: #fdf6e3;
-      margin: 0;
-      padding: 0;
-      font-size: 22pt;
+      font-family: 'Calibri', sans-serif;
     }
-
-    header {
-      background-color: #5b2c42;
-      color: white;
-      padding: 1.2em;
-      text-align: center;
-    }
-
-    nav {
-      background-color: #2d472b;
-      padding: 0.5em;
-      text-align: center;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin: 0 1em;
-      font-weight: bold;
-    }
-
     h1 {
-      font-size: 2.4em;
+      font-size: 3em;
     }
-
     h2 {
       font-size: 2em;
     }
-
-    .main-section {
-      padding: 3em 1em;
-      text-align: center;
+    p {
+      font-size: 1.2em;
     }
-
-    .docs-container {
-      background-color: #fdd885;
-      padding: 2em;
-      margin: 2em auto;
-      width: 90%;
-      border-radius: 12px;
-    }
-
-    .doc-links {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2em;
-      margin-top: 2em;
-    }
-
-    .doc-card {
-      background-color: #f4af86;
-      border-radius: 10px;
-      padding: 1.5em;
-      width: 90%;
-      max-width: 600px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .doc-card h3 {
-      margin-top: 0;
-    }
-
-    .doc-card a {
-      display: inline-block;
-      margin-top: 1em;
-      background-color: #5b2c42;
-      color: white;
-      text-decoration: none;
-      padding: 0.5em 1em;
-      border-radius: 6px;
+    .dropdown:hover .dropdown-menu {
+      display: block;
     }
   </style>
 </head>
 
-<body>
-  <header>
-    <h1>Research With Consent</h1>
-    <p>A hub for safe, ethical, and informed fieldwork</p>
+<body class="bg-[#f5f0e6]">
+  <!-- Header -->
+  <header class="bg-[#8c5c3f] text-white py-6">
+    <div class="text-center">
+      <h1 class="font-bold">Research With Consent</h1>
+      <p class="text-sm mt-1">A hub for safe, ethical, and informed fieldwork</p>
+    </div>
   </header>
 
-  <nav>
-    <a href="#">Preparing for Fieldwork</a>
-    <a href="#">Reporting & Resources</a>
-    <a href="#">Anonymous Surveys</a>
-    <a href="#">Contact Us</a>
+  <!-- Navbar -->
+  <nav class="bg-[#a26d45] text-white py-4">
+    <div class="flex flex-wrap justify-center space-x-6 font-semibold">
+      <div class="relative dropdown">
+        <button class="hover:underline">Preparing for Fieldwork</button>
+        <div class="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white text-black dropdown-menu hidden z-10">
+          <a href="#" class="block px-4 py-2 hover:bg-gray-100">Beginner Safety Checklist</a>
+        </div>
+      </div>
+
+      <div class="relative dropdown">
+        <button class="hover:underline">Reporting & Resources</button>
+        <div class="absolute left-0 mt-2 w-64 rounded-md shadow-lg bg-white text-black dropdown-menu hidden z-10">
+          <a href="#" class="block px-4 py-2 hover:bg-gray-100">USA Laws by State</a>
+          <a href="#" class="block px-4 py-2 hover:bg-gray-100">International Laws by Country</a>
+          <a href="#" class="block px-4 py-2 hover:bg-gray-100">University Title IX Info</a>
+          <a href="#" class="block px-4 py-2 hover:bg-gray-100">Reporting to Funders</a>
+        </div>
+      </div>
+
+      <div class="relative dropdown">
+        <button class="hover:underline">Anonymous Surveys</button>
+        <div class="absolute left-0 mt-2 w-80 rounded-md shadow-lg bg-white text-black dropdown-menu hidden z-10">
+          <a href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank" class="block px-4 py-2 hover:bg-gray-100">Fieldwork Sexual Misconduct Survey</a>
+          <a href="https://forms.gle/9DjrMVNP2oUu1GDD8" target="_blank" class="block px-4 py-2 hover:bg-gray-100">Website and Resources Feedback</a>
+        </div>
+      </div>
+
+      <a href="#" class="hover:underline">Contact Us</a>
+    </div>
   </nav>
 
-  <section class="main-section">
-    <h2>Let’s work together to make fieldwork safe.</h2>
-    <p>The goal of this website is to provide researchers with accessible resources and action plans to prevent and report sexual misconduct.</p>
-  </section>
-
-  <section class="main-section">
-    <div class="docs-container">
-      <h2>Prevalence of Fieldwork Harassment and Assault</h2>
-      <p>
-        A 2014 survey sampling &gt;650 anthropologists revealed high frequencies of harassment and assault, and low frequencies of awareness of reporting procedures (Clancy et al. 2014:
-        <a href="https://doi.org/10.1371/journal.pone.0102172" target="_blank">https://doi.org/10.1371/journal.pone.0102172</a>)
+  <!-- Main Content -->
+  <main class="bg-[#fcd77f] py-10 px-4">
+    <div class="max-w-7xl mx-auto bg-[#fcd77f] rounded-xl shadow-md px-8 py-10">
+      <h2 class="text-center font-bold text-gray-900 mb-4">Build Your Fieldwork Safety Plan</h2>
+      <p class="text-center text-gray-800 mb-8">
+        Download and customize your safety materials below to protect yourself and your team.
       </p>
-      <img 
-        src="./project-2025-08-06_01-08_AM.png" 
-        alt="Infographic summarizing results from a 2014 study: 64% experienced sexual harassment, 21% experienced sexual assault, and 20% were aware of reporting mechanisms prior to the survey." 
-        style="max-width:100%; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.15); margin-top: 1em;"
-      />
-    </div>
-  </section>
 
-  <section class="main-section">
-    <div class="docs-container">
-      <h2>Build Your Fieldwork Safety Plan</h2>
-      <p>Download and customize your safety materials below to protect yourself and your team.</p>
-      <div class="doc-links">
-        <div class="doc-card">
-          <h3>Safety Planning Document</h3>
-          <p>A personal safety plan template for researchers.</p>
-          <a href="https://docs.google.com/document/d/10xpWJR_aVQElZdbaSffYdfm7TOH2g-nyjSWm5mp03wo/edit?usp=sharing" target="_blank">Open Google Doc</a>
+      <div class="flex flex-col md:flex-row justify-center items-stretch gap-8">
+        <!-- Box 1 -->
+        <div class="bg-[#f6b78b] rounded-lg p-8 shadow-md flex-1 text-center max-w-md mx-auto">
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Safety Planning Document</h3>
+          <p class="text-gray-800 mb-4">A personal safety plan template for researchers.</p>
+          <a href="https://docs.google.com/document/d/10xpWJR_aVQElZdbaSffYdfm7TOH2g-nyjSWm5mp03wo/edit?usp=sharing" target="_blank" class="bg-[#4a1f29] text-white font-semibold px-4 py-2 rounded hover:underline">Open Google Doc</a>
         </div>
-        <div class="doc-card">
-          <h3>Fieldwork Safety Commitment</h3>
-          <p>A team-wide agreement on ethical and safe fieldwork protocols.</p>
-          <a href="https://docs.google.com/document/d/1-wqnBSBSLdKfexiQoFAfvSyWSx_iTesPNKInMX36bQ8/edit?usp=sharing" target="_blank">Open Google Doc</a>
+
+        <!-- Box 2 -->
+        <div class="bg-[#f6b78b] rounded-lg p-8 shadow-md flex-1 text-center max-w-md mx-auto">
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Fieldwork Safety Commitment</h3>
+          <p class="text-gray-800 mb-4">A team-wide agreement on ethical and safe fieldwork protocols.</p>
+          <a href="https://docs.google.com/document/d/1-wqnBSBSLdKfexiQoFAfvSyWSx_iTesPNKInMX36bQ8/edit?usp=sharing" target="_blank" class="bg-[#4a1f29] text-white font-semibold px-4 py-2 rounded hover:underline">Open Google Doc</a>
         </div>
       </div>
     </div>
-  </section>
-
+  </main>
 </body>
-
 </html>
