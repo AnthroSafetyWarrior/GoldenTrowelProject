@@ -1,118 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Research With Consent</title>
   <style>
     body {
       font-family: Arial, sans-serif;
+      background-color: #fdf6e3;
       margin: 0;
       padding: 0;
-      background-color: #eaf0dc;
-      color: #2a2a2a;
     }
 
     header {
-      background-color: #582b38;
+      background-color: #5b2c42;
       color: white;
-      padding: 1rem;
+      padding: 1.2em;
       text-align: center;
-      font-size: 1.8rem;
-      font-weight: bold;
-    }
-
-    .subtitle {
-      font-size: 0.9rem;
-      font-weight: normal;
-      margin-top: 0.3rem;
     }
 
     nav {
-      background-color: #36592b;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      padding: 0.5rem;
+      background-color: #2d472b;
+      padding: 0.5em;
+      text-align: center;
     }
 
     nav a {
       color: white;
-      margin: 0.5rem 1rem;
       text-decoration: none;
+      margin: 0 1em;
       font-weight: bold;
     }
 
-    .section {
-      margin: 1.5rem auto;
-      padding: 1.5rem;
-      max-width: 800px;
-      border-radius: 10px;
-      background-color: #fff7dc;
+    h1 {
+      font-size: 2.4em;
+    }
+
+    h2 {
+      font-size: 2em;
+    }
+
+    .main-section {
+      padding: 3em 1em;
       text-align: center;
     }
 
-    .infographic {
-      background-color: #fcd46d;
-      border-radius: 10px;
-      padding: 1rem;
-      margin-top: 1rem;
-    }
-
-    .infographic img {
-      width: 100%;
-      max-width: 500px;
-      height: auto;
-      display: block;
-      margin: 1rem auto;
-    }
-
-    .infographic a {
-      color: #1a76d2;
-      font-weight: bold;
-    }
-
-    .cta-box {
-      background-color: #582b38;
-      color: white;
-      padding: 1.5rem;
-      border-radius: 10px;
-      text-align: center;
-      margin: 2rem auto;
+    .docs-container {
+      background-color: #fdd885;
+      padding: 2em;
+      margin: 2em auto;
+      width: 90%;
       max-width: 800px;
+      border-radius: 12px;
     }
 
-    .cta-box h2 {
-      margin-bottom: 1rem;
-    }
-
-    .doc-buttons {
+    .doc-links {
       display: flex;
-      justify-content: center;
-      gap: 1.5rem;
       flex-wrap: wrap;
+      justify-content: center;
+      gap: 2em;
+      margin-top: 2em;
     }
 
-    .doc-buttons button {
-      padding: 0.75rem 1.5rem;
-      font-size: 1rem;
-      background-color: #f2aa7d;
-      color: #2a2a2a;
-      border: none;
+    .doc-card {
+      background-color: #f4af86;
+      border-radius: 10px;
+      padding: 1.5em;
+      width: 300px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .doc-card h3 {
+      margin-top: 0;
+    }
+
+    .doc-card a {
+      display: inline-block;
+      margin-top: 1em;
+      background-color: #5b2c42;
+      color: white;
+      text-decoration: none;
+      padding: 0.5em 1em;
       border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .doc-buttons button:hover {
-      background-color: #e28a59;
     }
   </style>
 </head>
+
 <body>
   <header>
-    Research With Consent
-    <div class="subtitle">A hub for safe, ethical, and informed fieldwork</div>
+    <h1>Research With Consent</h1>
+    <p>A hub for safe, ethical, and informed fieldwork</p>
   </header>
 
   <nav>
@@ -122,23 +100,45 @@
     <a href="#">Contact Us</a>
   </nav>
 
-  <section class="section">
+  <section class="main-section">
     <h2>Let’s work together to make fieldwork safe.</h2>
     <p>The goal of this website is to provide researchers with accessible resources and action plans to prevent and report sexual misconduct.</p>
   </section>
 
-  <section class="section infographic">
-    <h3>Prevalence of Fieldwork Harassment and Assault</h3>
-    <p>A 2014 survey sampling &gt;650 anthropologists revealed high frequencies of harassment and assault, and low frequencies of awareness of reporting procedures (Clancy et al. 2014: <a href="https://doi.org/10.1371/journal.pone.0102172" target="_blank">https://doi.org/10.1371/journal.pone.0102172</a>)</p>
-    <img src="infographic.png" alt="Infographic summarizing results from a 2014 study: 64% experienced sexual harassment, 21% experienced sexual assault, and 20% were aware of reporting mechanisms prior to the survey.">
-  </section>
-
-  <section class="cta-box">
-    <h2>Build Your Fieldwork Safety Plan</h2>
-    <div class="doc-buttons">
-      <button>DOC</button>
-      <button>DOC</button>
+  <section class="main-section">
+    <div class="docs-container">
+      <h2>Prevalence of Fieldwork Harassment and Assault</h2>
+      <p>
+        A 2014 survey sampling &gt;650 anthropologists revealed high frequencies of harassment and assault, and low frequencies of awareness of reporting procedures (Clancy et al. 2014:
+        <a href="https://doi.org/10.1371/journal.pone.0102172" target="_blank">https://doi.org/10.1371/journal.pone.0102172</a>)
+      </p>
+      <img 
+        src="./project-2025-08-06_01-08_AM.png" 
+        alt="Infographic summarizing results from a 2014 study: 64% experienced sexual harassment, 21% experienced sexual assault, and 20% were aware of reporting mechanisms prior to the survey." 
+        style="max-width:100%; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.15); margin-top: 1em;"
+      />
     </div>
   </section>
+
+  <section class="main-section">
+    <h2>Build Your Fieldwork Safety Plan</h2>
+    <div class="docs-container">
+      <p>Download and customize your safety materials below to protect yourself and your team.</p>
+      <div class="doc-links">
+        <div class="doc-card">
+          <h3>Safety Planning Document</h3>
+          <p>A personal safety plan template for researchers.</p>
+          <a href="https://docs.google.com/document/d/10xpWJR_aVQElZdbaSffYdfm7TOH2g-nyjSWm5mp03wo/edit?usp=sharing" target="_blank">Open Google Doc</a>
+        </div>
+        <div class="doc-card">
+          <h3>Fieldwork Safety Commitment</h3>
+          <p>A team-wide agreement on ethical and safe fieldwork protocols.</p>
+          <a href="https://docs.google.com/document/d/1-wqnBSBSLdKfexiQoFAfvSyWSx_iTesPNKInMX36bQ8/edit?usp=sharing" target="_blank">Open Google Doc</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </body>
+
 </html>
