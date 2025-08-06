@@ -4,216 +4,108 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Research With Consent</title>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      font-family: 'Open Sans', Calibri, sans-serif;
-      background-color: #fefae0;
-      color: #2d2d2d;
-    }
-    header {
-      background-color: #4a5937;
-      color: #fff;
-      padding: 1rem 2rem;
+      font-family: 'Open Sans', sans-serif;
+      background-color: #f8f4e3;
+      color: #2f2f2f;
       text-align: center;
     }
+    header {
+      background-color: #3c2f2f;
+      color: #fff;
+      padding: 1rem;
+    }
     nav {
-      background-color: #2f361d;
+      background-color: #1c2a12;
       display: flex;
       justify-content: center;
       gap: 2rem;
-      padding: 0.75rem;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
+      padding: 1rem;
     }
-    nav .dropdown {
-      position: relative;
-      display: inline-block;
-    }
-    nav .dropbtn {
-      background: none;
-      border: none;
-      color: #fff;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-    nav .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: #fff;
-      min-width: 200px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      z-index: 1001;
-    }
-    nav .dropdown-content a {
-      color: #2d2d2d;
-      padding: 12px 16px;
+    nav a {
+      color: white;
       text-decoration: none;
-      display: block;
+      font-weight: bold;
     }
-    nav .dropdown:hover .dropdown-content {
-      display: block;
-    }
-    .container {
-      padding: 2rem;
-    }
-    .section {
-      background-color: #fff;
+    .section-box {
+      background-color: #f8f4e3;
       margin: 2rem auto;
       padding: 2rem;
       max-width: 800px;
       border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
     }
-    .section h2 {
-      margin-top: 0;
-      color: #4a5937;
+    .section-box:nth-child(even) {
+      background-color: #e09c5c;
     }
-    .highlight-boxes {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 1.5rem;
-    }
-    .highlight-box {
-      background-color: #d4a373;
-      padding: 1rem;
+    .infographic {
+      background-color: #fbe6be;
+      padding: 2rem;
       border-radius: 10px;
-      width: 220px;
-      text-align: center;
-      color: white;
-      font-weight: bold;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
-    .people-graphic {
-      text-align: center;
-      margin-top: 1rem;
+    .infographic img {
+      width: 100%;
+      max-width: 500px;
+      display: block;
+      margin: 1rem auto;
     }
-    .person {
-      display: inline-block;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background-color: #bc6c25;
-      margin: 3px;
-    }
-    .person.dim {
-      background-color: #ddd;
-    }
-    .button-row {
+    .doc-buttons {
       display: flex;
       justify-content: center;
       gap: 2rem;
-      margin-top: 1.5rem;
+      margin-top: 2rem;
     }
-    .button {
-      background-color: #d4a373;
-      border: none;
-      padding: 1rem 2rem;
-      border-radius: 10px;
+    .doc-buttons a {
+      background-color: #d45532;
       color: #fff;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    a.button {
+      padding: 1rem 2rem;
+      border-radius: 8px;
       text-decoration: none;
-      display: inline-block;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
+  <header>
+    <h1>Research With Consent</h1>
+    <p>A hub for safe, ethical, and informed fieldwork</p>
+  </header>
+  <nav>
+    <a href="#fieldwork">Preparing for Fieldwork</a>
+    <a href="#reporting">Reporting & Resources</a>
+    <a href="#survey">Anonymous Surveys</a>
+    <a href="#contact">Contact Us</a>
+  </nav>
 
-<header>
-  <h1>Research With Consent</h1>
-  <p>A hub for safe, ethical, and informed fieldwork</p>
-</header>
-
-<nav>
-  <div class="dropdown">
-    <button class="dropbtn">Preparing for Fieldwork</button>
-    <div class="dropdown-content">
-      <a href="#">Safety Planning Doc</a>
-      <a href="#">Fieldwork Commitment</a>
-    </div>
-  </div>
-  <div class="dropdown">
-    <button class="dropbtn">Reporting & Resources</button>
-    <div class="dropdown-content">
-      <a href="#">Institutional Reporting</a>
-      <a href="#">Support Links</a>
-    </div>
-  </div>
-  <div class="dropdown">
-    <button class="dropbtn">Anonymous Surveys</button>
-    <div class="dropdown-content">
-      <a href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank">Fieldwork Misconduct Survey</a>
-      <a href="https://forms.gle/9DjrMVNP2oUu1GDD8" target="_blank">Website Feedback</a>
-    </div>
-  </div>
-  <div class="dropdown">
-    <button class="dropbtn">Contact Us</button>
-    <div class="dropdown-content">
-      <a href="#">Email</a>
-      <a href="#">More Info</a>
-    </div>
-  </div>
-</nav>
-
-<div class="container">
-
-  <div class="section">
+  <div class="section-box">
     <h2>Let’s work together to make fieldwork safe.</h2>
-    <p>The goal of this website is to provide researchers with accessible resources and action plans to prevent and report sexual misconduct.</p>
   </div>
 
-  <div class="section">
-    <h2>Fieldwork Harassment: The Numbers</h2>
-    <p>In a 2014 study surveying over 650 anthropologists, researchers reported:</p>
-    <div class="people-graphic">
-      <!-- 64 highlighted people -->
-      <div style="max-width:300px;margin:auto;">
-        <!-- 40 shaded (64%) -->
-        <div>
-          <!-- Row 1 -->
-          <span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span>
-        </div>
-        <div>
-          <!-- Row 2 -->
-          <span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span>
-        </div>
-        <div>
-          <!-- Row 3 -->
-          <span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span>
-        </div>
-        <div>
-          <!-- Row 4 -->
-          <span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person dim"></span><span class="person dim"></span><span class="person dim"></span><span class="person dim"></span><span class="person dim"></span><span class="person dim"></span>
-        </div>
-      </div>
+  <div class="section-box infographic">
+    <h2>In a 2014 study surveying &gt;650 anthropologists,</h2>
+    <img src="infographic_dots.png" alt="Infographic representing study results">
+    <div>
+      <p><strong>64%</strong> of participants experienced sexual harassment</p>
+      <p>Sexual assault was experienced by <strong>&gt;20%</strong> of participants</p>
+      <p>Only <strong>20%</strong> were aware of reporting mechanisms</p>
     </div>
-    <div class="highlight-boxes">
-      <div class="highlight-box">64% experienced sexual harassment</div>
-      <div class="highlight-box">>20% experienced sexual assault</div>
-      <div class="highlight-box">Only 20% aware of reporting mechanisms</div>
-    </div>
-    <p style="text-align: center; font-size: 0.9rem; margin-top: 1rem;">
-      Clancy et al. 2014: <a href="https://doi.org/10.1371/journal.pone.0102172" target="_blank">https://doi.org/10.1371/journal.pone.0102172</a>
+    <p style="margin-top: 1rem; font-size: 0.9em">
+      Clancy et al. 2014: <a href="https://doi.org/10.1371/journal.pone.0102172">https://doi.org/10.1371/journal.pone.0102172</a>
     </p>
   </div>
 
-  <div class="section">
-    <h2>Build Your Fieldwork Safety Plan</h2>
-    <p>Download and customize your safety materials below to protect yourself and your team.</p>
-    <div class="button-row">
-      <a href="#" class="button">Safety Planning Doc</a>
-      <a href="#" class="button">Fieldwork Commitment</a>
-    </div>
+  <div class="section-box">
+    <p>The goal of this website is to provide researchers with accessible resources and action plans to prevent and report sexual misconduct.</p>
   </div>
 
-</div>
-
+  <div class="section-box">
+    <h2>Build Your Fieldwork Safety Plan</h2>
+    <div class="doc-buttons">
+      <a href="#">Safety Planning DOC</a>
+      <a href="#">Fieldwork Commitment DOC</a>
+    </div>
+  </div>
 </body>
 </html>
