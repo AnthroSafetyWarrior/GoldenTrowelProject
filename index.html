@@ -4,135 +4,216 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Research With Consent</title>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      font-family: 'Open Sans', sans-serif;
-      background-color: #faf7ed;
-      color: #2e2e2e;
+      font-family: 'Open Sans', Calibri, sans-serif;
+      background-color: #fefae0;
+      color: #2d2d2d;
     }
     header {
-      background-color: #6c8540;
-      color: white;
+      background-color: #4a5937;
+      color: #fff;
+      padding: 1rem 2rem;
       text-align: center;
-      padding: 1rem;
     }
     nav {
-      background-color: #2f3419;
+      background-color: #2f361d;
       display: flex;
       justify-content: center;
-      padding: 0.5rem;
+      gap: 2rem;
+      padding: 0.75rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
-    nav a {
-      color: white;
+    nav .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    nav .dropbtn {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    nav .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #fff;
+      min-width: 200px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      z-index: 1001;
+    }
+    nav .dropdown-content a {
+      color: #2d2d2d;
+      padding: 12px 16px;
       text-decoration: none;
-      margin: 0 1rem;
-      font-weight: bold;
+      display: block;
+    }
+    nav .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    .container {
+      padding: 2rem;
     }
     .section {
-      max-width: 1000px;
+      background-color: #fff;
       margin: 2rem auto;
-      background-color: white;
-      border-radius: 10px;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
       padding: 2rem;
+      max-width: 800px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
     .section h2 {
       margin-top: 0;
-      color: #9d4f0f;
+      color: #4a5937;
     }
-    .data-boxes {
+    .highlight-boxes {
       display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
       gap: 1rem;
-      margin-top: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
     }
-    .data-box {
-      flex: 1 1 30%;
-      background-color: #fffbe6;
+    .highlight-box {
+      background-color: #d4a373;
       padding: 1rem;
       border-radius: 10px;
+      width: 220px;
       text-align: center;
-      font-size: 1.2rem;
+      color: white;
       font-weight: bold;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
-    .cta {
-      background-color: #eac084;
-      padding: 2rem;
-      border-radius: 10px;
-      margin-top: 2rem;
-    }
-    .safety-docs {
-      display: flex;
-      gap: 2rem;
+    .people-graphic {
+      text-align: center;
       margin-top: 1rem;
     }
-    .safety-card {
-      flex: 1;
-      background-color: #fffbe6;
-      padding: 1rem;
-      border-radius: 10px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    .person {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background-color: #bc6c25;
+      margin: 3px;
     }
-    footer {
-      text-align: center;
-      font-size: 0.9rem;
-      color: #555;
-      padding: 2rem 1rem;
+    .person.dim {
+      background-color: #ddd;
+    }
+    .button-row {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 1.5rem;
+    }
+    .button {
+      background-color: #d4a373;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 10px;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    a.button {
+      text-decoration: none;
+      display: inline-block;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Research With Consent</h1>
-    <p>A hub for safe, ethical, and informed fieldwork</p>
-  </header>
 
-  <nav>
-    <a href="#prep">Preparing for Fieldwork</a>
-    <a href="#reporting">Reporting & Resources</a>
-    <a href="#surveys">Anonymous Surveys</a>
-    <a href="#contact">Contact Us</a>
-  </nav>
+<header>
+  <h1>Research With Consent</h1>
+  <p>A hub for safe, ethical, and informed fieldwork</p>
+</header>
+
+<nav>
+  <div class="dropdown">
+    <button class="dropbtn">Preparing for Fieldwork</button>
+    <div class="dropdown-content">
+      <a href="#">Safety Planning Doc</a>
+      <a href="#">Fieldwork Commitment</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Reporting & Resources</button>
+    <div class="dropdown-content">
+      <a href="#">Institutional Reporting</a>
+      <a href="#">Support Links</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Anonymous Surveys</button>
+    <div class="dropdown-content">
+      <a href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank">Fieldwork Misconduct Survey</a>
+      <a href="https://forms.gle/9DjrMVNP2oUu1GDD8" target="_blank">Website Feedback</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Contact Us</button>
+    <div class="dropdown-content">
+      <a href="#">Email</a>
+      <a href="#">More Info</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
 
   <div class="section">
-    <h2>Our Mission</h2>
-    <p>The goal of this website is to provide researchers with accessible resources and action plans to prevent and report sexual misconduct. Let’s make fieldwork safe, together.</p>
+    <h2>Let’s work together to make fieldwork safe.</h2>
+    <p>The goal of this website is to provide researchers with accessible resources and action plans to prevent and report sexual misconduct.</p>
   </div>
 
-  <div class="section" style="background-color:#f7e4cd;">
-    <h2>Let’s Make Fieldwork Safer</h2>
-    <p>In a 2014 study of over 650 anthropologists (Clancy et al. 2014), researchers reported:</p>
-    <div class="data-boxes">
-      <div class="data-box">64% experienced<br>sexual harassment</div>
-      <div class="data-box">>20% experienced<br>sexual assault</div>
-      <div class="data-box">Only 20% aware of<br>reporting mechanisms</div>
+  <div class="section">
+    <h2>Fieldwork Harassment: The Numbers</h2>
+    <p>In a 2014 study surveying over 650 anthropologists, researchers reported:</p>
+    <div class="people-graphic">
+      <!-- 64 highlighted people -->
+      <div style="max-width:300px;margin:auto;">
+        <!-- 40 shaded (64%) -->
+        <div>
+          <!-- Row 1 -->
+          <span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span>
+        </div>
+        <div>
+          <!-- Row 2 -->
+          <span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span>
+        </div>
+        <div>
+          <!-- Row 3 -->
+          <span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span>
+        </div>
+        <div>
+          <!-- Row 4 -->
+          <span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person dim"></span><span class="person dim"></span><span class="person dim"></span><span class="person dim"></span><span class="person dim"></span><span class="person dim"></span>
+        </div>
+      </div>
     </div>
-    <p style="margin-top: 1rem; font-size: 0.9rem;">Clancy et al. 2014: <a href="https://doi.org/10.1371/journal.pone.0102172">https://doi.org/10.1371/journal.pone.0102172</a></p>
+    <div class="highlight-boxes">
+      <div class="highlight-box">64% experienced sexual harassment</div>
+      <div class="highlight-box">>20% experienced sexual assault</div>
+      <div class="highlight-box">Only 20% aware of reporting mechanisms</div>
+    </div>
+    <p style="text-align: center; font-size: 0.9rem; margin-top: 1rem;">
+      Clancy et al. 2014: <a href="https://doi.org/10.1371/journal.pone.0102172" target="_blank">https://doi.org/10.1371/journal.pone.0102172</a>
+    </p>
   </div>
 
   <div class="section">
     <h2>Build Your Fieldwork Safety Plan</h2>
     <p>Download and customize your safety materials below to protect yourself and your team.</p>
-    <div class="safety-docs">
-      <div class="safety-card">
-        <h3>Safety Planning Document</h3>
-        <p>A personal safety plan template for researchers.</p>
-        <a href="https://docs.google.com">Open Google Doc</a>
-      </div>
-      <div class="safety-card">
-        <h3>Fieldwork Safety Commitment</h3>
-        <p>A team-wide agreement on ethical and safe fieldwork protocols.</p>
-        <a href="https://docs.google.com">Open Google Doc</a>
-      </div>
+    <div class="button-row">
+      <a href="#" class="button">Safety Planning Doc</a>
+      <a href="#" class="button">Fieldwork Commitment</a>
     </div>
   </div>
 
-  <footer>
-    &copy; 2025 Research With Consent | Built to foster safe and ethical research practices.
-  </footer>
+</div>
+
 </body>
 </html>
