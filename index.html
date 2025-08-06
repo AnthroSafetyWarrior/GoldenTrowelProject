@@ -1,244 +1,114 @@
-<!DOCTYPE html>
-<html lang="en">
+<style>
+  body {
+    margin: 0;
+    font-family: Calibri, sans-serif;
+    background-color: #E8E3D0; /* Light Moss */
+    color: #2A2A2A; /* Charcoal */
+  }
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Research With Consent</title>
-  <style>
-    :root {
-      --primary: #955e3b;
-      --secondary: #b07a4d;
-      --highlight: #d5b77e;
-      --card: #606c38;
-      --background: #fff8f0;
-      --text-dark: #000000;
-      --text-light: #ffffff;
-      --accent: #ecdcc3;
-      --min-font-size: 14px;
-    }
+  header {
+    background-color: #2E4635; /* Deep Forest */
+    color: white;
+    padding: 1em;
+    text-align: center;
+  }
 
-    html {
-      font-family: Calibri, sans-serif;
-      font-size: clamp(var(--min-font-size), 1.2vw, 18px);
-      line-height: 1.6;
-    }
+  nav {
+    background-color: #A67852; /* Soft Clay */
+    padding: 0.5em;
+    display: flex;
+    justify-content: center;
+    gap: 2em;
+  }
 
+  nav a,
+  .dropdown > a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    position: relative;
+  }
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #F6F5EE; /* Pale Sage */
+    min-width: 250px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 999;
+    padding: 10px 0;
+    border-radius: 6px;
+    top: 100%;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  .dropdown-content a {
+    color: #2A2A2A; /* Charcoal */
+    padding: 10px 20px;
+    display: block;
+    text-decoration: none;
+  }
+
+  .dropdown-content a:hover {
+    background-color: #E8E3D0; /* Light Moss */
+  }
+
+  .main-section {
+    background-color: #E8E3D0; /* Light Moss */
+    padding: 3em 1em;
+    text-align: center;
+  }
+
+  .docs-container {
+    background-color: #F6F5EE; /* Pale Sage */
+    margin: 0 auto;
+    padding: 2em;
+    max-width: 1000px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .doc-card {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5em;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 1em;
+    flex: 1;
+  }
+
+  .doc-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .doc-card h3 {
+    margin-top: 0;
+  }
+
+  .doc-card a {
+    color: #2E4635; /* Deep Forest */
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  @media screen and (max-width: 768px) {
     body {
-      margin: 0;
-      background-color: var(--background);
-      color: var(--text-dark);
+      font-size: 14px;
     }
-
-    header {
-      background-color: var(--primary);
-      color: var(--text-light);
-      padding: 1em;
-      text-align: center;
-    }
-
-    nav {
-      background-color: var(--secondary);
-      padding: 0.5em;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 2em;
-    }
-
-    nav a,
-    .dropdown > a {
-      color: var(--text-light);
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 1.1em;
-      position: relative;
-    }
-
-    .dropdown {
-      position: relative;
-      display: inline-block;
-    }
-
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: var(--background);
-      min-width: 250px;
-      box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-      z-index: 999;
-      padding: 10px 0;
-      border-radius: 6px;
-      top: 100%;
-    }
-
-    .dropdown:hover .dropdown-content {
-      display: block;
-    }
-
-    .dropdown-content a {
-      color: var(--primary);
-      padding: 10px 20px;
-      display: block;
-      text-decoration: none;
-    }
-
-    .dropdown-content a:hover {
-      background-color: var(--accent);
-    }
-
-    h1, h2, h3 {
-      font-weight: bold;
-      line-height: 1.3;
-    }
-
-    h1 {
-      font-size: 2.4em;
-    }
-
-    h2 {
-      font-size: 2em;
-    }
-
-    h3 {
-      font-size: 1.6em;
-    }
-
-    .info-section {
-      background-color: var(--highlight);
-      padding: 3em 1em;
-      text-align: center;
-    }
-
-    .info-boxes {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1em;
-      margin: 2em 0;
-    }
-
-    .info-card {
-      background-color: var(--card);
-      color: white;
-      padding: 1em 1.5em;
-      border-radius: 10px;
-      min-width: 200px;
-      max-width: 250px;
-      font-weight: bold;
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
-    }
-
-    .main-section {
-      background-color: var(--background);
-      padding: 3em 1em;
-      text-align: center;
-    }
-
-    .docs-container {
-      background-color: var(--highlight);
-      margin: 0 auto;
-      padding: 2em;
-      max-width: 900px;
-      border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
     .doc-links {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: center;
     }
-
-    .doc-card {
-      background: white;
-      border-radius: 8px;
-      padding: 1.5em;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      margin: 1em;
-      flex: 1;
-      min-width: 250px;
-      max-width: 300px;
-    }
-
-    .doc-card h3 {
-      margin-top: 0;
-    }
-
-    .doc-card a {
-      color: var(--primary);
-      font-weight: bold;
-      text-decoration: none;
-    }
-  </style>
-</head>
-
-<body>
-  <header>
-    <h1>Research With Consent</h1>
-    <p>A hub for safe, ethical, and informed fieldwork</p>
-  </header>
-
-  <nav>
-    <div class="dropdown">
-      <a href="#">Preparing for Fieldwork</a>
-      <div class="dropdown-content">
-        <a href="#">Beginner Safety Checklist</a>
-      </div>
-    </div>
-
-    <div class="dropdown">
-      <a href="#">Reporting & Resources</a>
-      <div class="dropdown-content">
-        <a href="#">USA Laws by State</a>
-        <a href="#">International Laws by Country</a>
-        <a href="#">University Title IX Info</a>
-        <a href="#">Reporting to Funders</a>
-      </div>
-    </div>
-
-    <div class="dropdown">
-      <a href="#">Anonymous Surveys</a>
-      <div class="dropdown-content">
-        <a href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank">Fieldwork Sexual Misconduct Survey</a>
-        <a href="https://forms.gle/9DjrMVNP2oUu1GDD8" target="_blank">Website and Resources Feedback</a>
-      </div>
-    </div>
-
-    <a href="#">Contact Us</a>
-  </nav>
-
-  <section class="info-section">
-    <h2>Let's Make Fieldwork Safer</h2>
-    <p>In a 2014 study of over 650 anthropologists (Clancy et al. 2014), researchers reported:</p>
-    <div class="info-boxes">
-      <div class="info-card">64% experienced sexual harassment</div>
-      <div class="info-card">20% aware of reporting mechanisms</div>
-      <div class="info-card">>20% experienced sexual assault</div>
-    </div>
-    <p style="font-size: 0.9em; margin: 0.5em 0;">Clancy et al. 2014: <a href="https://doi.org/10.1371/journal.pone.0102172" target="_blank">https://doi.org/10.1371/journal.pone.0102172</a></p>
-    <p style="font-weight: bold;">The goal of this website is to provide researchers with accessible resources and action plans to prevent and report sexual misconduct. Let’s make fieldwork safe, together.</p>
-  </section>
-
-  <section class="main-section">
-    <h2>Build Your Fieldwork Safety Plan</h2>
-    <div class="docs-container">
-      <p>Download and customize your safety materials below to protect yourself and your team.</p>
-      <div class="doc-links">
-        <div class="doc-card">
-          <h3>Safety Planning Document</h3>
-          <p>A personal safety plan template for researchers.</p>
-          <a href="https://docs.google.com/document/d/10xpWJR_aVQElZdbaSffYdfm7TOH2g-nyjSWm5mp03wo/edit?usp=sharing" target="_blank">Open Google Doc</a>
-        </div>
-        <div class="doc-card">
-          <h3>Fieldwork Safety Commitment</h3>
-          <p>A team-wide agreement on ethical and safe fieldwork protocols.</p>
-          <a href="https://docs.google.com/document/d/1-wqnBSBSLdKfexiQoFAfvSyWSx_iTesPNKInMX36bQ8/edit?usp=sharing" target="_blank">Open Google Doc</a>
-        </div>
-      </div>
-    </div>
-  </section>
-</body>
-
-</html>
+  }
+</style>
