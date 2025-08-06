@@ -25,44 +25,33 @@
       background-color: #e8a084;
       padding: 0.5em;
       text-align: center;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 2em;
     }
 
     nav a {
       color: white;
       text-decoration: none;
+      margin: 0 1em;
       font-weight: bold;
     }
 
     .dropdown {
-      position: relative;
       display: inline-block;
+      position: relative;
     }
 
     .dropdown-content {
       display: none;
       position: absolute;
-      background-color: #fefefe;
+      background-color: #f4af86;
       min-width: 220px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       z-index: 1;
-      border-radius: 6px;
+      text-align: left;
     }
 
     .dropdown-content a {
-      color: #633747;
-      padding: 0.75em 1em;
       display: block;
-      text-align: left;
-      font-size: 18pt;
-      text-decoration: none;
-    }
-
-    .dropdown-content a:hover {
-      background-color: #fdd885;
+      padding: 0.5em 1em;
+      color: black;
     }
 
     .dropdown:hover .dropdown-content {
@@ -77,34 +66,24 @@
       font-size: 2em;
     }
 
-    p {
-      font-size: 1.2em;
-    }
-
     .main-section {
-      padding: 2em 1em; /* btwn containers and txt before? */
+      padding: 3em 1em;
       text-align: center;
     }
 
     .docs-container {
       padding: 2em;
-      margin: 1.2em auto;
+      margin: 2em auto;
       width: 90%;
       border-radius: 12px;
     }
 
-    .docs-container:nth-of-type(1) {
+    .docs-container.prevalence {
       background-color: #ffdc8f;
-      color: black;
     }
 
-    .docs-container:nth-of-type(2) {
+    .docs-container.safety-plan {
       background-color: #633747;
-      color: white;
-    }
-
-    .docs-container:nth-of-type(2) h2,
-    .docs-container:nth-of-type(2) p {
       color: white;
     }
 
@@ -114,6 +93,7 @@
       justify-content: center;
       gap: 2em;
       margin-top: 2em;
+      flex-wrap: wrap;
     }
 
     .doc-card {
@@ -123,11 +103,11 @@
       width: 90%;
       max-width: 400px;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
     }
 
-    .doc-card h3,
-    .doc-card p {
-      color: black;
+    .doc-card h3 {
+      margin-top: 0;
     }
 
     .doc-card a {
@@ -138,7 +118,6 @@
       text-decoration: none;
       padding: 0.5em 1em;
       border-radius: 6px;
-      transition: background-color 0.3s ease;
     }
 
     .doc-card a:hover {
@@ -178,10 +157,16 @@
         <a href="https://forms.gle/9DjrMVNP2oUu1GDD8" target="_blank">Website and Resources Feedback</a>
       </div>
     </div>
+    <a href="#">Contact Us</a>
   </nav>
 
   <section class="main-section">
-    <div class="docs-container">
+    <h2>Let’s work together to make fieldwork safe.</h2>
+    <p>The goal of this website is to provide researchers with accessible resources and action plans to prevent and report sexual misconduct.</p>
+  </section>
+
+  <section class="main-section">
+    <div class="docs-container prevalence">
       <h2>Prevalence of Fieldwork Harassment and Assault</h2>
       <p>
         A 2014 survey sampling &gt;650 anthropologists revealed high frequencies of harassment and assault, and low frequencies of awareness of reporting procedures (Clancy et al. 2014:
@@ -190,13 +175,13 @@
       <img 
         src="./project-2025-08-06_01-08_AM.png" 
         alt="Infographic summarizing results from a 2014 study: 64% experienced sexual harassment, 21% experienced sexual assault, and 20% were aware of reporting mechanisms prior to the survey." 
-        style="max-width:100%; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.15); margin-top: 1em;"
+        style="max-width:100%; border-radius: 0px; box-shadow: 0 2px 6px rgba(0,0,0,0.15); margin-top: 1em;"
       />
     </div>
   </section>
 
   <section class="main-section">
-    <div class="docs-container">
+    <div class="docs-container safety-plan">
       <h2>Build Your Fieldwork Safety Plan</h2>
       <p>Download and customize your safety materials below to protect yourself and your team.</p>
       <div class="doc-links">
@@ -213,7 +198,6 @@
       </div>
     </div>
   </section>
-
 </body>
 
 </html>
