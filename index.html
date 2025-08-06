@@ -1,142 +1,219 @@
-<style>
-  body {
-    font-family: Calibri, sans-serif;
-    background-color: #abc5a1;
-    margin: 0;
-    padding: 0;
-    font-size: 22pt;
-  }
+<!DOCTYPE html>
+<html lang="en">
 
-  header {
-    background-color: #633747;
-    color: white;
-    padding: 1.2em;
-    text-align: center;
-  }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Research With Consent</title>
+  <style>
+    body {
+      font-family: Calibri, sans-serif;
+      background-color: #abc5a1;
+      margin: 0;
+      padding: 0;
+      font-size: 22pt;
+    }
 
-  nav {
-    background-color: #e8a084;
-    padding: 0.5em;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 2em;
-  }
+    header {
+      background-color: #633747;
+      color: white;
+      padding: 1.2em;
+      text-align: center;
+    }
 
-  nav a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-  }
+    nav {
+      background-color: #e8a084;
+      padding: 0.5em;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2em;
+    }
 
-  .dropdown {
-    position: relative;
-    display: inline-block;
-  }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
 
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #fefefe;
-    min-width: 220px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1;
-    border-radius: 6px;
-  }
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
 
-  .dropdown-content a {
-    color: #633747;
-    padding: 0.75em 1em;
-    display: block;
-    text-align: left;
-    font-size: 18pt;
-    text-decoration: none;
-  }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #fefefe;
+      min-width: 220px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 1;
+      border-radius: 6px;
+    }
 
-  .dropdown-content a:hover {
-    background-color: #fdd885;
-  }
+    .dropdown-content a {
+      color: #633747;
+      padding: 0.75em 1em;
+      display: block;
+      text-align: left;
+      font-size: 18pt;
+      text-decoration: none;
+    }
 
-  .dropdown:hover .dropdown-content {
-    display: block;
-  }
+    .dropdown-content a:hover {
+      background-color: #fdd885;
+    }
 
-  h1 {
-    font-size: 2.4em;
-  }
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
 
-  h2 {
-    font-size: 2em;
-  }
+    h1 {
+      font-size: 2.4em;
+    }
 
-  p {
-    font-size: 1.2em;
-  }
+    h2 {
+      font-size: 2em;
+    }
 
-  .main-section {
-    padding: 3em 1em;
-    text-align: center;
-  }
+    p {
+      font-size: 1.2em;
+    }
 
-  .docs-container {
-    padding: 2em;
-    margin: 1.2em auto;
-    width: 90%;
-    border-radius: 12px;
-  }
+    .main-section {
+      padding: 2em 1em; /* btwn containers and txt before? */
+      text-align: center;
+    }
 
-  /* Yellow background for first container */
-  .docs-container:nth-of-type(1) {
-    background-color: #ffdc8f;
-    color: black;
-  }
+    .docs-container {
+      padding: 2em;
+      margin: 1.2em auto;
+      width: 90%;
+      border-radius: 12px;
+    }
 
-  /* Dark maroon background for second container */
-  .docs-container:nth-of-type(2) {
-    background-color: #633747;
-    color: white;
-  }
+    .docs-container:nth-of-type(1) {
+      background-color: #ffdc8f;
+      color: black;
+    }
 
-  .docs-container:nth-of-type(2) h2,
-  .docs-container:nth-of-type(2) p {
-    color: white;
-  }
+    .docs-container:nth-of-type(2) {
+      background-color: #633747;
+      color: white;
+    }
 
-  .doc-links {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 2em;
-    margin-top: 2em;
-  }
+    .docs-container:nth-of-type(2) h2,
+    .docs-container:nth-of-type(2) p {
+      color: white;
+    }
 
-  .doc-card {
-    background-color: #e8a084;
-    border-radius: 10px;
-    padding: 1.5em;
-    width: 90%;
-    max-width: 400px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  }
+    .doc-links {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 2em;
+      margin-top: 2em;
+    }
 
-  .doc-card h3,
-  .doc-card p {
-    color: black;
-  }
+    .doc-card {
+      background-color: #e8a084;
+      border-radius: 10px;
+      padding: 1.5em;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
 
-  .doc-card a {
-    display: inline-block;
-    margin-top: 1em;
-    background-color: #633747;
-    color: white;
-    text-decoration: none;
-    padding: 0.5em 1em;
-    border-radius: 6px;
-    transition: background-color 0.3s ease;
-  }
+    .doc-card h3,
+    .doc-card p {
+      color: black;
+    }
 
-  .doc-card a:hover {
-    background-color: #c4551e;
-  }
-</style>
+    .doc-card a {
+      display: inline-block;
+      margin-top: 1em;
+      background-color: #633747;
+      color: white;
+      text-decoration: none;
+      padding: 0.5em 1em;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+    }
+
+    .doc-card a:hover {
+      background-color: #c4551e;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Research With Consent</h1>
+    <p>A hub for safe, ethical, and informed fieldwork</p>
+  </header>
+
+  <nav>
+    <div class="dropdown">
+      <a href="#">Preparing for Fieldwork</a>
+      <div class="dropdown-content">
+        <a href="#">Beginner Safety Checklist</a>
+      </div>
+    </div>
+
+    <div class="dropdown">
+      <a href="#">Reporting & Resources</a>
+      <div class="dropdown-content">
+        <a href="#">USA Laws by State</a>
+        <a href="#">International Laws by Country</a>
+        <a href="#">University Title IX Info</a>
+        <a href="#">Reporting to Funders</a>
+      </div>
+    </div>
+
+    <div class="dropdown">
+      <a href="#">Anonymous Surveys</a>
+      <div class="dropdown-content">
+        <a href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank">Fieldwork Sexual Misconduct Survey</a>
+        <a href="https://forms.gle/9DjrMVNP2oUu1GDD8" target="_blank">Website and Resources Feedback</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="main-section">
+    <div class="docs-container">
+      <h2>Prevalence of Fieldwork Harassment and Assault</h2>
+      <p>
+        A 2014 survey sampling &gt;650 anthropologists revealed high frequencies of harassment and assault, and low frequencies of awareness of reporting procedures (Clancy et al. 2014:
+        <a href="https://doi.org/10.1371/journal.pone.0102172" target="_blank">https://doi.org/10.1371/journal.pone.0102172</a>)
+      </p>
+      <img 
+        src="./project-2025-08-06_01-08_AM.png" 
+        alt="Infographic summarizing results from a 2014 study: 64% experienced sexual harassment, 21% experienced sexual assault, and 20% were aware of reporting mechanisms prior to the survey." 
+        style="max-width:100%; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.15); margin-top: 1em;"
+      />
+    </div>
+  </section>
+
+  <section class="main-section">
+    <div class="docs-container">
+      <h2>Build Your Fieldwork Safety Plan</h2>
+      <p>Download and customize your safety materials below to protect yourself and your team.</p>
+      <div class="doc-links">
+        <div class="doc-card">
+          <h3>Safety Planning Document</h3>
+          <p>A personal safety plan template for researchers.</p>
+          <a href="https://docs.google.com/document/d/10xpWJR_aVQElZdbaSffYdfm7TOH2g-nyjSWm5mp03wo/edit?usp=sharing" target="_blank">Open Google Doc</a>
+        </div>
+        <div class="doc-card">
+          <h3>Fieldwork Safety Commitment</h3>
+          <p>A team-wide agreement on ethical and safe fieldwork protocols.</p>
+          <a href="https://docs.google.com/document/d/1-wqnBSBSLdKfexiQoFAfvSyWSx_iTesPNKInMX36bQ8/edit?usp=sharing" target="_blank">Open Google Doc</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+
+</html>
