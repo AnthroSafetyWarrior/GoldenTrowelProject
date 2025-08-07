@@ -5,3 +5,8 @@ baseurl: "/Research-with-Consent" # leave empty unless your site is in a subfold
 url: "https://anthrosafetywarrior.github.io/Research-with-Consent" # your GitHub Pages URL
 plugins:
   - jekyll-feed
+
+collections:
+  pages:
+    output: true
+    permalink: /:name.html
