@@ -4,8 +4,140 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{{ page.title | default: "Research With Consent" }}</title>
-  <link rel="stylesheet" href="/assets/style.css">
+  <style>
+    body {
+      font-family: Calibri, sans-serif;
+      background-color: #eae6df;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #633747;
+      color: white;
+      padding: 1.2em;
+      text-align: center;
+    }
+
+    nav {
+      background-color: #e8a084;
+      padding: 0.5em;
+      text-align: center;
+    }
+
+    nav a {
+      color: black;
+      text-decoration: none;
+      margin: 0 1em;
+      font-weight: bold;
+    }
+
+    .dropdown {
+      display: inline-block;
+      position: relative;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #e8a084;
+      min-width: 220px;
+      z-index: 1;
+      text-align: left;
+    }
+
+    .dropdown-content a {
+      display: block;
+      padding: 0.5em 1em;
+      color: black;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #633747;
+      color: white;
+    }
+
+    h1 {
+      font-size: 2.4em;
+    }
+
+    h2 {
+      font-size: 2em;
+    }
+
+    h3 {
+      font-size: 1.5em;
+    }
+
+    p {
+      font-size: 1.2em;
+    }
+
+    .main-section {
+      padding: 2em;
+      text-align: center;
+    }
+
+    .docs-container {
+      padding: 2em;
+      margin: 2em auto;
+      width: 75%;
+      border-radius: 12px;
+    }
+
+    .docs-container.prevalence {
+      background-color: #ffdc8f;
+    }
+
+    .docs-container.safety-plan {
+      background-color: #633747;
+      color: white;
+    }
+
+    .doc-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2em;
+      margin-top: 2em;
+    }
+
+    .doc-card {
+      flex: 1 1 300px;
+      max-width: 400px;
+      background-color: #e8a084;
+      color: black;
+      border-radius: 10px;
+      padding: 1.5em;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .doc-card h3 {
+      margin-top: 0;
+    }
+
+    .doc-card a {
+      display: inline-block;
+      margin-top: 1em;
+      background-color: #633747;
+      color: white;
+      text-decoration: none;
+      padding: 0.5em 1em;
+      border-radius: 6px;
+    }
+
+    .doc-card a:hover {
+      background-color: #ffdc8f;
+      color: black;
+    }
+  </style>
 </head>
+
 <body>
 
   <header>
@@ -49,8 +181,21 @@
   </nav>
 
   <main class="main-section">
+    {% if page.url == "/" %}
+      <!-- Only show this section on the homepage -->
+      <h2>Integrity in research begins with safety and respect in the field.</h2>
+      <h3 style="margin-top: 0.5em; font-weight: normal;">
+        We’re redefining fieldwork protocols to center consent, dignity, and accountability — because harm has no place in science.
+      </h3>
+      <p style="margin-top: 1.5em;">
+        This project was built from urgency — to make fieldwork safer for ourselves, our students, and our colleagues. It offers accessible, customizable tools to help researchers prevent and report sexual misconduct and other forms of behavioral harm during field research.
+      </p>
+      <p>
+        We cannot protect our science without protecting the people who do it. Safety begins with accountability: clearly stated expectations, transparent reporting systems, and a shared commitment to safeguarding not just our data, but each other. We are researchers, educators, and students — and we deserve to work in environments built on dignity, consent, and respect.
+      </p>
+    {% endif %}
+
     {{ content }}
   </main>
-
 </body>
 </html>

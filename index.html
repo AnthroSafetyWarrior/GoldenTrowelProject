@@ -1,233 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Research With Consent</title>
-  <style>
-    body {
-      font-family: Calibri, sans-serif;
-      background-color: #eae6df;
-      margin: 0;
-      padding: 0;
-    }
-
-    header {
-      background-color: #633747;
-      color: white;
-      padding: 1.2em;
-      text-align: center;
-    }
-
-    nav {
-      background-color: #e8a084;
-      padding: 0.5em;
-      text-align: center;
-    }
-
-    nav a {
-      color: black;
-      text-decoration: none;
-      margin: 0 1em;
-      font-weight: bold;
-    }
-
-    .dropdown {
-      display: inline-block;
-      position: relative;
-    }
-
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: #e8a084;
-      min-width: 220px;
-      z-index: 1;
-      text-align: left;
-    }
-
-    .dropdown-content a {
-      display: block;
-      padding: 0.5em 1em;
-      color: black;
-    }
-
-/* Keeps dropdown working */
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-/* Styles links inside dropdown when hovered */
-.dropdown-content a:hover {
-  background-color: #633747;
-  color: white;
-}
-
-
-  h1 {
-    font-size: 2.4em;
-  }
-
-  h2 {
-    font-size: 2em;
-  }
-
-  h3 {
-    font-size: 1.5em;
-  }
-    
-  p {
-    font-size: 1.2em;
-  }
-
-    .main-section {
-  padding-top: 2em;
-  padding-bottom: 0.7em;
-  padding-left: 2em;
-  padding-right: 2em;
-  text-align: center;
-}
-    .docs-container {
-      padding: 2em;
-      margin: 2em auto;
-      width: 75%;
-      border-radius: 12px;
-    }
-
-    .docs-container.prevalence {
-      background-color: #ffdc8f;
-    }
-
-    .docs-container.safety-plan {
-      background-color: #633747;
-      color: white;
-    }
-
-    /* Optional: wrap layout for responsiveness */
-.doc-links {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 2em; /* spacing between cards */
-  margin-top: 2em;
-}
-
-/* Responsive layout: side-by-side on desktop, stack on mobile */
-.doc-card {
-  flex: 1 1 300px;
-  max-width: 400px;
-  background-color: #e8a084;
-  color:black;
-  border-radius: 10px;
-  padding: 1.5em;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-    .doc-card h3 {
-      margin-top: 0;
-    }
-
-    .doc-card a {
-      display: inline-block;
-      margin-top: 1em;
-      background-color: #633747;
-      color: white;
-      text-decoration: none;
-      padding: 0.5em 1em;
-      border-radius: 6px;
-    }
-
-    .doc-card a:hover {
-      background-color: #ffdc8f; 
-      color: black;
-    }
-  </style>
-</head>
-
-<body>
-  <header>
-    <h1>Recognizing power. Reclaiming safety.</h1>
-    <p>Practical tools. Powerful boundaries. Safer fieldwork.</p>
-  </header>
-
-  <nav>
-    <div class="dropdown">
-      <a href="preparing.html">Preparing for Fieldwork</a>
-      <div class="dropdown-content">
-        <a href="#">Beginner Safety Checklist</a>
-      </div>
-    </div>
-
-    <div class="dropdown">
-      <a href="reporting.html">Reporting & Resources</a>
-      <div class="dropdown-content">
-        <a href="statelaw.html">USA Laws by State</a>
-        <a href="internationallaw.html">International Laws by Country</a>
-        <a href="titleIX.html">Reporting to Title IX by University</a>
-        <a href="fundingethics.html">Reporting to Funders</a>
-      </div>
-    </div>
-
-    <div class="dropdown">
-      <a href="surveys.html">Anonymous Surveys</a>
-      <div class="dropdown-content">
-        <a href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank">Fieldwork Sexual Misconduct Survey</a>
-        <a href="https://forms.gle/9DjrMVNP2oUu1GDD8" target="_blank">Website and Resources Feedback survey</a>
-      </div>
-    </div>
-     <div class="dropdown">
-    <a href="contact.html">Contact Us</a>
-  </div>
-  </nav>
+---
+layout: default
+title: Recognizing power. Reclaiming safety.
+---
 
 <section class="main-section">
-  <h2>Integrity in research begins with safety and respect in the field.</h2>
-  <h3 style="margin-top: 0.5em; font-weight: normal;">
-    We’re redefining fieldwork protocols to center consent, dignity, and accountability — because harm has no place in science.
-  </h3>
-  <p style="margin-top: 1.5em;">
-    This project was built from urgency — to make fieldwork safer for ourselves, our students, and our colleagues. It offers accessible, customizable tools to help researchers prevent and report sexual misconduct and other forms of behavioral harm during field research.
-  </p>
-  <p>
-    We cannot protect our science without protecting the people who do it. Safety begins with accountability: clearly stated expectations, transparent reporting systems, and a shared commitment to safeguarding not just our data, but each other. We are researchers, educators, and students — and we deserve to work in environments built on dignity, consent, and respect.
-  </p>
+  <div class="docs-container prevalence">
+    <h2>Prevalence of Fieldwork Harassment and Assault</h2>
+    <p>
+      A 2014 survey sampling &gt;650 anthropologists revealed high frequencies of harassment and assault, and low frequencies of awareness of reporting procedures (Clancy et al. 2014:
+      <a href="https://doi.org/10.1371/journal.pone.0102172" target="_blank">https://doi.org/10.1371/journal.pone.0102172</a>)
+    </p>
+    <img 
+      src="./project-2025-08-06_01-08_AM.png" 
+      alt="Infographic summarizing results from a 2014 study: 64% experienced sexual harassment, 21% experienced sexual assault, and 20% were aware of reporting mechanisms prior to the survey." 
+      style="max-width:80%; border-radius: 12px; box-shadow: none; margin-top: 1em;"
+    />
+  </div>
 </section>
 
-
-  <section class="main-section">
-    <div class="docs-container prevalence">
-      <h2>Prevalence of Fieldwork Harassment and Assault</h2>
-      <p>
-        A 2014 survey sampling &gt;650 anthropologists revealed high frequencies of harassment and assault, and low frequencies of awareness of reporting procedures (Clancy et al. 2014:
-        <a href="https://doi.org/10.1371/journal.pone.0102172" target="_blank">https://doi.org/10.1371/journal.pone.0102172</a>)
-      </p>
-      <img 
-        src="./project-2025-08-06_01-08_AM.png" 
-        alt="Infographic summarizing results from a 2014 study: 64% experienced sexual harassment, 21% experienced sexual assault, and 20% were aware of reporting mechanisms prior to the survey." 
-        style="max-width:80%; border-radius: 12px; box-shadow: none; margin-top: 1em;"
-      />
-    </div>
-  </section>
-
-  <section class="main-section">
-    <div class="docs-container safety-plan">
-      <h2>Build Your Fieldwork Safety Plan</h2>
-      <p>Download and customize your safety materials below to protect yourself and your team.</p>
-      <div class="doc-links">
-        <div class="doc-card">
-          <h3>Safety Planning Document</h3>
-          <p>A personal safety plan template for researchers.</p>
-          <a href="https://docs.google.com/document/d/1OkEMW4VhpsccA_VZTTEvgBBq5vs0mCOEDg9Xk6f34Ss/edit?usp=sharing" target="_blank">Open Google Doc</a>
-        </div>
-        <div class="doc-card">
-          <h3>Fieldwork Safety Commitment</h3>
-          <p>A team-wide agreement on ethical and safe fieldwork protocols.</p>
-          <a href="https://docs.google.com/document/d/18SmymYAFKUz_drbDhcsx8NWaiNG6-SQflWPj0OaZ76c/edit?usp=sharing" target="_blank">Open Google Doc</a>
-        </div>
+<section class="main-section">
+  <div class="docs-container safety-plan">
+    <h2>Build Your Fieldwork Safety Plan</h2>
+    <p>Download and customize your safety materials below to protect yourself and your team.</p>
+    <div class="doc-links">
+      <div class="doc-card">
+        <h3>Safety Planning Document</h3>
+        <p>A personal safety plan template for researchers.</p>
+        <a href="https://docs.google.com/document/d/1OkEMW4VhpsccA_VZTTEvgBBq5vs0mCOEDg9Xk6f34Ss/edit?usp=sharing" target="_blank">Open Google Doc</a>
+      </div>
+      <div class="doc-card">
+        <h3>Fieldwork Safety Commitment</h3>
+        <p>A team-wide agreement on ethical and safe fieldwork protocols.</p>
+        <a href="https://docs.google.com/document/d/18SmymYAFKUz_drbDhcsx8NWaiNG6-SQflWPj0OaZ76c/edit?usp=sharing" target="_blank">Open Google Doc</a>
       </div>
     </div>
-  </section>
-</body>
-
-</html>
+  </div>
+</section>
