@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -75,7 +77,7 @@
       color: white;
     }
 
-{% if page.is_homepage %}
+    {% if page.is_homepage %}
     /* --- Home Page Specific Styles --- */
     .main-section {
       padding-top: 2em;
@@ -138,6 +140,53 @@
       background-color: #ffdc8f;
       color: black;
     }
+    {% endif %}
   </style>
 </head>
-{% endif %}
+
+<body>
+  <header>
+    <h1>Recognizing power. Reclaiming safety.</h1>
+    <p>Practical tools. Powerful boundaries. Safer fieldwork.</p>
+  </header>
+
+  <nav>
+    <div class="dropdown">
+      <a href="index.html">Home</a>
+    </div>
+
+    <div class="dropdown">
+      <a href="preparing.html">Preparing for Fieldwork</a>
+      <div class="dropdown-content">
+        <a href="#">Beginner Safety Checklist</a>
+      </div>
+    </div>
+
+    <div class="dropdown">
+      <a href="reporting.html">Reporting & Resources</a>
+      <div class="dropdown-content">
+        <a href="statelaw.html">USA Laws by State</a>
+        <a href="internationallaw.html">International Laws by Country</a>
+        <a href="titleIX.html">Reporting to Title IX by University</a>
+        <a href="fundingethics.html">Reporting to Funders</a>
+      </div>
+    </div>
+
+    <div class="dropdown">
+      <a href="surveys.html">Anonymous Surveys</a>
+      <div class="dropdown-content">
+        <a href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank">Fieldwork Misconduct Survey</a>
+        <a href="https://forms.gle/9DjrMVNP2oUu1GDD8" target="_blank">Website Feedback Survey</a>
+      </div>
+    </div>
+
+    <div class="dropdown">
+      <a href="contact.html">Contact Us</a>
+    </div>
+  </nav>
+
+  <main>
+    {{ content }}
+  </main>
+</body>
+</html>
