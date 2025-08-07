@@ -2,102 +2,99 @@
 layout: default
 title: Know Your Rights by State
 ---
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 1em;
-      background-color: #f8f8f8;
-    }
-    h1 {
-      font-size: 1.8em;
-    }
-    .accordion {
-      background-color: #e8a084;
-      color: #333;
-      cursor: pointer;
-      padding: 1em;
-      margin-top: 0.5em;
-      width: 100%;
-      border: none;
-      text-align: left;
-      outline: none;
-      font-size: 1.1em;
-      transition: background-color 0.2s ease;
-    }
-    .accordion:hover {
-      background-color: #c4551e;
-      color: white;
-    }
-    .panel {
-      padding: 0 1em;
-      display: none;
-      background-color: #fff;
-      overflow: hidden;
-      border-left: 3px solid #633747;
-      border-right: 3px solid #633747;
-      border-bottom: 3px solid #633747;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 1em;
-    }
-    th, td {
-      padding: 0.8em;
-      border: 1px solid #ccc;
-      text-align: left;
-    }
-    th {
-      background-color: #abc5a1;
-    }
-    .disclaimer {
-      font-size: 0.9em;
-      color: #555;
-      background-color: #fff8dc;
-      padding: 1em;
-      border-left: 5px solid #c4551e;
-      margin-bottom: 1em;
-    }
-  </style>
 
-  <h1>Know Your Defensive and Offensive Documentation Rights by State</h1>
-  <p>This resource provides state-by-state information about laws related to recording, consent for photographs, legal documentation rights, and other relevant protections during fieldwork.</p>
+<style>
+  .accordion {
+    background-color: #e8a084;
+    color: #333;
+    cursor: pointer;
+    padding: 1em;
+    margin-top: 0.5em;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 1.1em;
+    transition: background-color 0.2s ease;
+  }
 
-  <div class="disclaimer">
-    <strong>Disclaimer:</strong> This is not an exhaustive or authoritative legal resource. Laws are subject to change. While this website is designed to update automatically as the original source websites update, you should still contact university legal services or a qualified legal advisor to confirm the most current regulations before conducting fieldwork.
-  </div>
+  .accordion:hover {
+    background-color: #c4551e;
+    color: white;
+  }
 
-  <!-- Example accordion section for California -->
-  <button class="accordion">California</button>
-  <div class="panel">
-    <table>
-      <tr>
-        <th>Recording Laws</th>
-        <th>Consent for Photography</th>
-        <th>Guidance on Legal Docs</th>
-      </tr>
-      <tr>
-        <td>Two-party consent required</td>
-        <td>Implied consent allowed in public; explicit consent for minors</td>
-        <td>Release forms recommended for all identifiable subjects</td>
-      </tr>
-      <tr>
-        <td><a href="https://www.dmlp.org/legal-guide/california-recording-law" target="_blank">Source</a></td>
-        <td><a href="https://californiaphotolaw.com/" target="_blank">Source</a></td>
-        <td><a href="https://www.csus.edu/legal-affairs/" target="_blank">University Legal Affairs</a></td>
-      </tr>
-    </table>
-  </div>
+  .panel {
+    padding: 0 1em;
+    display: none;
+    background-color: #fff;
+    overflow: hidden;
+    border-left: 3px solid #633747;
+    border-right: 3px solid #633747;
+    border-bottom: 3px solid #633747;
+  }
 
-  <!-- Additional states can be duplicated like above -->
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1em;
+  }
 
-  <script>
-    const acc = document.querySelectorAll(".accordion");
-    acc.forEach(btn => {
-      btn.addEventListener("click", function () {
-        this.classList.toggle("active");
-        const panel = this.nextElementSibling;
-        panel.style.display = panel.style.display === "block" ? "none" : "block";
-      });
+  th, td {
+    padding: 0.8em;
+    border: 1px solid #ccc;
+    text-align: left;
+  }
+
+  th {
+    background-color: #abc5a1;
+  }
+
+  .disclaimer {
+    font-size: 0.9em;
+    color: #555;
+    background-color: #fff8dc;
+    padding: 1em;
+    border-left: 5px solid #c4551e;
+    margin-bottom: 1em;
+  }
+</style>
+
+<h1>Know Your Defensive and Offensive Documentation Rights by State</h1>
+<p>This resource provides state-by-state information about laws related to recording, consent for photographs, legal documentation rights, and other relevant protections during fieldwork.</p>
+
+<div class="disclaimer">
+  <strong>Disclaimer:</strong> This is not an exhaustive or authoritative legal resource. Laws are subject to change. While this website is designed to update automatically as the original source websites update, you should still contact university legal services or a qualified legal advisor to confirm the most current regulations before conducting fieldwork.
+</div>
+
+<!-- Example accordion section for California -->
+<button class="accordion">California</button>
+<div class="panel">
+  <table>
+    <tr>
+      <th>Recording Laws</th>
+      <th>Consent for Photography</th>
+      <th>Guidance on Legal Docs</th>
+    </tr>
+    <tr>
+      <td>Two-party consent required</td>
+      <td>Implied consent allowed in public; explicit consent for minors</td>
+      <td>Release forms recommended for all identifiable subjects</td>
+    </tr>
+    <tr>
+      <td><a href="https://www.dmlp.org/legal-guide/california-recording-law" target="_blank">Source</a></td>
+      <td><a href="https://californiaphotolaw.com/" target="_blank">Source</a></td>
+      <td><a href="https://www.csus.edu/legal-affairs/" target="_blank">University Legal Affairs</a></td>
+    </tr>
+  </table>
+</div>
+
+<script>
+  const acc = document.querySelectorAll(".accordion");
+  acc.forEach(btn => {
+    btn.addEventListener("click", function () {
+      this.classList.toggle("active");
+      const panel = this.nextElementSibling;
+      panel.style.display = panel.style.display === "block" ? "none" : "block";
     });
-  </script>
+  });
+</script>
