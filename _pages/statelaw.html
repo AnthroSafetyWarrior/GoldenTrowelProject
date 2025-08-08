@@ -5,6 +5,7 @@ permalink: /statelaw.html
 ---
 
 <style>
+/* Grid stays 5-up */
 .accordion-grid{
   display:grid;
   grid-template-columns: repeat(5, 1fr);
@@ -12,13 +13,15 @@ permalink: /statelaw.html
   align-items:start;
 }
 
+/* A state becomes full-width when open */
 .state{
   display:flex;
   flex-direction:column;
   gap:.35rem;
 }
+.state.open{ grid-column: 1 / -1; }          /* << stretch across the row */
 
-/* your existing button look, minus fixed width */
+/* Button */
 .accordion{
   background:#e8a084;
   color:#000;
@@ -29,33 +32,37 @@ permalink: /statelaw.html
   font-family: Calibri, sans-serif;
   font-size:1.05rem;
   transition: background-color .2s ease;
+  border-radius: 6px;
 }
-
 .accordion:hover{ background:#633747; color:#fff; }
+
+/* Keep the button in hover color when open, and visually attach to panel */
+.accordion[aria-expanded="true"]{
+  background:#633747; 
+  color:#fff;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
 
 /* Panel styles */
 .panel{
   background:#e8a084;
-  border-left:3px solid #e8a084;
-  border-right:3px solid #e8a084;
-  border-bottom:10px solid #e8a084;
+  border: 0;                               /* remove side borders */
   padding:0 1em 1em;
   max-width:100%;
+  border-bottom-left-radius: 6px;          /* attach to button */
+  border-bottom-right-radius: 6px;
+  box-shadow: 0 2px 0 #e8a084 inset;       /* subtle edge */
+  margin-top: -0.35rem;                    /* nudge up to meet button */
 }
 
-/* Visibility controlled by the [hidden] attribute (your JS already toggles this) */
+/* Hidden state */
 .panel[hidden]{ display:none; }
 
-/* responsive: fewer columns on narrow screens */
-@media (max-width: 1100px){
-  .accordion-grid{ grid-template-columns: repeat(4, 1fr); }
-}
-@media (max-width: 900px){
-  .accordion-grid{ grid-template-columns: repeat(3, 1fr); }
-}
-@media (max-width: 650px){
-  .accordion-grid{ grid-template-columns: repeat(2, 1fr); }
-}
+/* Responsive columns */
+@media (max-width: 1100px){ .accordion-grid{ grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 900px) { .accordion-grid{ grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 650px) { .accordion-grid{ grid-template-columns: repeat(2, 1fr); } }
 
 /* One-Party Caveat callout box */
 .oneparty-caveat {
