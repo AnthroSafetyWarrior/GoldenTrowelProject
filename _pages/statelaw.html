@@ -33,7 +33,6 @@ permalink: /statelaw.html
 
 .accordion:hover{ background:#633747; color:#fff; }
 
-/* panels occupy the full row under the grid */
 /* Panel styles */
 .panel{
   background:#e8a084;
@@ -46,7 +45,6 @@ permalink: /statelaw.html
 
 /* Visibility controlled by the [hidden] attribute (your JS already toggles this) */
 .panel[hidden]{ display:none; }
-
 
 /* responsive: fewer columns on narrow screens */
 @media (max-width: 1100px){
@@ -82,46 +80,34 @@ permalink: /statelaw.html
   .oneparty-caveat { max-width: 95%; }
 }
 
+.accordion:hover {
+  background-color: #633747ff;
+  color: white;
+}
 
-  .accordion:hover {
-    background-color: #633747ff;
-    color: white;
-  }
-
-  .panel {
-  padding: 0 1em;
-  display: none;
-  background-color: #e8a084;
-  overflow: hidden;
-  max-width: 100%;
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.8em;
   margin-left: auto;
   margin-right: auto;
 }
 
+th, td {
+  padding: 0.4em;
+  border: 1px solid #ccc;
+  text-align: center;
+  background-color: #eae6dfff;
+}
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 0.8em;
-    margin-left: auto;
-    margin-right: auto;
-  }
+th {
+  background-color: #633747ff;
+  color: white;
+  padding: 0.5em;
+  text-align: center;
+}
 
-  th, td {
-    padding: 0.4em;
-    border: 1px solid #ccc;
-    text-align: center;
-    background-color: #eae6dfff;
-  }
-
-  th {
-    background-color: #633747ff;
-    color: white;
-    padding: 0.5em;
-    text-align: center;
-  }
-
-  .disclaimer {
+.disclaimer {
   font-size: 0.98em;
   color: white;
   background-color: #c4551eff;
@@ -132,8 +118,8 @@ permalink: /statelaw.html
   margin-left: auto;
   margin-right: auto;
 }
-
 </style>
+
 
 <div class="page-intro">
 <h1>Know Your Defensive and Offensive Documentation Rights by State</h1>
@@ -261,6 +247,7 @@ permalink: /statelaw.html
 
 
 <script>
+document.addEventListener('DOMContentLoaded', () => {
   const items = document.querySelectorAll('.state');
 
   items.forEach(item => {
@@ -280,7 +267,9 @@ permalink: /statelaw.html
 
       // Toggle this one
       btn.setAttribute('aria-expanded', String(!isOpen));
-      panel.hidden = isOpen;  // show if closed, hide if open
+      panel.hidden = isOpen ? true : false;
     });
   });
+});
 </script>
+
