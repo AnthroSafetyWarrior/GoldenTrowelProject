@@ -6,63 +6,50 @@ permalink: /statelaw.html
 
 <style>
 /* Grid stays 5-up */
-.accordion-grid{
+/* Page-wide grid wrapper stays if you want spacing between rows */
+.accordion-grid { display: grid; gap: 1rem; }
+
+/* Each row = its own 5-col grid */
+.state-row{
   display:grid;
   grid-template-columns: repeat(5, 1fr);
   gap:.6rem;
   align-items:start;
 }
 
-/* A state becomes full-width when open */
-.state{
-  display:flex;
-  flex-direction:column;
-  gap:.35rem;
-}
-.state.open{ grid-column: 1 / -1; }          /* << stretch across the row */
+/* State button cell */
+.state{ display:flex; flex-direction:column; }
 
 /* Button */
 .accordion{
-  background:#e8a084;
-  color:#000;
-  cursor:pointer;
-  padding:.4em .7em;
-  border:none;
-  text-align:left;
-  font-family: Calibri, sans-serif;
-  font-size:1.05rem;
-  transition: background-color .2s ease;
-  border-radius: 6px;
+  background:#e8a084; color:#000; cursor:pointer;
+  padding:.4em .7em; border:none; text-align:left;
+  font-family: Calibri, sans-serif; font-size:1.05rem;
+  transition: background-color .2s ease; border-radius:6px;
 }
 .accordion:hover{ background:#633747; color:#fff; }
-
-/* Keep the button in hover color when open, and visually attach to panel */
+/* keep hover color when open */
 .accordion[aria-expanded="true"]{
-  background:#633747; 
-  color:#fff;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+  background:#633747; color:#fff;
+  border-bottom-left-radius:0; border-bottom-right-radius:0;
 }
 
-/* Panel styles */
-.panel{
+/* Full-width panel slot under the 5 buttons */
+.row-panel{
+  grid-column: 1 / -1;
   background:#e8a084;
-  border: 0;                               /* remove side borders */
   padding:0 1em 1em;
-  max-width:100%;
-  border-bottom-left-radius: 6px;          /* attach to button */
-  border-bottom-right-radius: 6px;
-  box-shadow: 0 2px 0 #e8a084 inset;       /* subtle edge */
-  margin-top: -0.35rem;                    /* nudge up to meet button */
+  border-bottom-left-radius:6px; border-bottom-right-radius:6px;
 }
+.row-panel[hidden]{ display:none; }
 
-/* Hidden state */
-.panel[hidden]{ display:none; }
+/* Hide the per-state panels in markup; we’ll move their contents into .row-panel */
+.panel{ display:none; }
 
-/* Responsive columns */
-@media (max-width: 1100px){ .accordion-grid{ grid-template-columns: repeat(4, 1fr); } }
-@media (max-width: 900px) { .accordion-grid{ grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 650px) { .accordion-grid{ grid-template-columns: repeat(2, 1fr); } }
+/* responsive */
+@media (max-width:1100px){ .state-row{ grid-template-columns:repeat(4,1fr);} }
+@media (max-width:900px){ .state-row{ grid-template-columns:repeat(3,1fr);} }
+@media (max-width:650px){ .state-row{ grid-template-columns:repeat(2,1fr);} }
 
 /* One-Party Caveat callout box */
 .oneparty-caveat {
@@ -164,11 +151,15 @@ th {
   <strong>Disclaimer:</strong> This is not an exhaustive or authoritative legal resource. Laws are subject to change. While this website is designed to update automatically as the original source websites update, you should still contact university legal services or a qualified legal advisor to confirm the most current regulations before conducting fieldwork.
 </div>
 
-<div class="accordion-grid"> 
-<div class="state">
-    <button class="accordion" aria-expanded="false" aria-controls="alabama-panel" id="alabama-btn"> Alabama </button>
-    <div class="panel" id="alabama-panel" role="region" aria-labelledby="alabama-btn" hidden>
-   <table>
+
+<div class="accordion-grid">
+
+  <div class="state-row">
+
+    <div class="state">
+      <button class="accordion" aria-expanded="false" aria-controls="alabama-panel" id="alabama-btn">Alabama</button>
+      <div class="panel" id="alabama-panel" role="region" aria-labelledby="alabama-btn">
+       <table>
     <tr>
      <th>Defensive & Offensive Recording</th>
       <th>Definition of Consent</th>
@@ -190,13 +181,13 @@ th {
   <td></td> <!-- Empty cell for Summary -->
   </tr>
   </table>
-</div>
-</div>
+     </div>
+    </div>
 
-<div class="state">
-    <button class="accordion" aria-expanded="false" aria-controls="alaska-panel" id="alaska-btn"> Alaska </button>
-    <div class="panel" id="alaska-panel" role="region" aria-labelledby="alaska-btn" hidden>
-   <table>
+ <div class="state">
+      <button class="accordion" aria-expanded="false" aria-controls="[state]-panel" id="[state]-btn">[state]</button>
+      <div class="panel" id="[state]-panel" role="region" aria-labelledby="[state]-btn">
+       <table>
     <tr>
      <th>Defensive & Offensive Recording</th>
       <th>Definition of Consent</th>
@@ -218,14 +209,13 @@ th {
   <td></td> <!-- Empty cell for Summary -->
   </tr>
   </table>
-</div>
-</div>
-
+     </div>
+    </div>
 
 <div class="state">
-    <button class="accordion" aria-expanded="false" aria-controls="[state]-panel" id="[state]-btn"> [State] </button>
-    <div class="panel" id="[state]-panel" role="region" aria-labelledby="[state]-btn" hidden>
-   <table>
+      <button class="accordion" aria-expanded="false" aria-controls="[state]-panel" id="[state]-btn">[state]</button>
+      <div class="panel" id="[state]-panel" role="region" aria-labelledby="[state]-btn">
+       <table>
     <tr>
      <th>Defensive & Offensive Recording</th>
       <th>Definition of Consent</th>
@@ -247,36 +237,247 @@ th {
   <td></td> <!-- Empty cell for Summary -->
   </tr>
   </table>
-</div>
-</div>
+     </div>
+    </div>
+
+<div class="state">
+      <button class="accordion" aria-expanded="false" aria-controls="[state]-panel" id="[state]-btn">[state]</button>
+      <div class="panel" id="[state]-panel" role="region" aria-labelledby="[state]-btn">
+       <table>
+    <tr>
+     <th>Defensive & Offensive Recording</th>
+      <th>Definition of Consent</th>
+      <th>Summary</th>
+    </tr>
+    <tr>
+      <td>One-party consent</td>
+      <td>[Definition of Consent]</td>
+      <td>[Summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="https://www.justia.com/50-state-surveys/recording-phone-calls-and-conversations/" target="_blank">justia.com</a>
+    <a href="https://www.rcfp.org/reporters-recording-sections/in-person-conversations/" target="_blank">rcfp.org</a>
+  </td>
+  <td>
+    <a href="https://apps.rainn.org/policy/compare/consent-laws.cfm" target="_blank">Source</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+    </div>
+
+<div class="state">
+      <button class="accordion" aria-expanded="false" aria-controls="[state]-panel" id="[state]-btn">[state]</button>
+      <div class="panel" id="[state]-panel" role="region" aria-labelledby="[state]-btn">
+       <table>
+    <tr>
+     <th>Defensive & Offensive Recording</th>
+      <th>Definition of Consent</th>
+      <th>Summary</th>
+    </tr>
+    <tr>
+      <td>One-party consent</td>
+      <td>[Definition of Consent]</td>
+      <td>[Summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="https://www.justia.com/50-state-surveys/recording-phone-calls-and-conversations/" target="_blank">justia.com</a>
+    <a href="https://www.rcfp.org/reporters-recording-sections/in-person-conversations/" target="_blank">rcfp.org</a>
+  </td>
+  <td>
+    <a href="https://apps.rainn.org/policy/compare/consent-laws.cfm" target="_blank">Source</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+    </div>
+
+
+ <!-- Full-width slot where the active state’s panel will appear -->
+  <div class="row-panel" hidden></div>
+  </div>
+
+
+<div class="state">
+      <button class="accordion" aria-expanded="false" aria-controls="[state]-panel" id="[state]-btn">[state]</button>
+      <div class="panel" id="[state]-panel" role="region" aria-labelledby="[state]-btn">
+       <table>
+    <tr>
+     <th>Defensive & Offensive Recording</th>
+      <th>Definition of Consent</th>
+      <th>Summary</th>
+    </tr>
+    <tr>
+      <td>One-party consent</td>
+      <td>[Definition of Consent]</td>
+      <td>[Summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="https://www.justia.com/50-state-surveys/recording-phone-calls-and-conversations/" target="_blank">justia.com</a>
+    <a href="https://www.rcfp.org/reporters-recording-sections/in-person-conversations/" target="_blank">rcfp.org</a>
+  </td>
+  <td>
+    <a href="https://apps.rainn.org/policy/compare/consent-laws.cfm" target="_blank">Source</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+    </div>
+
+
+<div class="state">
+      <button class="accordion" aria-expanded="false" aria-controls="[state]-panel" id="[state]-btn">[state]</button>
+      <div class="panel" id="[state]-panel" role="region" aria-labelledby="[state]-btn">
+       <table>
+    <tr>
+     <th>Defensive & Offensive Recording</th>
+      <th>Definition of Consent</th>
+      <th>Summary</th>
+    </tr>
+    <tr>
+      <td>One-party consent</td>
+      <td>[Definition of Consent]</td>
+      <td>[Summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="https://www.justia.com/50-state-surveys/recording-phone-calls-and-conversations/" target="_blank">justia.com</a>
+    <a href="https://www.rcfp.org/reporters-recording-sections/in-person-conversations/" target="_blank">rcfp.org</a>
+  </td>
+  <td>
+    <a href="https://apps.rainn.org/policy/compare/consent-laws.cfm" target="_blank">Source</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+    </div>
+
+
+<div class="state">
+      <button class="accordion" aria-expanded="false" aria-controls="[state]-panel" id="[state]-btn">[state]</button>
+      <div class="panel" id="[state]-panel" role="region" aria-labelledby="[state]-btn">
+       <table>
+    <tr>
+     <th>Defensive & Offensive Recording</th>
+      <th>Definition of Consent</th>
+      <th>Summary</th>
+    </tr>
+    <tr>
+      <td>One-party consent</td>
+      <td>[Definition of Consent]</td>
+      <td>[Summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="https://www.justia.com/50-state-surveys/recording-phone-calls-and-conversations/" target="_blank">justia.com</a>
+    <a href="https://www.rcfp.org/reporters-recording-sections/in-person-conversations/" target="_blank">rcfp.org</a>
+  </td>
+  <td>
+    <a href="https://apps.rainn.org/policy/compare/consent-laws.cfm" target="_blank">Source</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+    </div>
+
+
+<div class="state">
+      <button class="accordion" aria-expanded="false" aria-controls="[state]-panel" id="[state]-btn">[state]</button>
+      <div class="panel" id="[state]-panel" role="region" aria-labelledby="[state]-btn">
+       <table>
+    <tr>
+     <th>Defensive & Offensive Recording</th>
+      <th>Definition of Consent</th>
+      <th>Summary</th>
+    </tr>
+    <tr>
+      <td>One-party consent</td>
+      <td>[Definition of Consent]</td>
+      <td>[Summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="https://www.justia.com/50-state-surveys/recording-phone-calls-and-conversations/" target="_blank">justia.com</a>
+    <a href="https://www.rcfp.org/reporters-recording-sections/in-person-conversations/" target="_blank">rcfp.org</a>
+  </td>
+  <td>
+    <a href="https://apps.rainn.org/policy/compare/consent-laws.cfm" target="_blank">Source</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+    </div>
+
+
+<div class="state">
+      <button class="accordion" aria-expanded="false" aria-controls="[state]-panel" id="[state]-btn">[state]</button>
+      <div class="panel" id="[state]-panel" role="region" aria-labelledby="[state]-btn">
+       <table>
+    <tr>
+     <th>Defensive & Offensive Recording</th>
+      <th>Definition of Consent</th>
+      <th>Summary</th>
+    </tr>
+    <tr>
+      <td>One-party consent</td>
+      <td>[Definition of Consent]</td>
+      <td>[Summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="https://www.justia.com/50-state-surveys/recording-phone-calls-and-conversations/" target="_blank">justia.com</a>
+    <a href="https://www.rcfp.org/reporters-recording-sections/in-person-conversations/" target="_blank">rcfp.org</a>
+  </td>
+  <td>
+    <a href="https://apps.rainn.org/policy/compare/consent-laws.cfm" target="_blank">Source</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+    </div>
+
+ <!-- Full-width slot where the active state’s panel will appear -->
+  <div class="row-panel" hidden></div>
+  </div>
+
 </div>
 
 
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  const items = document.querySelectorAll('.state');
+  document.querySelectorAll('.state-row').forEach(row => {
+    const rowPanel = row.querySelector('.row-panel');
+    const buttons = row.querySelectorAll('.state .accordion');
 
-  items.forEach(item => {
-    const btn = item.querySelector('.accordion');
-    const panel = item.querySelector('.panel');
+    buttons.forEach(btn => {
+      const panel = btn.nextElementSibling; // the hidden per-state panel
 
-    btn.addEventListener('click', () => {
-      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+      btn.addEventListener('click', () => {
+        const isOpen = btn.getAttribute('aria-expanded') === 'true';
 
-      // Close all others
-      items.forEach(other => {
-        const oBtn = other.querySelector('.accordion');
-        const oPanel = other.querySelector('.panel');
-        other.classList.remove('open');
-        oBtn.setAttribute('aria-expanded', 'false');
-        oPanel.hidden = true;
+        // Close all buttons in this row
+        buttons.forEach(b => b.setAttribute('aria-expanded', 'false'));
+        rowPanel.hidden = true;
+        rowPanel.innerHTML = '';
+
+        if (!isOpen) {
+          // Open this one: set button active and render its panel content full-width
+          btn.setAttribute('aria-expanded', 'true');
+          rowPanel.innerHTML = panel.innerHTML; // move content in
+          rowPanel.hidden = false;
+        }
       });
-
-      // Toggle this one
-      btn.setAttribute('aria-expanded', String(!isOpen));
-      panel.hidden = isOpen;
-      item.classList.toggle('open', !isOpen);   // << makes it span full width
     });
   });
 });
