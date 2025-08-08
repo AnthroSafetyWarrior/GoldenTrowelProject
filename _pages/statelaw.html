@@ -8,14 +8,14 @@ permalink: /statelaw.html
 .accordion-grid{
   display:grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: .6rem;
-  align-items: start;
+  gap:.6rem;
+  align-items:start;
 }
 
 .state{
   display:flex;
-  flex-direction: column;
-  gap: .35rem;          /* space between button and panel */
+  flex-direction:column;
+  gap:.35rem;
 }
 
 /* your existing button look, minus fixed width */
@@ -39,9 +39,10 @@ permalink: /statelaw.html
   border-left:3px solid #e8a084;
   border-right:3px solid #e8a084;
   border-bottom:10px solid #e8a084;
-  padding: 0 1em 1em;
-  max-width: 100%;
+  padding:0 1em 1em;
+  max-width:100%;
 }
+.panel[hidden]{ display:none; }
 
 /* optional helper if you prefer class toggling */
 .panel.open{ display:block; }
