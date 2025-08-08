@@ -34,6 +34,7 @@ permalink: /statelaw.html
 .accordion:hover{ background:#633747; color:#fff; }
 
 /* panels occupy the full row under the grid */
+/* Panel styles */
 .panel{
   background:#e8a084;
   border-left:3px solid #e8a084;
@@ -42,9 +43,10 @@ permalink: /statelaw.html
   padding:0 1em 1em;
   max-width:100%;
 }
-{ display:none; }
-/* optional helper if you prefer class toggling */
-.panel.open{ display:block; }
+
+/* Visibility controlled by the [hidden] attribute (your JS already toggles this) */
+.panel[hidden]{ display:none; }
+
 
 /* responsive: fewer columns on narrow screens */
 @media (max-width: 1100px){
