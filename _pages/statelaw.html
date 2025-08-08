@@ -5,28 +5,52 @@ permalink: /statelaw.html
 ---
 
 <style>
-<script>
-  const grid = document.querySelector('.accordion-grid');
+.accordion-grid{
+  display:grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: .6rem;
+  align-items: start;
+}
 
-  grid.addEventListener('click', (e) => {
-    const btn = e.target.closest('.accordion');
-    if (!btn) return;
+/* your existing button look, minus fixed width */
+.accordion{
+  background:#e8a084;
+  color:#000;
+  cursor:pointer;
+  padding:.5em .7em;
+  border:none;
+  text-align:left;
+  font-family: Calibri, sans-serif;
+  font-size:1.05rem;
+  transition: background-color .2s ease;
+}
 
-    const panel = btn.nextElementSibling;          // button’s paired panel
+.accordion:hover{ background:#633747; color:#fff; }
 
-    // close others
-    grid.querySelectorAll('.panel').forEach(p => {
-      if (p !== panel) p.style.display = 'none';
-    });
+/* panels occupy the full row under the grid */
+.panel{
+  display:none;              /* hidden until opened */
+  grid-column: 1 / -1;       /* <<< full width */
+  background:#e8a084;
+  border-left:3px solid #e8a084;
+  border-right:3px solid #e8a084;
+  border-bottom:8px solid #e8a084;
+  padding: 0 1em 1em;
+}
 
-    // toggle this one
-    panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
+/* optional helper if you prefer class toggling */
+.panel.open{ display:block; }
 
-    // optional: scroll the opened panel into view
-    if (panel.style.display === 'block') {
-      panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  });
+/* responsive: fewer columns on narrow screens */
+@media (max-width: 1100px){
+  .accordion-grid{ grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 900px){
+  .accordion-grid{ grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 650px){
+  .accordion-grid{ grid-template-columns: repeat(2, 1fr); }
+}
 
 /* One-Party Caveat callout box */
 .oneparty-caveat {
