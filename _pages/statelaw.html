@@ -268,15 +268,16 @@ document.addEventListener('DOMContentLoaded', () => {
       items.forEach(other => {
         const oBtn = other.querySelector('.accordion');
         const oPanel = other.querySelector('.panel');
+        other.classList.remove('open');
         oBtn.setAttribute('aria-expanded', 'false');
         oPanel.hidden = true;
       });
 
       // Toggle this one
       btn.setAttribute('aria-expanded', String(!isOpen));
-      panel.hidden = isOpen ? true : false;
+      panel.hidden = isOpen;
+      item.classList.toggle('open', !isOpen);   // << makes it span full width
     });
   });
 });
 </script>
-
