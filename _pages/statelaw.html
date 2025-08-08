@@ -1173,11 +1173,6 @@ permalink: /statelaw.html
 <div class="panel">
   <table>
     <tr>
-      <th>Recording Laws</th>
-      <th>Consent for Photo/Video/Audio</th>
-      <th>Guidance on Legal Docs</th>
-    </tr>
-    <tr>
       <td>[Summary of recording laws]</td>
       <td>[Summary of consent laws]</td>
       <td>[Summary of legal doc guidance]</td>
@@ -1201,3 +1196,20 @@ permalink: /statelaw.html
     });
   });
 </script>
+
+<script>
+  const tableHeaders = `
+    <tr>
+      <th>Consent Definition</th>
+      <th>Defensive Documentation</th>
+      <th>Offensive Documentation</th>
+      <th>Private Communication Law</th>
+      <th>Sex Crimes Definitions</th>
+      <th>Retaliation Protections</th>
+    </tr>`;
+
+  document.querySelectorAll('.panel table').forEach(table => {
+    table.insertAdjacentHTML('afterbegin', tableHeaders);
+  });
+</script>
+
