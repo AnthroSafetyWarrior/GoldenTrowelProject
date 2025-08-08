@@ -11,7 +11,7 @@ permalink: /statelaw.html
   cursor: pointer;
   padding: 0.3em;
   margin-top: 0.2em;
-  width: 80%;
+  width: 100%;
   border: none;
   text-align: left;
   outline: none;
@@ -22,6 +22,29 @@ permalink: /statelaw.html
   margin-right: auto;
   font-family: Calibri, sans-serif;
   font-size: 1.2em;
+}
+
+/* One-Party Caveat callout box */
+.oneparty-caveat {
+  background-color: #ffdc8f;
+  padding: 1.5em;
+  margin: 2em auto;
+  max-width: 100%;
+  text-align: center;       /* centers the heading */
+  border-radius: 10px;
+}
+
+/* Make paragraph/list text readable (left aligned) inside the box */
+.oneparty-caveat p,
+.oneparty-caveat ul,
+.oneparty-caveat li {
+  text-align: left;
+  margin: 0.4em 0;
+}
+
+/* Slightly narrower on phones */
+@media (max-width: 700px) {
+  .oneparty-caveat { max-width: 95%; }
 }
 
 
@@ -35,7 +58,7 @@ permalink: /statelaw.html
   display: none;
   background-color: #e8a084;
   overflow: hidden;
-  width: 75%;
+  width: 100%;
   border-left: 3px solid #e8a084;
   border-right: 3px solid #e8a084;
   border-bottom: 8px solid #e8a084;
@@ -71,7 +94,7 @@ permalink: /statelaw.html
   color: white;
   background-color: #c4551eff;
   padding: 0.8em;
-  width: 75%;
+  width: 100%;
   border-left: 5px solid #633747ff;
   margin-bottom: 3em;
   margin-left: auto;
@@ -87,6 +110,36 @@ permalink: /statelaw.html
 <div class="disclaimer">
   <strong>Disclaimer:</strong> This is not an exhaustive or authoritative legal resource. Laws are subject to change. While this website is designed to update automatically as the original source websites update, you should still contact university legal services or a qualified legal advisor to confirm the most current regulations before conducting fieldwork.
 </div>
+
+<div class="oneparty-caveat" role="region" aria-labelledby="opc-caveats-title">
+  <h3 id="opc-caveats-title">Important Caveats to One-Party Consent States</h3>
+  <p>
+    Even in states where one-party consent is the general rule, the law often includes a key limitation:
+    if the conversation takes place in a setting where there is a “reasonable expectation of privacy,”
+    all-party consent may be required.
+  </p>
+  <p>
+    This expectation of privacy can apply even in publicly funded or accessible spaces—such as a professor’s office,
+    a museum curator’s lab, or a research space—if the circumstances suggest the conversation is intended to be private
+    (e.g., closed doors, no other people present).
+  </p>
+  <p><strong>In these situations, you may be able to reduce or eliminate the privacy expectation by changing the context:</strong></p>
+  <ul>
+    <li><strong>Keep the door open:</strong> Clearly state at the outset that the door should stay open to indicate the discussion isn’t private.</li>
+    <li><strong>Move to a public space:</strong> Some language you can use:
+      <ul>
+        <li>“I need to move my body, can we walk and talk?”</li>
+        <li>“Let’s meet over coffee—there’s a local shop nearby.”</li>
+        <li>“I don’t attend 1-on-1 meetings in private spaces while conducting fieldwork for my safety. I’m really looking forward to discussing [topic]—can we take this conversation to [public space]?”</li>
+      </ul>
+    </li>
+  </ul>
+  <p><em>Each state’s laws are complex. Seek legal counsel to confirm current law and build a safety plan that fits your situation.</em></p>
+</div>
+
+
+
+
 
 
 <!-- Example accordion section for [Alabama] -->
