@@ -1515,25 +1515,26 @@ permalink: /statelaw.html
 </div>
 
 <script>
-  const acc = document.querySelectorAll(".accordion");
+  const items = document.querySelectorAll('.state');
 
-  acc.forEach(btn => {
-    btn.addEventListener("click", function () {
-      const panel = this.nextElementSibling;
+  items.forEach(item => {
+    const btn = item.querySelector('.accordion');
+    const panel = item.querySelector('.panel');
 
-      // Close all other panels
-      acc.forEach(otherBtn => {
-        if (otherBtn !== this) {
-          otherBtn.classList.remove("active");
-          otherBtn.nextElementSibling.style.display = "none";
-        }
+    btn.addEventListener('click', () => {
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+
+      // Close all others
+      items.forEach(other => {
+        const oBtn = other.querySelector('.accordion');
+        const oPanel = other.querySelector('.panel');
+        oBtn.setAttribute('aria-expanded', 'false');
+        oPanel.hidden = true;
       });
 
-      // Toggle the clicked one
-      const isOpen = panel.style.display === "block";
-      panel.style.display = isOpen ? "none" : "block";
-      this.classList.toggle("active", !isOpen);
+      // Toggle this one
+      btn.setAttribute('aria-expanded', String(!isOpen));
+      panel.hidden = isOpen;  // show if closed, hide if open
     });
   });
 </script>
-
