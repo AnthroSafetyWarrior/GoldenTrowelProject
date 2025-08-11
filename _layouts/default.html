@@ -51,11 +51,12 @@
     .dropdown {
       display: inline-block;
       position: relative;
-   }
-    .dropdown:hover {
-      background-color: #633747;
-      color: white;
-    }
+   /* Make the entire dropdown area change on hover */
+.dropdown:hover,
+.dropdown:hover > a {
+  background-color: #633747;
+  color: white;
+}
     .dropdown-content {
       display: none;
       position: absolute;
