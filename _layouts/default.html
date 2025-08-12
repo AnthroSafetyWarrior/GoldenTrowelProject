@@ -6,9 +6,7 @@
   <title>{{ page.title | default: "Research With Consent" }}</title>
   <style>
     /* --- Base / global --- */
-    *,
-    *::before,
-    *::after { box-sizing: border-box; }
+    *, *::before, *::after { box-sizing: border-box; }
 
     body {
       font-family: Calibri, sans-serif;
@@ -17,29 +15,31 @@
       padding: 0;
     }
 
-    /* Responsive type that won’t overflow on phones */
-    h1 { font-size: clamp(1.8rem, 5.5vw, 2.4rem); text-align: center; margin: 0.2em 0; }
-    h2 { font-size: clamp(1.4rem, 4.5vw, 2rem);   text-align: center; margin: 0.3em 0; }
-    h3 { font-size: clamp(1.2rem, 4vw, 1.6rem);   text-align: center; margin: 0.4em 0; }
-    p  { font-size: clamp(1rem, 2.8vw, 1.2rem);   margin: 0.6em 0; }
+    /* Responsive type */
+    h1 { font-size: clamp(1.8rem, 5.5vw, 2.4rem); text-align: center; margin: .4em 0 .2em; }
+    h2 { font-size: clamp(1.4rem, 4.5vw, 2rem);   text-align: center; margin: .3em 0 .4em; }
+    h3 { font-size: clamp(1.2rem, 4vw, 1.6rem);   text-align: center; margin: .25em 0 .4em; }
+    p  { font-size: clamp(1rem, 2.8vw, 1.2rem);   margin: .6em 0; }
 
-    /* Make images and embeds scale down on mobile */
     img, svg, video { max-width: 100%; height: auto; display: block; }
 
-    /* Only wrap long URLs when needed */
-    .wrap-long { overflow-wrap: anywhere; word-break: break-word; }
+    /* Only force-wrap when needed */
+    .wrap-long { overflow-wrap:anywhere; word-break:break-word; }
 
-    /* Section layout + readable line length */
-    .main-section {
+    /* Section layout + comfy (smaller) vertical rhythm */
+    .main-section{
       max-width: 1100px;
       margin-inline: auto;
-      padding-block: clamp(20px, 6vw, 56px);
+      padding-block: clamp(12px, 3vw, 28px); /* was 20–56; trimmed to reduce gaps */
     }
-    .main-section p {
+    .main-section p{
       max-width: 75ch;
       margin-left: auto;
       margin-right: auto;
     }
+    /* prevent extra space from first/last child margins */
+    .main-section > :first-child{ margin-top: 0; }
+    .main-section > :last-child { margin-bottom: 0; }
 
     header {
       background-color: #633747;
@@ -49,133 +49,77 @@
     }
 
     /* --- Nav --- */
-    nav {
+    nav{
       background-color: #e8a084;
-      padding: 0.2rem 0;
+      padding: .2rem 0;
       text-align: center;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+      display: flex; flex-wrap: wrap; justify-content: center;
       gap: .25rem .75rem;
     }
-
-    .dropdown {
-      position: relative;
+    .dropdown{ position: relative; }
+    .dropdown > a{
+      display: block; padding: .55em 1em; margin: .25em 0;
+      color: black; text-decoration: none; font-weight: bold; border-radius: 6px;
     }
-
-    /* Each top-level link becomes a tidy pill/button */
-    .dropdown > a {
-      display: block;
-      padding: .55em 1em;
-      margin: .25em 0;
-      color: black;
-      text-decoration: none;
-      font-weight: bold;
-      border-radius: 6px;
+    .dropdown:hover > a, .dropdown > a:focus-visible{ background:#633747; color:#fff; }
+    .dropdown-content{
+      display:none; position:absolute; top:100%; left:0; background:#e8a084;
+      min-width:220px; z-index:10; text-align:center; padding:.25em 0; border-radius:6px;
     }
+    .dropdown:hover .dropdown-content, .dropdown:focus-within .dropdown-content{ display:block; }
+    .dropdown-content a{ display:block; padding:.5em 1em; color:black; text-decoration:none; }
+    .dropdown-content a:hover, .dropdown-content a:focus-visible{ background:#633747; color:#fff; }
 
-    .dropdown:hover > a,
-    .dropdown > a:focus-visible {
-      background-color: #633747;
-      color: white;
-    }
-
-    /* Dropdown panel sits below its trigger */
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background-color: #e8a084;
-      min-width: 220px;
-      z-index: 10;
-      text-align: center;
-      padding: .25em 0;
-      border-radius: 6px;
-    }
-
-    /* Open on hover (desktop) or keyboard focus */
-    .dropdown:hover .dropdown-content,
-    .dropdown:focus-within .dropdown-content { display: block; }
-
-    .dropdown-content a {
-      display: block;
-      padding: 0.5em 1em;
-      color: black;
-      text-decoration: none;
-      border-radius: 0;
-    }
-    .dropdown-content a:hover,
-    .dropdown-content a:focus-visible {
-      background-color: #633747;
-      color: white;
-    }
-
-    /* --- Main content container --- */
-    main {
+    /* --- Main wrapper --- */
+    main{
       width: min(100%, 1100px);
       margin-inline: auto;
-      padding: clamp(16px, 4vw, 32px);
-      padding-top: clamp(18px, 4vw, 28px);
-      padding-bottom: clamp(10px, 3vw, 20px);
+      padding: clamp(16px, 4vw, 28px);  /* slightly smaller bottom padding */
       text-align: center;
     }
-
   </style>
 
   {% if page.is_homepage %}
   <style>
-    /* --- Home Page Specific Styles --- */
-    .docs-container {
-      padding: clamp(16px, 4vw, 32px);
-      margin: clamp(16px, 4vw, 32px) auto;
+    /* --- Home Page Specific --- */
+    .docs-container{
+      padding: clamp(14px, 3vw, 24px);            /* was up to 32px */
+      margin: clamp(8px, 2.4vw, 20px) auto;       /* was 16–32px */
       width: min(100%, 960px);
       border-radius: 16px;
     }
-    @media (min-width: 1024px) {
-      .docs-container.prevalence { width: min(100%, 1000px); }
+    @media (min-width:1024px){
+      .docs-container.prevalence{ width: min(100%, 1000px); }
     }
 
-    .docs-container.prevalence { background-color: #ffdc8f; }
-    .docs-container.safety-plan { background-color: #633747; color: white; }
+    .docs-container.prevalence{ background:#ffdc8f; }
+    .docs-container.safety-plan{ background:#633747; color:#fff; }
 
-    .doc-links {
-      display: grid;
-      gap: clamp(12px, 3vw, 24px);
+    .doc-links{
+      display:grid;
+      gap: clamp(10px, 2.2vw, 20px);              /* slightly tighter */
       grid-template-columns: 1fr;
       justify-items: center;
-      margin-top: 1.2em;
+      margin-top: .8em;                           /* was 1.2em */
     }
-    @media (min-width: 720px) {
-      .doc-links { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (min-width: 1024px) {
-      .doc-links { grid-template-columns: repeat(3, 1fr); }
-    }
+    @media (min-width:720px){  .doc-links{ grid-template-columns: repeat(2,1fr); } }
+    @media (min-width:1024px){ .doc-links{ grid-template-columns: repeat(3,1fr); } }
 
-    .doc-card {
-      width: 100%;
-      max-width: 400px;
-      background-color: #e8a084;
-      color: black;
-      border-radius: 10px;
-      padding: clamp(14px, 3.5vw, 24px);
+    .doc-card{
+      width:100%; max-width:400px;
+      background:#e8a084; color:black;
+      border-radius:10px;
+      padding: clamp(12px, 3vw, 20px);            /* smaller inner padding */
       box-shadow: 0 2px 6px rgba(0,0,0,.1);
-      text-align: center;
+      text-align:center;
     }
-
-    .doc-card h3 { margin-top: 0; }
-
-    .doc-card a {
-      display: inline-block;
-      margin-top: 1em;
-      background-color: #633747;
-      color: white;
-      text-decoration: none;
-      padding: 0.5em 1em;
-      border-radius: 6px;
+    .doc-card h3{ margin-top:0; }
+    .doc-card a{
+      display:inline-block; margin-top:.8em;
+      background:#633747; color:#fff; text-decoration:none;
+      padding:.5em 1em; border-radius:6px;
     }
-    .doc-card a:hover { background-color: #ffdc8f; color: black; }
+    .doc-card a:hover{ background:#ffdc8f; color:black; }
   </style>
   {% endif %}
 </head>
@@ -187,9 +131,7 @@
   </header>
 
   <nav>
-    <div class="dropdown">
-      <a href="index.html">Home</a>
-    </div>
+    <div class="dropdown"><a href="index.html">Home</a></div>
 
     <div class="dropdown">
       <a href="{{ site.baseurl }}/preparing.html">Preparing for Fieldwork</a>
@@ -216,9 +158,7 @@
       </div>
     </div>
 
-    <div class="dropdown">
-      <a href="{{ site.baseurl }}/contact.html">Contact Us</a>
-    </div>
+    <div class="dropdown"><a href="{{ site.baseurl }}/contact.html">Contact Us</a></div>
   </nav>
 
   <main>
