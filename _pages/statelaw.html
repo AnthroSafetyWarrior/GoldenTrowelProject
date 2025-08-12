@@ -20,16 +20,16 @@ permalink: /statelaw.html
 .accordion:hover{ background:#e8a084; color:#000; }
 .accordion[aria-expanded="true"]{ background:#e8a084; color:#000; border-bottom-left-radius:0; border-bottom-right-radius:0; }
 
-/* Panel spans the full row */
 .row-panel{
   grid-column:1 / -1;
-  background:#633747;
-
-  /* KEY FIXES */
-  padding: 0.25rem 0;              /* remove big side padding so table aligns */
-  overflow-x:auto;                  /* allow horizontal scroll on narrow screens */
-  -webkit-overflow-scrolling:touch; /* smooth scroll on iOS */
-  border-bottom-left-radius:6px; border-bottom-right-radius:6px;
+  background:#633747;                  /* purple background */
+  padding: .75rem;                      /* inner space for border gap */
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  border-bottom-left-radius:6px; 
+  border-bottom-right-radius:6px;
+  border: 3px solid #633747;            /* purple border frame */
+  box-sizing: border-box;               /* border counts inside width */
 }
 .row-panel[hidden]{ display:none; }
 
@@ -48,35 +48,33 @@ permalink: /statelaw.html
 }
 .oneparty-caveat p, .oneparty-caveat ul, .oneparty-caveat li{ text-align:left; margin:.4em 0; }
 
-/* ---- Table inside the accordion ---- */
+/* Table inside the accordion */
 .row-panel table{
   width:100%;
-  margin: 1em .5em .5em 1em;   /* center not needed; fill the panel */
+  margin:0;                             /* no margins → no overflow */
   border-collapse:collapse;
-  table-layout:fixed;    /* prevents overflow from long content */
-  background:#eae6df;
+  table-layout:fixed;
+  background:#eae6df;                   /* table background */
 }
 .row-panel th, .row-panel td{
   padding:.5em .6em;
-  border:1px solid #black;
-  text-align:left; vertical-align:top;
+  border:1px solid #000;
+  text-align:left; 
+  vertical-align:top;
   white-space:normal;
-  overflow-wrap:anywhere;  /* break long words/phrases */
+  overflow-wrap:anywhere;
 }
 .row-panel th{
-  background:#e8a084; color:#000;
-  text-align:center; font-weight:bold;
+  background:#e8a084; 
+  color:#000;
+  text-align:center; 
+  font-weight:bold;
 }
 
-/* Small screens: if 4 columns don't fit, let the table scroll */
+/* Small screens: allow horizontal scroll only when needed */
 @media (max-width: 700px){
-  .row-panel table{ min-width: 640px; }  /* triggers horizontal scroll only inside panel */
-}
+  .row-panel table{ min-width: 640px; }
 
-/* Responsive columns for the button grid (unchanged from your JS logic) */
-@media (max-width: 1100px){ .state-row{ grid-template-columns:repeat(4,1fr); } }
-@media (max-width: 900px){  .state-row{ grid-template-columns:repeat(3,1fr); } }
-@media (max-width: 650px){  .state-row{ grid-template-columns:repeat(2,1fr); } }
 
 /* Disclaimer stays full-width above/below */
 .disclaimer{
