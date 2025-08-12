@@ -79,49 +79,64 @@
     }
   </style>
 
-  {% if page.is_homepage %}
-  <style>
-    /* --- Home Page Specific --- */
-    .docs-container{
-      padding: clamp(14px, 3vw, 24px);            /* was up to 32px */
-      margin: clamp(8px, 2.4vw, 20px) auto;       /* was 16–32px */
-      width: min(100%, 960px);
-      border-radius: 16px;
-    }
-    @media (min-width:1024px){
-      .docs-container.prevalence{ width: min(100%, 1000px); }
-    }
+ {% if page.is_homepage %}
+<style>
+  /* --- Home Page Specific --- */
 
-    .docs-container.prevalence{ background:#ffdc8f; }
-    .docs-container.safety-plan{ background:#633747; color:#fff; }
+  /* Tighter spacing between the yellow + purple cards */
+  .main-section{ padding-block: clamp(10px, 2.2vw, 22px); } /* slightly reduced for home */
+  .main-section > .docs-container{
+    margin: clamp(6px, 1vw, 12px) auto;   /* was up to 20px */
+  }
 
-    .doc-links{
-      display:grid;
-      gap: clamp(10px, 2.2vw, 20px);              /* slightly tighter */
-      grid-template-columns: 1fr;
-      justify-items: center;
-      margin-top: .8em;                           /* was 1.2em */
-    }
-    @media (min-width:720px){  .doc-links{ grid-template-columns: repeat(2,1fr); } }
-    @media (min-width:1024px){ .doc-links{ grid-template-columns: repeat(3,1fr); } }
+  /* Trim inner margins so card headings/paragraphs don't add extra top/bottom space */
+  .docs-container > :first-child{ margin-top: 0; }
+  .docs-container > :last-child { margin-bottom: 0; }
 
-    .doc-card{
-      width:100%; max-width:400px;
-      background:#e8a084; color:black;
-      border-radius:10px;
-      padding: clamp(12px, 3vw, 20px);            /* smaller inner padding */
-      box-shadow: 0 2px 6px rgba(0,0,0,.1);
-      text-align:center;
-    }
-    .doc-card h3{ margin-top:0; }
-    .doc-card a{
-      display:inline-block; margin-top:.8em;
-      background:#633747; color:#fff; text-decoration:none;
-      padding:.5em 1em; border-radius:6px;
-    }
-    .doc-card a:hover{ background:#ffdc8f; color:black; }
-  </style>
-  {% endif %}
+  /* Cards */
+  .docs-container{
+    padding: clamp(12px, 2.6vw, 20px);    /* a bit tighter */
+    width: min(100%, 960px);
+    border-radius: 16px;
+  }
+  @media (min-width:1024px){
+    .docs-container.prevalence{ width: min(100%, 1000px); }
+  }
+
+  .docs-container.prevalence{ background:#ffdc8f; }
+  .docs-container.safety-plan{ background:#633747; color:#fff; }
+
+  /* “Build your…” grid */
+  .doc-links{
+    display:grid;
+    gap: clamp(10px, 2vw, 18px);          /* slightly tighter */
+    grid-template-columns: 1fr;
+    justify-items: center;
+    margin-top: .5em;                     /* was .8em */
+  }
+  @media (min-width:720px){  .doc-links{ grid-template-columns: repeat(2,1fr); } }
+  @media (min-width:1024px){ .doc-links{ grid-template-columns: repeat(3,1fr); } }
+
+  .doc-card{
+    width:100%;
+    max-width:400px;
+    background:#e8a084; color:#000;
+    border-radius:10px;
+    padding: clamp(12px, 2.6vw, 20px);
+    box-shadow: 0 2px 6px rgba(0,0,0,.1);
+    text-align:center;
+  }
+  .doc-card h3{ margin-top:0; }
+  .doc-card a{
+    display:inline-block;
+    margin-top:.7em;
+    background:#633747; color:#fff; text-decoration:none;
+    padding:.5em 1em; border-radius:6px;
+  }
+  .doc-card a:hover{ background:#ffdc8f; color:#000; }
+</style>
+{% endif %}
+
 </head>
 
 <body>
