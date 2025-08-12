@@ -18,21 +18,20 @@ is_homepage: true
 </section>
 
 <section class="main-section">
-  <!-- force the card to center and cap width on phones -->
-  <div class="docs-container prevalence" style="margin-inline:auto; max-width:720px;">
+  <div class="docs-container prevalence">
     <h2>Prevalence of Fieldwork Harassment and Assault</h2>
-    <!-- make the long link display short text; still links to the DOI -->
-    <p style="margin-inline:auto; text-wrap:balance; overflow-wrap:anywhere; word-break:break-word;">
-      A 2014 survey sampling &gt;650 anthropologists revealed high frequencies of harassment and assault, 
-      and low frequencies of awareness of reporting procedures (Clancy et&nbsp;al., 2014; 
+
+    <p class="wrap-long">
+      A 2014 survey sampling &gt;650 anthropologists revealed high frequencies of harassment and assault,
+      and low frequencies of awareness of reporting procedures (Clancy et&nbsp;al., 2014;
       <a href="https://doi.org/10.1371/journal.pone.0102172" target="_blank" rel="noopener">
         DOI: 10.1371/journal.pone.0102172
       </a>).
     </p>
 
-    <img 
-      src="project-2025-08-06_01-08_AM.png" 
-      alt="Infographic summarizing results from a 2014 study: 64% experienced sexual harassment, 21% experienced sexual assault, and 20% were aware of reporting mechanisms prior to the survey." 
+    <img
+      src="project-2025-08-06_01-08_AM.png"
+      alt="Infographic summarizing results from a 2014 study..."
       style="display:block; width:100%; max-width:520px; margin:1em auto 0; border-radius:12px; box-shadow:none;"
     />
   </div>
