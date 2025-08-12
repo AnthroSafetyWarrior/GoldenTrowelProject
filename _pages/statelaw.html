@@ -12,23 +12,23 @@ permalink: /statelaw.html
 
 /* Buttons */
 .accordion{
-  background:#633747; color:#fff; cursor:pointer;
+  background:#e8a084; color:#000; cursor:pointer;
   padding:.4em; border:none; text-align:center;
   font-family: Calibri, sans-serif; font-size:1.05rem; font-weight:bold;
   transition: background-color .2s ease; border-radius:6px;
 }
-.accordion:hover{ background:#e8a084; color:#000; }
-.accordion[aria-expanded="true"]{ background:#e8a084; color:#000; border-bottom-left-radius:0; border-bottom-right-radius:0; }
+.accordion:hover{ background:#ffdc8f; color:#000; }
+.accordion[aria-expanded="true"]{ background:#633747; color:#fff; border-bottom-left-radius:0; border-bottom-right-radius:0; }
 
 .row-panel{
   grid-column:1 / -1;
-  background:#633747;                  /* purple background */
+  background:#e8a084;                  /* purple background */
   padding: .75rem;                      /* inner space for border gap */
   overflow-x:auto;
   -webkit-overflow-scrolling:touch;
   border-bottom-left-radius:6px; 
   border-bottom-right-radius:6px;
-  border: 3px solid #633747;            /* purple border frame */
+  border: 3px solid #e8a084;            /* purple border frame */
   box-sizing: border-box;               /* border counts inside width */
 }
 .row-panel[hidden]{ display:none; }
@@ -65,8 +65,8 @@ permalink: /statelaw.html
   overflow-wrap:anywhere;
 }
 .row-panel th{
-  background:#e8a084; 
-  color:#000;
+  background:#633747; 
+  color:#fff;
   text-align:center; 
   font-weight:bold;
 }
@@ -80,9 +80,35 @@ permalink: /statelaw.html
 .disclaimer{
   font-size:.98em; color:#fff; background:#c4551e;
   padding:.8em; max-width:100%;
-  border-radius:6px; border-left:5px solid #633747;
+  border-radius:6px; border-left:5px solid #e8a084;
   margin: 1.5em auto 2em;
 }
+
+/* Container that wraps the header + all state buttons */
+.state-section{
+  background:#633747;           /* purple backdrop */
+  color:#fff;
+  border-radius:16px;
+  padding: clamp(16px, 2.5vw, 28px);
+  margin: 0 auto 2rem;
+  max-width: 1100px;            /* match your site width */
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+
+/* keep content centered inside the section */
+.state-section .wrap{
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* header text stays readable on purple */
+.state-section .section-head{
+  text-align: center;
+  margin-bottom: clamp(10px, 2vw, 18px);
+}
+.state-section .section-head h2{ color:#fff; margin:0 0 .35em; }
+.state-section .section-head .lede{ color:#fff; margin:0 auto; max-width: 70ch; }
+
 </style>
 
 
