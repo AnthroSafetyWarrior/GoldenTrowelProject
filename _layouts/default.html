@@ -195,36 +195,83 @@ nav{
     <p>Practical tools. Powerful boundaries. Safer fieldwork.</p>
   </header>
 
-  <nav>
-    <div class="dropdown"><a href="index.html">Home</a></div>
+ /* --- Nav: single row, labels can wrap --- */
+nav{
+  background:#e8a084;
+  display:grid;
+  grid-template-columns: repeat(5, 1fr);          /* always five buttons in one row */
+  align-items: stretch;
+  gap: clamp(4px, 1vw, 12px);
+  padding: clamp(6px, 1vw, 10px);
+}
 
-    <div class="dropdown">
-      <a href="{{ site.baseurl }}/preparing.html">Preparing for Fieldwork</a>
-      <div class="dropdown-content">
-        <a href="#">Beginner Safety Checklist</a>
-      </div>
-    </div>
+/* each cell */
+.dropdown{
+  position: relative;
+}
 
-    <div class="dropdown">
-      <a href="{{ site.baseurl }}/reporting.html">Reporting & Resources</a>
-      <div class="dropdown-content">
-        <a href="{{ site.baseurl }}/statelaw.html">USA Laws by State</a>
-        <a href="{{ site.baseurl }}/internationallaw.html">International Laws by Country</a>
-        <a href="{{ site.baseurl }}/titleIX.html">Reporting to Title IX by University</a>
-        <a href="{{ site.baseurl }}/fundingethics.html">Reporting to Funders</a>
-      </div>
-    </div>
+/* button: centered, can wrap to two lines; font never exceeds desktop default */
+.dropdown > a{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
 
-    <div class="dropdown">
-      <a href="{{ site.baseurl }}/surveys.html">Anonymous Surveys</a>
-      <div class="dropdown-content">
-        <a href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank">Fieldwork Misconduct Survey</a>
-        <a href="https://forms.gle/9DjrMVNP2oUu1GDD8" target="_blank">Website Feedback Survey</a>
-      </div>
-    </div>
+  /* padding scales down on phones, not up on big screens */
+  padding: clamp(8px, 1.2vw, 10px) clamp(6px, 1vw, 12px);
 
-    <div class="dropdown"><a href="{{ site.baseurl }}/contact.html">Contact Us</a></div>
-  </nav>
+  /* font shrinks a touch on small screens, never larger than 1rem */
+  font-size: clamp(0.9rem, 1.1vw, 1rem);
+  font-weight: bold;
+
+  color:black;
+  text-decoration:none;
+  border-radius:6px;
+  line-height:1.15;
+
+  /* allow 2-line labels inside a single-row nav */
+  white-space: normal;        /* let text wrap */
+  min-height: 44px;           /* accessible tap target */
+}
+
+/* hover/focus */
+.dropdown:hover > a,
+.dropdown > a:focus-visible{
+  background:#633747;
+  color:#fff;
+}
+
+/* dropdown menu centers under its trigger and is at least as wide */
+.dropdown-content{
+  display:none;
+  position:absolute;
+  top:100%;
+  left:50%;
+  transform: translateX(-50%);
+  background:#e8a084;
+  min-width: max(220px, 100%);
+  z-index:10;
+  text-align:center;
+  padding:.25em 0;
+  border-radius:6px;
+}
+.dropdown:hover .dropdown-content,
+.dropdown:focus-within .dropdown-content{ display:block; }
+
+.dropdown-content a{
+  display:block;
+  padding:.55em 1em;
+  color:black;
+  text-decoration:none;
+}
+.dropdown-content a:hover,
+.dropdown-content a:focus-visible{ background:#633747; color:#fff; }
+
+/* ultra-narrow safeguard: if a device is <320px wide, allow tiny gap */
+@media (max-width: 320px){
+  nav{ gap: 4px; }
+}
+
 
   <main>
     {{ content }}
