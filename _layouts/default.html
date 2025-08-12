@@ -48,27 +48,71 @@
       text-align: center;
     }
 
-    /* --- Nav --- */
-    nav{
-      background-color: #e8a084;
-      padding: .2rem 0;
-      text-align: center;
-      display: flex; flex-wrap: wrap; justify-content: center;
-      gap: .25rem .75rem;
-    }
-    .dropdown{ position: relative; }
-    .dropdown > a{
-      display: block; padding: .55em 1em; margin: .25em 0;
-      color: black; text-decoration: none; font-weight: bold; border-radius: 6px;
-    }
-    .dropdown:hover > a, .dropdown > a:focus-visible{ background:#633747; color:#fff; }
-    .dropdown-content{
-      display:none; position:absolute; top:100%; left:0; background:#e8a084;
-      min-width:220px; z-index:10; text-align:center; padding:.25em 0; border-radius:6px;
-    }
-    .dropdown:hover .dropdown-content, .dropdown:focus-within .dropdown-content{ display:block; }
-    .dropdown-content a{ display:block; padding:.5em 1em; color:black; text-decoration:none; }
-    .dropdown-content a:hover, .dropdown-content a:focus-visible{ background:#633747; color:#fff; }
+    /* --- Nav (fluid, scalable) --- */
+nav{
+  background:#e8a084;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap: clamp(6px, 1vw, 18px) clamp(16px, 3vw, 40px); /* row/column gaps scale */
+  padding: clamp(6px, 1.2vw, 12px) 0;
+}
+
+/* Each item grows/shrinks with the viewport so they don't stack too early */
+.dropdown{
+  position:relative;
+  flex: 1 1 clamp(120px, 16vw, 240px);   /* min width on phones, wider on desktop */
+}
+
+/* Link text + padding scale with viewport */
+.dropdown > a{
+  display:block;
+  padding: clamp(8px, 1.2vw, 12px) clamp(12px, 2vw, 18px);
+  font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+  font-weight:bold;
+  color:black;
+  text-decoration:none;
+  border-radius:6px;
+  line-height:1.2;
+  white-space:nowrap;                     /* keeps labels on one line */
+}
+
+.dropdown:hover > a,
+.dropdown > a:focus-visible{
+  background:#633747;
+  color:#fff;
+}
+
+/* Dropdown panel centers under its trigger and never overflows */
+.dropdown-content{
+  display:none;
+  position:absolute;
+  top:100%;
+  left:50%;
+  transform: translateX(-50%);
+  background:#e8a084;
+  min-width: max(220px, 100%);           /* at least the width of the button */
+  z-index:10;
+  text-align:center;
+  padding:.25em 0;
+  border-radius:6px;
+}
+.dropdown:hover .dropdown-content,
+.dropdown:focus-within .dropdown-content{ display:block; }
+
+.dropdown-content a{
+  display:block;
+  padding:.55em 1em;
+  color:black;
+  text-decoration:none;
+}
+.dropdown-content a:hover,
+.dropdown-content a:focus-visible{ background:#633747; color:#fff; }
+
+/* Optional: on very narrow screens, allow two neat rows */
+@media (max-width: 420px){
+  .dropdown{ flex: 1 1 48%; }            /* two items per row on tiny phones */
+}
 
     /* --- Main wrapper --- */
     main{
