@@ -47,15 +47,16 @@
     nav{
       background:#e8a084;
       display:grid;
-      grid-template-columns: repeat(5, 1fr);   /* always one row, 5 columns */
-      align-items:stretch;
-      gap: clamp(4px, 1vw, 12px);
+      grid-template-columns: repeat(5, minmax(120px, 220px));
+      justify-content: center;                 /* center the five fixed-width columns */
+      align-items: stretch;
+      gap: clamp(4px, 0.6vw, 12px);           /* now this actually controls spacing */
       padding: clamp(6px, 1vw, 10px);
     }
     .dropdown{ position:relative; }
     .dropdown > a{
       display:flex; align-items:center; justify-content:center; text-align:center;
-      padding: clamp(8px, 1.2vw, 10px) clamp(6px, 1vw, 12px);
+      padding: clamp(6px, 1.2vw, 6px) clamp(6px, 1vw, 10px);
       font-size: clamp(0.9rem, 1.1vw, 1rem);   /* never bigger than ~16px */
       font-weight:bold; color:black; text-decoration:none;
       border-radius:6px; line-height:1.15;
@@ -66,12 +67,41 @@
 
     .dropdown-content{
       display:none; position:absolute; top:100%; left:50%; transform:translateX(-50%);
-      background:#e8a084; min-width:max(220px,100%); z-index:10; text-align:center;
+      background:#e8a084; min-width:max(220px,100%); z-index:10; text-align:center; 
+      font-weight:bold; font-size: clamp(0.9rem, 1.1vw, 1rem); 
       padding:.25em 0; border-radius:6px;
     }
-    .dropdown:hover .dropdown-content, .dropdown:focus-within .dropdown-content{ display:block; }
-    .dropdown-content a{ display:block; padding:.55em 1em; color:black; text-decoration:none; }
-    .dropdown-content a:hover, .dropdown-content a:focus-visible{ background:#633747; color:#fff; }
+
+
+/* panel sits below, same width as button, with the nav background visible */
+.dropdown-content {
+  display: none; position: absolute; top: 100%;
+  left: 0; transform: none; min-width:max(220px,100%); background: #e8a084; z-index: 10;
+  text-align: center; padding: .25em 0; border-radius: 0 0 6px 6px; 
+}
+
+/* show the panel */
+.dropdown:hover .dropdown-content,
+.dropdown:focus-within .dropdown-content {
+  display: block;
+}
+
+/* links inside dropdown — default state */
+.dropdown-content a {
+  display: block;
+  padding: .55em 1em;
+  color: black;
+  text-decoration: none;
+  border-radius: 6px; /* match nav buttons */
+  margin: 2px 6px;    /* lets the background show at sides */
+}
+
+/* hovered/focused link gets highlight with rounded corners */
+.dropdown-content a:hover,
+.dropdown-content a:focus-visible {
+  background: #633747;
+  color: #fff;
+}
 
     @media (max-width: 320px){ nav{ gap:4px; } }
 
@@ -117,7 +147,9 @@
     }
     .doc-card h3{ margin:.1em 0 .2em; }
     .doc-card p{ margin:.2em 0 .6em; }
-    .doc-card a{ margin-top:auto; align-self:center; background:#633747; color:#fff; text-decoration:none; padding:.5em 1em; border-radius:6px; display:inline-block; }
+    .doc-card a{ margin-top:auto; align-self:center; background:#633747; 
+              color:#fff; text-decoration:none; padding:.5em 1em; border-radius:6px; 
+              display:inline-block; }
     .doc-card a:hover{ background:#ffdc8f; color:#000; }
   </style>
   {% endif %}
