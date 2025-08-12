@@ -31,8 +31,8 @@ is_homepage: true
 
     <img
       src="project-2025-08-06_01-08_AM.png"
-      alt="Infographic summarizing results from a 2014 study..."
-      style="display:block; width:100%; max-width:520px; margin:1em auto 0; border-radius:12px; box-shadow:none;"
+      alt="Infographic summarizing results from a study surveying anthropologists about their experiences with sexual harassment and sexual assault during fieldwork, and their knowledge of reporting prpcesses (Clancy et al.,2014)"
+      style="display:block; width:100%;margin:1em auto 0; border-radius:12px; box-shadow:none;"
     />
   </div>
 </section>
