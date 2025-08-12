@@ -37,17 +37,6 @@ permalink: /statelaw.html
 .panel{ display:none; }
 
 
-/* ---- Callout ---- */
-.oneparty-caveat{
-  background:#ffdc8f;
-  padding:1rem 1.25rem;
-  margin:1.25rem auto;
-  max-width:100%;
-  text-align:left;
-  border-radius:12px;
-}
-.oneparty-caveat p, .oneparty-caveat ul, .oneparty-caveat li{ text-align:left; margin:.4em 0; }
-
 /* Table inside the accordion */
 .row-panel table{
   width:100%;
@@ -77,6 +66,29 @@ permalink: /statelaw.html
 /* Small screens: allow horizontal scroll only when needed */
 @media (max-width: 700px){
   .row-panel table{ min-width: 640px; }
+}
+
+.oneparty-caveat {
+  background: #ffdc8f;
+  padding: clamp(0.75rem, 2vw, 1.25rem) clamp(1rem, 2.5vw, 1.5rem);
+  margin: clamp(1rem, 2vw, 1.25rem) auto;
+  max-width: 100%;
+  text-align: left;
+  border-radius: 12px;
+}
+
+.oneparty-caveat h3 {
+  font-size: clamp(1.2rem, 2.5vw, 1.9rem);
+  margin-top: 0;
+}
+
+.oneparty-caveat p,
+.oneparty-caveat ul,
+.oneparty-caveat li {
+  font-size: clamp(0.9rem, 1.1vw, 1rem);
+  text-align: left;
+  margin: 0.4em 0;
+  line-height: 1.4;
 }
 
 /* Disclaimer stays full-width above/below */
@@ -121,7 +133,7 @@ permalink: /statelaw.html
 </div>
 
 <div class="oneparty-caveat" role="region" aria-labelledby="opc-caveats-title">
-  <h3 id="opc-caveats-title"; style="font-size:1.9em;">Important Caveats to One-Party Consent States</h3>
+  <h3 id="opc-caveats-title"; style="font-size:1.9em;">Important Caveat to One-Party Consent States</h3>
     <p>Even in states where one-party consent is the general rule, the law often includes a key limitation: if the conversation takes place in a setting where there is a “reasonable expectation of privacy", all-party consent may be required.</p>
 <p>This expectation of privacy can apply even in publicly funded or accessible spaces—such as a professor’s office, a museum curator’s lab, or a research space—if the circumstances suggest the conversation is intended to be private (e.g., closed doors, no other people present).</p><br>
 
