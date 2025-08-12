@@ -5,39 +5,31 @@ permalink: /statelaw.html
 ---
 
 <style>
-/* Grid stays 5-up */
-/* Wrapper for spacing between rows */
-.accordion-grid { display: grid; gap: .5rem;  margin-bottom: 3rem;}
-
-/* Each dynamic row becomes its own grid with N columns */
-.state-row{
-  display:grid;
-  grid-template-columns: repeat(5, 1fr);  /* default, JS will also manage */
-  gap:.5rem;
-  align-items:start;
-}
-
+/* ---- Accordion layout ---- */
+.accordion-grid{ display:grid; gap:.5rem; margin-bottom:3rem; }
+.state-row{ display:grid; grid-template-columns:repeat(5,1fr); gap:.5rem; align-items:start; }
 .state{ display:flex; flex-direction:column; }
 
-/* Button look */
+/* Buttons */
 .accordion{
-  background:#633747; color:white; cursor:pointer;
+  background:#633747; color:#fff; cursor:pointer;
   padding:.4em; border:none; text-align:center;
-  font-family: Calibri, sans-serif; font-size:1.05rem; font-weight: bold;
+  font-family: Calibri, sans-serif; font-size:1.05rem; font-weight:bold;
   transition: background-color .2s ease; border-radius:6px;
 }
-.accordion:hover{ background:#e8a084; color:black; }
-.accordion[aria-expanded="true"]{
-  background:#e8a084; color:black;
-  border-bottom-left-radius:0; border-bottom-right-radius:0;
-}
+.accordion:hover{ background:#e8a084; color:#000; }
+.accordion[aria-expanded="true"]{ background:#e8a084; color:#000; border-bottom-left-radius:0; border-bottom-right-radius:0; }
 
-/* Full-width slot below the buttons of that row */
+/* Panel spans the full row */
 .row-panel{
-  grid-column: 1 / -1;
+  grid-column:1 / -1;
   background:#633747;
-  padding:0 1em 1em;
-  border-bottom-left-radius:6px; border-bottom-right-radius:6px; border-bottom-radius:6px solid #633747;
+
+  /* KEY FIXES */
+  padding: 0.25rem 0;              /* remove big side padding so table aligns */
+  overflow-x:auto;                  /* allow horizontal scroll on narrow screens */
+  -webkit-overflow-scrolling:touch; /* smooth scroll on iOS */
+  border-bottom-left-radius:6px; border-bottom-right-radius:6px;
 }
 .row-panel[hidden]{ display:none; }
 
@@ -45,75 +37,60 @@ permalink: /statelaw.html
 .panel{ display:none; }
 
 
-/* One-Party Caveat callout box */
-.oneparty-caveat {
-  background-color: #ffdc8f;
-  padding: 2em;
-  margin: 2em auto;
-  max-width: 100%;
-  text-align: left;       /* centers the heading */
-  border-radius: 12px;
+/* ---- Callout ---- */
+.oneparty-caveat{
+  background:#ffdc8f;
+  padding:1rem 1.25rem;
+  margin:1.25rem auto;
+  max-width:100%;
+  text-align:left;
+  border-radius:12px;
+}
+.oneparty-caveat p, .oneparty-caveat ul, .oneparty-caveat li{ text-align:left; margin:.4em 0; }
+
+/* ---- Table inside the accordion ---- */
+.row-panel table{
+  width:100%;
+  margin: .6em 0 1em;   /* center not needed; fill the panel */
+  border-collapse:collapse;
+  table-layout:fixed;    /* prevents overflow from long content */
+  background:#eae6df;
+}
+.row-panel th, .row-panel td{
+  padding:.5em .6em;
+  border:1px solid #ccc;
+  text-align:left; vertical-align:top;
+  white-space:normal;
+  overflow-wrap:anywhere;  /* break long words/phrases */
+}
+.row-panel th{
+  background:#e8a084; color:#000;
+  text-align:center; font-weight:bold;
 }
 
-/* Make paragraph/list text readable (left aligned) inside the box */
-.oneparty-caveat p,
-.oneparty-caveat ul,
-.oneparty-caveat li {
-  text-align: left;
-  margin: 0.4em 0;
+/* Small screens: if 4 columns don't fit, let the table scroll */
+@media (max-width: 700px){
+  .row-panel table{ min-width: 640px; }  /* triggers horizontal scroll only inside panel */
 }
 
-/* Slightly narrower on phones */
-@media (max-width: 700px) {
-  .oneparty-caveat { max-width: 95%; }
-}
+/* Responsive columns for the button grid (unchanged from your JS logic) */
+@media (max-width: 1100px){ .state-row{ grid-template-columns:repeat(4,1fr); } }
+@media (max-width: 900px){  .state-row{ grid-template-columns:repeat(3,1fr); } }
+@media (max-width: 650px){  .state-row{ grid-template-columns:repeat(2,1fr); } }
 
-.accordion:hover {
-  background-color: #e8a084;
-  color: black;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 0.8em;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-th, td {
-  padding: 0.4em;
-  border: 1px solid #ccc;
-  text-align: left;
-  vertical-align: top; 
-  background-color: #eae6dfff;
-}
-
-th {
-  background-color: #e8a084;
-  color: black;
-  padding: 0.5em;
-  text-align: center;
-}
-
-.disclaimer {
-  font-size: 0.98em;
-  color: white;
-  background-color: #c4551eff;
-  padding: 0.8em;
-  max-width: 100%;
-  border-radius:6px;
-  border-left: 5px solid #633747ff;
-  margin-bottom: 3em;
-  margin-left: auto;
-  margin-right: auto;
+/* Disclaimer stays full-width above/below */
+.disclaimer{
+  font-size:.98em; color:#fff; background:#c4551e;
+  padding:.8em; max-width:100%;
+  border-radius:6px; border-left:5px solid #633747;
+  margin: 1.5em auto 2em;
 }
 </style>
 
 
 <div class="page-intro">
 <h2>Know Your Defensive and Offensive Documentation Rights by State</h2>
-<p style="margin-top: 1.5em;">This resource provides state-by-state information about laws related to recording, consent for photographs/videos/audio, legal documentation rights, and other relevant protections during fieldwork.</p>
+<p style="margin-top: 1.5em;">This resource provides state-by-state information about laws related to recording, consent for audio, legal documentation rights, and other relevant protections during fieldwork.</p>
 </div>
 
 <div class="oneparty-caveat" role="region" aria-labelledby="opc-caveats-title">
