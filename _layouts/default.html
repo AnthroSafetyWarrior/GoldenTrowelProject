@@ -5,164 +5,164 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{{ page.title | default: "Research With Consent" }}</title>
   <style>
-    body {
-      font-family: Calibri, sans-serif;
-      background-color: #eae6df;
-      margin: 0;
-      padding: 0;
-    }
+    /* --- Base / global --- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
 
-    h1 {
-      font-size: 2.4em;text-align:center;
-    }
+body {
+  font-family: Calibri, sans-serif;
+  background-color: #eae6df;
+  margin: 0;
+  padding: 0;
+}
 
-    h2 {
-      font-size: 2em; text-align:center;
-    }
+/* Responsive type that won’t overflow on phones */
+h1 { font-size: clamp(1.8rem, 5.5vw, 2.4rem); text-align: center; margin: 0.2em 0; }
+h2 { font-size: clamp(1.4rem, 4.5vw, 2rem);   text-align: center; margin: 0.3em 0; }
+h3 { font-size: clamp(1.2rem, 4vw, 1.6rem);   text-align: center; margin: 0.4em 0; }
+p  { font-size: clamp(1rem, 2.8vw, 1.2rem);   margin: 0.6em 0; }
 
-    h3 {
-      font-size: 1.6em;text-align:center;
-    }
+/* Make images and embeds scale down on mobile */
+img, svg, video { max-width: 100%; height: auto; display: block; }
 
-    p {
-      font-size: 1.2em;
-    }
+/* Safe word wrapping for long URLs (fixes the DOI overflow) */
+main, .docs-container, .doc-card, a { overflow-wrap: anywhere; word-break: break-word; }
 
-    header {
-      background-color: #633747;
-      color: white;
-      padding: 1.2em;
-      text-align: center;
-    }
-
-    /* Make each nav link fill its button area */
-nav { 
-  background-color: #e8a084;
-  padding: 0;                /* remove bar padding so buttons control their own height */
+header {
+  background-color: #633747;
+  color: white;
+  padding: clamp(0.8em, 3vw, 1.2em);
   text-align: center;
+}
+
+/* --- Nav --- */
+nav {
+  background-color: #e8a084;
+  padding: 0.2rem 0;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;            /* lets items wrap on small screens */
+  justify-content: center;
+  gap: .25rem .75rem;         /* row / column gaps */
 }
 
 .dropdown {
-  display: inline-block;
   position: relative;
 }
 
+/* Each top-level link becomes a tidy pill/button */
 .dropdown > a {
-  display: block;            /* let the link be the whole button */
-  padding: 0.6em 1em;        /* controls button height */
-  margin: 0.4em auto;                 /* no gaps around the button */
+  display: block;
+  padding: .55em 1em;
+  margin: .25em 0;
   color: black;
   text-decoration: none;
   font-weight: bold;
+  border-radius: 6px;
 }
 
-.dropdown:hover > a {
-  background-color: #633747; /* full button highlight on hover */
-  color: white;
-}
-
-/* Position the dropdown panel directly below the button */
-.dropdown-content {
-  display: none;
-  position: absolute;
-  top: 100%;                 /* start right under the button */
-  left: 0;
-  background-color: #e8a084;
-  min-width: 220px;
-  z-index: 1;
- text-decoration: none;
-  text-align: center;
-  padding: 0em 0;          /* optional: vertical breathing room */
-}
-
-/* Show menu on hover */
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-/* Style items in the dropdown */
-.dropdown-content a {
-  display: block;
-  padding: 0.5em 1em;
-  color: black;
- text-decoration: none;
-}
-
-.dropdown-content a:hover {
+.dropdown:hover > a,
+.dropdown > a:focus-visible {
   background-color: #633747;
   color: white;
 }
 
+/* Dropdown panel sits below its trigger */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #e8a084;
+  min-width: 220px;
+  z-index: 10;
+  text-align: center;
+  padding: .25em 0;
+  border-radius: 6px;
+}
 
-  main {
-      padding-top: 2em;
-      padding-bottom: 0.7em;
-      padding-left: 1em;
-      padding-right: 1em;
-      text-align: center;
-      max-width: 75%;
-      margin: 0 auto;
-    }
+/* Open on hover (desktop) or keyboard focus */
+.dropdown:hover .dropdown-content,
+.dropdown:focus-within .dropdown-content { display: block; }
+
+.dropdown-content a {
+  display: block;
+  padding: 0.5em 1em;
+  color: black;
+  text-decoration: none;
+  border-radius: 0;
+}
+.dropdown-content a:hover,
+.dropdown-content a:focus-visible {
+  background-color: #633747;
+  color: white;
+}
+
+/* --- Main content container --- */
+main {
+  /* Take full width on phones with comfy side padding, cap width on desktop */
+  width: min(100%, 1100px);
+  margin-inline: auto;
+  padding: clamp(16px, 4vw, 32px);
+  padding-top: clamp(18px, 4vw, 28px);
+  padding-bottom: clamp(10px, 3vw, 20px);
+  text-align: center;
+}
+
 
 </style>
 
     {% if page.is_homepage %}
 <style>    
 /* --- Home Page Specific Styles --- */
-    
-    .docs-container {
-      padding: 2em;
-      margin: 2em auto;
-      width: 90%;
-      border-radius: 12px;
-    }
+.docs-container {
+  padding: clamp(16px, 4vw, 32px);
+  margin: clamp(16px, 4vw, 32px) auto;
+  width: min(100%, 960px);
+  border-radius: 12px;
+}
 
-    .docs-container.prevalence {
-      background-color: #ffdc8f;
-    }
+.docs-container.prevalence { background-color: #ffdc8f; }
+.docs-container.safety-plan { background-color: #633747; color: white; }
 
-    .docs-container.safety-plan {
-      background-color: #633747;
-      color: white;
-    }
+.doc-links {
+  display: grid;
+  gap: clamp(12px, 3vw, 24px);
+  grid-template-columns: 1fr;   /* 1-up on phones */
+  justify-items: center;
+  margin-top: 1.2em;
+}
+@media (min-width: 720px) {
+  .doc-links { grid-template-columns: repeat(2, 1fr); }  /* 2-up on tablets */
+}
+@media (min-width: 1024px) {
+  .doc-links { grid-template-columns: repeat(3, 1fr); }  /* 3-up on desktop */
+}
 
-    .doc-links {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2em;
-      margin-top: 2em;
-    }
+.doc-card {
+  width: 100%;
+  max-width: 400px;
+  background-color: #e8a084;
+  color: black;
+  border-radius: 10px;
+  padding: clamp(14px, 3.5vw, 24px);
+  box-shadow: 0 2px 6px rgba(0,0,0,.1);
+  text-align: center;
+}
 
-    .doc-card {
-      flex: 1 1 300px;
-      max-width: 400px;
-      background-color: #e8a084;
-      color: black;
-      border-radius: 10px;
-      padding: 1.5em;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      text-align: center;
-    }
+.doc-card h3 { margin-top: 0; }
 
-    .doc-card h3 {
-      margin-top: 0;
-    }
-
-    .doc-card a {
-      display: inline-block;
-      margin-top: 1em;
-      background-color: #633747;
-      color: white;
-      text-decoration: none;
-      padding: 0.5em 1em;
-      border-radius: 6px;
-    }
-
-    .doc-card a:hover {
-      background-color: #ffdc8f;
-      color: black;
-    }
+.doc-card a {
+  display: inline-block;
+  margin-top: 1em;
+  background-color: #633747;
+  color: white;
+  text-decoration: none;
+  padding: 0.5em 1em;
+  border-radius: 6px;
+}
+.doc-card a:hover { background-color: #ffdc8f; color: black; }
 </style>    
 {% endif %}
 </head>
