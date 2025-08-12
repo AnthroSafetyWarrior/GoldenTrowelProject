@@ -26,20 +26,15 @@
     /* Only force-wrap when needed */
     .wrap-long { overflow-wrap:anywhere; word-break:break-word; }
 
-    /* Section layout + comfy (smaller) vertical rhythm */
+    /* Section layout */
     .main-section{
       max-width: 1100px;
       margin-inline: auto;
-      padding-block: clamp(12px, 3vw, 28px); /* was 20–56; trimmed to reduce gaps */
+      padding-block: clamp(12px, 3vw, 28px);
     }
-    .main-section p{
-      max-width: 75ch;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    /* prevent extra space from first/last child margins */
-    .main-section > :first-child{ margin-top: 0; }
-    .main-section > :last-child { margin-bottom: 0; }
+    .main-section p{ max-width: 75ch; margin-left:auto; margin-right:auto; }
+    .main-section > :first-child{ margin-top:0; }
+    .main-section > :last-child { margin-bottom:0; }
 
     header {
       background-color: #633747;
@@ -48,145 +43,84 @@
       text-align: center;
     }
 
-    /* --- Nav (fluid, scalable) --- */
-nav{
-  background:#e8a084;
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap: clamp(6px, 1vw, 18px) clamp(16px, 3vw, 40px); /* row/column gaps scale */
-  padding: clamp(6px, 1.2vw, 12px) 0;
-}
+    /* --- Nav: single row, labels can wrap (no oversized desktop) --- */
+    nav{
+      background:#e8a084;
+      display:grid;
+      grid-template-columns: repeat(5, 1fr);   /* always one row, 5 columns */
+      align-items:stretch;
+      gap: clamp(4px, 1vw, 12px);
+      padding: clamp(6px, 1vw, 10px);
+    }
+    .dropdown{ position:relative; }
+    .dropdown > a{
+      display:flex; align-items:center; justify-content:center; text-align:center;
+      padding: clamp(8px, 1.2vw, 10px) clamp(6px, 1vw, 12px);
+      font-size: clamp(0.9rem, 1.1vw, 1rem);   /* never bigger than ~16px */
+      font-weight:bold; color:black; text-decoration:none;
+      border-radius:6px; line-height:1.15;
+      white-space: normal;                     /* allow 2-line labels */
+      min-height: 44px;                        /* tap target */
+    }
+    .dropdown:hover > a, .dropdown > a:focus-visible{ background:#633747; color:#fff; }
 
-/* Each item grows/shrinks with the viewport so they don't stack too early */
-.dropdown{
-  position:relative;
-  flex: 1 1 clamp(120px, 16vw, 240px);   /* min width on phones, wider on desktop */
-}
+    .dropdown-content{
+      display:none; position:absolute; top:100%; left:50%; transform:translateX(-50%);
+      background:#e8a084; min-width:max(220px,100%); z-index:10; text-align:center;
+      padding:.25em 0; border-radius:6px;
+    }
+    .dropdown:hover .dropdown-content, .dropdown:focus-within .dropdown-content{ display:block; }
+    .dropdown-content a{ display:block; padding:.55em 1em; color:black; text-decoration:none; }
+    .dropdown-content a:hover, .dropdown-content a:focus-visible{ background:#633747; color:#fff; }
 
-/* Link text + padding scale with viewport */
-.dropdown > a{
-  display:block;
-  padding: clamp(8px, 1.2vw, 12px) clamp(12px, 2vw, 18px);
-  font-size: clamp(0.95rem, 1.6vw, 1.15rem);
-  font-weight:bold;
-  color:black;
-  text-decoration:none;
-  border-radius:6px;
-  line-height:1.2;
-  white-space:nowrap;                     /* keeps labels on one line */
-}
-
-.dropdown:hover > a,
-.dropdown > a:focus-visible{
-  background:#633747;
-  color:#fff;
-}
-
-/* Dropdown panel centers under its trigger and never overflows */
-.dropdown-content{
-  display:none;
-  position:absolute;
-  top:100%;
-  left:50%;
-  transform: translateX(-50%);
-  background:#e8a084;
-  min-width: max(220px, 100%);           /* at least the width of the button */
-  z-index:10;
-  text-align:center;
-  padding:.25em 0;
-  border-radius:6px;
-}
-.dropdown:hover .dropdown-content,
-.dropdown:focus-within .dropdown-content{ display:block; }
-
-.dropdown-content a{
-  display:block;
-  padding:.55em 1em;
-  color:black;
-  text-decoration:none;
-}
-.dropdown-content a:hover,
-.dropdown-content a:focus-visible{ background:#633747; color:#fff; }
-
-/* Optional: on very narrow screens, allow two neat rows */
-@media (max-width: 420px){
-  .dropdown{ flex: 1 1 48%; }            /* two items per row on tiny phones */
-}
+    @media (max-width: 320px){ nav{ gap:4px; } }
 
     /* --- Main wrapper --- */
     main{
       width: min(100%, 1100px);
       margin-inline: auto;
-      padding: clamp(16px, 4vw, 28px);  /* slightly smaller bottom padding */
+      padding: clamp(16px, 4vw, 28px);
       text-align: center;
     }
   </style>
 
-{% if page.is_homepage %}
-<style>
-  /* --- Home Page Specific --- */
+  {% if page.is_homepage %}
+  <style>
+    /* --- Home Page Specific --- */
+    .main-section{ padding-block: clamp(10px, 2vw, 18px); }
+    .main-section > .docs-container{ margin: clamp(6px, 1vw, 10px) auto; }
 
-  /* Pull sections a little closer together on home */
-  .main-section{ padding-block: clamp(10px, 2vw, 18px); }
-  .main-section > .docs-container{ margin: clamp(6px, 1vw, 10px) auto; }
+    .docs-container{
+      width: min(100%, 1000px);
+      padding: clamp(12px, 2.2vw, 18px);
+      border-radius: 16px;
+    }
+    .docs-container > :first-child{ margin-top:0; }
+    .docs-container > :last-child { margin-bottom:0; }
 
-  /* Cards (yellow + purple) — same width so edges align */
-  .docs-container{
-    width: min(100%, 1000px);          /* match both sections */
-    padding: clamp(12px, 2.2vw, 18px); /* slightly tighter */
-    border-radius: 16px;
-  }
-  .docs-container > :first-child{ margin-top: 0; }
-  .docs-container > :last-child { margin-bottom: 0; }
+    .docs-container.prevalence{ background:#ffdc8f; }
+    .docs-container.safety-plan{ background:#633747; color:#fff; }
+    .docs-container.safety-plan h2{ margin:.2em 0 .3em; }
+    .docs-container.safety-plan p{ margin:.2em auto .8em; max-width:72ch; }
 
-  .docs-container.prevalence{ background:#ffdc8f; }
-  .docs-container.safety-plan{ background:#633747; color:#fff; }
+    .doc-links{
+      display:grid; gap: clamp(10px, 2vw, 18px);
+      grid-template-columns: 1fr; justify-items:center; margin-top:.5em;
+    }
+    @media (min-width:720px){  .doc-links{ grid-template-columns: repeat(2,1fr); } }
+    @media (min-width:1024px){ .doc-links{ grid-template-columns: repeat(2,1fr); } }
 
-  /* Tighter heading/copy spacing inside the purple block */
-  .docs-container.safety-plan h2{ margin: .2em 0 .3em; }
-  .docs-container.safety-plan p{ margin: .2em auto .8em; max-width: 72ch; }
-
-  /* Grid of cards */
-  .doc-links{
-    display:grid;
-    gap: clamp(10px, 2vw, 18px);
-    grid-template-columns: 1fr;
-    justify-items: center;
-    margin-top: .5em;
-  }
-  @media (min-width:720px){  .doc-links{ grid-template-columns: repeat(2,1fr); } }
-  @media (min-width:1024px){ .doc-links{ grid-template-columns: repeat(2,1fr); } } 
-/* keep 2-up, nicer balance */
-
-  /* Cards equal height with button pinned low */
-  .doc-card{
-    width:100%;
-    max-width: 420px;
-    background:#e8a084; color:#000;
-    border-radius:10px;
-    padding: clamp(12px, 2.2vw, 18px);
-    box-shadow: 0 2px 6px rgba(0,0,0,.08);
-    text-align:center;
-
-    display:flex;
-    flex-direction:column;
-    gap:.6em;                 /* consistent inner rhythm */
-  }
-  .doc-card h3{ margin:.1em 0 .2em; }
-  .doc-card p{ margin:.2em 0 .6em; }
-  .doc-card a{
-    margin-top:auto;          /* pushes button to the bottom */
-    align-self:center;
-    background:#633747; color:#fff; text-decoration:none;
-    padding:.5em 1em; border-radius:6px;
-    display:inline-block;
-  }
-  .doc-card a:hover{ background:#ffdc8f; color:#000; }
-</style>
-{% endif %}
-
-
+    .doc-card{
+      width:100%; max-width:420px; background:#e8a084; color:#000; border-radius:10px;
+      padding: clamp(12px, 2.2vw, 18px); box-shadow:0 2px 6px rgba(0,0,0,.08);
+      text-align:center; display:flex; flex-direction:column; gap:.6em;
+    }
+    .doc-card h3{ margin:.1em 0 .2em; }
+    .doc-card p{ margin:.2em 0 .6em; }
+    .doc-card a{ margin-top:auto; align-self:center; background:#633747; color:#fff; text-decoration:none; padding:.5em 1em; border-radius:6px; display:inline-block; }
+    .doc-card a:hover{ background:#ffdc8f; color:#000; }
+  </style>
+  {% endif %}
 </head>
 
 <body>
@@ -195,83 +129,36 @@ nav{
     <p>Practical tools. Powerful boundaries. Safer fieldwork.</p>
   </header>
 
- /* --- Nav: single row, labels can wrap --- */
-nav{
-  background:#e8a084;
-  display:grid;
-  grid-template-columns: repeat(5, 1fr);          /* always five buttons in one row */
-  align-items: stretch;
-  gap: clamp(4px, 1vw, 12px);
-  padding: clamp(6px, 1vw, 10px);
-}
+  <nav>
+    <div class="dropdown"><a href="index.html">Home</a></div>
 
-/* each cell */
-.dropdown{
-  position: relative;
-}
+    <div class="dropdown">
+      <a href="{{ site.baseurl }}/preparing.html">Preparing for Fieldwork</a>
+      <div class="dropdown-content">
+        <a href="#">Beginner Safety Checklist</a>
+      </div>
+    </div>
 
-/* button: centered, can wrap to two lines; font never exceeds desktop default */
-.dropdown > a{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
+    <div class="dropdown">
+      <a href="{{ site.baseurl }}/reporting.html">Reporting & Resources</a>
+      <div class="dropdown-content">
+        <a href="{{ site.baseurl }}/statelaw.html">USA Laws by State</a>
+        <a href="{{ site.baseurl }}/internationallaw.html">International Laws by Country</a>
+        <a href="{{ site.baseurl }}/titleIX.html">Reporting to Title IX by University</a>
+        <a href="{{ site.baseurl }}/fundingethics.html">Reporting to Funders</a>
+      </div>
+    </div>
 
-  /* padding scales down on phones, not up on big screens */
-  padding: clamp(8px, 1.2vw, 10px) clamp(6px, 1vw, 12px);
+    <div class="dropdown">
+      <a href="{{ site.baseurl }}/surveys.html">Anonymous Surveys</a>
+      <div class="dropdown-content">
+        <a href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank">Fieldwork Misconduct Survey</a>
+        <a href="https://forms.gle/9DjrMVNP2oUu1GDD8" target="_blank">Website Feedback Survey</a>
+      </div>
+    </div>
 
-  /* font shrinks a touch on small screens, never larger than 1rem */
-  font-size: clamp(0.9rem, 1.1vw, 1rem);
-  font-weight: bold;
-
-  color:black;
-  text-decoration:none;
-  border-radius:6px;
-  line-height:1.15;
-
-  /* allow 2-line labels inside a single-row nav */
-  white-space: normal;        /* let text wrap */
-  min-height: 44px;           /* accessible tap target */
-}
-
-/* hover/focus */
-.dropdown:hover > a,
-.dropdown > a:focus-visible{
-  background:#633747;
-  color:#fff;
-}
-
-/* dropdown menu centers under its trigger and is at least as wide */
-.dropdown-content{
-  display:none;
-  position:absolute;
-  top:100%;
-  left:50%;
-  transform: translateX(-50%);
-  background:#e8a084;
-  min-width: max(220px, 100%);
-  z-index:10;
-  text-align:center;
-  padding:.25em 0;
-  border-radius:6px;
-}
-.dropdown:hover .dropdown-content,
-.dropdown:focus-within .dropdown-content{ display:block; }
-
-.dropdown-content a{
-  display:block;
-  padding:.55em 1em;
-  color:black;
-  text-decoration:none;
-}
-.dropdown-content a:hover,
-.dropdown-content a:focus-visible{ background:#633747; color:#fff; }
-
-/* ultra-narrow safeguard: if a device is <320px wide, allow tiny gap */
-@media (max-width: 320px){
-  nav{ gap: 4px; }
-}
-
+    <div class="dropdown"><a href="{{ site.baseurl }}/contact.html">Contact Us</a></div>
+  </nav>
 
   <main>
     {{ content }}
