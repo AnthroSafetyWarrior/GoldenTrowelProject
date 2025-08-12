@@ -79,63 +79,68 @@
     }
   </style>
 
- {% if page.is_homepage %}
+{% if page.is_homepage %}
 <style>
   /* --- Home Page Specific --- */
 
-  /* Tighter spacing between the yellow + purple cards */
-  .main-section{ padding-block: clamp(10px, 2.2vw, 22px); } /* slightly reduced for home */
-  .main-section > .docs-container{
-    margin: clamp(6px, 1vw, 12px) auto;   /* was up to 20px */
-  }
+  /* Pull sections a little closer together on home */
+  .main-section{ padding-block: clamp(10px, 2vw, 18px); }
+  .main-section > .docs-container{ margin: clamp(6px, 1vw, 10px) auto; }
 
-  /* Trim inner margins so card headings/paragraphs don't add extra top/bottom space */
-  .docs-container > :first-child{ margin-top: 0; }
-  .docs-container > :last-child { margin-bottom: 0; }
-
-  /* Cards */
+  /* Cards (yellow + purple) — same width so edges align */
   .docs-container{
-    padding: clamp(12px, 2.6vw, 20px);    /* a bit tighter */
-    width: min(100%, 960px);
+    width: min(100%, 1000px);          /* match both sections */
+    padding: clamp(12px, 2.2vw, 18px); /* slightly tighter */
     border-radius: 16px;
   }
-  @media (min-width:1024px){
-    .docs-container.prevalence{ width: min(100%, 1000px); }
-  }
+  .docs-container > :first-child{ margin-top: 0; }
+  .docs-container > :last-child { margin-bottom: 0; }
 
   .docs-container.prevalence{ background:#ffdc8f; }
   .docs-container.safety-plan{ background:#633747; color:#fff; }
 
-  /* “Build your…” grid */
+  /* Tighter heading/copy spacing inside the purple block */
+  .docs-container.safety-plan h2{ margin: .2em 0 .3em; }
+  .docs-container.safety-plan p{ margin: .2em auto .8em; max-width: 72ch; }
+
+  /* Grid of cards */
   .doc-links{
     display:grid;
-    gap: clamp(10px, 2vw, 18px);          /* slightly tighter */
+    gap: clamp(10px, 2vw, 18px);
     grid-template-columns: 1fr;
     justify-items: center;
-    margin-top: .5em;                     /* was .8em */
+    margin-top: .5em;
   }
   @media (min-width:720px){  .doc-links{ grid-template-columns: repeat(2,1fr); } }
-  @media (min-width:1024px){ .doc-links{ grid-template-columns: repeat(3,1fr); } }
+  @media (min-width:1024px){ .doc-links{ grid-template-columns: repeat(2,1fr); } } /* keep 2-up, nicer balance */
 
+  /* Cards equal height with button pinned low */
   .doc-card{
     width:100%;
-    max-width:400px;
+    max-width: 420px;
     background:#e8a084; color:#000;
     border-radius:10px;
-    padding: clamp(12px, 2.6vw, 20px);
-    box-shadow: 0 2px 6px rgba(0,0,0,.1);
+    padding: clamp(12px, 2.2vw, 18px);
+    box-shadow: 0 2px 6px rgba(0,0,0,.08);
     text-align:center;
+
+    display:flex;
+    flex-direction:column;
+    gap:.6em;                 /* consistent inner rhythm */
   }
-  .doc-card h3{ margin-top:0; }
+  .doc-card h3{ margin:.1em 0 .2em; }
+  .doc-card p{ margin:.2em 0 .6em; }
   .doc-card a{
-    display:inline-block;
-    margin-top:.7em;
+    margin-top:auto;          /* pushes button to the bottom */
+    align-self:center;
     background:#633747; color:#fff; text-decoration:none;
     padding:.5em 1em; border-radius:6px;
+    display:inline-block;
   }
   .doc-card a:hover{ background:#ffdc8f; color:#000; }
 </style>
 {% endif %}
+
 
 </head>
 
