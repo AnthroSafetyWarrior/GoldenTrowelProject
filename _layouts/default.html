@@ -50,13 +50,13 @@
       grid-template-columns: repeat(5, minmax(60px, 220px));
       justify-content: center;                 /* center the five fixed-width columns */
       align-items: stretch;
-      gap: clamp(6px, 0.7vw, 6px);           /* now this actually controls spacing */
+      gap: clamp(6px, 0.6vw, 6px);           /* now this actually controls spacing */
       padding: clamp(6px, 1vw, 10px);
     }
     .dropdown{ position:relative; }
     .dropdown > a{
       display:flex; align-items:center; justify-content:center; text-align:center;
-      padding: clamp(6px, 0.7vw, 6px) clamp(5px, 0.7vw, 10px);
+      padding: clamp(6px, 1vw, 6px) clamp(6px, 1vw, 10px);
       font-size: clamp(0.9rem, 1vw, 1rem);   /* never bigger than ~16px */
       font-weight:bold; color:black; text-decoration:none;
       border-radius:6px; line-height:1.4;
@@ -66,7 +66,7 @@
     .dropdown:hover > a, .dropdown > a:focus-visible{ background:#633747; color:#fff; }
 
     .dropdown-content{
-      display:none; position:absolute; top:50%; left:50%; transform:translateX(-50%);
+      display:none; position:absolute; top:100%; left:50%; transform:translateX(-50%);
       background:#e8a084; min-width:max(220px,100%); z-index:10; text-align:center; 
       font-weight:bold; font-size: clamp(0.9rem, 1vw, 1rem); 
       padding:.25em 0; border-radius:6px;
@@ -82,7 +82,7 @@
 /* links inside dropdown — default state */
 .dropdown-content a {
   display: block;
-  padding: .55em .55em;
+  padding: .55em .7em;
   color: black;
 line-height:2;
   text-decoration: none;
