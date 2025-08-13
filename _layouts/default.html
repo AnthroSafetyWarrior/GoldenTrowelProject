@@ -67,18 +67,11 @@
 
     .dropdown-content{
       display:none; position:absolute; top:100%; left:50%; transform:translateX(-50%);
-      background:#e8a084; min-width:max(200px,100%); z-index:10; text-align:center; 
+      background:#e8a084; min-width:max(220px,100%); z-index:10; text-align:center; 
       font-weight:bold; font-size: clamp(0.9rem, 1.1vw, 1rem); 
       padding:.25em 0; border-radius:6px;
     }
 
-
-/* panel sits below, same width as button, with the nav background visible */
-.dropdown-content {
-  display: none; position: absolute; top: 100%;
-  left: 0; transform: none; min-width:max(200px,100%); background: #e8a084; z-index: 10;
-  text-align: center; padding: .25em 0; border-radius: 0 0 6px 6px; 
-}
 
 /* show the panel */
 .dropdown:hover .dropdown-content,
