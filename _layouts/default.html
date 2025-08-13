@@ -43,86 +43,77 @@
       text-align: center;
     }
 
-    /* --- Nav: single row, labels can wrap (no oversized desktop) --- */
-/* --- Nav: responsive grid that wraps --- */
+/* --- Nav: controlled columns so we stay at 1–2 rows --- */
 nav{
   background:#e8a084;
   display:grid;
-  /* auto-fit lets buttons wrap to new rows; 140px is a sane minimum tap width */
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  justify-content: center;
+  gap: clamp(6px, 1vw, 12px);
+  padding: clamp(8px, 1.2vw, 12px);
+  /* default desktop: 5 columns */
+  grid-template-columns: repeat(5, 1fr);
+  justify-items: stretch;
   align-items: stretch;
-  gap: clamp(4px, 0.6vw, 12px);
-  padding: clamp(6px, 1vw, 10px);
 }
 
 .dropdown{ position:relative; }
 
 .dropdown > a{
   display:flex; align-items:center; justify-content:center; text-align:center;
-  padding: clamp(4px, 0.7vw, 6px) clamp(8px, 2vw, 12px);
-  font-size: clamp(0.9rem, 1.1vw, 1rem);
-  font-weight:bold; color:black; text-decoration:none;
-  border-radius:6px; line-height:1.15;
-  white-space: normal;          /* allow 2-line labels */
-  min-height: 44px;             /* finger-friendly */
+  padding: clamp(8px, 1.4vw, 12px);
+  /* keep type large on phones; vw adds a touch of fluidity */
+  font-size: clamp(1rem, 2.9vw, 1.125rem);
+  font-weight: 700;
+  color:black; text-decoration:none;
+  border-radius:6px; line-height:1.2;
+  min-height: 48px;            /* comfy tap target */
+  white-space: normal;          /* allow 2‑line labels */
+  word-break: normal;           /* don’t hyphenate weirdly */
 }
 
 .dropdown:hover > a,
-.dropdown > a:focus-visible{
-  background:#633747; color:#fff;
-}
+.dropdown > a:focus-visible{ background:#633747; color:#fff; }
 
-/* dropdown panel defaults (desktop/tablet) */
+/* dropdown panel (desktop/tablet) */
 .dropdown-content{
-  display:none;
-  position:absolute;
-  top:100%;
-  left:50%;
-  transform:translateX(-50%);
-  background:#e8a084;
-  min-width:max(180px, 100%);   /* slightly smaller min to fit small phones */
-  z-index:10;
-  text-align:center;
-  font-weight:bold;
-  font-size: clamp(0.9rem, 1.1vw, 1rem);
-  padding:.25em 0;
-  border-radius:0 0 6px 6px;
+  display:none; position:absolute; top:100%; left:50%; transform:translateX(-50%);
+  background:#e8a084; min-width:max(200px,100%); z-index:10; text-align:center;
+  font-weight:700; font-size: clamp(1rem, 2.4vw, 1.05rem);
+  padding:.3em 0; border-radius:0 0 6px 6px;
 }
 
 .dropdown:hover .dropdown-content,
-.dropdown:focus-within .dropdown-content{
-  display:block;
-}
+.dropdown:focus-within .dropdown-content{ display:block; }
 
-/* links inside dropdown */
 .dropdown-content a{
-  display:block;
-  padding:.55em 1em;
-  color:black;
-  text-decoration:none;
-  border-radius:6px;
-  margin:2px 6px;
+  display:block; padding:.6em 1em; margin:2px 6px;
+  color:black; text-decoration:none; border-radius:6px;
 }
-
 .dropdown-content a:hover,
-.dropdown-content a:focus-visible{
-  background:#633747; color:#fff;
+.dropdown-content a:focus-visible{ background:#633747; color:#fff; }
+
+/* ---------- Breakpoints to cap rows ---------- */
+/* Large tablet: 4 columns (typically stays one row) */
+@media (max-width: 1100px){
+  nav{ grid-template-columns: repeat(4, 1fr); }
 }
 
-/* --- Small-screen tweaks --- */
-/* 2 columns on small phones; panels align to button width to avoid overflow */
+/* Tablet / big phones in landscape: 3 columns (1–2 rows) */
+@media (max-width: 900px){
+  nav{ grid-template-columns: repeat(3, 1fr); }
+}
+
+/* Phones: 2 columns (2–3 rows max, but we’ll keep labels big) */
 @media (max-width: 640px){
-  nav{ grid-template-columns: repeat(2, 1fr); gap:6px; }
-  .dropdown-content{
-    left:0; right:0; transform:none; min-width:100%;
-  }
+  nav{ grid-template-columns: repeat(2, 1fr); }
+  /* make dropdowns match button width to avoid overflow */
+  .dropdown-content{ left:0; right:0; transform:none; min-width:100%; }
 }
 
-/* Single column on very narrow screens */
-@media (max-width: 380px){
+/* Very small phones: single column */
+@media (max-width: 360px){
   nav{ grid-template-columns: 1fr; }
 }
+
 
 
     /* --- Main wrapper --- */
