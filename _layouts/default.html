@@ -1,6 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  class="no-js">
 <head>
+  <script>
+  document.documentElement.classList.remove('no-js');
+  document.documentElement.classList.add('js');
+</script>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{{ page.title | default: "Research With Consent" }}</title>
@@ -98,8 +103,13 @@
   z-index:10;    
   box-shadow:0 8px 24px rgba(0,0,0,.18);
 }
-.dropdown:hover .dropdown-content,
-.dropdown:focus-within .dropdown-content{ display:block; }
+/* Fallback only when JS is disabled */
+.no-js .dropdown:hover .dropdown-content,
+.no-js .dropdown:focus-within .dropdown-content { display:block; }
+
+/* When JS is on, never show the fallback */
+.js .dropdown .dropdown-content { display:none; }
+
 
 .dropdown-content a{
   display:block; padding:.55em .7em; line-height:2;
@@ -268,11 +278,19 @@
       panel.style.width = panel.style.left = panel.style.top = '';
     };
 
-    // Desktop: open on hover/focus; clicks navigate normally
-    drop.addEventListener('mouseenter', show);
-    drop.addEventListener('mouseleave', hide);
-    btn.addEventListener('focus', show);
-    btn.addEventListener('blur', hide);
+ // Desktop: open on hover/focus; clicks navigate normally
+if (window.PointerEvent) {
+  // pointer events work for mouse, pen, etc.
+  drop.addEventListener('pointerenter', show);
+  drop.addEventListener('pointerleave', hide);
+} else {
+  // fallback for very old browsers
+  drop.addEventListener('mouseenter', show);
+  drop.addEventListener('mouseleave', hide);
+}
+btn.addEventListener('focus', show);
+btn.addEventListener('blur', hide);
+
 
     // Touch screens: first tap opens, second tap navigates
     if (!canHover) {
