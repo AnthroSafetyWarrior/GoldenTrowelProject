@@ -55,25 +55,28 @@
 
 
 /* NAV WRAPPER — never create its own scrollbar */
-
+/* Make the band full-width */
 .nav-scroller{
   width:100%;
-  overflow-x:hidden;           /* desktop: no sideways scroll */
-  overflow-y:visible !important;/* let menus spill over the page */
-  position: relative;
-  z-index: 20;
+  background:#e8a084;          /* <-- moved here */
+  overflow-x:hidden;
+  overflow-y:visible !important;
+  position:relative;
+  z-index:20;
 }
 
-/* NAV GRID */
+/* Center the 5-button grid inside the band */
 .main-nav{
-  background:#e8a084;
+  background:transparent;       /* <-- was #e8a084 */
   display:grid;
   grid-template-columns: repeat(5, minmax(60px, 220px));
   justify-content:center;
   align-items:stretch;
   gap: clamp(6px, .6vw, 6px);
   padding: clamp(6px, 1vw, 10px);
-  overflow: visible;           /* <-- important */
+  overflow:visible;
+  width: min(100%, 1200px);     /* keeps it centered; tweak max if you like */
+  margin-inline:auto;
 }
 
 /* BUTTONS */
