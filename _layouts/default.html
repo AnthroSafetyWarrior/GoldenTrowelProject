@@ -238,27 +238,21 @@
 <script>
 (function () {
   const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+  const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
   document.querySelectorAll('.dropdown').forEach(drop => {
-    const btn   = drop.querySelector('a');
+    const btn   = drop.querySelector(':scope > a');
     const panel = drop.querySelector('.dropdown-content');
     if (!btn || !panel) return;
 
     const show = () => {
-      // measure the trigger
       const r = btn.getBoundingClientRect();
-      const margin = 12;                     // breathing room at edges
-      const minW   = 220;                    // match CSS min
+      const margin = 12;
+      const minW   = 220;                                // keep in sync with CSS
       const maxW   = Math.min(320, window.innerWidth - margin*2);
-
-      // desired width = at least button width but clamped
       const w = clamp(Math.max(r.width, minW), minW, maxW);
-
-      // center under button, but clamp to viewport
       let left = r.left + (r.width/2) - (w/2);
       left = clamp(left, margin, window.innerWidth - margin - w);
-
-      // place just below the button, accounting for page scroll
       const top = Math.round(r.bottom + window.scrollY);
 
       panel.classList.add('is-floating');
@@ -274,25 +268,38 @@
       panel.style.width = panel.style.left = panel.style.top = '';
     };
 
-    // Open/close on hover/focus (desktop) and tap (mobile)
+    // Desktop: open on hover/focus; clicks navigate normally
     drop.addEventListener('mouseenter', show);
     drop.addEventListener('mouseleave', hide);
     btn.addEventListener('focus', show);
     btn.addEventListener('blur', hide);
-    btn.addEventListener('click', e => {      // tap toggles on touch
-      // Prevent immediate navigation for buttons that have submenu
-      if (panel) { e.preventDefault(); show(); }
-    });
 
-    // Close if window moves/resizes
-    window.addEventListener('scroll', hide, { passive:true });
+    // Touch screens: first tap opens, second tap navigates
+    if (!canHover) {
+      let armed = false;
+      btn.addEventListener('click', (e) => {
+        if (!armed) {
+          e.preventDefault();
+          show();
+          armed = true;
+          setTimeout(() => armed = false, 1200); // auto-cancel after a moment
+        } // else: second tap falls through and navigates
+      });
+
+      // Tap outside closes and disarms
+      document.addEventListener('click', (e) => {
+        if (!drop.contains(e.target)) { armed = false; hide(); }
+      }, { passive: true });
+    }
+
+    // Housekeeping
+    window.addEventListener('scroll', hide, { passive: true });
     window.addEventListener('resize', hide);
-    document.addEventListener('click', (e) => {
-      if (!panel.contains(e.target) && !btn.contains(e.target)) hide();
-    });
+    btn.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') hide(); });
   });
 })();
 </script>
+
 
 </body>
 </html>
