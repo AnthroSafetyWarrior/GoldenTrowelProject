@@ -258,17 +258,39 @@
     const panel = drop.querySelector('.dropdown-content');
     if (!btn || !panel) return;
 
+    // --- NEW: portal helpers (move panel to <body> on touch) ---
+    const usePortal = !canHover;           // only on touch devices
+    let placeholder = null;                // where to put it back
+
+    const moveToBody = () => {
+      if (!usePortal || panel.parentElement === document.body) return;
+      placeholder = document.createElement('span');
+      placeholder.hidden = true;
+      drop.appendChild(placeholder);
+      document.body.appendChild(panel);
+    };
+    const moveBack = () => {
+      if (!usePortal || !placeholder) return;
+      placeholder.replaceWith(panel);
+      placeholder = null;
+    };
+    // -----------------------------------------------------------
+
     const show = () => {
+      // Ensure panel is out of the scrolling nav on touch
+      moveToBody();
+
       const r = btn.getBoundingClientRect();
       const margin = 12;
-      const minW   = 220;                                // keep in sync with CSS
+      const minW   = 220;
       const maxW   = Math.min(320, window.innerWidth - margin*2);
       const w = clamp(Math.max(r.width, minW), minW, maxW);
+
       let left = r.left + (r.width/2) - (w/2);
       left = clamp(left, margin, window.innerWidth - margin - w);
       const top = Math.round(r.bottom + window.scrollY);
 
-      panel.classList.add('is-floating');
+      panel.classList.add('is-floating');     // gives position:fixed, etc.
       panel.style.width = w + 'px';
       panel.style.left  = Math.round(left) + 'px';
       panel.style.top   = top + 'px';
@@ -279,23 +301,23 @@
       panel.style.display = 'none';
       panel.classList.remove('is-floating');
       panel.style.width = panel.style.left = panel.style.top = '';
+
+      // Put the panel back under its button so desktop hover still works
+      moveBack();
     };
 
- // Desktop: open on hover/focus; clicks navigate normally
-if (window.PointerEvent) {
-  // pointer events work for mouse, pen, etc.
-  drop.addEventListener('pointerenter', show);
-  drop.addEventListener('pointerleave', hide);
-} else {
-  // fallback for very old browsers
-  drop.addEventListener('mouseenter', show);
-  drop.addEventListener('mouseleave', hide);
-}
-btn.addEventListener('focus', show);
-btn.addEventListener('blur', hide);
+    // Desktop / pointer devices
+    if (window.PointerEvent) {
+      drop.addEventListener('pointerenter', show);
+      drop.addEventListener('pointerleave', hide);
+    } else {
+      drop.addEventListener('mouseenter', show);
+      drop.addEventListener('mouseleave', hide);
+    }
+    btn.addEventListener('focus', show);
+    btn.addEventListener('blur', hide);
 
-
-    // Touch screens: first tap opens, second tap navigates
+    // Touch: first tap opens, second tap navigates
     if (!canHover) {
       let armed = false;
       btn.addEventListener('click', (e) => {
@@ -303,13 +325,14 @@ btn.addEventListener('blur', hide);
           e.preventDefault();
           show();
           armed = true;
-          setTimeout(() => armed = false, 1200); // auto-cancel after a moment
-        } // else: second tap falls through and navigates
+          setTimeout(() => armed = false, 1200);
+        }
+        // second tap navigates naturally
       });
 
-      // Tap outside closes and disarms
+      // Tap outside closes
       document.addEventListener('click', (e) => {
-        if (!drop.contains(e.target)) { armed = false; hide(); }
+        if (!drop.contains(e.target) && !panel.contains(e.target)) hide();
       }, { passive: true });
     }
 
@@ -320,6 +343,7 @@ btn.addEventListener('blur', hide);
   });
 })();
 </script>
+
 
 
 </body>
