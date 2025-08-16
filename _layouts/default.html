@@ -24,7 +24,7 @@
     img, svg, video { max-width: 100%; height: auto; display: block; }
 
     /* Only force-wrap when needed */
-    .wrap-long { overflow-wrap:anywhere; word-break:break-word; }
+    .wrap-long { overflow-wrap:anywhere; word-break:break-word;}
 
     /* Section layout */
     .main-section{
@@ -43,63 +43,106 @@
       text-align: center;
     }
 
-    /* --- Nav: single row, labels can wrap (no oversized desktop) --- */
-    nav{
-      background:#e8a084;
-      display:grid;
-      grid-template-columns: repeat(5, minmax(60px, 220px));
-      justify-content: center;                 /* center the five fixed-width columns */
-      align-items: stretch;
-      gap: clamp(6px, 0.6vw, 6px);           /* now this actually controls spacing */
-      padding: clamp(6px, 1vw, 10px);(.2em, 1vw, 6px)
-    }
-    .dropdown{ position:relative; }
-    .dropdown > a{
-      display:flex; align-items:center; justify-content:center; text-align:center;
-      padding: clamp(6px, 1vw, 6px) clamp(.2px, 1vw, .75px);
-      font-size: clamp(0.9rem, 1vw, 1rem);   /* never bigger than ~16px */
-      font-weight:bold; color:black; text-decoration:none;
-      border-radius:6px; line-height:1.4; justify-content: center;
-      white-space: normal;                     /* allow 2-line labels */
-      min-height: 44px;                        /* tap target */
-    }
-    .dropdown:hover > a, .dropdown > a:focus-visible{ background:#633747; color:#fff; }
 
-    .dropdown-content{
-      display:none; position:absolute; top:100%; left:50%; transform:translateX(-50%);
-      background:#e8a084; min-width:max(220px,100%); z-index:10; text-align:center; 
-      font-weight:bold; font-size: clamp(0.9rem, 1vw, 1rem); 
-      padding:.25em 0; border-radius:6px;
-    }
+/* Nav links only (keeps underlines in page content) */
+.main-nav a,
+.dropdown-content a { text-decoration: none; color: inherit; }
 
 
-/* show the panel */
+/* NAV WRAPPER — never create its own scrollbar */
+
+.nav-scroller{
+  width:100%;
+  overflow-x:hidden;           /* desktop: no sideways scroll */
+  overflow-y:visible !important;/* let menus spill over the page */
+  position: relative;
+  z-index: 20;
+}
+
+/* NAV GRID */
+.main-nav{
+  background:#e8a084;
+  display:grid;
+  grid-template-columns: repeat(5, minmax(60px, 220px));
+  justify-content:center;
+  align-items:stretch;
+  gap: clamp(6px, .6vw, 6px);
+  padding: clamp(6px, 1vw, 10px);
+  overflow: visible;           /* <-- important */
+}
+
+/* BUTTONS */
+.dropdown{ position:relative; min-width:0;}
+.dropdown > a{
+  display:flex; align-items:center; justify-content:center; text-align:center;
+  padding: clamp(6px, 1vw, 6px) clamp(6px, 1vw, 10px);
+  font-size: clamp(.9rem, 1vw, 1rem);
+  font-weight:bold; color:black; border-radius:6px; line-height:1.4;
+  white-space: normal; min-height:44px;
+}
+.dropdown:hover > a, .dropdown > a:focus-visible{ background:#633747; color:#fff; }
+
+/* DROPDOWN (CSS fallback; JS will float it) */
+.dropdown-content{
+  display:none;
+  position:absolute;           /* fallback if JS fails */
+  top:100%;
+  left:50%;
+  transform:translateX(-50%);
+  background:#e8a084;
+  z-index:1000; text-align:center;
+  font-weight:bold; font-size:clamp(.8rem, .7vw, 1rem);
+  padding:.25em 0; border-radius:6px;
+  min-width:max(220px, 100%);
+  max-width:min(90vw, 30rem);
+  z-index:10;    
+  box-shadow:0 8px 24px rgba(0,0,0,.18);
+}
 .dropdown:hover .dropdown-content,
-.dropdown:focus-within .dropdown-content {
-  display: block;
-}
+.dropdown:focus-within .dropdown-content{ display:block; }
 
-/* links inside dropdown — default state */
-.dropdown-content a {
-  display: block;
-  padding: .55em .2em;
-  color: black;
-line-height:2;
-  text-decoration: none;
-  border-radius: 6px; /* match nav buttons */
-  margin: 2px 6px;    /* lets the background show at sides */
+.dropdown-content a{
+  display:block; padding:.55em .7em; line-height:2;
+  border-radius:6px; margin:2px 6px; color:black;
 }
-
-/* hovered/focused link gets highlight with rounded corners */
 .dropdown-content a:hover,
-.dropdown-content a:focus-visible {
-  background: #633747;
-  color: #fff;
+.dropdown-content a:focus-visible{ background:#633747; color:#fff; }
+
+:root { --nav-tile-w: 120px; }  /* width that makes labels 2 lines */
+@media (max-width: 900px){      /* was 500px */
+  .nav-scroller{
+    overflow-x:auto; -webkit-overflow-scrolling:touch;
+    scrollbar-width:none; overscroll-behavior-x: contain;
+  }
+  .nav-scroller::-webkit-scrollbar{ width:0; height:0; }
+
+  .main-nav{
+    display:grid;
+    grid-template-columns: none !important;   /* <-- reset desktop grid */
+    grid-auto-flow: column;
+    grid-auto-columns: var(--nav-tile-w);     /* fixed tile width */
+    width: max-content;
+    justify-content: start;
+  }
+
+  .dropdown{ min-width:0; }
+  .dropdown > a{ width:100%; }                /* anchor fills the tile */
 }
 
-    @media (max-width: 320px){ nav{ gap:4px; } }
+/* When JS floats the panel, kill the viewport min-width and the translate */
+.dropdown-content.is-floating{
+  position: fixed;
+  left: 0; top: 0; width: auto; right: auto;
+  transform: none !important;   /* cancel the translateX(-50%) from the fallback */
+  min-width: 0;                 /* <-- stop 100% viewport min-width */
+  max-width: none;              /* let JS width win */
+  z-index: 1000;
+  box-shadow: 0 8px 24px rgba(0,0,0,.18);
+}
 
-    /* --- Main wrapper --- */
+
+
+   /* --- Main wrapper --- */
     main{
       width: min(100%, 1100px);
       margin-inline: auto;
@@ -107,6 +150,7 @@ line-height:2;
       text-align: center;
     }
   </style>
+
 
   {% if page.is_homepage %}
   <style>
@@ -155,7 +199,8 @@ line-height:2;
     <p>Practical tools. Powerful boundaries. Safer fieldwork.</p>
   </header>
 
-  <nav>
+ <div class="nav-scroller">
+  <nav class="main-nav">
     <div class="dropdown"><a href="index.html">Home</a></div>
 
     <div class="dropdown">
@@ -185,9 +230,69 @@ line-height:2;
 
     <div class="dropdown"><a href="{{ site.baseurl }}/contact.html">Contact Us</a></div>
   </nav>
+</div>
 
   <main>
     {{ content }}
   </main>
+<script>
+(function () {
+  const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+
+  document.querySelectorAll('.dropdown').forEach(drop => {
+    const btn   = drop.querySelector('a');
+    const panel = drop.querySelector('.dropdown-content');
+    if (!btn || !panel) return;
+
+    const show = () => {
+      // measure the trigger
+      const r = btn.getBoundingClientRect();
+      const margin = 12;                     // breathing room at edges
+      const minW   = 220;                    // match CSS min
+      const maxW   = Math.min(320, window.innerWidth - margin*2);
+
+      // desired width = at least button width but clamped
+      const w = clamp(Math.max(r.width, minW), minW, maxW);
+
+      // center under button, but clamp to viewport
+      let left = r.left + (r.width/2) - (w/2);
+      left = clamp(left, margin, window.innerWidth - margin - w);
+
+      // place just below the button, accounting for page scroll
+      const top = Math.round(r.bottom + window.scrollY);
+
+      panel.classList.add('is-floating');
+      panel.style.width = w + 'px';
+      panel.style.left  = Math.round(left) + 'px';
+      panel.style.top   = top + 'px';
+      panel.style.display = 'block';
+    };
+
+    const hide = () => {
+      panel.style.display = 'none';
+      panel.classList.remove('is-floating');
+      panel.style.width = panel.style.left = panel.style.top = '';
+    };
+
+    // Open/close on hover/focus (desktop) and tap (mobile)
+    drop.addEventListener('mouseenter', show);
+    drop.addEventListener('mouseleave', hide);
+    btn.addEventListener('focus', show);
+    btn.addEventListener('blur', hide);
+    btn.addEventListener('click', e => {      // tap toggles on touch
+      // Prevent immediate navigation for buttons that have submenu
+      if (panel) { e.preventDefault(); show(); }
+    });
+
+    // Close if window moves/resizes
+    window.addEventListener('scroll', hide, { passive:true });
+    window.addEventListener('resize', hide);
+    document.addEventListener('click', (e) => {
+      if (!panel.contains(e.target) && !btn.contains(e.target)) hide();
+    });
+  });
+})();
+</script>
+
 </body>
 </html>
