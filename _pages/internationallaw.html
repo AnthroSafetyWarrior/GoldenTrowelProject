@@ -142,6 +142,46 @@ permalink: /internationallaw.html
   margin: .25em 0 0 0;
 }
 .country-section .section-head .lede{ color:#fff; margin:0 auto; max-width: 70ch; }
+/* --- Nested accordion toggles --- */
+.section-toggle,
+.subsection-toggle{
+  display:block;
+  width:100%;
+  background:#e8a084;
+  color:#000;
+  border:none;
+  border-radius:8px;
+  padding:.6em .8em;
+  font-family: Calibri, sans-serif;
+  font-weight:bold;
+  font-size:1.15rem;         /* continent a bit larger */
+  text-align:center;
+  cursor:pointer;
+  transition: background-color .2s ease;
+  margin: .75rem 0;
+}
+.subsection-toggle{ font-size:1.05rem; border-radius:6px; }
+
+.section-toggle:hover,
+.subsection-toggle:hover{ background:#ffdc8f; color:#000; }
+
+.section-toggle[aria-expanded="true"],
+.subsection-toggle[aria-expanded="true"]{
+  background:#633747; color:#fff;
+}
+
+/* Bodies are collapsed by default */
+.section-body,
+.subsection-body{ display:none; margin: .5rem 0 1rem; }
+
+/* When JS adds .open, reveal */
+.section-body.open,
+.subsection-body.open{ display:block; }
+
+/* Optional: tighten h4 look since it’s now a button */
+.country-section .section-head h3, 
+.country-section .section-head h4{ display:none; } /* we’re using buttons now */
+
 </style>
 
 
@@ -150,6 +190,9 @@ permalink: /internationallaw.html
 <h1>Know Your Defensive and Offensive Documentation Rights by Country</h1>
 <p>Many countries soehave laws that extend protection to international travelers in cases of sexual misconduct and have a reporting process you can take advantage of. It is through these processes that we can affect change and elevate people to positions of power who support our right to safety and respect to replace those who dont. </p>
 <p>This resource provides information about laws related to recording, consent for photographs/videos/audio, legal documentation rights, and other relevant protections during fieldwork by country.</p>
+
+<div class="disclaimer">
+  <strong>This page is still under construction.</strong>While countries are listed, many tables are not yet complete. If you need information for a specific country, please let us know by completing the <a href="https://forms.gle/T587N5ZHnhrgVM5dA" target="_blank" rel="noopener noreferrer">Website and Resources Feedback Survey</a>. Your input helps us prioritize which resources to build first.</div>
 
 <div class="oneparty-caveat" role="region" aria-labelledby="opc-caveats-title">
   <h3 id="opc-caveats-title">Cultural/Enforcement Notes</h3>
@@ -177,13 +220,27 @@ permalink: /internationallaw.html
     <header class="section-head">
       <h2>Know Your Rights by Country</h2>
 <p class="lede">
-  Countries and terrorities are organized alphabetically by continent. Pick a country to view its information table. Each table outlines [STUFF].
+  Countries, terrorities, or regions with their own legal systems are organized alphabetically by continent. Pick a country to view its information table. Each table outlines [STUFF].
 </p>
     </header>
 
-    <header class="section-head">
-      <h3>Asia</h3> <h4>Central Asia</h4>
-    </header>
+<!-- Continent -->
+<header class="section-head">
+  <button class="section-toggle" id="asia-toggle"
+          aria-controls="asia-body" aria-expanded="false">
+    Asia
+  </button>
+</header>
+
+<div class="section-body" id="asia-body" role="region" aria-labelledby="asia-toggle">
+  <!-- Region -->
+  <div class="subsection">
+    <button class="subsection-toggle" id="central-asia-toggle"
+            aria-controls="central-asia-body" aria-expanded="false">
+      Central Asia
+    </button>
+
+    <div class="subsection-body" id="central-asia-body" role="region" aria-labelledby="central-asia-toggle">
   
 
 <div class="accordion-grid"; style="margin: 1em 0 0 0;">
@@ -370,17 +427,21 @@ permalink: /internationallaw.html
      </div>
 <!--------------END country ROW---------------->
 
-
-
 <!-------END country acordion------>
-     </div>
+  </div>
+  </div>
+  </div>
   </div>
 <!------END CONTINENT REGION------>
 
 
-    <header class="section-head">
-      <h4>East Asia</h4>
-    </header> 
+ <div class="subsection">
+    <button class="subsection-toggle" id="East-Asia-toggle"
+            aria-controls="East-Asia-body" aria-expanded="false">
+     East Asia
+    </button>
+
+    <div class="subsection-body" id="East-Asia-body" role="region" aria-labelledby="East-Asia-toggle">
 <div class="accordion-grid"; style="margin: 1em 0 0 0;">
 <!--------------START Country REGION ROW----------------->
   <div class="country-row">
@@ -420,10 +481,82 @@ permalink: /internationallaw.html
      </div>
      </div>
 
+<!---------Hong Kong-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="HongKong-panel" id="HongKong-btn">Hong Kong</button>
+      <div class="panel" id="HongKong-panel" role="region" aria-labelledby="HongKong-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
 <!---------Japan-----------> 
    <div class="country">
       <button class="accordion" aria-expanded="false" aria-controls="Japan-panel" id="Japan-btn">Japan</button>
       <div class="panel" id="Japan-panel" role="region" aria-labelledby="Japan-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------Macau-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Macau-panel" id="Macau-btn">Macau</button>
+      <div class="panel" id="Macau-panel" role="region" aria-labelledby="Macau-btn">
        <table>
     <tr>
      <th scope="col">Recording Law</th>
@@ -528,6 +661,21 @@ permalink: /internationallaw.html
      </div>
      </div>
 
+<!---------South Korea-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="SouthKorea-panel" id="SouthKorea-btn">North Korea</button>
+      <div class="panel" id="SouthKorea-panel" role="region" aria-labelledby="SouthKorea-btn">
+       <table>
+    <tr>
+     <th scope="col">Laws</th>
+    </tr>
+    <tr>
+      <td>Currently inaccessible for fieldwork.</td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
 <!---------Taiwan-----------> 
    <div class="country">
       <button class="accordion" aria-expanded="false" aria-controls="Taiwan-panel" id="Taiwan-btn">Taiwan</button>
@@ -566,12 +714,1445 @@ permalink: /internationallaw.html
 <!-------END country acordion------>
      </div>
   </div>
+  </div>
+  </div>
 <!------END CONTINENT REGION------>
 
 
-    <header class="section-head">
-      <h4>South & Southeast Asia</h4>
-    </header> 
+ <div class="subsection">
+    <button class="subsection-toggle" id="south-asia-toggle"
+            aria-controls="south-asia-body" aria-expanded="false">
+      South & Southeast Asia
+    </button>
+
+    <div class="subsection-body" id="south-asia-body" role="region" aria-labelledby="south-asia-toggle">
+<div class="accordion-grid"; style="margin: 1em 0 0 0;">
+
+<!--------------START Country REGION ROW----------------->
+  <div class="country-row">
+
+<!---------Afghanistan-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Afghanistan-panel" id="Afghanistan-btn">Afghanistan</button>
+      <div class="panel" id="Afghanistan-panel" role="region" aria-labelledby="Afghanistan-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------Bangladesh-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Bangladesh-panel" id="Bangladesh-btn">Bangladesh</button>
+      <div class="panel" id="Bangladesh-panel" role="region" aria-labelledby="Bangladesh-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------Bhutan-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Bhutan-panel" id="Bhutan-btn">Bhutan</button>
+      <div class="panel" id="Bhutan-panel" role="region" aria-labelledby="Bhutan-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------Brunei-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Brunei-panel" id="Brunei-btn">Brunei</button>
+      <div class="panel" id="Brunei-panel" role="region" aria-labelledby="Brunei-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------Cambodia-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Cambodia-panel" id="Cambodia-btn">Cambodia</button>
+      <div class="panel" id="Cambodia-panel" role="region" aria-labelledby="Cambodia-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------India-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="India-panel" id="India-btn">India</button>
+      <div class="panel" id="India-panel" role="region" aria-labelledby="India-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+    
+<!---------Indonesia-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Indonesia-panel" id="Indonesia-btn">Indonesia</button>
+      <div class="panel" id="Indonesia-panel" role="region" aria-labelledby="Indonesia-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------Iran-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Iran-panel" id="Iran-btn">Iran</button>
+      <div class="panel" id="Iran-panel" role="region" aria-labelledby="Iran-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------Laos-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Laos-panel" id="Laos-btn">Laos</button>
+      <div class="panel" id="Laos-panel" role="region" aria-labelledby="Laos-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+     
+<!---------Malaysia-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Malaysia-panel" id="Malaysia-btn">Malaysia</button>
+      <div class="panel" id="Malaysia-panel" role="region" aria-labelledby="Malaysia-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------Maldives-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Maldives-panel" id="Maldives-btn">Maldives</button>
+      <div class="panel" id="Maldives-panel" role="region" aria-labelledby="Maldives-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------Myanmar-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Myanmar-panel" id="Myanmar-btn">Myanmar</button>
+      <div class="panel" id="Myanmar-panel" role="region" aria-labelledby="Myanmar-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------Nepal-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Nepal-panel" id="Nepal-btn">Nepal</button>
+      <div class="panel" id="Nepal-panel" role="region" aria-labelledby="Nepal-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------Pakistan-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Pakistan-panel" id="Pakistan-btn">Pakistan</button>
+      <div class="panel" id="Pakistan-panel" role="region" aria-labelledby="Pakistan-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------Philippines-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Philippines-panel" id="Philippines-btn">Philippines</button>
+      <div class="panel" id="Philippines-panel" role="region" aria-labelledby="Philippines-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------Singapore-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Singapore-panel" id="Singapore-btn">Singapore</button>
+      <div class="panel" id="Singapore-panel" role="region" aria-labelledby="Singapore-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------Sri Lanka-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="SriLanka-panel" id="SriLanka-btn">Sri Lanka</button>
+      <div class="panel" id="SriLanka-panel" role="region" aria-labelledby="SriLanka-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------Thailand-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Thailand-panel" id="Thailand-btn">Thailand</button>
+      <div class="panel" id="Thailand-panel" role="region" aria-labelledby="Thailand-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------Timor-Leste-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Timor-Leste-panel" id="Timor-Leste-btn">Timor-Leste</button>
+      <div class="panel" id="Timor-Leste-panel" role="region" aria-labelledby="Timor-Leste-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+   
+<!---------Vietnam-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Vietnam-panel" id="Vietnam-btn">Vietnam</button>
+      <div class="panel" id="Vietnam-panel" role="region" aria-labelledby="Vietnam-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+<!--------------END country ROW---------------->
+
+<!-------END country acordion------>
+     </div>
+  </div>
+</div>
+</div>
+<!------END CONTINENT REGION------>
+
+
+ <div class="subsection">
+    <button class="subsection-toggle" id="west-asia-toggle"
+            aria-controls="west-asia-body" aria-expanded="false">
+      West Asia
+    </button>
+
+    <div class="subsection-body" id="west-asia-body" role="region" aria-labelledby="west-asia-toggle">
+<div class="accordion-grid">
+<!--------------START Country REGION ROW----------------->
+  <div class="country-row">
+<!---------Armenia-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Armenia-panel" id="Armenia-btn">Armenia</button>
+      <div class="panel" id="Armenia-panel" role="region" aria-labelledby="Armenia-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------Azerbaijan-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Azerbaijan-panel" id="Azerbaijan-btn">Azerbaijan</button>
+      <div class="panel" id="Azerbaijan-panel" role="region" aria-labelledby="Azerbaijan-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------Bahrain-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Bahrain-panel" id="Bahrain-btn">Bahrain</button>
+      <div class="panel" id="Bahrain-panel" role="region" aria-labelledby="Bahrain-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------Cyprus-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Cyprus-panel" id="Cyprus-btn">Cyprus</button>
+      <div class="panel" id="Cyprus-panel" role="region" aria-labelledby="Cyprus-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------Georgia-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Georgia-panel" id="Georgia-btn">Georgia</button>
+      <div class="panel" id="Georgia-panel" role="region" aria-labelledby="Georgia-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------Iraq-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Iraq-panel" id="Iraq-btn">Iraq</button>
+      <div class="panel" id="Iraq-panel" role="region" aria-labelledby="Iraq-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------Israel-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Israel-panel" id="Israel-btn">Israel</button>
+      <div class="panel" id="Israel-panel" role="region" aria-labelledby="Israel-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------Jordan-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Jordan-panel" id="Jordan-btn">Jordan</button>
+      <div class="panel" id="Jordan-panel" role="region" aria-labelledby="Jordan-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------Kuwait-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Kuwait-panel" id="Kuwait-btn">Kuwait</button>
+      <div class="panel" id="Kuwait-panel" role="region" aria-labelledby="Kuwait-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------Lebanon-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Lebanon-panel" id="Lebanon-btn">Lebanon</button>
+      <div class="panel" id="Lebanon-panel" role="region" aria-labelledby="Lebanon-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------Oman-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Oman-panel" id="Oman-btn">Oman</button>
+      <div class="panel" id="Oman-panel" role="region" aria-labelledby="Oman-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------Qatar-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Qatar-panel" id="Qatar-btn">Qatar</button>
+      <div class="panel" id="Qatar-panel" role="region" aria-labelledby="Qatar-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------Saudi Arabia-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="SaudiArabia-panel" id="SaudiArabia-btn">Saudi Arabia</button>
+      <div class="panel" id="SaudiArabia-panel" role="region" aria-labelledby="SaudiArabia-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------State of Palestine-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="StateofPalestine-panel" id="StateofPalestine-btn">State of Palestine</button>
+      <div class="panel" id="StateofPalestine-panel" role="region" aria-labelledby="StateofPalestine-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------Syria----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Syria-panel" id="Syria-btn">Syria</button>
+      <div class="panel" id="Syria-panel" role="region" aria-labelledby="Syria-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+<!---------Turkey-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Turkey-panel" id="Turkey-btn">Turkey</button>
+      <div class="panel" id="Turkey-panel" role="region" aria-labelledby="Turkey-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------United Arab Emirates-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="UnitedArabEmirates-panel" id="UnitedArabEmirates-btn">United Arab Emirates</button>
+      <div class="panel" id="[UnitedArabEmirates]-panel" role="region" aria-labelledby="UnitedArabEmirates-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------Yemen-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Yemen-panel" id="Yemen-btn">Yemen</button>
+      <div class="panel" id="Yemen-panel" role="region" aria-labelledby="Yemen-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!--------------END country ROW---------------->
+
+
+<!-------END country acordion------>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+<!------END CONTINENT REGION------>
+
+
+
+
+
+
+<!--------------------------------------AFRICA------------------------------------------>
+<!-- Continent -->
+<header class="section-head">
+  <button class="section-toggle" id="africa-toggle"
+          aria-controls="africa-body" aria-expanded="false">
+    Africa
+  </button>
+</header>
+
+<div class="section-body" id="africa-body" role="region" aria-labelledby="africa-toggle">
+  <!-- Region -->
+  <div class="subsection">
+    <button class="subsection-toggle" id="central-africa-toggle"
+            aria-controls="central-africa-body" aria-expanded="false">
+      Central Africa
+    </button>
+
+    <div class="subsection-body" id="central-africa-body" role="region" aria-labelledby="central-africa-toggle">
+     
 <div class="accordion-grid"; style="margin: 1em 0 0 0;">
 <!--------------START Country REGION ROW----------------->
   <div class="country-row">
@@ -754,47 +2335,6 @@ permalink: /internationallaw.html
   </table>
      </div>
      </div>
-     </div>
-<!--------------END country ROW---------------->
-
-
-<!--------------START Country REGION ROW----------------->
-  <div class="country-row">
-<!---------[COUNTRY]-----------> 
-   <div class="country">
-      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
-      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
-       <table>
-    <tr>
-     <th scope="col">Recording Law</th>
-      <th scope="col">Definition of Consent</th>
-      <th scope="col">Non-Citizen Protection</th>
-      <th scope="col">Summary</th>
-    </tr>
-    <tr>
-      <td>[recording law]</td>
-      <td>[stuff]</td>
-      <td>[stuff]</td>
-      <td>[summary]</td>
-    </tr>
-     <tr>
-  <td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-  <td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-<td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-  <td></td> <!-- Empty cell for Summary -->
-  </tr>
-  </table>
-     </div>
-     </div>
 
 <!---------[COUNTRY]-----------> 
    <div class="country">
@@ -903,521 +2443,6 @@ permalink: /internationallaw.html
   </table>
      </div>
      </div>
-
-<!---------[COUNTRY]-----------> 
-   <div class="country">
-      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
-      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
-       <table>
-    <tr>
-     <th scope="col">Recording Law</th>
-      <th scope="col">Definition of Consent</th>
-      <th scope="col">Non-Citizen Protection</th>
-      <th scope="col">Summary</th>
-    </tr>
-    <tr>
-      <td>[recording law]</td>
-      <td>[stuff]</td>
-      <td>[stuff]</td>
-      <td>[summary]</td>
-    </tr>
-     <tr>
-  <td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-  <td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-<td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-  <td></td> <!-- Empty cell for Summary -->
-  </tr>
-  </table>
-     </div>
-     </div>
-     </div>
-<!--------------END country ROW---------------->
-
-<!--------------START Country REGION ROW----------------->
-  <div class="country-row">
-<!---------[COUNTRY]-----------> 
-   <div class="country">
-      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
-      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
-       <table>
-    <tr>
-     <th scope="col">Recording Law</th>
-      <th scope="col">Definition of Consent</th>
-      <th scope="col">Non-Citizen Protection</th>
-      <th scope="col">Summary</th>
-    </tr>
-    <tr>
-      <td>[recording law]</td>
-      <td>[stuff]</td>
-      <td>[stuff]</td>
-      <td>[summary]</td>
-    </tr>
-     <tr>
-  <td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-  <td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-<td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-  <td></td> <!-- Empty cell for Summary -->
-  </tr>
-  </table>
-     </div>
-     </div>
-
-<!---------[COUNTRY]-----------> 
-   <div class="country">
-      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
-      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
-       <table>
-    <tr>
-     <th scope="col">Recording Law</th>
-      <th scope="col">Definition of Consent</th>
-      <th scope="col">Non-Citizen Protection</th>
-      <th scope="col">Summary</th>
-    </tr>
-    <tr>
-      <td>[recording law]</td>
-      <td>[stuff]</td>
-      <td>[stuff]</td>
-      <td>[summary]</td>
-    </tr>
-     <tr>
-  <td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-  <td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-<td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-  <td></td> <!-- Empty cell for Summary -->
-  </tr>
-  </table>
-     </div>
-     </div>
-
-<!---------[COUNTRY]-----------> 
-   <div class="country">
-      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
-      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
-       <table>
-    <tr>
-     <th scope="col">Recording Law</th>
-      <th scope="col">Definition of Consent</th>
-      <th scope="col">Non-Citizen Protection</th>
-      <th scope="col">Summary</th>
-    </tr>
-    <tr>
-      <td>[recording law]</td>
-      <td>[stuff]</td>
-      <td>[stuff]</td>
-      <td>[summary]</td>
-    </tr>
-     <tr>
-  <td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-  <td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-<td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-  <td></td> <!-- Empty cell for Summary -->
-  </tr>
-  </table>
-     </div>
-     </div>
-
-<!---------[COUNTRY]-----------> 
-   <div class="country">
-      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
-      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
-       <table>
-    <tr>
-     <th scope="col">Recording Law</th>
-      <th scope="col">Definition of Consent</th>
-      <th scope="col">Non-Citizen Protection</th>
-      <th scope="col">Summary</th>
-    </tr>
-    <tr>
-      <td>[recording law]</td>
-      <td>[stuff]</td>
-      <td>[stuff]</td>
-      <td>[summary]</td>
-    </tr>
-     <tr>
-  <td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-  <td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-<td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-  <td></td> <!-- Empty cell for Summary -->
-  </tr>
-  </table>
-     </div>
-     </div>
-
-<!---------[COUNTRY]-----------> 
-   <div class="country">
-      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
-      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
-       <table>
-    <tr>
-     <th scope="col">Recording Law</th>
-      <th scope="col">Definition of Consent</th>
-      <th scope="col">Non-Citizen Protection</th>
-      <th scope="col">Summary</th>
-    </tr>
-    <tr>
-      <td>[recording law]</td>
-      <td>[stuff]</td>
-      <td>[stuff]</td>
-      <td>[summary]</td>
-    </tr>
-     <tr>
-  <td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-  <td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-<td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-  <td></td> <!-- Empty cell for Summary -->
-  </tr>
-  </table>
-     </div>
-     </div>
-     </div>
-<!--------------END country ROW---------------->
-
-<!--------------START Country REGION ROW----------------->
-  <div class="country-row">
-<!---------[COUNTRY]-----------> 
-   <div class="country">
-      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
-      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
-       <table>
-    <tr>
-     <th scope="col">Recording Law</th>
-      <th scope="col">Definition of Consent</th>
-      <th scope="col">Non-Citizen Protection</th>
-      <th scope="col">Summary</th>
-    </tr>
-    <tr>
-      <td>[recording law]</td>
-      <td>[stuff]</td>
-      <td>[stuff]</td>
-      <td>[summary]</td>
-    </tr>
-     <tr>
-  <td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-  <td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-<td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-  <td></td> <!-- Empty cell for Summary -->
-  </tr>
-  </table>
-     </div>
-     </div>
-
-<!---------[COUNTRY]-----------> 
-   <div class="country">
-      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
-      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
-       <table>
-    <tr>
-     <th scope="col">Recording Law</th>
-      <th scope="col">Definition of Consent</th>
-      <th scope="col">Non-Citizen Protection</th>
-      <th scope="col">Summary</th>
-    </tr>
-    <tr>
-      <td>[recording law]</td>
-      <td>[stuff]</td>
-      <td>[stuff]</td>
-      <td>[summary]</td>
-    </tr>
-     <tr>
-  <td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-  <td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-<td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-  <td></td> <!-- Empty cell for Summary -->
-  </tr>
-  </table>
-     </div>
-     </div>
-
-<!---------[COUNTRY]-----------> 
-   <div class="country">
-      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
-      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
-       <table>
-    <tr>
-     <th scope="col">Recording Law</th>
-      <th scope="col">Definition of Consent</th>
-      <th scope="col">Non-Citizen Protection</th>
-      <th scope="col">Summary</th>
-    </tr>
-    <tr>
-      <td>[recording law]</td>
-      <td>[stuff]</td>
-      <td>[stuff]</td>
-      <td>[summary]</td>
-    </tr>
-     <tr>
-  <td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-  <td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-<td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-  <td></td> <!-- Empty cell for Summary -->
-  </tr>
-  </table>
-     </div>
-     </div>
-
-<!---------[COUNTRY]-----------> 
-   <div class="country">
-      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
-      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
-       <table>
-    <tr>
-     <th scope="col">Recording Law</th>
-      <th scope="col">Definition of Consent</th>
-      <th scope="col">Non-Citizen Protection</th>
-      <th scope="col">Summary</th>
-    </tr>
-    <tr>
-      <td>[recording law]</td>
-      <td>[stuff]</td>
-      <td>[stuff]</td>
-      <td>[summary]</td>
-    </tr>
-     <tr>
-  <td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-  <td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-<td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-  <td></td> <!-- Empty cell for Summary -->
-  </tr>
-  </table>
-     </div>
-     </div>
-
-<!---------[COUNTRY]-----------> 
-   <div class="country">
-      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
-      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
-       <table>
-    <tr>
-     <th scope="col">Recording Law</th>
-      <th scope="col">Definition of Consent</th>
-      <th scope="col">Non-Citizen Protection</th>
-      <th scope="col">Summary</th>
-    </tr>
-    <tr>
-      <td>[recording law]</td>
-      <td>[stuff]</td>
-      <td>[stuff]</td>
-      <td>[summary]</td>
-    </tr>
-     <tr>
-  <td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-  <td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-<td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-  <td></td> <!-- Empty cell for Summary -->
-  </tr>
-  </table>
-     </div>
-     </div>
-<!--------------END country ROW---------------->
-
-<!-------END country acordion------>
-     </div>
-  </div>
-<!------END CONTINENT REGION------>
-
-
-
-    <header class="section-head">
-      <h4>West Asia</h4>
-    </header> 
-<div class="accordion-grid">
-<!--------------START Country REGION ROW----------------->
-  <div class="country-row">
-<!---------[COUNTRY]-----------> 
-   <div class="country">
-      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
-      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
-       <table>
-    <tr>
-     <th scope="col">Recording Law</th>
-      <th scope="col">Definition of Consent</th>
-      <th scope="col">Non-Citizen Protection</th>
-      <th scope="col">Summary</th>
-    </tr>
-    <tr>
-      <td>[recording law]</td>
-      <td>[stuff]</td>
-      <td>[stuff]</td>
-      <td>[summary]</td>
-    </tr>
-     <tr>
-  <td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-  <td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-<td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-  <td></td> <!-- Empty cell for Summary -->
-  </tr>
-  </table>
-     </div>
-     </div>
-
-<!---------[COUNTRY]-----------> 
-   <div class="country">
-      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
-      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
-       <table>
-    <tr>
-     <th scope="col">Recording Law</th>
-      <th scope="col">Definition of Consent</th>
-      <th scope="col">Non-Citizen Protection</th>
-      <th scope="col">Summary</th>
-    </tr>
-    <tr>
-      <td>[recording law]</td>
-      <td>[stuff]</td>
-      <td>[stuff]</td>
-      <td>[summary]</td>
-    </tr>
-     <tr>
-  <td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-  <td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-<td>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
-    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
-  </td>
-  <td></td> <!-- Empty cell for Summary -->
-  </tr>
-  </table>
-     </div>
-     </div>
-
-<!--------------END country ROW---------------->
-
-
-
-<!-------END country acordion------>
-     </div>
-  </div>
-<!------END CONTINENT REGION------>
-
-
-
-
-
-
-
-
-<!--------------------------------------AFRICA------------------------------------------>
-    <header class="section-head">
-      <h3>Africa</h3>
-    </header>
-<div class="accordion-grid">
-<!--------------START Country ROW----------------->
-  <div class="country-row">
-
 
 <!---------[COUNTRY]-----------> 
    <div class="country">
@@ -1458,17 +2483,1744 @@ permalink: /internationallaw.html
 <!--------------END country ROW---------------->
 
 <!-------END country acordion------>
- <!-- Full-width slot where the active country’s panel will appear -->
-  <div class="row-panel" hidden></div>
     </div>
      </div>
-<!------END CONTINENT------>
-  
-<!------------------------------------NORTH AMERICA---------------------------------------->
-    <header class="section-head">
-      <h3>North America</h3>
-    </header>
+  </div>
+  </div>
+<!------END CONTINENT REGION------>
+
+
+
+ <!-- Region -->
+  <div class="subsection">
+    <button class="subsection-toggle" id="eastern-africa-toggle"
+            aria-controls="eastern-africa-body" aria-expanded="false">
+      Eastern Africa
+    </button>
+
+    <div class="subsection-body" id="eastern-africa-body" role="region" aria-labelledby="eastern-africa-toggle">
+
+<div class="accordion-grid"; style="margin: 1em 0 0 0;">
+<!--------------START Country REGION ROW----------------->
+  <div class="country-row">
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+<!--------------END country ROW---------------->
+
+
+<!-------END country acordion------>
+    </div>
+     </div>
+     </div>
+     </div>
+<!------END CONTINENT REGION------>
+
+
+  <!-- Region -->
+  <div class="subsection">
+    <button class="subsection-toggle" id="northern-africa-toggle"
+            aria-controls="northern-africa-body" aria-expanded="false">
+      Northern Africa
+    </button>
+
+    <div class="subsection-body" id="northern-africa-body" role="region" aria-labelledby="northern-africa-toggle">
+
+<div class="accordion-grid"; style="margin: 1em 0 0 0;">
+<!--------------START Country REGION ROW----------------->
+  <div class="country-row">
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+<!--------------END country ROW---------------->
+<!-------END country acordion------>
+    </div>
+     </div>
+     </div>
+     </div>
+<!------END CONTINENT REGION------>
+
+
+  <!-- Region -->
+  <div class="subsection">
+    <button class="subsection-toggle" id="southern-africa-toggle"
+            aria-controls="southern-africa-body" aria-expanded="false">
+      Southern Africa
+    </button>
+
+    <div class="subsection-body" id="southern-africa-body" role="region" aria-labelledby="southern-africa-toggle">
+
+<div class="accordion-grid"; style="margin: 1em 0 0 0;">
+<!--------------START Country REGION ROW----------------->
+  <div class="country-row">
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+<!--------------END country ROW---------------->
+<!-------END country acordion------>
+    </div>
+     </div>
+     </div>
+     </div>
+<!------END CONTINENT REGION------>
+
+ 
+  <!-- Region -->
+  <div class="subsection">
+    <button class="subsection-toggle" id="western-africa-toggle"
+            aria-controls="western-africa-body" aria-expanded="false">
+      Western Africa
+    </button>
+
+    <div class="subsection-body" id="western-africa-body" role="region" aria-labelledby="western-africa-toggle">
+
 <div class="accordion-grid">
+<!--------------START Country REGION ROW----------------->
+  <div class="country-row">
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!--------------END country ROW---------------->
+<!-------END country acordion------>
+    </div>
+     </div>
+     </div>
+     </div>
+     </div>
+
+
+<!------END CONTINENT REGION------> 
+
+
+
+
+
+
+
+<!-----------------------------------NORTH AMERICA---------------------------------------->
+<!-- Continent -->
+<header class="section-head">
+  <button class="section-toggle" id="northam-toggle"
+          aria-controls="northam-body" aria-expanded="false">
+    North America
+  </button>
+</header>
+
+<div class="section-body" id="northam-body" role="region" aria-labelledby="northam-toggle">
+  <!-- Region -->
+  <div class="subsection">
+    <button class="subsection-toggle" id="islandsNA-toggle"
+            aria-controls="islandsNA-body" aria-expanded="false">
+      North American Islands
+    </button>
+
+    <div class="subsection-body" id="islandsNA-body" role="region" aria-labelledby="islandsNA-toggle">
+<div class="accordion-grid"; style="margin: 1em 0 0 0;">
 <!--------------START Country ROW----------------->
   <div class="country-row">
 <!---------Antigua and Barbuda-----------> 
@@ -1801,7 +4553,7 @@ permalink: /internationallaw.html
 
   <!---------El Salvador-----------> 
    <div class="country">
-      <button class="accordion" aria-expanded="false" aria-controls="ElSalvador-panel" id="ElSalvador-btn">ElSalvador</button>
+      <button class="accordion" aria-expanded="false" aria-controls="ElSalvador-panel" id="ElSalvador-btn">El Salvador</button>
       <div class="panel" id="ElSalvador-panel" role="region" aria-labelledby="ElSalvador-btn">
        <table>
     <tr>
@@ -1839,6 +4591,42 @@ permalink: /internationallaw.html
 
 <!--------------START Country ROW----------------->
   <div class="country-row"> 
+<!---------Greenland-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Greenland-panel" id="Greenland-btn">Greenland</button>
+      <div class="panel" id="Greenland-panel" role="region" aria-labelledby="Greenland-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
 <!---------Grenada-----------> 
    <div class="country">
       <button class="accordion" aria-expanded="false" aria-controls="Grenada-panel" id="Grenada-btn">Grenada</button>
@@ -1982,8 +4770,14 @@ permalink: /internationallaw.html
   </table>
      </div>
      </div>
+     </div>
+<!--------------END country ROW---------------->
 
- <!---------Jamaica-----------> 
+
+
+<!--------------START Country ROW----------------->
+  <div class="country-row"> 
+<!---------Jamaica-----------> 
    <div class="country">
       <button class="accordion" aria-expanded="false" aria-controls="Jamaica-panel" id="Jamaica-btn">Jamaica</button>
       <div class="panel" id="Jamaica-panel" role="region" aria-labelledby="Jamaica-btn">
@@ -2018,14 +4812,8 @@ permalink: /internationallaw.html
   </table>
      </div>
      </div>
-     </div>
-<!--------------END country ROW---------------->
-
-
-
-<!--------------START Country ROW----------------->
-  <div class="country-row"> 
- <!---------Mexico-----------> 
+      
+<!---------Mexico-----------> 
    <div class="country">
       <button class="accordion" aria-expanded="false" aria-controls="Mexico-panel" id="Mexico-btn">Mexico</button>
       <div class="panel" id="Mexico-panel" role="region" aria-labelledby="Mexico-btn">
@@ -2168,8 +4956,13 @@ permalink: /internationallaw.html
   </table>
      </div>
      </div>
+     </div>
+<!--------------END country ROW---------------->
 
- <!---------Saint Lucia-----------> 
+
+<!--------------START Country ROW----------------->
+  <div class="country-row"> 
+<!---------Saint Lucia-----------> 
    <div class="country">
       <button class="accordion" aria-expanded="false" aria-controls="SaintLucia-panel" id="SaintLucia-btn">Saint Lucia</button>
       <div class="panel" id="SaintLucia-panel" role="region" aria-labelledby="SaintLucia-btn">
@@ -2204,13 +4997,8 @@ permalink: /internationallaw.html
   </table>
      </div>
      </div>
-     </div>
-<!--------------END country ROW---------------->
-
-
-<!--------------START Country ROW----------------->
-  <div class="country-row"> 
- <!---------Saint Vincent-----------> 
+ 
+<!---------Saint Vincent-----------> 
    <div class="country">
       <button class="accordion" aria-expanded="false" aria-controls="SaintVincent-panel" id="SaintVincent-btn">Saint Vincent</button>
       <div class="panel" id="SaintVincent-panel" role="region" aria-labelledby="SaintVincent-btn">
@@ -2333,18 +5121,36 @@ permalink: /internationallaw.html
   </table>
      </div>
       </div>
-     </div>
+     
 <!--------------END country ROW---------------->
 
 <!-------END country acordion------>
     </div>
      </div>
+  </div>
+  </div>
+  </div>
+
 
 <!----------------------------------SOUTH AMERICA--------------------------------------->
-    <header class="section-head">
-      <h3>South America</h3>
-    </header>
-<div class="accordion-grid">
+<!-- Continent -->
+<header class="section-head">
+  <button class="section-toggle" id="southam-toggle"
+          aria-controls="southam-body" aria-expanded="false">
+    South America
+  </button>
+</header>
+
+<div class="section-body" id="southam-body" role="region" aria-labelledby="southam-toggle">
+  <!-- Region -->
+  <div class="subsection">
+    <button class="subsection-toggle" id="islands-toggle"
+            aria-controls="islands-body" aria-expanded="false">
+      Islands
+    </button>
+
+    <div class="subsection-body" id="islands-body" role="region" aria-labelledby="islands-toggle">
+<div class="accordion-grid"; style="margin: 1em 0 0 0;">
 <!--------------START Country ROW----------------->
   <div class="country-row"> 
 
@@ -2527,12 +5333,6 @@ permalink: /internationallaw.html
   </table>
      </div>
      </div>
-     </div>
-
-<!--------------END country ROW---------------->
-
-<!--------------START Country ROW----------------->
-  <div class="country-row">
 
 <!---------Ecuador-----------> 
    <div class="country">
@@ -2713,11 +5513,7 @@ permalink: /internationallaw.html
   </table>
      </div>
      </div>
-     </div>
-<!--------------END country ROW---------------->
-<!--------------START Country ROW----------------->
-  <div class="country-row">
-
+   
 <!---------Uruguay-----------> 
    <div class="country">
       <button class="accordion" aria-expanded="false" aria-controls="Uruguay-panel" id="Uruguay-btn">Uruguay</button>
@@ -2753,7 +5549,6 @@ permalink: /internationallaw.html
   </table>
      </div>
      </div>
-
 
 <!---------Venezuela-----------> 
    <div class="country">
@@ -2791,20 +5586,50 @@ permalink: /internationallaw.html
      </div>
      </div>
      </div>
+     </div>
 <!--------------END country ROW---------------->
 
+
+  <!-- Region -->
+  <div class="subsection">
+    <button class="subsection-toggle" id="mainlandSA-toggle"
+            aria-controls="mainlandSA-body" aria-expanded="false">
+      Mainland
+    </button>
+
+    <div class="subsection-body" id="mainlandSA-body" role="region" aria-labelledby="mainlandSA-toggle">
+<div class="accordion-grid">
 <!-------END country acordion------>
     </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
 <!------END CONTINENT------>
   
 
 
 
 <!----------------------------------- EUROPE ---------------------------------------->
-    <header class="section-head">
-      <h3>Europe</h3>
-    </header>
-<div class="accordion-grid">
+<!-- Continent -->
+<header class="section-head">
+  <button class="section-toggle" id="europe-toggle"
+          aria-controls="europe-body" aria-expanded="false">
+    Europe
+  </button>
+</header>
+
+<div class="section-body" id="africa-body" role="region" aria-labelledby="africa-toggle">
+  <!-- Region -->
+  <div class="subsection">
+    <button class="subsection-toggle" id="eastern-europe-toggle"
+            aria-controls="eastern-europe-body" aria-expanded="false">
+     Eastern Europe
+    </button>
+
+    <div class="subsection-body" id="eastern-europe-body" role="region" aria-labelledby="eastern-europe-toggle">
+<div class="accordion-grid"; style="margin: 1em 0 0 0;">
 <!--------------START Country ROW----------------->
   <div class="country-row"> 
 
@@ -2849,18 +5674,72 @@ permalink: /internationallaw.html
 <!-------END country acordion------>
     </div>
      </div>
+  </div>
+  </div>
+  </div>
+
 <!------END CONTINENT------>
 
 
 
 
-<!------------------------------------AUSTRALIA---------------------------------------->
-    <header class="section-head">
-      <h3>Australia</h3>
-    </header>
-<div class="accordion-grid">
+<!------------------------------------Oceania---------------------------------->
+<!-- Continent -->
+<header class="section-head">
+  <button class="section-toggle" id="oceania-toggle"
+          aria-controls="oceania-body" aria-expanded="false">
+    Oceania
+  </button>
+</header>
+
+<div class="section-body" id="oceania-body" role="region" aria-labelledby="oceania-toggle">
+  <!-- Region -->
+  <div class="subsection">
+    <button class="subsection-toggle" id="australia-toggle"
+            aria-controls="australia-body" aria-expanded="false">
+      Australia
+    </button>
+
+    <div class="subsection-body" id="australia-body" role="region" aria-labelledby="australia-toggle">
+
+<div class="accordion-grid"; style="margin: 1em 0 0 0;">
 <!--------------START Country ROW----------------->
   <div class="country-row"> 
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
 
 <!---------[COUNTRY]-----------> 
    <div class="country">
@@ -2898,121 +5777,304 @@ permalink: /internationallaw.html
      </div>
      </div>
 
-<!--------------END country ROW---------------->
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
+<!---------[COUNTRY]-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="[country]-panel" id="[country]-btn">[country]</button>
+      <div class="panel" id="[country]-panel" role="region" aria-labelledby="[country]-btn">
+       <table>
+    <tr>
+     <th scope="col">Recording Law</th>
+      <th scope="col">Definition of Consent</th>
+      <th scope="col">Non-Citizen Protection</th>
+      <th scope="col">Summary</th>
+    </tr>
+    <tr>
+      <td>[recording law]</td>
+      <td>[stuff]</td>
+      <td>[stuff]</td>
+      <td>[summary]</td>
+    </tr>
+     <tr>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+<td>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a><br>
+    <a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a>
+  </td>
+  <td></td> <!-- Empty cell for Summary -->
+  </tr>
+  </table>
+     </div>
+     </div>
+
 
 <!-------END country acordion------>
     </div>
      </div>
+  </div>
+  </div>
+  </div>
 <!------END CONTINENT------>
 
 </section>
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const slugify = s => (s||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
-
-  document.querySelectorAll('.accordion-grid').forEach((grid, gIdx) => {
-    // countries that belong to THIS grid only (ignore nested grids)
-    const countries = [...grid.querySelectorAll('.country')]
-      .filter(c => c.closest('.accordion-grid') === grid);
-
-    if (!countries.length) return;  // keep this guard
-
-    /* 1) Normalize IDs / ARIA once per grid */
-    const seen = new Set();
-    countries.forEach((c, i) => {
-      const btn = c.querySelector('.accordion');
-      const panel = c.querySelector('.panel');
-      if (!btn || !panel) return;
-
-      const base = slugify((btn.textContent || btn.innerText || '').trim()) || `country-${gIdx}-${i}`;
-      let bid = btn.id && !/\s/.test(btn.id) ? btn.id : `${base}-btn`;
-      let pid = panel.id && !/\s/.test(panel.id) ? panel.id : `${base}-panel`;
-
-      let k = 1;
-      while (seen.has(bid) || seen.has(pid)) { bid = `${base}-${k}-btn`; pid = `${base}-${k}-panel`; k++; }
-
-      btn.id = bid; panel.id = pid;
-      seen.add(bid); seen.add(pid);
-      btn.setAttribute('aria-controls', panel.id);
-      panel.setAttribute('aria-labelledby', btn.id);
-      btn.setAttribute('aria-expanded','false');
-    });
-
-    /* 2) Helpers */
-    const cols = () =>
-      window.innerWidth <= 650 ? 2 :
-      window.innerWidth <= 900 ? 3 :
-      window.innerWidth <=1100 ? 4 : 5;
-
-    let openId = null; // remember the open button within THIS grid
-
-    /* 3) Build rows for THIS grid only */
-    const buildRows = () => {
-      const n = cols();
-
-      // remove only wrappers we created directly under this grid
-      [...grid.querySelectorAll(':scope > .country-row, :scope > .row-panel.__row')].forEach(el => el.remove());
-      // also remove any static placeholder row-panels that may be in the HTML
-      [...grid.querySelectorAll(':scope > .row-panel:not(.__row)')].forEach(el => el.remove());
-
-      for (let i = 0; i < countries.length; i += n) {
-        const row = document.createElement('div');
-        row.className = 'country-row';
-        row.style.gridTemplateColumns = `repeat(${n}, minmax(0,1fr))`;
-
-        countries.slice(i, i+n).forEach(c => row.appendChild(c));
-
-        const rp = document.createElement('div');
-        rp.className = 'row-panel __row';
-        rp.style.display = 'none';
-        row.appendChild(rp);
-
-        grid.appendChild(row);
-
-        // restore open panel if its button landed in this row
-        if (openId) {
-          const openBtn = row.querySelector(`#${CSS.escape(openId)}`);
-          if (openBtn) {
-            rp.innerHTML = openBtn.nextElementSibling?.innerHTML || '';
-            rp.style.display = 'block';
-            openBtn.setAttribute('aria-expanded','true');
-          }
+(function(){
+  // helper: close siblings at the same level
+  function closeSiblings(currentBtn){
+    const parent = currentBtn.parentElement.parentElement; // wrapper that holds siblings
+    const selector = currentBtn.classList.contains('section-toggle') ? '.section-toggle' : '.subsection-toggle';
+    parent.querySelectorAll(selector).forEach(btn=>{
+      if(btn !== currentBtn){
+        btn.setAttribute('aria-expanded','false');
+        const panelId = btn.getAttribute('aria-controls');
+        if(panelId){
+          const panel = document.getElementById(panelId);
+          if(panel) panel.classList.remove('open');
         }
       }
-    };
-
-    buildRows();
-
-    /* 4) Click handling scoped to THIS grid */
-    grid.addEventListener('click', (e) => {
-      const btn = e.target.closest('.accordion');
-      if (!btn || !grid.contains(btn)) return;
-
-      const panel = btn.nextElementSibling;
-      const row = btn.closest('.country-row') || btn.closest('.country')?.parentElement;
-      const rp = row.querySelector('.row-panel.__row');
-
-      const willOpen = openId !== btn.id;
-
-      // close everything in THIS grid
-      grid.querySelectorAll('.accordion').forEach(b => b.setAttribute('aria-expanded','false'));
-      grid.querySelectorAll('.row-panel.__row').forEach(p => { p.style.display='none'; p.innerHTML=''; });
-
-      if (willOpen) {
-        btn.setAttribute('aria-expanded','true');
-        rp.innerHTML = panel.innerHTML;
-        rp.style.display = 'block';
-        openId = btn.id;
-      } else {
-        openId = null;
-      }
     });
+  }
 
-    /* 5) Rebuild on resize (debounced) */
-    let t;
-    window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(buildRows, 150); });
-  });
-});
+  function handleToggleClick(e){
+    const btn = e.currentTarget;
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    const panel = document.getElementById(btn.getAttribute('aria-controls'));
+    // close siblings at same level (exclusive open)
+    closeSiblings(btn);
+    // toggle this one
+    btn.setAttribute('aria-expanded', String(!expanded));
+    if(panel){
+      panel.classList.toggle('open', !expanded);
+    }
+  }
+
+  // bind continent + region toggles
+  document.querySelectorAll('.section-toggle, .subsection-toggle')
+    .forEach(btn => btn.addEventListener('click', handleToggleClick));
+
+  // (Optional) Keep your existing per-country accordion JS as-is.
+})();
 </script>
-
