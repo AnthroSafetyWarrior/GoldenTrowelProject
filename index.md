@@ -43,12 +43,12 @@ is_homepage: true
     <p>Download and customize your safety materials below to protect yourself and your team.</p>
     <div class="doc-links">
       <div class="doc-card">
-        <h3>Safety Planning Document</h3>
+        <h3>Fieldwork Safety Plan</h3>
         <p>A personal safety plan template for researchers.</p>
         <a href="https://docs.google.com/document/d/1OkEMW4VhpsccA_VZTTEvgBBq5vs0mCOEDg9Xk6f34Ss/edit?usp=sharing" target="_blank">Open Google Doc</a>
       </div>
       <div class="doc-card">
-        <h3>Fieldwork Safety Commitment</h3>
+        <h3>Collaborator Safety Commitment Agreement</h3>
         <p>A team-wide agreement on ethical and safe fieldwork protocols.</p>
         <a href="https://docs.google.com/document/d/18SmymYAFKUz_drbDhcsx8NWaiNG6-SQflWPj0OaZ76c/edit?usp=sharing" target="_blank">Open Google Doc</a>
       </div>
