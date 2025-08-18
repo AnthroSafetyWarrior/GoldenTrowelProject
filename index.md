@@ -31,7 +31,7 @@ is_homepage: true
 
     <img
       src="project-2025-08-06_01-08_AM.png"
-      alt="Infographic summarizing results from a study surveying anthropologists about their experiences with sexual harassment and sexual assault during fieldwork, and their knowledge of reporting prpcesses (Clancy et al.,2014)"
+      alt="Infographic summarizing results from a study surveying anthropologists about their experiences with sexual harassment and sexual assault during fieldwork, and their knowledge of reporting processes (Clancy et al.,2014)"
       style="display:block; width:90%;margin:1em auto 0; border-radius:12px; box-shadow:none;"
     />
   </div>
@@ -44,7 +44,7 @@ is_homepage: true
     <div class="doc-links">
       <div class="doc-card">
         <h3>Fieldwork Safety Plan</h3>
-        <p>A personal safety plan template for researchers.</p>
+        <p>A personal safety plan template for researchers. The goal of this document is to help researchers build defensive and offensive protocols to prevent and report sexual violence in the field.</p>
         <a href="https://docs.google.com/document/d/1OkEMW4VhpsccA_VZTTEvgBBq5vs0mCOEDg9Xk6f34Ss/edit?usp=sharing" target="_blank">Open Google Doc</a>
       </div>
       <div class="doc-card">
