@@ -54,16 +54,17 @@
 .dropdown-content a { text-decoration: none; color: inherit; }
 
 
-/* NAV WRAPPER — never create its own scrollbar */
-/* Make the band full-width */
+/* NAV WRAPPER — sticky so the dropdowns stay anchored at the top */
 .nav-scroller{
   width:100%;
-  background:#e8a084;          /* <-- moved here */
+  background:#e8a084;
   overflow-x:hidden;
   overflow-y:visible !important;
-  position:relative;
-  z-index:20;
+  position: sticky;   /* was relative */
+  top: 0;
+  z-index: 2000;      /* keep above page content */
 }
+
 
 /* Center the 5-button grid inside the band */
 .main-nav{
@@ -248,6 +249,7 @@
   <main>
     {{ content }}
   </main>
+
 <script>
 (function () {
   const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
@@ -258,9 +260,10 @@
     const panel = drop.querySelector('.dropdown-content');
     if (!btn || !panel) return;
 
-    // --- NEW: portal helpers (move panel to <body> on touch) ---
-    const usePortal = !canHover;           // only on touch devices
-    let placeholder = null;                // where to put it back
+    // Move panel to <body> only on touch devices (prevents clipping)
+    const usePortal = !canHover;
+    let placeholder = null;
+    let isOpen = false;
 
     const moveToBody = () => {
       if (!usePortal || panel.parentElement === document.body) return;
@@ -274,37 +277,47 @@
       placeholder.replaceWith(panel);
       placeholder = null;
     };
-    // -----------------------------------------------------------
 
-    const show = () => {
-      // Ensure panel is out of the scrolling nav on touch
-      moveToBody();
-
-      const r = btn.getBoundingClientRect();
+    function positionPanel(){
+      if (!isOpen) return;
+      const r = btn.getBoundingClientRect();   // viewport coords
       const margin = 12;
       const minW   = 220;
       const maxW   = Math.min(320, window.innerWidth - margin*2);
-      const w = clamp(Math.max(r.width, minW), minW, maxW);
+      const width  = clamp(Math.max(r.width, minW), minW, maxW);
 
-      let left = r.left + (r.width/2) - (w/2);
-      left = clamp(left, margin, window.innerWidth - margin - w);
-      const top = Math.round(r.bottom + window.scrollY);
+      let left = r.left + (r.width/2) - (width/2);
+      left = clamp(left, margin, window.innerWidth - margin - width);
 
-      panel.classList.add('is-floating');     // gives position:fixed, etc.
-      panel.style.width = w + 'px';
+      panel.style.width = width + 'px';
       panel.style.left  = Math.round(left) + 'px';
-      panel.style.top   = top + 'px';
-      panel.style.display = 'block';
-    };
+      panel.style.top   = Math.round(r.bottom) + 'px'; // <-- no window.scrollY
+    }
 
-    const hide = () => {
+    function show(){
+      if (isOpen) return;
+      moveToBody();
+      panel.classList.add('is-floating');   // gives position:fixed, etc.
+      panel.style.display = 'block';
+      isOpen = true;
+      positionPanel();
+
+      // keep it attached while scrolling/resizing
+      window.addEventListener('scroll', positionPanel, { passive: true });
+      window.addEventListener('resize', positionPanel);
+    }
+
+    function hide(){
+      if (!isOpen) return;
       panel.style.display = 'none';
       panel.classList.remove('is-floating');
       panel.style.width = panel.style.left = panel.style.top = '';
+      isOpen = false;
 
-      // Put the panel back under its button so desktop hover still works
+      window.removeEventListener('scroll', positionPanel);
+      window.removeEventListener('resize', positionPanel);
       moveBack();
-    };
+    }
 
     // Desktop / pointer devices
     if (window.PointerEvent) {
@@ -336,13 +349,11 @@
       }, { passive: true });
     }
 
-    // Housekeeping
-    window.addEventListener('scroll', hide, { passive: true });
-    window.addEventListener('resize', hide);
     btn.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') hide(); });
   });
 })();
 </script>
+
 
 
 
