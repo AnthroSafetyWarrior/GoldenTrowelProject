@@ -4,11 +4,12 @@ title: Know Your International Rights
 permalink: /internationallaw.html
 ---
 
-
 <style>
 /* ---- Accordion layout ---- */
 .accordion-grid{
-  display:block;                 /* was grid; we’ll build rows in JS */
+  display:grid;
+  grid-template-columns: repeat(5, minmax(0,1fr));
+  gap:.5rem;
   margin-bottom:3rem;
 }
 
@@ -20,25 +21,21 @@ permalink: /internationallaw.html
   margin-bottom:.5rem;           /* spacing between rows */
   align-items:start;
 }
-@media (max-width:1100px){ .country-row{ grid-template-columns:repeat(4,minmax(0,1fr)); } }
-@media (max-width:900px){  .country-row{ grid-template-columns:repeat(3,minmax(0,1fr)); } }
-@media (max-width:650px){  .country-row{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width:1100px){ .accordion-grid{ grid-template-columns:repeat(4, minmax(0,1fr)); } }
+@media (max-width:900px){  .accordion-grid{ grid-template-columns:repeat(3, minmax(0,1fr)); } }
+@media (max-width:650px){  .accordion-grid{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
 
 .country{ display:flex; flex-direction:column; }
 
-/* table holder that appears under the *row* that contains the open button */
+/* the injected holder spans the full grid width and sits under the clicked row */
 .row-panel{
   display:none;
-  grid-column:1 / -1;
-  background:#e8a084;
-  padding:.75rem;
-  overflow-x:auto;
-  -webkit-overflow-scrolling:touch;
-  border-bottom-left-radius:6px; 
-  border-bottom-right-radius:6px;
-  border:3px solid #e8a084;
-  box-sizing:border-box;
+  grid-column: 1 / -1;
+  background:#e8a084; padding:.75rem; overflow-x:auto;
+  border-bottom-left-radius:6px; border-bottom-right-radius:6px;
+  border:3px solid #e8a084; box-sizing:border-box;
 }
+.row-panel.open{ display:block; }
 
 /* Country buttons */
 .accordion{
@@ -82,7 +79,7 @@ permalink: /internationallaw.html
 .row-panel td{ color:#000; }
 .row-panel td :where(p, li, div, span, strong, em){ color:#000; }
 
-/* Small screens: allow horizontal scroll only when needed */
+/* small screens: allow horizontal scroll only when needed */
 @media (max-width: 700px){
   .row-panel table{ min-width: 640px; }
 }
@@ -140,7 +137,7 @@ permalink: /internationallaw.html
 }
 .country-section .section-head h2{ color:#fff; margin:0 0 .35em; }
 .country-section .section-head h4{ margin:.25em 0 0 0; }
-.country-section .section-head .lede{ color:#fff; margin:0 auto; max-width: 70ch; }
+.country-section .section-head .lede{ color:#fff; margin:0 auto; max-width: 80ch; text-align:center;}
 
 /* --- Nested accordion toggles (continents/regions) --- */
 .section-toggle,
@@ -206,17 +203,25 @@ permalink: /internationallaw.html
 
 /* Region containers also full-width, no extra padding */
 .section-body, .subsection, .subsection-body{ width:100%; padding:0; }
+
+a.link-white:link,
+a.link-white:visited { color:#fff; }
+
+a.link-white:hover,
+a.link-white:focus-visible { color:#fff; text-decoration: underline; }
+
 </style>
 
 
 
+
 <div class="page-intro">
-<h1>Know Your Defensive and Offensive Documentation Rights by Country</h1>
+<h2>Know Your Defensive and Offensive Documentation Rights by Country</h2>
 <p>Many countries soehave laws that extend protection to international travelers in cases of sexual misconduct and have a reporting process you can take advantage of. It is through these processes that we can affect change and elevate people to positions of power who support our right to safety and respect to replace those who dont. </p>
 <p>This resource provides information about laws related to recording, consent for photographs/videos/audio, legal documentation rights, and other relevant protections during fieldwork by country.</p>
 
 <div class="disclaimer">
-  <strong>This page is still under construction.</strong>While countries are listed, many tables are not yet complete. If you need information for a specific country, please let us know by completing the <a href="https://forms.gle/T587N5ZHnhrgVM5dA" target="_blank" rel="noopener noreferrer">Website and Resources Feedback Survey</a>. Your input helps us prioritize which resources to build first.</div>
+  <strong>This page is still under construction.</strong>While countries are listed, many tables are not yet complete. If you need information for a specific country, please let us know by completing the <a class="link-white" href="https://forms.gle/T587N5ZHnhrgVM5dA" target="_blank" rel="noopener noreferrer">Website and Resources Feedback Survey</a>. Your input helps us prioritize which resources to build first.</div>
 
 <div class="oneparty-caveat" role="region" aria-labelledby="opc-caveats-title">
   <h3 id="opc-caveats-title">Cultural/Enforcement Notes</h3>
@@ -269,7 +274,6 @@ permalink: /internationallaw.html
 
 <div class="accordion-grid">
 <!--------------START Country ROW----------------->
-  <div class="country-row">
 <!---------Kazakhstan-----------> 
    <div class="country">
       <button class="accordion" aria-expanded="false" aria-controls="Kazakhstan-panel" id="Kazakhstan-btn">Kazakhstan</button>
@@ -453,7 +457,6 @@ permalink: /internationallaw.html
   </div>
   </div>
   </div>
-  </div>
 <!------END CONTINENT REGION------>
 
 
@@ -466,7 +469,6 @@ permalink: /internationallaw.html
     <div class="subsection-body" id="East-Asia-body" role="region" aria-labelledby="East-Asia-toggle">
 <div class="accordion-grid">
 <!--------------START Country REGION ROW----------------->
-  <div class="country-row">
 <!---------China-----------> 
    <div class="country">
       <button class="accordion" aria-expanded="false" aria-controls="China-panel" id="China-btn">China</button>
@@ -734,7 +736,6 @@ permalink: /internationallaw.html
      </div>
      </div>
 <!-------END country acordion------>
-     </div>
   </div>
   </div>
   </div>
@@ -751,8 +752,6 @@ permalink: /internationallaw.html
 <div class="accordion-grid">
 
 <!--------------START Country REGION ROW----------------->
-  <div class="country-row">
-
 <!---------Afghanistan-----------> 
    <div class="country">
       <button class="accordion" aria-expanded="false" aria-controls="Afghanistan-panel" id="Afghanistan-btn">Afghanistan</button>
@@ -1473,7 +1472,6 @@ permalink: /internationallaw.html
      </div>
      </div>
 <!--------------END country ROW---------------->
-     </div>
   </div>
 </div>
 </div>
@@ -1489,7 +1487,6 @@ permalink: /internationallaw.html
     <div class="subsection-body" id="west-asia-body" role="region" aria-labelledby="west-asia-toggle">
 <div class="accordion-grid">
 <!--------------START Country REGION ROW----------------->
-  <div class="country-row">
 <!---------Armenia-----------> 
    <div class="country">
       <button class="accordion" aria-expanded="false" aria-controls="Armenia-panel" id="Armenia-btn">Armenia</button>
@@ -2145,13 +2142,12 @@ permalink: /internationallaw.html
   </div>
   </div>
   </div>
-  </div>
  <!------END CONTINENT REGION------>
 <hr style="width: 100%; color:#c4551e; background-color:#c4551e; border-width:0; height:3px;">
 
 
 
-<!--------------------------------------AFRICA------------------------------------------>
+<!-------------------------------------AFRICA----------------------------------------->
 <!-- Continent -->
 <header class="section-head">
   <button class="section-toggle" id="africa-toggle"
@@ -2172,7 +2168,6 @@ permalink: /internationallaw.html
      
 <div class="accordion-grid">
 <!--------------START Country REGION ROW----------------->
-  <div class="country-row">
 <!---------Ascension Island-----------> 
    <div class="country">
       <button class="accordion" aria-expanded="false" aria-controls="AscensionIsland-panel" id="AscensionIsland-btn">Ascension Island</button>
@@ -2573,7 +2568,6 @@ permalink: /internationallaw.html
   </div>
   </div>
   </div>
-  </div>
 
   <!-- Region -->
   <div class="subsection">
@@ -2586,7 +2580,6 @@ permalink: /internationallaw.html
      
 <div class="accordion-grid">
 <!--------------START Country REGION ROW----------------->
-  <div class="country-row">
 <!---------Angola-----------> 
    <div class="country">
       <button class="accordion" aria-expanded="false" aria-controls="Angola-panel" id="Angola-btn">Angola</button>
@@ -2912,7 +2905,6 @@ permalink: /internationallaw.html
      </div>
 
 <!--------------END REGION ROW---------------->
-    </div>
      </div>
   </div>
   </div>
@@ -2931,7 +2923,6 @@ permalink: /internationallaw.html
 
 <div class="accordion-grid">
 <!--------------START Country REGION ROW----------------->
-  <div class="country-row">
 <!---------Burundi-----------> 
    <div class="country">
       <button class="accordion" aria-expanded="false" aria-controls="Burundi-panel" id="Burundi-btn">Burundi</button>
@@ -3436,7 +3427,6 @@ permalink: /internationallaw.html
      </div>
      </div>
 <!--------------END country ROW---------------->
-    </div>
      </div>
      </div>
      </div>
@@ -3454,7 +3444,6 @@ permalink: /internationallaw.html
 
 <div class="accordion-grid">
 <!--------------START Country REGION ROW----------------->
-  <div class="country-row">
 <!---------Algeria-----------> 
    <div class="country">
       <button class="accordion" aria-expanded="false" aria-controls="Algeria-panel" id="Algeria-btn">Algeria</button>
@@ -3672,7 +3661,6 @@ permalink: /internationallaw.html
      </div>
 <!--------------END country ROW---------------->
 <!-------END country acordion------>
-    </div>
      </div>
      </div>
      </div>
@@ -3690,7 +3678,6 @@ permalink: /internationallaw.html
 
 <div class="accordion-grid">
 <!--------------START Country REGION ROW----------------->
-  <div class="country-row">
 <!---------Botswana-----------> 
    <div class="country">
       <button class="accordion" aria-expanded="false" aria-controls="Botswana-panel" id="Botswana-btn">Botswana</button>
@@ -3872,7 +3859,6 @@ permalink: /internationallaw.html
      </div>
 <!--------------END country ROW---------------->
 <!-------END country acordion------>
-    </div>
      </div>
      </div>
      </div>
@@ -3890,7 +3876,6 @@ permalink: /internationallaw.html
 
 <div class="accordion-grid">
 <!--------------START Country REGION ROW----------------->
-  <div class="country-row">
 <!---------Benin-----------> 
    <div class="country">
       <button class="accordion" aria-expanded="false" aria-controls="Benin-panel" id="Benin-btn">Benin</button>
@@ -4432,7 +4417,6 @@ permalink: /internationallaw.html
      </div>
 <!--------------END country ROW---------------->
 <!-------END country acordion------>
-    </div>
      </div>
      </div>
      </div>
@@ -4464,7 +4448,6 @@ permalink: /internationallaw.html
     <div class="subsection-body" id="islandsNA-body" role="region" aria-labelledby="islandsNA-toggle">
 <div class="accordion-grid">
 <!--------------START Country ROW----------------->
-  <div class="country-row">
 <!---------Anguilla-----------> 
    <div class="country">
       <button class="accordion" aria-expanded="false" aria-controls="Anguilla-panel" id="Anguilla-btn">Anguilla</button>
@@ -5476,7 +5459,6 @@ permalink: /internationallaw.html
 </div>
 </div>
 </div>
-</div>
 
 
   <!-- Region -->
@@ -5489,7 +5471,6 @@ permalink: /internationallaw.html
     <div class="subsection-body" id="mainlandNA-body" role="region" aria-labelledby="mainlandNA-toggle">
 <div class="accordion-grid">
 <!--------------START Country ROW----------------->
-  <div class="country-row">
   <!---------Belize-----------> 
    <div class="country">
       <button class="accordion" aria-expanded="false" aria-controls="Belize-panel" id="Belize-btn">Belize</button>
@@ -5835,7 +5816,6 @@ permalink: /internationallaw.html
   </div>
   </div>
   </div>
-  </div>
 <hr style="width: 100%; color:#c4551e; background-color:#c4551e; border-width:0; height:3px;">
 
 
@@ -5859,7 +5839,6 @@ permalink: /internationallaw.html
 
 <div class="accordion-grid"> 
 <!--------------START Country ROW----------------->
-  <div class="country-row">
 <!---------Easter Island (Rapa Nui)-----------> 
    <div class="country">
       <button class="accordion" aria-expanded="false" aria-controls="EasterIsland-panel" id="EasterIsland-btn">Easter Island (Rapa Nui)</button>
@@ -6077,7 +6056,6 @@ permalink: /internationallaw.html
      </div>
   
 <!--------------END REGION ROW---------------->
- </div>
 </div>
 </div>
 </div>
@@ -6093,7 +6071,6 @@ permalink: /internationallaw.html
 
 <div class="accordion-grid">
 <!--------------START Country ROW----------------->
-  <div class="country-row"> 
 <!---------Argentina-----------> 
    <div class="country">
       <button class="accordion" aria-expanded="false" aria-controls="Argentina-panel" id="Argentina-btn">Argentina</button>
@@ -6529,7 +6506,6 @@ permalink: /internationallaw.html
      </div>
      </div>
      </div>
-     </div>
 <!-------END country acordion------>
   </div>
  
@@ -6559,8 +6535,6 @@ permalink: /internationallaw.html
     <div class="subsection-body" id="eastern-europe-body" role="region" aria-labelledby="eastern-europe-toggle">
 <div class="accordion-grid">
 <!--------------START Country ROW----------------->
-  <div class="country-row"> 
-
 <!---------Belarus-----------> 
    <div class="country">
       <button class="accordion" aria-expanded="false" aria-controls="Belarus-panel" id="Belarus-btn">Belarus</button>
@@ -6924,7 +6898,6 @@ permalink: /internationallaw.html
      </div>
      </div>
      </div>
-     </div>
 
   <!-- Region -->
   <div class="subsection">
@@ -6936,7 +6909,6 @@ permalink: /internationallaw.html
     <div class="subsection-body" id="EuorpeanTerrorities-body" role="region" aria-labelledby="EuorpeanTerrorities-toggle">
 <div class="accordion-grid">
 <!--------------START Country ROW----------------->
-  <div class="country-row"> 
 
 <!---------Åland Islands-----------> 
    <div class="country">
@@ -7121,7 +7093,6 @@ permalink: /internationallaw.html
      </div>
      </div>
      </div>
-     </div>
 
   <!-- Region -->
   <div class="subsection">
@@ -7133,7 +7104,6 @@ permalink: /internationallaw.html
     <div class="subsection-body" id="Northern-europe-body" role="region" aria-labelledby="Northern-europe-toggle">
 <div class="accordion-grid">
 <!--------------START Country ROW----------------->
-  <div class="country-row"> 
 
 <!---------Denmark-----------> 
    <div class="country">
@@ -7462,7 +7432,6 @@ permalink: /internationallaw.html
      </div>
      </div>
      </div>
-     </div>
 
   <!-- Region -->
   <div class="subsection">
@@ -7474,8 +7443,6 @@ permalink: /internationallaw.html
     <div class="subsection-body" id="Southern-europe-body" role="region" aria-labelledby="Southern-europe-toggle">
 <div class="accordion-grid">
 <!--------------START Country ROW----------------->
-  <div class="country-row"> 
-
 <!---------Albania-----------> 
    <div class="country">
       <button class="accordion" aria-expanded="false" aria-controls="Albania-panel" id="Albania-btn">Albania</button>
@@ -8102,12 +8069,11 @@ permalink: /internationallaw.html
   </table>
      </div>
      </div>
-
 <!--------------END REGION ROW---------------->
      </div>
      </div>
      </div>
-     </div>
+
 
   <!-- Region -->
   <div class="subsection">
@@ -8119,8 +8085,6 @@ permalink: /internationallaw.html
     <div class="subsection-body" id="Western-europe-body" role="region" aria-labelledby="Western-europe-toggle">
 <div class="accordion-grid">
 <!--------------START Country ROW----------------->
-  <div class="country-row"> 
-
 <!---------Austria-----------> 
    <div class="country">
       <button class="accordion" aria-expanded="false" aria-controls="Austria-panel" id="Austria-btn">Austria</button>
@@ -8556,7 +8520,6 @@ permalink: /internationallaw.html
   </div>
   </div>
   </div>
-  </div>
 
 <!------END CONTINENT------>
 <hr style="width: 100%; color:#c4551e; background-color:#c4551e; border-width:0; height:3px;">
@@ -8584,7 +8547,6 @@ permalink: /internationallaw.html
 
 <div class="accordion-grid">
 <!--------------START Country ROW----------------->
-  <div class="country-row"> 
 <!---------Australian Capital Territory-----------> 
    <div class="country">
       <button class="accordion" aria-expanded="false" aria-controls="AustralianCapital-panel" id="AustralianCapital-btn">Australian Capital Territory</button>
@@ -8912,7 +8874,6 @@ permalink: /internationallaw.html
      </div>
      </div>
      </div>
-     </div>
 
   <!-- Region -->
   <div class="subsection">
@@ -8925,7 +8886,6 @@ permalink: /internationallaw.html
 
 <div class="accordion-grid">
 <!--------------START Country ROW----------------->
-  <div class="country-row"> 
 <!---------Fiji-----------> 
    <div class="country">
       <button class="accordion" aria-expanded="false" aria-controls="Fiji-panel" id="Fiji-btn">Fiji</button>
@@ -9106,7 +9066,6 @@ permalink: /internationallaw.html
      </div>
      </div>
      </div>
-     </div>
 
 
  <!-- Region -->
@@ -9120,7 +9079,6 @@ permalink: /internationallaw.html
 
 <div class="accordion-grid">
 <!--------------START Country ROW----------------->
-  <div class="country-row"> 
 <!---------Federated States of Micronesia (FSM)-----------> 
    <div class="country">
       <button class="accordion" aria-expanded="false" aria-controls="FSM-panel" id="FSM-btn">Federated States of Micronesia</button>
@@ -9372,7 +9330,6 @@ permalink: /internationallaw.html
      </div>
      </div>
      </div>
-     </div>
 
  <!-- Region -->
   <div class="subsection">
@@ -9385,7 +9342,6 @@ permalink: /internationallaw.html
 
 <div class="accordion-grid">
 <!--------------START Country ROW----------------->
-  <div class="country-row"> 
 <!---------Cook Islands-----------> 
    <div class="country">
       <button class="accordion" aria-expanded="false" aria-controls="CookIslands-panel" id="CookIslands-btn">Cook Islands</button>
@@ -9715,46 +9671,106 @@ permalink: /internationallaw.html
   </div>
   </div>
   </div>
-  </div>
 <!------END CONTINENT------>
 
 </section>
 
 <script>
 (function(){
-  // helper: close siblings at the same level
-  function closeSiblings(currentBtn){
-    const parent = currentBtn.parentElement.parentElement; // wrapper that holds siblings
-    const selector = currentBtn.classList.contains('section-toggle') ? '.section-toggle' : '.subsection-toggle';
-    parent.querySelectorAll(selector).forEach(btn=>{
-      if(btn !== currentBtn){
-        btn.setAttribute('aria-expanded','false');
-        const panelId = btn.getAttribute('aria-controls');
-        if(panelId){
-          const panel = document.getElementById(panelId);
-          if(panel) panel.classList.remove('open');
-        }
+  // ---------- helpers ----------
+  const setExpanded = (el, v) => el && el.setAttribute('aria-expanded', String(v));
+  const toggleOpen  = (el, v) => el && el.classList.toggle('open', v);
+
+  function closePeers(btn, selector){
+    const scope = btn.closest('.country-section') || document;
+    scope.querySelectorAll(selector).forEach(b=>{
+      if(b !== btn){
+        setExpanded(b, false);
+        const id = b.getAttribute('aria-controls');
+        if(id){ toggleOpen(document.getElementById(id), false); }
       }
     });
   }
 
-  function handleToggleClick(e){
-    const btn = e.currentTarget;
-    const expanded = btn.getAttribute('aria-expanded') === 'true';
-    const panel = document.getElementById(btn.getAttribute('aria-controls'));
-    // close siblings at same level (exclusive open)
-    closeSiblings(btn);
-    // toggle this one
-    btn.setAttribute('aria-expanded', String(!expanded));
-    if(panel){
-      panel.classList.toggle('open', !expanded);
-    }
+  // ---------- 1) top-level sections (USA / International) ----------
+  document.querySelectorAll('.section-toggle').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const panel  = document.getElementById(btn.getAttribute('aria-controls'));
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+      closePeers(btn, '.section-toggle');
+      setExpanded(btn, !isOpen);
+      toggleOpen(panel, !isOpen);
+    });
+  });
+
+  // ---------- 2) subsections (International regions) ----------
+  document.querySelectorAll('.subsection-toggle').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const panel  = document.getElementById(btn.getAttribute('aria-controls'));
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+      closePeers(btn, '.subsection-toggle');
+      setExpanded(btn, !isOpen);
+      toggleOpen(panel, !isOpen);
+    });
+  });
+
+  // ---------- 3) small accordions (states/countries) ----------
+  function getColCount(container){
+    const gtc = getComputedStyle(container).gridTemplateColumns.trim();
+    const m = gtc.match(/^repeat\((\d+),/);
+    return m ? +m[1] : Math.max(gtc.split(/\s+/).filter(Boolean).length, 1);
   }
 
-  // bind continent + region toggles
-  document.querySelectorAll('.section-toggle, .subsection-toggle')
-    .forEach(btn => btn.addEventListener('click', handleToggleClick));
+  function bindRow(container){
+    // one reusable holder per container (either .accordion-grid or a .country-row)
+    let holder = container.querySelector(':scope > .row-panel');
+    if(!holder){
+      holder = document.createElement('div');
+      holder.className = 'row-panel';
+      container.appendChild(holder);
+    }
 
-  // (Optional) Keep your existing per-country accordion JS as-is.
+    const items = Array.from(container.querySelectorAll(':scope > .country'));
+
+    items.forEach(country=>{
+      const btn   = country.querySelector(':scope > .accordion');
+      const panel = country.querySelector(':scope > .panel');
+      if(!btn || !panel) return;
+
+      btn.addEventListener('click', ()=>{
+        const wasOpen = btn.getAttribute('aria-expanded') === 'true';
+
+        // close others in this container
+        container.querySelectorAll('.accordion[aria-expanded="true"]').forEach(b=> setExpanded(b,false));
+        holder.classList.remove('open');
+        holder.innerHTML = '';
+
+        if (wasOpen) return; // just closed it
+
+        // compute last item in this visual row using this container's column count
+        const cols = getColCount(container);
+        const idx  = items.indexOf(country);
+        const last = items[Math.min(idx - (idx % cols) + (cols - 1), items.length - 1)];
+
+        // place holder right after that last item (inside the same container)
+        last.insertAdjacentElement('afterend', holder);
+
+        // render & show
+        setExpanded(btn, true);
+        holder.innerHTML = panel.innerHTML;
+        holder.classList.add('open');
+      });
+    });
+  }
+
+  // If there are row wrappers, bind each row separately; else bind the grid itself.
+  document.querySelectorAll('.accordion-grid').forEach(grid=>{
+    const rows = grid.querySelectorAll(':scope > .country-row');
+    if(rows.length){
+      rows.forEach(bindRow);     // works even if there’s only one big .country-row
+    }else{
+      bindRow(grid);
+    }
+  });
 })();
 </script>

@@ -3,16 +3,2364 @@ layout: default
 title: Title IX Resources
 permalink: /titleIX.html
 ---
+<style>
+/* ---- Accordion layout ---- */
+.accordion-grid{
+  display:grid;
+  grid-template-columns: repeat(5, minmax(0,1fr));
+  gap:.5rem;
+  margin-bottom:3rem;
+}
 
-<section class="main-section">
-  <h2>[intro]</h2>
-  <h3 style="margin-top: 0.5em; font-weight: normal;">
-    [sub intro]
-  </h3>
-  <p>
-    [stuff]
-  </p>
-  <p>
-    [stuff]
-  </p>
+/* responsive row: 5/4/3/2 columns */
+.country-row{
+  display:grid;
+  grid-template-columns: repeat(5, minmax(0,1fr));
+  gap:.5rem;                     /* spacing between buttons in a row */
+  margin-bottom:.5rem;           /* spacing between rows */
+  align-items:start;
+}
+@media (max-width:1100px){ .accordion-grid{ grid-template-columns:repeat(4, minmax(0,1fr)); } }
+@media (max-width:900px){  .accordion-grid{ grid-template-columns:repeat(3, minmax(0,1fr)); } }
+@media (max-width:650px){  .accordion-grid{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+
+.country{ display:flex; flex-direction:column; }
+
+/* the injected holder spans the full grid width and sits under the clicked row */
+.row-panel{
+  display:none;
+  grid-column: 1 / -1;
+  background:#e8a084; padding:.75rem; overflow-x:auto;
+  border-bottom-left-radius:6px; border-bottom-right-radius:6px;
+  border:3px solid #e8a084; box-sizing:border-box;
+}
+.row-panel.open{ display:block; }
+
+/* Country buttons */
+.accordion{
+  background:#e8a084; color:#000; cursor:pointer;
+  padding:.4em; border:none; text-align:center;
+  font-family: Calibri, sans-serif; font-size:1.05rem; font-weight:bold;
+  transition: background-color .2s ease; border-radius:6px;
+}
+.accordion:hover{ background:#ffdc8f; color:#000; }
+.accordion[aria-expanded="true"]{ background:#633747; color:#fff; border-bottom-left-radius:0; border-bottom-right-radius:0; }
+
+.row-panel.open{ display:block; }
+
+/* hide the per-country panels in markup; JS copies their contents into .row-panel */
+.panel{ display:none; }
+
+.accordion { position: relative; z-index: 1; touch-action: manipulation; }
+
+/* Table inside the accordion */
+.row-panel table{
+  width:100%;
+  margin:0;
+  border-collapse:collapse;
+  table-layout:fixed;
+  background:#eae6df;
+}
+.row-panel th, .row-panel td{
+  padding:.5em .6em;
+  border:1px solid #000;
+  text-align:left; 
+  vertical-align:top;
+  white-space:normal;
+  overflow-wrap:anywhere;
+}
+.row-panel th{
+  background:#633747; 
+  color:#fff;
+  text-align:center; 
+  font-weight:bold;
+}
+.row-panel td{ color:#000; }
+.row-panel td :where(p, li, div, span, strong, em){ color:#000; }
+
+/* small screens: allow horizontal scroll only when needed */
+@media (max-width: 700px){
+  .row-panel table{ min-width: 640px; }
+}
+
+/* Caveat block */
+.oneparty-caveat{
+  background:#ffdc8f;
+  padding: clamp(12px, 2.8vw, 20px) clamp(16px, 3.5vw, 24px);
+  margin: clamp(14px, 2.5vw, 22px) auto;
+  border-radius:12px;
+  max-width: 100%;
+}
+.oneparty-caveat h3{
+  font-size: clamp(1.15rem, 1rem + 1.4vw, 1.9rem);
+  line-height: 1.2;
+  margin: 0 0 .4em;
+}
+.oneparty-caveat p,
+.oneparty-caveat li{
+  font-size: clamp(.98rem, .94rem + .35vw, 1.06rem);
+  line-height: 1.55; text-align:left;
+  margin: .5em 0;
+}
+.oneparty-caveat ul{ padding-left: clamp(16px, 4vw, 28px); }
+.oneparty-caveat p,
+.oneparty-caveat li{
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+/* Disclaimer */
+.disclaimer{
+  font-size:.98em; color:#fff; background:#c4551e;
+  padding:.8em; max-width:100%;
+  border-radius:6px; border-left:5px solid #e8a084; text-align: left;
+  margin: 1.5em auto 2em;
+}
+
+/* Container that wraps the header + all country buttons */
+.country-section{
+  background:#633747;
+  color:#fff;
+  border-radius:16px;
+  padding: clamp(16px, 2.5vw, 28px);
+  margin: 0 auto 2rem;
+  max-width: 1100px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+.country-section .wrap{ max-width: 100%; margin: 0 auto; }
+
+/* Keep your desired vertical spacing between groups */
+.country-section .section-head{
+  text-align: center;
+  margin: .45rem 0;
+}
+.country-section .section-head h2{ color:#fff; margin:0 0 .35em; }
+.country-section .section-head h4{ margin:.25em 0 0 0; }
+.country-section .section-head .lede{ color:#fff; margin:0 auto; max-width: 80ch; text-align:center;}
+
+/* --- Nested accordion toggles (continents/regions) --- */
+.section-toggle,
+.subsection-toggle{
+  display:block;
+  width:100%;
+  box-sizing:border-box;          /* ensures padding doesn't change width */
+  background:#e8a084;
+  color:#000;
+  border:none;
+  border-radius:8px;
+  padding:.6em .8em;
+  font-family: Calibri, sans-serif;
+  font-weight:bold;
+  text-align:center;
+  cursor:pointer;
+  transition: background-color .2s ease;
+  margin:.45em 0;
+}
+.section-toggle{ font-size:1.15rem; }   /* continent size */
+.subsection-toggle{ font-size:1.05rem; margin:.7rem 0; } /* region size */
+
+.section-toggle:hover,
+.subsection-toggle:hover{ background:#ffdc8f; color:#000; }
+
+.section-toggle[aria-expanded="true"],
+.subsection-toggle[aria-expanded="true"]{
+  background:#633747; color:#fff;
+}
+
+/* Bodies are collapsed by default */
+.section-body,
+.subsection-body{ display:none; margin:.5rem 0 1rem; }
+
+/* When JS adds .open, reveal */
+.section-body.open,
+.subsection-body.open{ display:block; }
+
+/* Hide legacy h3/h4 headings inside toggled areas (we use buttons instead) */
+.country-section .section-head h3, 
+.country-section .section-head h4{ display:none; }
+
+/* ---------- WIDTH MATCH FIX ---------- */
+/* Put everything on one column so continent + region share the exact same track */
+.country-section .wrap{
+  display:grid;
+  grid-template-columns: 1fr;
+}
+
+/* Ensure all containers sit on that single track with no side padding */
+.country-section .section-head,
+.country-section .section-body,
+.country-section .subsection,
+.country-section .subsection-body{
+  grid-column: 1 / -1;
+  padding: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Belt-and-suspenders: remove any stray inline padding on section bodies */
+.section-body { padding-inline: 0 !important; }
+
+/* Region containers also full-width, no extra padding */
+.section-body, .subsection, .subsection-body{ width:100%; padding:0; }
+
+a.link-white:link,
+a.link-white:visited { color:#fff; }
+
+a.link-white:hover,
+a.link-white:focus-visible { color:#fff; text-decoration: underline; }
+
+</style>
+
+
+
+
+
+<div class="page-intro">
+<h2>[STUFF]</h2>
+<p style="margin-top: 1.5em;">This hub provides links to Title IX offices (U.S.) and equivalent ethics or reporting offices (international) for institutions with anthropology or related fieldwork programs. Protections apply to both students and faculty. Because terminology differs worldwide, we’ve grouped institutions by country and listed available reporting or ethics channels.
+</p>
+</div>
+
+<div class="disclaimer">
+  <strong>No institution affiliations:</strong> If you are not a member of the listed institutions, you may still report incidents that occur on campus or during official activities. For fieldwork abroad, also consult local laws and your home institution's reporting office.
+</div>
+
+<div class="oneparty-caveat" role="region" aria-labelledby="opc-caveats-title">
+  <h3 id="opc-caveats-title">[stuff]</h3>
+
+  <p>[stuff]</p>
+
+</div>
+
+<div class="disclaimer">
+  <strong>Disclaimer:</strong> This is not an exhaustive or authoritative legal resource. Laws are subject to change. While the website publishers endeavor to update these resources when applicable, you should still contact university legal services or a qualified legal advisor to confirm the most current regulations before conducting fieldwork.
+</div>
+
+
+
+
+
+<section class="country-section">
+  <div class="wrap">
+    <header class="section-head">
+      <h2>Reporting Ethics Violations to your Institution</h2>
+<p class="lede">
+This list currently includes reporting offices at universities and institutions with anthropology programs. If you need information for a specific institution, please let us know through our <a class="link-white" href="https://forms.gle/T587N5ZHnhrgVM5dA" target="_blank" rel="noopener noreferrer">Website and Resources Feedback Survey</a>. Your input helps us prioritize which resources to add first. Our long-term goal is to expand this hub beyond anthropology, supporting researchers across all fields in eradicating misconduct in the field.
+</p>
+    </header>
+
+<!-- Continent -->
+<header class="section-head">
+  <button class="section-toggle" id="usa-toggle"
+          aria-controls="usa-body" aria-expanded="false">
+    USA Reporting & Ethics Offices by State
+  </button>
+</header>
+
+<div class="section-body" id="usa-body" role="region" aria-labelledby="usa-toggle">
+<div class="accordion-grid">
+<!--------------START REGION ROW----------------->
+<!---------Alabama-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Alabama-panel" id="Alabama-btn">Alabama</button>
+      <div class="panel" id="Alabama-panel" role="region" aria-labelledby="Alabama-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>Auburn University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Alabama</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Alabama at Birmingham</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of South Alabama</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Alaska-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Alaska-panel" id="Alaska-btn">Alaska</button>
+      <div class="panel" id="Alaska-panel" role="region" aria-labelledby="Alaska-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>University of Alaska Anchorage</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Alaska Fairbanks</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Arizona-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Arizona-panel" id="Arizona-btn">Arizona</button>
+      <div class="panel" id="Arizona-panel" role="region" aria-labelledby="Arizona-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>Arizona State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Northern Arizona University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Arizona</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Arkansas-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Arkansas-panel" id="Arkansas-btn">Arkansas</button>
+      <div class="panel" id="Arkansas-panel" role="region" aria-labelledby="Arkansas-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>Arkansas State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Arkansas</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------California-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="California-panel" id="California-btn">California</button>
+      <div class="panel" id="California-panel" role="region" aria-labelledby="California-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>Cal Poly Humboldt</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>California State University- Chico</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>California State University- East Bay</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>California State University- Fresno</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>California State University- Fullerton</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>California State University- Long Beach</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>California State University- Northridge</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>California State University- Sacramento</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>San Diego State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>San Francisco State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>San José State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Stanford University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of California- Berkeley</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of California- Davis</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of California- Irvine</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of California- Los Angeles</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of California- Riverside</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of California- San Diego</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of California- Santa Barbara</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of California- Santa Cruz</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Southern California</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Colorado-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Colorado-panel" id="Colorado-btn">Colorado</button>
+      <div class="panel" id="Colorado-panel" role="region" aria-labelledby="Colorado-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>Colorado State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Colorado Boulder</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Denver</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Northern Colorado</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Connecticut-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Connecticut-panel" id="Connecticut-btn">Connecticut</button>
+      <div class="panel" id="Connecticut-panel" role="region" aria-labelledby="Connecticut-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>Southern Connecticut State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Connecticut</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Wesleyan University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Yale University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Delaware-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Delaware-panel" id="Delaware-btn">Delaware</button>
+      <div class="panel" id="Delaware-panel" role="region" aria-labelledby="Delaware-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>University of Delaware</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------District of Columbia-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="DC-panel" id="DC-btn">District of Columbia</button>
+      <div class="panel" id="DC-panel" role="region" aria-labelledby="DC-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>American University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>The George Washington University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Georgetown University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>The Catholic University of America</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Florida-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Florida-panel" id="Florida-btn">Florida</button>
+      <div class="panel" id="Florida-panel" role="region" aria-labelledby="Florida-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>Florida Atlantic University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Florida International University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Florida State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Central Florida</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Florida</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Miami</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of South Florida</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of West Florida</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Georgia-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Georgia-panel" id="Georgia-btn">Georgia</button>
+      <div class="panel" id="Georgia-panel" role="region" aria-labelledby="Georgia-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>Emory University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Georgia Southern University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Georgia State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Kennesaw State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Georgia</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Hawaii-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Hawaii-panel" id="Hawaii-btn">Hawaii</button>
+      <div class="panel" id="Hawaii-panel" role="region" aria-labelledby="Hawaii-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>University of Hawaiʻi at Hilo</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Hawaiʻi at Mānoa</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Idaho-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Idaho-panel" id="Idaho-btn">Idaho</button>
+      <div class="panel" id="Idaho-panel" role="region" aria-labelledby="Idaho-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>Boise State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Idaho State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Idaho</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Illinois-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Illinois-panel" id="Illinois-btn">Illinois</button>
+      <div class="panel" id="Illinois-panel" role="region" aria-labelledby="Illinois-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>DePaul University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Illinois State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Loyola University Chicago</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Northern Illinois University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Northwestern University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Southern Illinois University Carbondale</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Southern Illinois University Edwardsville</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Chicago</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Illinois Chicago</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Illinois Urbana- Champaign</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Indiana-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Indiana-panel" id="Indiana-btn">Indiana</button>
+      <div class="panel" id="Indiana-panel" role="region" aria-labelledby="Indiana-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>Ball State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Indiana University Bloomington</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Indiana University- Purdue University Indianapolis (IUPUI)</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Purdue University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Notre Dame</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Iowa-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Iowa-panel" id="Iowa-btn">Iowa</button>
+      <div class="panel" id="Iowa-panel" role="region" aria-labelledby="Iowa-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>Grinnell College</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Iowa State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Iowa</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Kansas-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Kansas-panel" id="Kansas-btn">Kansas</button>
+      <div class="panel" id="Kansas-panel" role="region" aria-labelledby="Kansas-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>Kansas State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Kansas</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Wichita State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Kentucky-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Kentucky-panel" id="Kentucky-btn">Kentucky</button>
+      <div class="panel" id="Kentucky-panel" role="region" aria-labelledby="Kentucky-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>University of Kentucky</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Louisville</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Western Kentucky University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Louisiana-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Louisiana-panel" id="Louisiana-btn">Louisiana</button>
+      <div class="panel" id="Louisiana-panel" role="region" aria-labelledby="Louisiana-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>Louisiana State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Tulane University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Louisiana at Lafayette</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Maine-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Maine-panel" id="Maine-btn">Maine</button>
+      <div class="panel" id="Maine-panel" role="region" aria-labelledby="Maine-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>Bates College</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Bowdoin College</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Colby College</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Maine</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Maryland-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Maryland-panel" id="Maryland-btn">Maryland</button>
+      <div class="panel" id="Maryland-panel" role="region" aria-labelledby="Maryland-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>Johns Hopkins University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>St. Mary's College of Maryland</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Towson University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Maryland- Baltimore County</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Maryland- College Park</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Massachusetts-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Massachusetts-panel" id="Massachusetts-btn">Massachusetts</button>
+      <div class="panel" id="Massachusetts-panel" role="region" aria-labelledby="Massachusetts-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>Amherst College</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Boston University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Brandeis University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Clark University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Harvard University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Massachusetts Institute of Technology</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Mount Holyoke College</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Smith College</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Tufts University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Massachusetts Amherst</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Massachusetts Boston</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Wellesley College</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Michigan-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Michigan-panel" id="Michigan-btn">Michigan</button>
+      <div class="panel" id="Michigan-panel" role="region" aria-labelledby="Michigan-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>Eastern Michigan University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Grand Valley State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Michigan State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Michigan</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Wayne State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Western Michigan University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Minnesota-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Minnesota-panel" id="Minnesota-btn">Minnesota</button>
+      <div class="panel" id="Minnesota-panel" role="region" aria-labelledby="Minnesota-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>Carleton College</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Hamline University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Macalester College</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Minnesota State University- Mankato</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>St. Cloud State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>St. Olaf College</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Minnesota Twin Cities</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Mississippi-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Mississippi-panel" id="Mississippi-btn">Mississippi</button>
+      <div class="panel" id="Mississippi-panel" role="region" aria-labelledby="Mississippi-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>University of Mississippi</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Southern Mississippi</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Missouri-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Missouri-panel" id="Missouri-btn">Missouri</button>
+      <div class="panel" id="Missouri-panel" role="region" aria-labelledby="Missouri-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>Missouri State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Saint Louis University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Missouri</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Washington University in St. Louis</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Montana-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Montana-panel" id="Montana-btn">Montana</button>
+      <div class="panel" id="Montana-panel" role="region" aria-labelledby="Montana-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>Montana State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Montana</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Nebraska-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Nebraska-panel" id="Nebraska-btn">Nebraska</button>
+      <div class="panel" id="Nebraska-panel" role="region" aria-labelledby="Nebraska-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>University of Nebraska at Omaha</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Nebraska- Lincoln</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Nevada-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Nevada-panel" id="Nevada-btn">Nevada</button>
+      <div class="panel" id="Nevada-panel" role="region" aria-labelledby="Nevada-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>University of Nevada- Las Vegas</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Nevada- Reno</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------New Hampshire-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="New Hampshire-panel" id="New Hampshire-btn">New Hampshire</button>
+      <div class="panel" id="New Hampshire-panel" role="region" aria-labelledby="New Hampshire-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>Dartmouth College</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of New Hampshire</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------New Jersey-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="New Jersey-panel" id="New Jersey-btn">New Jersey</button>
+      <div class="panel" id="New Jersey-panel" role="region" aria-labelledby="New Jersey-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>Montclair State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Princeton University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Rowan University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Rutgers University- New Brunswick</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>The College of New Jersey</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------New Mexico-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="New Mexico-panel" id="New Mexico-btn">New Mexico</button>
+      <div class="panel" id="New Mexico-panel" role="region" aria-labelledby="New Mexico-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>New Mexico State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of New Mexico</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------New York-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="New York-panel" id="New York-btn">New York</button>
+      <div class="panel" id="New York-panel" role="region" aria-labelledby="New York-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>Bard College</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Binghamton University (SUNY)</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Brooklyn College (CUNY)</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>CUNY Graduate Center</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>City College of New York (CUNY)</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Colgate University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Columbia University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Cornell University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Fordham University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Hamilton College</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Hofstra University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Hunter College (CUNY)</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>New York University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Queens College (CUNY)</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Skidmore College</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Stony Brook University (SUNY)</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Syracuse University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University at Albany (SUNY)</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University at Buffalo (SUNY)</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Vassar College</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------North Carolina-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="North Carolina-panel" id="North Carolina-btn">North Carolina</button>
+      <div class="panel" id="North Carolina-panel" role="region" aria-labelledby="North Carolina-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>Appalachian State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Davidson College</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Duke University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>East Carolina University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>North Carolina State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of North Carolina at Chapel Hill</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of North Carolina at Charlotte</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of North Carolina at Greensboro</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Wake Forest University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------North Dakota-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="North Dakota-panel" id="North Dakota-btn">North Dakota</button>
+      <div class="panel" id="North Dakota-panel" role="region" aria-labelledby="North Dakota-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>University of North Dakota</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Ohio-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Ohio-panel" id="Ohio-btn">Ohio</button>
+      <div class="panel" id="Ohio-panel" role="region" aria-labelledby="Ohio-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>Bowling Green State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Case Western Reserve University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Kent State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Miami University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Ohio University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>The Ohio State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Cincinnati</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Oklahoma-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Oklahoma-panel" id="Oklahoma-btn">Oklahoma</button>
+      <div class="panel" id="Oklahoma-panel" role="region" aria-labelledby="Oklahoma-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>Oklahoma State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Central Oklahoma</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Oklahoma</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Tulsa</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Oregon-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Oregon-panel" id="Oregon-btn">Oregon</button>
+      <div class="panel" id="Oregon-panel" role="region" aria-labelledby="Oregon-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>Oregon State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Portland State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Oregon</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Willamette University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Pennsylvania-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Pennsylvania-panel" id="Pennsylvania-btn">Pennsylvania</button>
+      <div class="panel" id="Pennsylvania-panel" role="region" aria-labelledby="Pennsylvania-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>Bryn Mawr College</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Drexel University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Franklin & Marshall College</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Haverford College</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Pennsylvania State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Swarthmore College</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Temple University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Pennsylvania</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Pittsburgh</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Rhode Island-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Rhode Island-panel" id="Rhode Island-btn">Rhode Island</button>
+      <div class="panel" id="Rhode Island-panel" role="region" aria-labelledby="Rhode Island-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>Brown University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Rhode Island College</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Rhode Island</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------South Carolina-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="South Carolina-panel" id="South Carolina-btn">South Carolina</button>
+      <div class="panel" id="South Carolina-panel" role="region" aria-labelledby="South Carolina-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>College of Charleston</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of South Carolina</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Winthrop University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------South Dakota-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="South Dakota-panel" id="South Dakota-btn">South Dakota</button>
+      <div class="panel" id="South Dakota-panel" role="region" aria-labelledby="South Dakota-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>South Dakota State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of South Dakota</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Tennessee-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Tennessee-panel" id="Tennessee-btn">Tennessee</button>
+      <div class="panel" id="Tennessee-panel" role="region" aria-labelledby="Tennessee-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>Middle Tennessee State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Memphis</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Tennessee at Chattanooga</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Tennessee- Knoxville</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Vanderbilt University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Texas-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Texas-panel" id="Texas-btn">Texas</button>
+      <div class="panel" id="Texas-panel" role="region" aria-labelledby="Texas-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>Baylor University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Rice University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Southern Methodist University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Texas A&M University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Texas State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Texas Tech University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>The University of Texas at Austin</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>The University of Texas at El Paso</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>The University of Texas at San Antonio</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Houston</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of North Texas</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Utah-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Utah-panel" id="Utah-btn">Utah</button>
+      <div class="panel" id="Utah-panel" role="region" aria-labelledby="Utah-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>Brigham Young University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Utah</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Utah State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Vermont-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Vermont-panel" id="Vermont-btn">Vermont</button>
+      <div class="panel" id="Vermont-panel" role="region" aria-labelledby="Vermont-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>Middlebury College</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Saint Michael's College</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Vermont</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Virginia-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Virginia-panel" id="Virginia-btn">Virginia</button>
+      <div class="panel" id="Virginia-panel" role="region" aria-labelledby="Virginia-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>George Mason University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>James Madison University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Virginia</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Virginia Commonwealth University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>William & Mary</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Washington-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Washington-panel" id="Washington-btn">Washington</button>
+      <div class="panel" id="Washington-panel" role="region" aria-labelledby="Washington-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>Central Washington University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Eastern Washington University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Washington</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Washington State University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Western Washington University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------West Virginia-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="West Virginia-panel" id="West Virginia-btn">West Virginia</button>
+      <div class="panel" id="West Virginia-panel" role="region" aria-labelledby="West Virginia-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>West Virginia University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Wisconsin-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Wisconsin-panel" id="Wisconsin-btn">Wisconsin</button>
+      <div class="panel" id="Wisconsin-panel" role="region" aria-labelledby="Wisconsin-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>Beloit College</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>Lawrence University</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Wisconsin- La Crosse</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Wisconsin- Madison</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>University of Wisconsin- Milwaukee</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!---------Wyoming-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Wyoming-panel" id="Wyoming-btn">Wyoming</button>
+      <div class="panel" id="Wyoming-panel" role="region" aria-labelledby="Wyoming-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>University of Wyoming</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+
+<!-----END REGION------->
+<!-----------------------END CONTINENT-------------------->
+     </div>
+     </div>
+
+
+
+
+<!-- Continent -->
+<header class="section-head">
+  <button class="section-toggle" id="international-toggle"
+          aria-controls="international-body" aria-expanded="false">
+   International Reporting & Ethics Offices by Country
+  </button>
+</header>
+
+<div class="section-body" id="international-body" role="region" aria-labelledby="international-toggle">
+  <!-- Region -->
+  <div class="subsection">
+    <button class="subsection-toggle" id="MIDDLE-toggle"
+            aria-controls="MIDDLE-body" aria-expanded="false">
+      MIDDLE
+    </button>
+
+    <div class="subsection-body" id="MIDDLE-body" role="region" aria-labelledby="MIDDLE-toggle">
+  
+
+<div class="accordion-grid">
+<!--------------START REGION ROW----------------->
+<!---------SMALL-----------> 
+   <div class="country">
+      <button class="accordion" aria-expanded="false" aria-controls="Wyoming-panel" id="Wyoming-btn">SMALLa</button>
+      <div class="panel" id="Wyoming-panel" role="region" aria-labelledby="Wyoming-btn">
+       <table>
+    <tr>
+     <th scope="col">Institution</th>
+      <th scope="col">Title IX / Ethics Office Link</th>
+      <th scope="col">How to Report</th>
+     </tr>
+    <tr>
+      <td>institution</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    <tr>
+      <td>institution</td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+      <td><a href="[website]" target="_blank" rel="noopener noreferrer">[source]</a></td>
+    </tr>
+    </table>
+     </div>
+     </div>
+<!-----END REGION------->
+     </div>
+     </div>
+     </div>
+<!-----------------------END CONTINENT-------------------->
+     </div>
+
+
 </section>
+<script>
+(function(){
+  // ---------- helpers ----------
+  const setExpanded = (el, v) => el && el.setAttribute('aria-expanded', String(v));
+  const toggleOpen  = (el, v) => el && el.classList.toggle('open', v);
+
+  function closePeers(btn, selector){
+    const scope = btn.closest('.country-section') || document;
+    scope.querySelectorAll(selector).forEach(b=>{
+      if(b !== btn){
+        setExpanded(b, false);
+        const id = b.getAttribute('aria-controls');
+        if(id){ toggleOpen(document.getElementById(id), false); }
+      }
+    });
+  }
+
+  // ---------- 1) top-level sections (USA / International) ----------
+  document.querySelectorAll('.section-toggle').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const panel  = document.getElementById(btn.getAttribute('aria-controls'));
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+      closePeers(btn, '.section-toggle');
+      setExpanded(btn, !isOpen);
+      toggleOpen(panel, !isOpen);
+    });
+  });
+
+  // ---------- 2) subsections (International regions) ----------
+  document.querySelectorAll('.subsection-toggle').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const panel  = document.getElementById(btn.getAttribute('aria-controls'));
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+      closePeers(btn, '.subsection-toggle');
+      setExpanded(btn, !isOpen);
+      toggleOpen(panel, !isOpen);
+    });
+  });
+
+  // ---------- 3) small accordions (states/countries) ----------
+  function getColCount(container){
+    const gtc = getComputedStyle(container).gridTemplateColumns.trim();
+    const m = gtc.match(/^repeat\((\d+),/);
+    return m ? +m[1] : Math.max(gtc.split(/\s+/).filter(Boolean).length, 1);
+  }
+
+  function bindRow(container){
+    // one reusable holder per container (either .accordion-grid or a .country-row)
+    let holder = container.querySelector(':scope > .row-panel');
+    if(!holder){
+      holder = document.createElement('div');
+      holder.className = 'row-panel';
+      container.appendChild(holder);
+    }
+
+    const items = Array.from(container.querySelectorAll(':scope > .country'));
+
+    items.forEach(country=>{
+      const btn   = country.querySelector(':scope > .accordion');
+      const panel = country.querySelector(':scope > .panel');
+      if(!btn || !panel) return;
+
+      btn.addEventListener('click', ()=>{
+        const wasOpen = btn.getAttribute('aria-expanded') === 'true';
+
+        // close others in this container
+        container.querySelectorAll('.accordion[aria-expanded="true"]').forEach(b=> setExpanded(b,false));
+        holder.classList.remove('open');
+        holder.innerHTML = '';
+
+        if (wasOpen) return; // just closed it
+
+        // compute last item in this visual row using this container's column count
+        const cols = getColCount(container);
+        const idx  = items.indexOf(country);
+        const last = items[Math.min(idx - (idx % cols) + (cols - 1), items.length - 1)];
+
+        // place holder right after that last item (inside the same container)
+        last.insertAdjacentElement('afterend', holder);
+
+        // render & show
+        setExpanded(btn, true);
+        holder.innerHTML = panel.innerHTML;
+        holder.classList.add('open');
+      });
+    });
+  }
+
+  // If there are row wrappers, bind each row separately; else bind the grid itself.
+  document.querySelectorAll('.accordion-grid').forEach(grid=>{
+    const rows = grid.querySelectorAll(':scope > .country-row');
+    if(rows.length){
+      rows.forEach(bindRow);     // works even if there’s only one big .country-row
+    }else{
+      bindRow(grid);
+    }
+  });
+})();
+</script>

@@ -44,7 +44,7 @@ is_homepage: true
     <div class="doc-links">
       <div class="doc-card">
         <h3>Fieldwork Safety Plan</h3>
-        <p>A personal safety plan template for researchers. The goal of this document is to help researchers build defensive and offensive protocols to prevent and report sexual violence in the field.</p>
+        <p>A personal safety plan template for researchers. </p><br>
         <a href="https://docs.google.com/document/d/1OkEMW4VhpsccA_VZTTEvgBBq5vs0mCOEDg9Xk6f34Ss/edit?usp=sharing" target="_blank">Open Google Doc</a>
       </div>
       <div class="doc-card">
