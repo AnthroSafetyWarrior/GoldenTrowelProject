@@ -40,8 +40,7 @@ permalink: /internationallaw.html
   box-sizing:border-box;
 }
 
-
-/* Buttons */
+/* Country buttons */
 .accordion{
   background:#e8a084; color:#000; cursor:pointer;
   padding:.4em; border:none; text-align:center;
@@ -88,6 +87,7 @@ permalink: /internationallaw.html
   .row-panel table{ min-width: 640px; }
 }
 
+/* Caveat block */
 .oneparty-caveat{
   background:#ffdc8f;
   padding: clamp(12px, 2.8vw, 20px) clamp(16px, 3.5vw, 24px);
@@ -113,7 +113,7 @@ permalink: /internationallaw.html
   hyphens: auto;
 }
 
-/* Disclaimer stays full-width above/below */
+/* Disclaimer */
 .disclaimer{
   font-size:.98em; color:#fff; background:#c4551e;
   padding:.8em; max-width:100%;
@@ -132,21 +132,22 @@ permalink: /internationallaw.html
   box-shadow: 0 2px 8px rgba(0,0,0,.08);
 }
 .country-section .wrap{ max-width: 100%; margin: 0 auto; }
+
+/* Keep your desired vertical spacing between groups */
 .country-section .section-head{
   text-align: center;
-   margin: .45rem 0;   ;
+  margin: .45rem 0;
 }
-
 .country-section .section-head h2{ color:#fff; margin:0 0 .35em; }
-.country-section .section-head h4 {
-  margin: .25em 0 0 0;
-}
+.country-section .section-head h4{ margin:.25em 0 0 0; }
 .country-section .section-head .lede{ color:#fff; margin:0 auto; max-width: 70ch; }
-/* --- Nested accordion toggles --- */
+
+/* --- Nested accordion toggles (continents/regions) --- */
 .section-toggle,
 .subsection-toggle{
   display:block;
   width:100%;
+  box-sizing:border-box;          /* ensures padding doesn't change width */
   background:#e8a084;
   color:#000;
   border:none;
@@ -154,13 +155,13 @@ permalink: /internationallaw.html
   padding:.6em .8em;
   font-family: Calibri, sans-serif;
   font-weight:bold;
-  font-size:1.15rem;         /* continent a bit larger */
   text-align:center;
   cursor:pointer;
   transition: background-color .2s ease;
-  margin: 0;
+  margin:0;
 }
-.subsection-toggle{ font-size:1.05rem; border-radius:6px; margin: .7rem 0 }
+.section-toggle{ font-size:1.15rem; }   /* continent size */
+.subsection-toggle{ font-size:1.05rem; margin:.7rem 0; } /* region size */
 
 .section-toggle:hover,
 .subsection-toggle:hover{ background:#ffdc8f; color:#000; }
@@ -172,28 +173,39 @@ permalink: /internationallaw.html
 
 /* Bodies are collapsed by default */
 .section-body,
-.subsection-body{ display:none; margin: .5rem 0 1rem; }
+.subsection-body{ display:none; margin:.5rem 0 1rem; }
 
 /* When JS adds .open, reveal */
 .section-body.open,
 .subsection-body.open{ display:block; }
 
-/* Optional: tighten h4 look since it’s now a button */
+/* Hide legacy h3/h4 headings inside toggled areas (we use buttons instead) */
 .country-section .section-head h3, 
-.country-section .section-head h4{ display:none; } /* we’re using buttons now */
+.country-section .section-head h4{ display:none; }
 
-/* make region rows fill the same width as the continent container */
-.section-body, .subsection, .subsection-body{ width:100%; padding:0; }
-
-/* region buttons: full width, same padding/radius as continents */
-.subsection-toggle{
-  display:block;
-  width:100%;
-  padding:.6em .8em;
-  border-radius:8px;
-  margin:.5rem 0;              /* small, consistent gap */
+/* ---------- WIDTH MATCH FIX ---------- */
+/* Put everything on one column so continent + region share the exact same track */
+.country-section .wrap{
+  display:grid;
+  grid-template-columns: 1fr;
 }
 
+/* Ensure all containers sit on that single track with no side padding */
+.country-section .section-head,
+.country-section .section-body,
+.country-section .subsection,
+.country-section .subsection-body{
+  grid-column: 1 / -1;
+  padding: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Belt-and-suspenders: remove any stray inline padding on section bodies */
+.section-body { padding-inline: 0 !important; }
+
+/* Region containers also full-width, no extra padding */
+.section-body, .subsection, .subsection-body{ width:100%; padding:0; }
 </style>
 
 
@@ -2134,8 +2146,7 @@ permalink: /internationallaw.html
   </div>
   </div>
   </div>
-  </div>
-<!------END CONTINENT REGION------>
+ <!------END CONTINENT REGION------>
 
 
 
