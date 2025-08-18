@@ -134,7 +134,7 @@ permalink: /internationallaw.html
 .country-section .wrap{ max-width: 100%; margin: 0 auto; }
 .country-section .section-head{
   text-align: center;
-  margin-bottom: clamp(10px, 2vw, 18px);
+   margin: .45rem 0;   ;
 }
 
 .country-section .section-head h2{ color:#fff; margin:0 0 .35em; }
@@ -160,7 +160,7 @@ permalink: /internationallaw.html
   transition: background-color .2s ease;
   margin: 0;
 }
-.subsection-toggle{ font-size:1.05rem; border-radius:8px; margin: .7rem 0 }
+.subsection-toggle{ font-size:1.05rem; border-radius:6px; margin: .7rem 0 }
 
 .section-toggle:hover,
 .subsection-toggle:hover{ background:#ffdc8f; color:#000; }
@@ -181,6 +181,18 @@ permalink: /internationallaw.html
 /* Optional: tighten h4 look since it’s now a button */
 .country-section .section-head h3, 
 .country-section .section-head h4{ display:none; } /* we’re using buttons now */
+
+/* make region rows fill the same width as the continent container */
+.section-body, .subsection, .subsection-body{ width:100%; padding:0; }
+
+/* region buttons: full width, same padding/radius as continents */
+.subsection-toggle{
+  display:block;
+  width:100%;
+  padding:.6em .8em;
+  border-radius:8px;
+  margin:.5rem 0;              /* small, consistent gap */
+}
 
 </style>
 
