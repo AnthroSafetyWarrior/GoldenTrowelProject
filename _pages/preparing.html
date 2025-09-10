@@ -3,6 +3,214 @@ layout: default
 title: Preparing for Fieldwork
 permalink: /preparing.html
 ---
+<style>
+/* ---- Accordion layout ---- */
+.accordion-grid{
+  display:grid;
+  grid-template-columns: repeat(5, minmax(0,1fr));
+  gap:.5rem;
+  margin-bottom:3rem;
+}
+
+/* responsive row: 5/4/3/2 columns */
+.country-row{
+  display:grid;
+  grid-template-columns: repeat(5, minmax(0,1fr));
+  gap:.5rem;                     /* spacing between buttons in a row */
+  margin-bottom:.5rem;           /* spacing between rows */
+  align-items:start;
+}
+@media (max-width:1100px){ .accordion-grid{ grid-template-columns:repeat(4, minmax(0,1fr)); } }
+@media (max-width:900px){  .accordion-grid{ grid-template-columns:repeat(3, minmax(0,1fr)); } }
+@media (max-width:650px){  .accordion-grid{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+
+.country{ display:flex; flex-direction:column; }
+
+/* the injected holder spans the full grid width and sits under the clicked row */
+.row-panel{
+  display:none;
+  grid-column: 1 / -1;
+  background:#e8a084; padding:.75rem; overflow-x:auto;
+  border-bottom-left-radius:6px; border-bottom-right-radius:6px;
+  border:3px solid #e8a084; box-sizing:border-box;
+}
+.row-panel.open{ display:block; }
+
+/* Country buttons */
+.accordion{
+  background:#e8a084; color:#000; cursor:pointer;
+  padding:.4em; border:none; text-align:center;
+  font-family: Calibri, sans-serif; font-size:1.05rem; font-weight:bold;
+  transition: background-color .2s ease; border-radius:6px;
+}
+.accordion:hover{ background:#ffdc8f; color:#000; }
+.accordion[aria-expanded="true"]{ background:#633747; color:#fff; border-bottom-left-radius:0; border-bottom-right-radius:0; }
+
+.row-panel.open{ display:block; }
+
+/* hide the per-country panels in markup; JS copies their contents into .row-panel */
+.panel{ display:none; }
+
+.accordion { position: relative; z-index: 1; touch-action: manipulation; }
+
+/* Table inside the accordion */
+.row-panel table{
+  width:100%;
+  margin:0;
+  border-collapse:collapse;
+  table-layout:fixed;
+  background:#eae6df;
+}
+.row-panel th, .row-panel td{
+  padding:.5em .6em;
+  border:1px solid #000;
+  text-align:left; 
+  vertical-align:top;
+  white-space:normal;
+  overflow-wrap:anywhere;
+}
+.row-panel th{
+  background:#633747; 
+  color:#fff;
+  text-align:center; 
+  font-weight:bold;
+}
+.row-panel td{ color:#000; }
+.row-panel td :where(p, li, div, span, strong, em){ color:#000; }
+
+/* small screens: allow horizontal scroll only when needed */
+@media (max-width: 700px){
+  .row-panel table{ min-width: 640px; }
+}
+
+/* Caveat block */
+.oneparty-caveat{
+  background:#ffdc8f;
+  padding: clamp(12px, 2.8vw, 20px) clamp(16px, 3.5vw, 24px);
+  margin: clamp(14px, 2.5vw, 22px) auto;
+  border-radius:12px;
+  max-width: 100%;
+}
+.oneparty-caveat h3{
+  font-size: clamp(1.15rem, 1rem + 1.4vw, 1.9rem);
+  line-height: 1.2;
+  margin: 0 0 .4em;
+}
+.oneparty-caveat p,
+.oneparty-caveat li{
+  font-size: clamp(.98rem, .94rem + .35vw, 1.06rem);
+  line-height: 1.55; text-align:left;
+  margin: .5em 0;
+}
+.oneparty-caveat ul{ padding-left: clamp(16px, 4vw, 28px); }
+.oneparty-caveat p,
+.oneparty-caveat li{
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+/* Disclaimer */
+.disclaimer{
+  font-size:.98em; color:#fff; background:#c4551e;
+  padding:.8em; max-width:100%;
+  border-radius:6px; border-left:5px solid #e8a084; text-align: left;
+  margin: 1.5em auto 2em;
+}
+
+/* Container that wraps the header + all country buttons */
+.country-section{
+  background:#633747;
+  color:#fff;
+  border-radius:16px;
+  padding: clamp(16px, 2.5vw, 28px);
+  margin: 0 auto 2rem;
+  max-width: 1100px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+.country-section .wrap{ max-width: 100%; margin: 0 auto; }
+
+/* Keep your desired vertical spacing between groups */
+.country-section .section-head{
+  text-align: center;
+  margin: .45rem 0;
+}
+.country-section .section-head h2{ color:#fff; margin:0 0 .35em; }
+.country-section .section-head h4{ margin:.25em 0 0 0; }
+.country-section .section-head .lede{ color:#fff; margin:0 auto; max-width: 80ch; text-align:center;}
+
+/* --- Nested accordion toggles (continents/regions) --- */
+.section-toggle,
+.subsection-toggle{
+  display:block;
+  width:100%;
+  box-sizing:border-box;          /* ensures padding doesn't change width */
+  background:#e8a084;
+  color:#000;
+  border:none;
+  border-radius:8px;
+  padding:.6em .8em;
+  font-family: Calibri, sans-serif;
+  font-weight:bold;
+  text-align:center;
+  cursor:pointer;
+  transition: background-color .2s ease;
+  margin:.45em 0;
+}
+.section-toggle{ font-size:1.15rem; }   /* continent size */
+.subsection-toggle{ font-size:1.05rem; margin:.7rem 0; } /* region size */
+
+.section-toggle:hover,
+.subsection-toggle:hover{ background:#ffdc8f; color:#000; }
+
+.section-toggle[aria-expanded="true"],
+.subsection-toggle[aria-expanded="true"]{
+  background:#633747; color:#fff;
+}
+
+/* Bodies are collapsed by default */
+.section-body,
+.subsection-body{ display:none; margin:.5rem 0 1rem; }
+
+/* When JS adds .open, reveal */
+.section-body.open,
+.subsection-body.open{ display:block; }
+
+/* Hide legacy h3/h4 headings inside toggled areas (we use buttons instead) */
+.country-section .section-head h3, 
+.country-section .section-head h4{ display:none; }
+
+/* ---------- WIDTH MATCH FIX ---------- */
+/* Put everything on one column so continent + region share the exact same track */
+.country-section .wrap{
+  display:grid;
+  grid-template-columns: 1fr;
+}
+
+/* Ensure all containers sit on that single track with no side padding */
+.country-section .section-head,
+.country-section .section-body,
+.country-section .subsection,
+.country-section .subsection-body{
+  grid-column: 1 / -1;
+  padding: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Belt-and-suspenders: remove any stray inline padding on section bodies */
+.section-body { padding-inline: 0 !important; }
+
+/* Region containers also full-width, no extra padding */
+.section-body, .subsection, .subsection-body{ width:100%; padding:0; }
+
+a.link-white:link,
+a.link-white:visited { color:#fff; }
+
+a.link-white:hover,
+a.link-white:focus-visible { color:#fff; text-decoration: underline; }
+
+</style>
+
 
 <section class="main-section">
   <h2>Safety Strategies when Preparing for Fieldwork.</h2>
@@ -10,9 +218,60 @@ permalink: /preparing.html
     These apply to both remote and museum/instution based field work. 
   </h3>
   <p>
-  [stuff]
+  <section class="main-section">
+  <div class="docs-container safety-plan">
+    <h2>Build Your Fieldwork Safety Plan</h2>
+    <p>Download and customize your safety materials below to protect yourself and your team.</p>
+    <div class="doc-links">
+      <div class="doc-card">
+        <h3>Fieldwork Safety Plan</h3>
+        <p>A personal safety plan template for researchers. </p><br>
+        <a href="https://docs.google.com/document/d/1OkEMW4VhpsccA_VZTTEvgBBq5vs0mCOEDg9Xk6f34Ss/edit?usp=sharing" target="_blank">Open Google Doc</a>
+      </div>
+      <div class="doc-card">
+        <h3>Collaborator Safety Commitment Agreement</h3>
+        <p>A team-wide agreement on ethical and safe fieldwork protocols.</p>
+        <a href="https://docs.google.com/document/d/18SmymYAFKUz_drbDhcsx8NWaiNG6-SQflWPj0OaZ76c/edit?usp=sharing" target="_blank">Open Google Doc</a>
+      </div>
+    </div>
+  </div>
+</section>
   </p>
-  <p>
-   [stuff]
-  </p>
+
+ <img
+      src="Safety-checklist.png"
+      alt=""
+      style="display:block; width:100%;margin:1em auto 0; border-radius:12px; box-shadow:none;"
+    />
+
+<div class="disclaimer">
+  <strong>Disclaimer:</strong> This is not an exhaustive or authoritative legal resource. Laws are subject to change. While the website publishers endeavor to update these resources when applicable, you should still contact university legal services or a qualified legal advisor to confirm the most current regulations before conducting fieldwork.
+</div>
+
+<div class="oneparty-caveat" role="region" aria-labelledby="opc-caveats-title">
+  <h3 id="opc-caveats-title">I'm Concerned I May be Harassed or Assaulted</h3>
+  <p>[stuff]</p>  
+<ul>
+    <li>Complete the Fieldwork Safety Plan prior to your reserach trip.
+    <li>try to move 1 on 1 meetings to public places, invite others to join if possible
+    <li>inform parties present that you are recording the meeting for your safety
+    <li>begin recording immediately (review state/country laws first)
+    <li>if you detect escalation beyond appropriate interactions inform the individual(s) present that you are recording and will turn over any data to local authorities
+    <li>DO NOT make any statements suggesting the individual(s) reputation, employment, status etc. will be compromised by the release of the recorded sexual misconduct. This constitutes extortion/blackmail and is often a felony crime.</li>
+    <li>DO NOT attempt to coerce the individual(s) into acquiescing to demands following the concealment of the recorded sexual misconduct. This constitutes extortion/blackmail and is often a felony crime.
+   <li>following the reporting procedures listed below
+  </ul>
+Reporting to local authorities, your institution, the embassy, and your funding agencies offers a robust support system capible of applying any necessary pressure to ensure your case is being taken seriously. They can also negotiate a safe space for you to continue your research, facilitate your extraction, negotiate with the instution/fieldsite to remove that individual from power and from published works related to the data at their institution.
+
+<div class="oneparty-caveat" role="region" aria-labelledby="opc-caveats-title">
+  <h3 id="opc-caveats-title">I Need to File a Report</h3>
+
+  <p>Whether you are conducting research domestically or internationally, there is a reporting procedure for your protection.</p>
+    <ul>
+    <li>Immediately record the details of the interaction in as great of detail as you can even if you have a digital recording of the interaction.</li>
+   <ul><li>If you have a digital recording of the incident, backup your data and share with your Fieldwork Safety Plan support person</li></ul>
+    <li>Contact to your Fieldwork Safety Plan support person to put the Incident Response Plan in place</li>
+    <li>Contact the local authorities to report the incident.</li>
+  </ul>
+</div>
 </section>
