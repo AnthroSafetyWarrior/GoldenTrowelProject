@@ -219,10 +219,54 @@
 </head>
 
 <body>
-  <header>
-    <h1>Recognizing power. Reclaiming safety.</h1>
-    <p>Practical tools. Powerful boundaries. Safer fieldwork.</p>
-  </header>
+<header>
+  <div class="header-content">
+    <img
+      src="{{ '/assets/img/IMG_3241.PNG' | absolute_url }}?v={{ site.time | date: '%s' }}"
+      alt="Logo for the Golden Trowel Project: a stylized golden Marshalltown trowel encircled by text. The logo symbolizes safer fieldwork through consent, dignity, and accountability."
+      loading="lazy" decoding="async" fetchpriority="low"
+    >
+
+    <div class="header-text">
+      <h1>Recognizing power. Reclaiming safety.</h1>
+      <p>Practical tools. Powerful boundaries. Safer fieldwork.</p>
+    </div>
+  </div>
+</header>
+header {
+  background-color: #633747;
+  color: white;
+  padding: clamp(0.8em, 3vw, 1.2em);
+}
+
+.header-content {
+  display: flex;
+  align-items: center;         /* vertically centers logo with text */
+  justify-content: center;     /* keeps everything centered overall */
+  gap: 1em;                    /* space between logo and text */
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.header-content img {
+  width: 90px;                 /* adjust logo size */
+  height: auto;
+  border-radius: 12px;
+}
+
+.header-text {
+  text-align: left;            /* aligns text to left of logo */
+}
+
+.header-text h1 {
+  margin: 0;
+  font-size: clamp(1.8rem, 5.5vw, 2.4rem);
+}
+
+.header-text p {
+  margin: .3em 0 0;
+  font-size: clamp(1rem, 2.8vw, 1.2rem);
+}
 
  <div class="nav-scroller">
   <nav class="main-nav">
