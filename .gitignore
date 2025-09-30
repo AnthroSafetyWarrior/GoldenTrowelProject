@@ -4,3 +4,5 @@ _site
 .jekyll-metadata
 vendor
 _config.yml.bak
+cat .gitignore | grep _site
+
