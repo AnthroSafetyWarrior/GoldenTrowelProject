@@ -9,7 +9,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{{ page.title | default: "Golden Trowel Project" }}</title>
-  <style>
+
+ <!-- Canonical URL for SEO -->
+  <link rel="canonical" href="{{ page.url | absolute_url }}">
+  
+
+<style>
     /* --- Base / global --- */
     *, *::before, *::after { box-sizing: border-box; }
 
