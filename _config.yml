@@ -1,8 +1,10 @@
-title: Research With Consent
+title: Golden Trowel Project
 description: Resources for fieldwork ethics, safety, and documentation rights
+
+url: "https://goldentrowelproject.org"   # your custom domain
+baseurl: ""                              # empty for custom domain
+
 markdown: kramdown
-baseurl: "/GoldenTrowelProject" # leave empty unless your site is in a subfolder
-url: "https://anthrosafetywarrior.github.io/GoldenTrowelProject" # your GitHub Pages URL
 plugins:
   - jekyll-feed
 
