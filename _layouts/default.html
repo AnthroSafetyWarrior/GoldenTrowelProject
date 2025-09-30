@@ -8,8 +8,13 @@
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{{ page.title | default: "Research With Consent" }}</title>
-  <style>
+  <title>{{ page.title | default: "Golden Trowel Project" }}</title>
+
+ <!-- Canonical URL for SEO -->
+  <link rel="canonical" href="{{ page.url | absolute_url }}">
+  
+
+<style>
     /* --- Base / global --- */
     *, *::before, *::after { box-sizing: border-box; }
 
@@ -221,35 +226,35 @@
 
  <div class="nav-scroller">
   <nav class="main-nav">
-    <div class="dropdown"><a href="index.html">Home</a></div>
+  <div class="dropdown"><a href="{{ '/' | relative_url }}">Home</a></div>
 
-    <div class="dropdown">
-      <a href="{{ site.baseurl }}/preparing.html">Preparing for Fieldwork</a>
-      <div class="dropdown-content">
-        <a href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing">Pre-Fieldwork Safety Checklist</a>
-      </div>
+  <div class="dropdown">
+    <a href="{{ '/preparing.html' | relative_url }}">Preparing for Fieldwork</a>
+    <div class="dropdown-content">
+      <a href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing" target="_blank" rel="noopener">Pre-Fieldwork Safety Checklist</a>
     </div>
+  </div>
 
-    <div class="dropdown">
-      <a href="{{ site.baseurl }}/reporting.html">Reporting & Resources</a>
-      <div class="dropdown-content">
-        <a href="{{ site.baseurl }}/statelaw.html">USA Laws by State</a>
-        <a href="{{ site.baseurl }}/internationallaw.html">International Laws by Country</a>
-        <a href="{{ site.baseurl }}/titleIX.html">Title IX Reporting by University</a>
-        <a href="{{ site.baseurl }}/fundingethics.html">Funding Agencies & Professional Assiciations Reporting</a>
-      </div>
+  <div class="dropdown">
+    <a href="{{ '/reporting.html' | relative_url }}">Reporting & Resources</a>
+    <div class="dropdown-content">
+      <a href="{{ '/statelaw.html'          | relative_url }}">USA Laws by State</a>
+      <a href="{{ '/internationallaw.html'  | relative_url }}">International Laws by Country</a>
+      <a href="{{ '/titleIX.html'           | relative_url }}">Title IX Reporting by University</a>
+      <a href="{{ '/fundingethics.html'     | relative_url }}">Funding Agencies &amp; Professional Associations Reporting</a>
     </div>
+  </div>
 
-    <div class="dropdown">
-      <a href="{{ site.baseurl }}/surveys.html">Anonymous Surveys</a>
-      <div class="dropdown-content">
-        <a href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank">Fieldwork Misconduct Survey</a>
-        <a href="https://forms.gle/9DjrMVNP2oUu1GDD8" target="_blank">Website Feedback Survey</a>
-      </div>
+  <div class="dropdown">
+    <a href="{{ '/surveys.html' | relative_url }}">Anonymous Surveys</a>
+    <div class="dropdown-content">
+      <a href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank" rel="noopener">Fieldwork Misconduct Survey</a>
+      <a href="https://forms.gle/9DjrMVNP2oUu1GDD8" target="_blank" rel="noopener">Website Feedback Survey</a>
     </div>
+  </div>
 
-    <div class="dropdown"><a href="anthrosafetywarrior@gmail.com">Contact Us</a></div>
-  </nav>
+  <div class="dropdown"><a href="mailto:anthrosafetywarrior@gmail.com">Contact Us</a></div>
+</nav>
 </div>
 
   <main>
