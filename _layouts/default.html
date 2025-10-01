@@ -42,6 +42,10 @@
       position:relative; background:#633747; height:clamp(120px,22vw,220px);
       overflow:hidden; display:none;   /* hidden on mobile, shown ≥900px */
     }
+.wave-nav{
+  height: clamp(110px, 18vw, 180px); /* was 120/22vw/220 */
+}
+
     .wave-nav .wave{ width:100%; height:100%; display:block; }
 
     .circle-nav{ position:absolute; inset:0; pointer-events:none; }
@@ -307,11 +311,11 @@
       const btns = wrap?.querySelectorAll('.circle-btn') || [];
       if (!wrap || !svg || !btns.length) return;
 
-      const WAVES = 5;          // five full sine cycles across the width
-      const AMPFR = 0.35;       // amplitude as fraction of height (0–0.5 good)
-      const BASE  = 0.55;       // baseline (fraction of height)
-      const FILL1 = '#7a4a60';  // slightly lighter than header for depth
-      const DROP  = 16;         // px to drop buttons below the curve
+     const WAVES = 5;        // keep 5 troughs
+const AMPFR = 0.24;     // was 0.35 → shallower wave
+const BASE  = 0.46;     // was 0.55 → lifts the whole wave up a bit
+const FILL1 = '#7a4a60';
+const DROP  = 0;        // we won't drop below; we’ll *inset* inside the trough
 
       function draw(){
         const W = svg.clientWidth  || svg.getBoundingClientRect().width;
@@ -336,36 +340,30 @@
         p.setAttribute('fill', FILL1);
         svg.appendChild(p);
 
-        // troughs at 3π/2 + 2πn
-        const pad = Math.max(40, W*0.03);
-        [...btns].forEach((btn, n) => {
-          const theta = 1.5*Math.PI + 2*Math.PI*n - phi;
-          let x = theta / k;
-          x = Math.max(pad, Math.min(W - pad, x));
-          const yCurve = BASE*H + A*Math.sin(k*x + phi);
+     // troughs at 3π/2 + 2πn
+const pad = Math.max(40, W*0.03);
 
-          const size = btn.offsetWidth || parseFloat(getComputedStyle(btn).width);
-          btn.textContent = btn.dataset.label || btn.textContent;
+[...btns].forEach((btn, n) => {
+  const theta = 1.5*Math.PI + 2*Math.PI*n;   // 3π/2 + 2πn
+  let x = theta / (2*Math.PI*WAVES / W);     // x = theta / k
+  x = Math.max(pad, Math.min(W - pad, x));
 
-          btn.style.left = `${x - size/2}px`;
-          btn.style.top  = `${yCurve + DROP}px`;
-        });
-      }
+  const yCurve = BASE*H + (AMPFR*H)*Math.sin((2*Math.PI*WAVES / W)*x);
 
-      // click -> navigate
-      wrap.addEventListener('click', (e) => {
-        const b = e.target.closest('.circle-btn');
-        if (!b) return;
-        const href = b.dataset.href;
-        if (href) window.location.href = href;
-      });
+  const size = btn.offsetWidth || parseFloat(getComputedStyle(btn).width);
 
-      let to=null;
-      const onResize = () => { clearTimeout(to); to=setTimeout(draw, 80); };
-      window.addEventListener('resize', onResize, {passive:true});
-      window.addEventListener('load', draw);
-      draw();
-    })();
+  // inset upward from the lowest point so the circle sits *within* the trough
+  const inset = Math.min((AMPFR*H)*0.65, size*0.6); // stay comfortably inside
+  const cx = x - size/2;
+  const cy = yCurve - inset - size/2;
+
+  btn.style.left = `${cx}px`;
+  btn.style.top  = `${cy}px`;
+
+  // accessibility labels (keep the circle visually empty)
+  btn.setAttribute('aria-label', btn.dataset.label);
+  btn.setAttribute('title', btn.dataset.label);
+});
   </script>
 </body>
 </html>
