@@ -13,8 +13,6 @@
     body { font-family: Calibri, sans-serif; background:#eae6df; margin:0; }
     img, svg, video { max-width:100%; height:auto; display:block; }
     h1{ font-size:clamp(1.8rem,5.5vw,2.4rem); margin:.2em 0; }
-    h2{ font-size:clamp(1.4rem,4.5vw,2rem);  margin:.3em 0 .4em; }
-    h3{ font-size:clamp(1.2rem,4vw,1.6rem);  margin:.25em 0 .4em; }
     p { font-size:clamp(1rem,2.8vw,1.2rem);  margin:.6em 0; }
     main{ width:min(100%,1100px); margin-inline:auto; padding:clamp(16px,4vw,28px); text-align:center; }
 
@@ -31,21 +29,23 @@
     .header-text{ text-align:left; }
     .header-text p{ margin:.3em 0 0; color:#ffdc8f; }
 
-    /* ---------- Wave + Circle Nav (desktop) ---------- */
+    /* ---------- Wave + Circle Nav (scrollable at all sizes) ---------- */
     .wave-nav{
       position:relative; background:#633747;
-      overflow-x:auto; overflow-y:hidden;  /* scroll horizontally when needed */
+      overflow-x:auto; overflow-y:hidden;
       -webkit-overflow-scrolling:touch;
-      display:none;                         /* hidden on mobile; shown ≥900px */
+      /* height is set by JS based on circle size; keep a safe minimum */
+      min-height:140px;
     }
-    @media (min-width:900px){ .wave-nav{ display:block; } }
+    .wave-nav::-webkit-scrollbar{ height:8px; background:transparent; }
+    .wave-nav::-webkit-scrollbar-thumb{ background:rgba(0,0,0,.15); border-radius:8px; }
 
     .wave-track{ position:relative; height:100%; min-width:1100px; }
-    .wave-nav .wave{
+    .wave{
       width:100%; height:100%; display:block;
       filter:
-        drop-shadow(0 18px 24px rgba(0,0,0,.26))   /* main soft shadow */
-        drop-shadow(0 2px 0 rgba(0,0,0,.08));      /* crisp rim */
+        drop-shadow(0 18px 24px rgba(0,0,0,.26))
+        drop-shadow(0 2px 0 rgba(0,0,0,.08));
     }
 
     .circle-nav{ position:absolute; inset:0; pointer-events:none; }
@@ -60,67 +60,10 @@
         0 14px 28px rgba(0,0,0,.28),
         0 2px 0 rgba(255,255,255,.6) inset;
       transition: transform .15s ease, background .15s ease, color .15s ease;
+      z-index: 1; /* make sure they sit above the wave fill */
     }
     .circle-btn:hover{ transform:translateY(-2px); background:#633747; color:#fff; }
     .circle-btn::after{ content:none; } /* labels go inside the circle */
-
-    /* ---------- Sticky dropdown bar (mobile / fallback) ---------- */
-    .nav-scroller{
-      width:100%; background:#e8a084; position:sticky; top:0; z-index:2000;
-      overflow-x:hidden; overflow-y:visible !important;
-    }
-    .main-nav{
-      background:transparent; display:grid;
-      grid-template-columns: repeat(5, minmax(60px, 220px));
-      justify-content:center; align-items:stretch;
-      gap: clamp(6px, .6vw, 6px);
-      padding: clamp(6px, 1vw, 10px);
-      width:min(100%,1200px); margin-inline:auto;
-    }
-    .main-nav a, .dropdown-content a{ text-decoration:none; color:inherit; }
-    .dropdown{ position:relative; min-width:0; }
-    .dropdown > a{
-      display:flex; align-items:center; justify-content:center; text-align:center;
-      padding: clamp(6px, 1vw, 6px) clamp(6px, 1vw, 10px);
-      font-size: clamp(.9rem, 1vw, 1rem);
-      font-weight:bold; color:#000; border-radius:6px; line-height:1.4;
-      white-space: normal; min-height:44px;
-    }
-    .dropdown:hover > a, .dropdown > a:focus-visible{ background:#633747; color:#fff; }
-    .dropdown-content{
-      display:none; position:absolute; top:100%; left:50%; transform:translateX(-50%);
-      background:#e8a084; font-weight:bold; font-size:clamp(.9rem,.7vw,1rem);
-      padding:.25em 0; border-radius:6px; min-width:max(220px, 100%);
-      max-width:min(90vw, 30rem); z-index:10; box-shadow:0 8px 24px rgba(0,0,0,.18);
-    }
-    .dropdown-content a{ display:block; padding:.55em .7em; line-height:2; border-radius:6px; color:#000; }
-    .dropdown-content a:hover, .dropdown-content a:focus-visible{ background:#633747; color:#fff; }
-
-    :root { --nav-tile-w: 120px; }
-    @media (max-width:900px){
-      .nav-scroller{ overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
-      .nav-scroller::-webkit-scrollbar{ width:0; height:0; }
-      .main-nav{ grid-template-columns:none !important; grid-auto-flow:column; grid-auto-columns:var(--nav-tile-w); width:max-content; justify-content:start; }
-      .dropdown > a{ width:100%; }
-    }
-
-    /* Home-page cards (unchanged) */
-    {% if page.is_homepage %}
-      .main-section{ padding-block: clamp(10px, 2vw, 18px); }
-      .main-section > .docs-container{ margin: clamp(6px, 1vw, 10px) auto; }
-      .docs-container{ width:min(100%,1000px); padding:clamp(12px,2.2vw,18px); border-radius:16px; }
-      .docs-container.prevalence{ background:#ffdc8f; }
-      .docs-container.safety-plan{ background:#633747; color:#fff; }
-      .docs-container.safety-plan h2{ margin:.2em 0 .3em; }
-      .docs-container.safety-plan p{ margin:.2em auto .8em; max-width:72ch; }
-      .doc-links{ display:grid; gap:clamp(10px,2vw,18px); grid-template-columns:1fr; justify-items:center; margin-top:.5em; }
-      @media (min-width:720px){ .doc-links{ grid-template-columns:repeat(2,1fr);} }
-      @media (min-width:1024px){ .doc-links{ grid-template-columns:repeat(2,1fr);} }
-      .doc-card{ width:100%; max-width:420px; background:#e8a084; color:#000; border-radius:10px;
-                 padding:clamp(12px,2.2vw,18px); box-shadow:0 2px 6px rgba(0,0,0,.08); text-align:center; display:flex; flex-direction:column; gap:.6em; }
-      .doc-card a{ margin-top:auto; align-self:center; background:#633747; color:#fff; text-decoration:none; padding:.5em 1em; border-radius:6px; display:inline-block; }
-      .doc-card a:hover{ background:#ffdc8f; color:#000; }
-    {% endif %}
   </style>
 </head>
 
@@ -139,11 +82,11 @@
     </div>
   </header>
 
-  <!-- Wave + Circle Nav (desktop) -->
-  <section class="wave-nav" aria-label="Primary decorative nav">
+  <!-- Wave + Circle Nav (only nav) -->
+  <section class="wave-nav" aria-label="Primary navigation">
     <div class="wave-track">
       <svg class="wave" preserveAspectRatio="none" aria-hidden="true"></svg>
-      <nav class="circle-nav" aria-label="Primary navigation (desktop)">
+      <nav class="circle-nav">
         <button class="circle-btn" data-label="Home"      data-href="{{ '/' | relative_url }}"></button>
         <button class="circle-btn" data-label="Preparing" data-href="{{ '/preparing.html' | relative_url }}"></button>
         <button class="circle-btn" data-label="Reporting" data-href="{{ '/reporting.html' | relative_url }}"></button>
@@ -153,121 +96,9 @@
     </div>
   </section>
 
-  <!-- Mobile/fallback bar -->
-  <div class="nav-scroller">
-    <nav class="main-nav">
-      <div class="dropdown"><a href="{{ '/' | relative_url }}">Home</a></div>
-
-      <div class="dropdown">
-        <a href="{{ '/preparing.html' | relative_url }}">Preparing for Fieldwork</a>
-        <div class="dropdown-content">
-          <a href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing" target="_blank" rel="noopener">Pre-Fieldwork Safety Checklist</a>
-        </div>
-      </div>
-
-      <div class="dropdown">
-        <a href="{{ '/reporting.html' | relative_url }}">Reporting & Resources</a>
-        <div class="dropdown-content">
-          <a href="{{ '/statelaw.html'         | relative_url }}">USA Laws by State</a>
-          <a href="{{ '/internationallaw.html' | relative_url }}">International Laws by Country</a>
-          <a href="{{ '/titleIX.html'          | relative_url }}">Title IX Reporting by University</a>
-          <a href="{{ '/fundingethics.html'    | relative_url }}">Funding Agencies &amp; Professional Associations Reporting</a>
-        </div>
-      </div>
-
-      <div class="dropdown">
-        <a href="{{ '/surveys.html' | relative_url }}">Anonymous Surveys</a>
-        <div class="dropdown-content">
-          <a href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank" rel="noopener">Fieldwork Misconduct Survey</a>
-          <a href="https://forms.gle/9DjrMVNP2oUu1GDD8" target="_blank" rel="noopener">Website Feedback Survey</a>
-        </div>
-      </div>
-
-      <div class="dropdown"><a href="mailto:anthrosafetywarrior@gmail.com">Contact Us</a></div>
-    </nav>
-  </div>
-
   <main>
     {{ content }}
   </main>
-
-  <!-- Dropdown hover/portal logic (unchanged) -->
-  <script>
-    (function () {
-      const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
-      const canHover = matchMedia('(hover: hover) and (pointer: fine)').matches;
-
-      document.querySelectorAll('.dropdown').forEach(drop => {
-        const btn   = drop.querySelector(':scope > a');
-        const panel = drop.querySelector('.dropdown-content');
-        if (!btn || !panel) return;
-
-        const usePortal = !canHover;
-        let placeholder = null;
-        let isOpen = false;
-
-        const moveToBody = () => {
-          if (!usePortal || panel.parentElement === document.body) return;
-          placeholder = document.createElement('span');
-          placeholder.hidden = true;
-          drop.appendChild(placeholder);
-          document.body.appendChild(panel);
-        };
-        const moveBack = () => {
-          if (!usePortal || !placeholder) return;
-          placeholder.replaceWith(panel);
-          placeholder = null;
-        };
-
-        function positionPanel(){
-          if (!isOpen) return;
-          const r = btn.getBoundingClientRect();
-          const margin = 12;
-          const minW = 220;
-          const maxW = Math.min(320, innerWidth - margin*2);
-          const width = clamp(Math.max(r.width, minW), minW, maxW);
-
-          let left = r.left + (r.width/2) - (width/2);
-          left = clamp(left, margin, innerWidth - margin - width);
-
-          panel.style.width = width + 'px';
-          panel.style.left  = Math.round(left) + 'px';
-          panel.style.top   = Math.round(r.bottom) + 'px';
-        }
-
-        function show(){ if (isOpen) return; moveToBody(); panel.style.display = 'block'; isOpen = true; positionPanel();
-          addEventListener('scroll', positionPanel, { passive:true });
-          addEventListener('resize', positionPanel);
-        }
-        function hide(){ if (!isOpen) return; panel.style.display = 'none'; isOpen = false;
-          removeEventListener('scroll', positionPanel);
-          removeEventListener('resize', positionPanel);
-          moveBack();
-        }
-
-        (window.PointerEvent ? drop.addEventListener('pointerenter', show) : drop.addEventListener('mouseenter', show));
-        (window.PointerEvent ? drop.addEventListener('pointerleave', hide) : drop.addEventListener('mouseleave', hide));
-        btn.addEventListener('focus', show);
-        btn.addEventListener('blur', hide);
-
-        if (!canHover) {
-          let armed = false;
-          btn.addEventListener('click', (e) => { if (!armed) { e.preventDefault(); show(); armed = true; setTimeout(()=>armed=false,1200); }});
-          document.addEventListener('click', (e) => { if (!drop.contains(e.target) && !panel.contains(e.target)) hide(); }, { passive:true });
-        }
-        btn.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') hide(); });
-      });
-    })();
-  </script>
-
-  <!-- Sticky shadow on scroll for mobile bar -->
-  <script>
-    const nav = document.querySelector('.nav-scroller');
-    if (nav){
-      const onScroll = () => nav.classList.toggle('is-stuck', scrollY > 0);
-      onScroll(); addEventListener('scroll', onScroll, {passive:true});
-    }
-  </script>
 
   <!-- Wave + buttons (scrollable, size-aware) -->
   <script>
@@ -286,23 +117,23 @@
     function setHeight(){
       const btn = wrap.querySelector('.circle-btn');
       const size = btn ? (btn.offsetHeight || parseFloat(getComputedStyle(btn).height)) : 72;
-      const h = Math.max(140, size*1.6);   // baseline + room for bigger buttons
+      const h = Math.max(140, size*1.65);   // room for larger buttons
       wrap.style.height = h + 'px';
     }
 
     function draw(){
-      // scrollable track width (scrolls when viewport < 1280)
+      // Make the wave strip wider than the viewport so it can scroll if needed.
       const vw = wrap.clientWidth;
-      const W  = Math.max(vw, 1280);
+      const W  = Math.max(vw, 1280);          // change 1280 if you want earlier/later scrolling
       track.style.width = W + 'px';
-      svg.style.width = W + 'px';
+      svg.style.width   = W + 'px';
 
       const H = wrap.clientHeight || wrap.getBoundingClientRect().height;
       const A = AMPFR * H;
       const k = (2*Math.PI*WAVES) / W;
 
-      // build wave
-      const N = 200;
+      // Build the filled sine wave
+      const N = 240;
       let d = `M 0 ${BASE*H + A*Math.sin(0)}`;
       for (let i=1;i<=N;i++){
         const x = (i/N)*W;
@@ -316,29 +147,29 @@
       p.setAttribute('fill', FILL1);
       svg.appendChild(p);
 
-      // place circles at maxima (visual troughs), lift intelligently
+      // Place circles at wave maxima (visual troughs), with smart vertical lift
       const overlay = track.querySelector('.circle-nav');
       overlay.style.width = W + 'px';
-
       const pad = Math.max(40, W * 0.03);
+
       [...btns].forEach((btn, n) => {
-        const theta = 0.5*Math.PI + 2*Math.PI*n;
+        const theta = 0.5*Math.PI + 2*Math.PI*n;   // π/2 + 2πn
         let x = theta / k; x = Math.max(pad, Math.min(W - pad, x));
 
         const yCurve = BASE*H + A*Math.sin(k*x);
         const size   = btn.offsetWidth || parseFloat(getComputedStyle(btn).width);
 
-        const INSET_FR   = 0.38;            // higher number = farther above trough
-        const BASE_LIFT  = size * 0.50;     // proportional raise
-        const DOWN_FOR_BIG = Math.max(0, size - 86) * 0.35; // nudge down when huge
-        const EXTRA_LIFT = H * 0.05;        // lift tied to header height
+        const INSET_FR      = 0.38;                 // higher = farther above trough
+        const BASE_LIFT     = size * 0.50;          // proportional raise
+        const DOWN_FOR_BIG  = Math.max(0, size - 86) * 0.35; // nudge down when huge
+        const EXTRA_LIFT    = H * 0.05;             // tie to header height
 
         const inset = A * INSET_FR;
         const lift  = BASE_LIFT - DOWN_FOR_BIG + EXTRA_LIFT;
 
         const cx = x - size/2;
         let cy = yCurve - inset - size/2 - lift;
-        cy = Math.max(6, cy);               // never clip at top
+        cy = Math.max(6, cy);                       // never clip at top
 
         btn.style.left = `${cx}px`;
         btn.style.top  = `${cy}px`;
