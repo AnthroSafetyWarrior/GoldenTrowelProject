@@ -29,14 +29,12 @@
     .header-text{ text-align:left; }
     .header-text p{ margin:.3em 0 0; color:#ffdc8f; }
 
-    /* ---------- Wave + Circles (the only nav) ---------- */
+    /* ---------- Wave + Circles (single nav) ---------- */
     .wave-nav{
       position:relative; background:#633747;
       overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch;
-      min-height:150px;            /* JS will raise this as circles grow */
-      scrollbar-gutter: stable;    /* avoid layout jump on some browsers */
-      /* hide the horizontal scrollbar */
-      scrollbar-width: none;       /* Firefox */
+      min-height:160px;                      /* JS increases if needed */
+      scrollbar-width:none;                  /* Firefox hide bar */
     }
     .wave-nav::-webkit-scrollbar{ display:none; height:0; } /* WebKit */
 
@@ -49,21 +47,51 @@
     }
 
     .circle-nav{ position:absolute; inset:0; pointer-events:none; }
+    .circle{
+      position:absolute; /* we position this wrapper with JS */
+      width:var(--size); height:var(--size);
+      --size: clamp(76px, 9.25vw, 112px);    /* bigger minimum */
+      pointer-events:auto;                   /* allow interaction */
+    }
     .circle-btn{
-      /* Bigger minimum, comfortable max */
-      --size: clamp(76px, 9.25vw, 112px);
-      position:absolute; width:var(--size); height:var(--size);
+      position:absolute; inset:0;
       border:0; border-radius:50%;
       display:flex; align-items:center; justify-content:center; text-align:center;
       padding:6px; line-height:1.1; font-weight:800;
-      font-size:clamp(.9rem, 1.1vw, 1rem);   /* keep labels readable */
-      background:#ffdc8f; color:#000; pointer-events:auto; cursor:pointer;
+      font-size:clamp(.9rem, 1.1vw, 1rem);
+      background:#ffdc8f; color:#000; cursor:pointer;
       box-shadow: 0 14px 28px rgba(0,0,0,.28), 0 2px 0 rgba(255,255,255,.6) inset;
       transition: transform .15s ease, background .15s ease, color .15s ease;
       z-index:1;
     }
     .circle-btn:hover{ transform:translateY(-2px); background:#633747; color:#fff; }
-    .circle-btn::after{ content:none; } /* labels stay inside the circle */
+    .circle-btn::after{ content:none; }
+
+    /* ---------- Flyout pills (appear on hover/focus in an arc to the right) ---------- */
+    .flyout{
+      position:absolute; inset:0;
+      pointer-events:none; opacity:0;
+      transition: opacity .18s ease;
+      z-index:2;
+    }
+    .circle:hover .flyout,
+    .circle:focus-within .flyout{ opacity:1; pointer-events:auto; }
+
+    .pill{
+      position:absolute; /* JS sets exact position on the arc */
+      background:#ffdc8f; color:#000;
+      font-weight:700; font-size:.9rem; white-space:nowrap;
+      padding:.45em .9em; border-radius:999px;
+      box-shadow:0 10px 20px rgba(0,0,0,.22);
+      text-decoration:none;
+      outline:0;
+      transition:transform .15s ease, background .15s ease, color .15s ease, box-shadow .15s ease;
+    }
+    .pill:hover, .pill:focus-visible{
+      background:#633747; color:#fff;
+      transform:translateY(-1px);
+      box-shadow:0 12px 24px rgba(0,0,0,.28);
+    }
   </style>
 </head>
 
@@ -82,16 +110,51 @@
     </div>
   </header>
 
-  <!-- Wave + Circles -->
+  <!-- Wave + Circle Nav -->
   <section class="wave-nav" aria-label="Primary navigation">
     <div class="wave-track">
       <svg class="wave" preserveAspectRatio="none" aria-hidden="true"></svg>
+
       <nav class="circle-nav">
-        <button class="circle-btn" data-label="Home"      data-href="{{ '/' | relative_url }}"></button>
-        <button class="circle-btn" data-label="Preparing" data-href="{{ '/preparing.html' | relative_url }}"></button>
-        <button class="circle-btn" data-label="Reporting" data-href="{{ '/reporting.html' | relative_url }}"></button>
-        <button class="circle-btn" data-label="Surveys"   data-href="{{ '/surveys.html' | relative_url }}"></button>
-        <button class="circle-btn" data-label="Contact"   data-href="mailto:anthrosafetywarrior@gmail.com"></button>
+        <!-- HOME (no flyout) -->
+        <div class="circle" data-label="Home" data-href="{{ '/' | relative_url }}">
+          <button class="circle-btn" type="button">Home</button>
+          <div class="flyout"></div>
+        </div>
+
+        <!-- PREPARING -->
+        <div class="circle" data-label="Preparing" data-href="{{ '/preparing.html' | relative_url }}">
+          <button class="circle-btn" type="button">Preparing</button>
+          <div class="flyout">
+            <a class="pill" href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing" target="_blank" rel="noopener">Pre-Fieldwork Safety Checklist</a>
+          </div>
+        </div>
+
+        <!-- REPORTING & RESOURCES -->
+        <div class="circle" data-label="Reporting" data-href="{{ '/reporting.html' | relative_url }}">
+          <button class="circle-btn" type="button">Reporting</button>
+          <div class="flyout">
+            <a class="pill" href="{{ '/statelaw.html' | relative_url }}">USA Laws by State</a>
+            <a class="pill" href="{{ '/internationallaw.html' | relative_url }}">International Laws by Country</a>
+            <a class="pill" href="{{ '/titleIX.html' | relative_url }}">Title IX Reporting by University</a>
+            <a class="pill" href="{{ '/fundingethics.html' | relative_url }}">Funding & Professional Associations</a>
+          </div>
+        </div>
+
+        <!-- SURVEYS -->
+        <div class="circle" data-label="Surveys" data-href="{{ '/surveys.html' | relative_url }}">
+          <button class="circle-btn" type="button">Surveys</button>
+          <div class="flyout">
+            <a class="pill" href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank" rel="noopener">Fieldwork Misconduct Survey</a>
+            <a class="pill" href="https://forms.gle/9DjrMVNP2oUu1GDD8" target="_blank" rel="noopener">Website Feedback Survey</a>
+          </div>
+        </div>
+
+        <!-- CONTACT (no flyout) -->
+        <div class="circle" data-label="Contact" data-href="mailto:anthrosafetywarrior@gmail.com">
+          <button class="circle-btn" type="button">Contact</button>
+          <div class="flyout"></div>
+        </div>
       </nav>
     </div>
   </section>
@@ -100,32 +163,65 @@
     {{ content }}
   </main>
 
-  <!-- Wave + buttons logic -->
+  <!-- Wave + circles + flyout arc positioning -->
   <script>
   (() => {
     const wrap  = document.querySelector('.wave-nav');
     const track = wrap?.querySelector('.wave-track');
     const svg   = track?.querySelector('svg.wave');
-    const btns  = track?.querySelectorAll('.circle-btn') || [];
-    if (!wrap || !track || !svg || !btns.length) return;
+    const circles = track?.querySelectorAll('.circle') || [];
+    if (!wrap || !track || !svg || !circles.length) return;
 
-    // visuals
+    // Sine visuals
     const WAVES = 5;
     const AMPFR = 0.24;          // amplitude as fraction of height
-    const BASE  = 0.46;          // vertical baseline (0 = top, 1 = bottom)
+    const BASE  = 0.46;          // vertical baseline (0 top, 1 bottom)
     const FILL1 = '#eae6df';     // same as page background
 
-    // height tracks circle size so the wave never crushes the labels
+    // Keep enough room for circles
     function setHeight(){
-      const btn  = wrap.querySelector('.circle-btn');
-      const size = btn ? (btn.offsetHeight || parseFloat(getComputedStyle(btn).height)) : 76;
-      const h    = Math.max(150, size*1.7);              // give it comfy headroom
+      const any = circles[0];
+      const size = any ? (any.offsetHeight || parseFloat(getComputedStyle(any).width)) : 96;
+      const h = Math.max(170, size * 1.75);
       wrap.style.height = h + 'px';
     }
 
+    // Lay out flyout pills along a right-side arc
+    function positionFlyout(circleEl){
+      const flyout = circleEl.querySelector('.flyout');
+      const pills = flyout ? flyout.querySelectorAll('.pill') : [];
+      if (!flyout || !pills.length) return;
+
+      const rect = circleEl.getBoundingClientRect();
+      const size = rect.width;   // circle is square
+      const cx = size/2, cy = size/2;
+
+      // arc radius proportional to circle size
+      const R = size * 1.25;
+      // total angular spread (in degrees) of the fan; adjust to taste
+      const SPREAD = 70;
+      // center angle (0° points right, positive is downwards in screen coords)
+      const CENTER = 0;
+
+      const m = pills.length;
+      pills.forEach((pill, i) => {
+        let t = (m === 1) ? 0 : (i/(m-1) - 0.5);  // -0.5..0.5
+        const deg = CENTER + t * SPREAD;
+        const rad = deg * Math.PI/180;
+
+        // position relative to the circle center, to the right
+        const x = cx + Math.cos(rad) * (R + size*0.05);
+        const y = cy + Math.sin(rad) * (R + size*0.05);
+
+        pill.style.left = x + 'px';
+        pill.style.top  = y + 'px';
+      });
+    }
+
     function draw(){
+      // Make the wave strip wide; it will scroll when viewport is narrower.
       const vw = wrap.clientWidth;
-      const W  = Math.max(vw, 1280);                     // wide strip -> can scroll
+      const W  = Math.max(vw, 1280);
       track.style.width = W + 'px';
       svg.style.width   = W + 'px';
 
@@ -133,7 +229,7 @@
       const A = AMPFR * H;
       const k = (2*Math.PI*WAVES) / W;
 
-      // build the wave path
+      // Build filled sine path
       const N = 260;
       let d = `M 0 ${BASE*H + A*Math.sin(0)}`;
       for (let i=1;i<=N;i++){
@@ -148,40 +244,38 @@
       p.setAttribute('fill', FILL1);
       svg.appendChild(p);
 
-      // position circles at the sine maxima (visual troughs)
-      const overlay = track.querySelector('.circle-nav');
-      overlay.style.width = W + 'px';
-
-      const pad = Math.max(48, W * 0.03);                // keep away from edges
-      [...btns].forEach((btn, n) => {
-        const theta = Math.PI/2 + 2*Math.PI*n;           // maxima
+      // Position each circle at the sine maxima (visual troughs), with consistent offset
+      const pad = Math.max(48, W * 0.03);
+      circles.forEach((circleEl, n) => {
+        const size = parseFloat(getComputedStyle(circleEl).getPropertyValue('--size')) || circleEl.offsetWidth;
+        const theta = Math.PI/2 + 2*Math.PI*n;    // maxima
         let x = theta / k;
         x = Math.max(pad, Math.min(W - pad, x));
 
         const yCurve = BASE*H + A*Math.sin(k*x);
-        const size   = btn.offsetWidth || parseFloat(getComputedStyle(btn).width);
+        const INSET_FR   = 0.38;                  // 0 = trough bottom; higher = farther above
+        const inset      = A * INSET_FR;
 
-        // Constant visual spacing above trough:
-        const INSET_FR      = 0.38;                      // 0 = bottom of trough
-        const inset         = A * INSET_FR;
+        // nice balanced lift that scales with circle size and header height
+        const baseLift   = size * 0.52;
+        const dropHuge   = Math.max(0, size - 96) * 0.40;
+        const extraLift  = H * 0.05;
+        const lift       = baseLift - dropHuge + extraLift;
 
-        // Lift tuned to circle size so big circles drop a touch to avoid clipping
-        const baseLift      = size * 0.52;
-        const dropForHuge   = Math.max(0, size - 96) * 0.40;
-        const extraLift     = H * 0.05;
-        const lift          = baseLift - dropForHuge + extraLift;
+        let left = x - size/2;
+        let top  = yCurve - inset - size/2 - lift;
+        top = Math.max(6, top); // never clip at top
 
-        const cx = x - size/2;
-        let cy   = yCurve - inset - size/2 - lift;
-        cy = Math.max(6, cy);                             // never clip at top
+        circleEl.style.left = left + 'px';
+        circleEl.style.top  = top  + 'px';
 
-        btn.style.left = `${cx}px`;
-        btn.style.top  = `${cy}px`;
+        // wire up click to go to the circle's main page (if user clicks the circle itself)
+        const href = circleEl.getAttribute('data-href');
+        const btn  = circleEl.querySelector('.circle-btn');
+        if (btn && href) btn.onclick = () => { location.href = href; };
 
-        btn.textContent = btn.dataset.label || '';
-        btn.onclick = () => { const href = btn.getAttribute('data-href'); if (href) location.href = href; };
-        btn.setAttribute('aria-label', btn.dataset.label || '');
-        btn.setAttribute('title', btn.dataset.label || '');
+        // position the flyout pills for this circle
+        positionFlyout(circleEl);
       });
     }
 
