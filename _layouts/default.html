@@ -13,7 +13,7 @@
     body { font-family: Calibri, sans-serif; background:#eae6df; margin:0; }
     img, svg, video { max-width:100%; height:auto; display:block; }
     h1{ font-size:clamp(1.8rem,5.5vw,2.4rem); margin:.2em 0; }
-    p { font-size:clamp(1rem,2.8vw,1.2rem);  margin:.6em 0; }
+    p { font-size:clamp(1rem,2.8vw,1.2rem); margin:.6em 0; }
     main{ width:min(100%,1100px); margin-inline:auto; padding:clamp(16px,4vw,28px); text-align:center; }
 
     /* ---------- Header ---------- */
@@ -29,16 +29,16 @@
     .header-text{ text-align:left; }
     .header-text p{ margin:.3em 0 0; color:#ffdc8f; }
 
-    /* ---------- Wave + Circle Nav (scrollable at all sizes) ---------- */
+    /* ---------- Wave + Circles (the only nav) ---------- */
     .wave-nav{
       position:relative; background:#633747;
-      overflow-x:auto; overflow-y:hidden;
-      -webkit-overflow-scrolling:touch;
-      /* height is set by JS based on circle size; keep a safe minimum */
-      min-height:140px;
+      overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch;
+      min-height:150px;            /* JS will raise this as circles grow */
+      scrollbar-gutter: stable;    /* avoid layout jump on some browsers */
+      /* hide the horizontal scrollbar */
+      scrollbar-width: none;       /* Firefox */
     }
-    .wave-nav::-webkit-scrollbar{ height:8px; background:transparent; }
-    .wave-nav::-webkit-scrollbar-thumb{ background:rgba(0,0,0,.15); border-radius:8px; }
+    .wave-nav::-webkit-scrollbar{ display:none; height:0; } /* WebKit */
 
     .wave-track{ position:relative; height:100%; min-width:1100px; }
     .wave{
@@ -50,20 +50,20 @@
 
     .circle-nav{ position:absolute; inset:0; pointer-events:none; }
     .circle-btn{
-      --size: clamp(64px, 8.5vw, 96px);
+      /* Bigger minimum, comfortable max */
+      --size: clamp(76px, 9.25vw, 112px);
       position:absolute; width:var(--size); height:var(--size);
-      border:none; border-radius:50%;
+      border:0; border-radius:50%;
       display:flex; align-items:center; justify-content:center; text-align:center;
       padding:6px; line-height:1.1; font-weight:800;
+      font-size:clamp(.9rem, 1.1vw, 1rem);   /* keep labels readable */
       background:#ffdc8f; color:#000; pointer-events:auto; cursor:pointer;
-      box-shadow:
-        0 14px 28px rgba(0,0,0,.28),
-        0 2px 0 rgba(255,255,255,.6) inset;
+      box-shadow: 0 14px 28px rgba(0,0,0,.28), 0 2px 0 rgba(255,255,255,.6) inset;
       transition: transform .15s ease, background .15s ease, color .15s ease;
-      z-index: 1; /* make sure they sit above the wave fill */
+      z-index:1;
     }
     .circle-btn:hover{ transform:translateY(-2px); background:#633747; color:#fff; }
-    .circle-btn::after{ content:none; } /* labels go inside the circle */
+    .circle-btn::after{ content:none; } /* labels stay inside the circle */
   </style>
 </head>
 
@@ -82,7 +82,7 @@
     </div>
   </header>
 
-  <!-- Wave + Circle Nav (only nav) -->
+  <!-- Wave + Circles -->
   <section class="wave-nav" aria-label="Primary navigation">
     <div class="wave-track">
       <svg class="wave" preserveAspectRatio="none" aria-hidden="true"></svg>
@@ -100,7 +100,7 @@
     {{ content }}
   </main>
 
-  <!-- Wave + buttons (scrollable, size-aware) -->
+  <!-- Wave + buttons logic -->
   <script>
   (() => {
     const wrap  = document.querySelector('.wave-nav');
@@ -109,22 +109,23 @@
     const btns  = track?.querySelectorAll('.circle-btn') || [];
     if (!wrap || !track || !svg || !btns.length) return;
 
+    // visuals
     const WAVES = 5;
-    const AMPFR = 0.24;
-    const BASE  = 0.46;
-    const FILL1 = '#eae6df';   // page background
+    const AMPFR = 0.24;          // amplitude as fraction of height
+    const BASE  = 0.46;          // vertical baseline (0 = top, 1 = bottom)
+    const FILL1 = '#eae6df';     // same as page background
 
+    // height tracks circle size so the wave never crushes the labels
     function setHeight(){
-      const btn = wrap.querySelector('.circle-btn');
-      const size = btn ? (btn.offsetHeight || parseFloat(getComputedStyle(btn).height)) : 72;
-      const h = Math.max(140, size*1.65);   // room for larger buttons
+      const btn  = wrap.querySelector('.circle-btn');
+      const size = btn ? (btn.offsetHeight || parseFloat(getComputedStyle(btn).height)) : 76;
+      const h    = Math.max(150, size*1.7);              // give it comfy headroom
       wrap.style.height = h + 'px';
     }
 
     function draw(){
-      // Make the wave strip wider than the viewport so it can scroll if needed.
       const vw = wrap.clientWidth;
-      const W  = Math.max(vw, 1280);          // change 1280 if you want earlier/later scrolling
+      const W  = Math.max(vw, 1280);                     // wide strip -> can scroll
       track.style.width = W + 'px';
       svg.style.width   = W + 'px';
 
@@ -132,8 +133,8 @@
       const A = AMPFR * H;
       const k = (2*Math.PI*WAVES) / W;
 
-      // Build the filled sine wave
-      const N = 240;
+      // build the wave path
+      const N = 260;
       let d = `M 0 ${BASE*H + A*Math.sin(0)}`;
       for (let i=1;i<=N;i++){
         const x = (i/N)*W;
@@ -147,29 +148,32 @@
       p.setAttribute('fill', FILL1);
       svg.appendChild(p);
 
-      // Place circles at wave maxima (visual troughs), with smart vertical lift
+      // position circles at the sine maxima (visual troughs)
       const overlay = track.querySelector('.circle-nav');
       overlay.style.width = W + 'px';
-      const pad = Math.max(40, W * 0.03);
 
+      const pad = Math.max(48, W * 0.03);                // keep away from edges
       [...btns].forEach((btn, n) => {
-        const theta = 0.5*Math.PI + 2*Math.PI*n;   // π/2 + 2πn
-        let x = theta / k; x = Math.max(pad, Math.min(W - pad, x));
+        const theta = Math.PI/2 + 2*Math.PI*n;           // maxima
+        let x = theta / k;
+        x = Math.max(pad, Math.min(W - pad, x));
 
         const yCurve = BASE*H + A*Math.sin(k*x);
         const size   = btn.offsetWidth || parseFloat(getComputedStyle(btn).width);
 
-        const INSET_FR      = 0.38;                 // higher = farther above trough
-        const BASE_LIFT     = size * 0.50;          // proportional raise
-        const DOWN_FOR_BIG  = Math.max(0, size - 86) * 0.35; // nudge down when huge
-        const EXTRA_LIFT    = H * 0.05;             // tie to header height
+        // Constant visual spacing above trough:
+        const INSET_FR      = 0.38;                      // 0 = bottom of trough
+        const inset         = A * INSET_FR;
 
-        const inset = A * INSET_FR;
-        const lift  = BASE_LIFT - DOWN_FOR_BIG + EXTRA_LIFT;
+        // Lift tuned to circle size so big circles drop a touch to avoid clipping
+        const baseLift      = size * 0.52;
+        const dropForHuge   = Math.max(0, size - 96) * 0.40;
+        const extraLift     = H * 0.05;
+        const lift          = baseLift - dropForHuge + extraLift;
 
         const cx = x - size/2;
-        let cy = yCurve - inset - size/2 - lift;
-        cy = Math.max(6, cy);                       // never clip at top
+        let cy   = yCurve - inset - size/2 - lift;
+        cy = Math.max(6, cy);                             // never clip at top
 
         btn.style.left = `${cx}px`;
         btn.style.top  = `${cy}px`;
