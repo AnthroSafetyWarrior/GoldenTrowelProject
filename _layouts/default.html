@@ -14,6 +14,7 @@
   <link rel="canonical" href="{{ page.url | absolute_url }}">
 
   <style>
+.circle-btn::after { content: none; }
 
 .wave-btn {
   position:absolute;
@@ -332,65 +333,71 @@
 
   <!-- Draw 5-cycle sine + place circle buttons at troughs -->
   <script>
-    (() => {
-      const wrap = document.querySelector('.wave-nav');
-      const svg  = wrap?.querySelector('svg.wave');
-      const btns = wrap?.querySelectorAll('.circle-btn') || [];
-      if (!wrap || !svg || !btns.length) return;
+(() => {
+  const wrap = document.querySelector('.wave-nav');
+  const svg  = wrap?.querySelector('svg.wave');
+  const btns = wrap?.querySelectorAll('.circle-btn') || [];
+  if (!wrap || !svg || !btns.length) return;
 
-     const WAVES = 5;        // keep 5 troughs
-const AMPFR = 0.24;     // was 0.35 → shallower wave
-const BASE  = 0.46;     // was 0.55 → lifts the whole wave up a bit
-const FILL1 = '#7a4a60';
-const DROP  = 0;        // we won't drop below; we’ll *inset* inside the trough
+  const WAVES = 5;          // 5 troughs
+  const AMPFR = 0.24;       // amplitude (fraction of height)
+  const BASE  = 0.46;       // vertical baseline (fraction of height)
+  const FILL1 = '#7a4a60';  // wave fill color
 
-      function draw(){
-        const W = svg.clientWidth  || svg.getBoundingClientRect().width;
-        const H = svg.clientHeight || svg.getBoundingClientRect().height;
-        const A = AMPFR * H;
-        const k = 2*Math.PI*WAVES / W;
-        const phi = 0;
+  function draw(){
+    const W = svg.clientWidth  || svg.getBoundingClientRect().width;
+    const H = svg.clientHeight || svg.getBoundingClientRect().height;
+    const A = AMPFR * H;
+    const k = (2 * Math.PI * WAVES) / W;
+    const phi = 0;
 
-        // build fill path
-        const N = 200;
-        let d = `M 0 ${BASE*H + A*Math.sin(phi)}`;
-        for (let i=1;i<=N;i++){
-          const x = (i/N)*W;
-          const y = BASE*H + A*Math.sin(k*x + phi);
-          d += ` L ${x} ${y}`;
-        }
-        d += ` L ${W} ${H} L 0 ${H} Z`;
+    // build the filled sine path
+    const N = 200;
+    let d = `M 0 ${BASE*H + A*Math.sin(phi)}`;
+    for (let i = 1; i <= N; i++){
+      const x = (i / N) * W;
+      const y = BASE*H + A*Math.sin(k*x + phi);
+      d += ` L ${x} ${y}`;
+    }
+    d += ` L ${W} ${H} L 0 ${H} Z`;
 
-        svg.innerHTML = '';
-        const p = document.createElementNS('http://www.w3.org/2000/svg','path');
-        p.setAttribute('d', d);
-        p.setAttribute('fill', FILL1);
-        svg.appendChild(p);
+    svg.innerHTML = '';
+    const p = document.createElementNS('http://www.w3.org/2000/svg','path');
+    p.setAttribute('d', d);
+    p.setAttribute('fill', FILL1);
+    svg.appendChild(p);
 
-     // troughs at 3π/2 + 2πn
-const pad = Math.max(40, W*0.03);
+    // place circle buttons at troughs (3π/2 + 2πn), inset upward to sit inside
+    const pad = Math.max(40, W * 0.03);
+    [...btns].forEach((btn, n) => {
+      const theta = 1.5 * Math.PI + 2 * Math.PI * n; // 3π/2 + 2πn
+      let x = theta / k;                              // x = theta / k
+      x = Math.max(pad, Math.min(W - pad, x));
 
-[...btns].forEach((btn, n) => {
-  const theta = 1.5*Math.PI + 2*Math.PI*n;   // 3π/2 + 2πn
-  let x = theta / (2*Math.PI*WAVES / W);     // x = theta / k
-  x = Math.max(pad, Math.min(W - pad, x));
+      const yCurve = BASE*H + A*Math.sin(k*x + phi);
+      const size = btn.offsetWidth || parseFloat(getComputedStyle(btn).width);
 
-  const yCurve = BASE*H + (AMPFR*H)*Math.sin((2*Math.PI*WAVES / W)*x);
+      const inset = Math.min(A * 0.65, size * 0.6); // sit comfortably inside trough
+      const cx = x - size/2;
+      const cy = yCurve - inset - size/2;
 
-  const size = btn.offsetWidth || parseFloat(getComputedStyle(btn).width);
+      btn.style.left = `${cx}px`;
+      btn.style.top  = `${cy}px`;
 
-  // inset upward from the lowest point so the circle sits *within* the trough
-  const inset = Math.min((AMPFR*H)*0.65, size*0.6); // stay comfortably inside
-  const cx = x - size/2;
-  const cy = yCurve - inset - size/2;
+      // click to navigate + a11y labels
+      btn.onclick = () => {
+        const href = btn.getAttribute('data-href');
+        if (href) window.location.href = href;
+      };
+      btn.setAttribute('aria-label', btn.dataset.label || '');
+      btn.setAttribute('title', btn.dataset.label || '');
+    });
+  }
 
-  btn.style.left = `${cx}px`;
-  btn.style.top  = `${cy}px`;
-
-  // accessibility labels (keep the circle visually empty)
-  btn.setAttribute('aria-label', btn.dataset.label);
-  btn.setAttribute('title', btn.dataset.label);
-});
-  </script>
+  // draw now and on resize
+  draw();
+  window.addEventListener('resize', draw, { passive: true });
+})();
+</script>
 </body>
 </html>
