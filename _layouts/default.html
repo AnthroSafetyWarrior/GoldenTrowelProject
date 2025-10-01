@@ -32,7 +32,7 @@ header::before{
     linear-gradient(rgba(99,55,71,var(--hero-tint,0.5)),
                     rgba(99,55,71,var(--hero-tint,0.5))),
     url('{{ page.hero | relative_url }}') no-repeat center/cover;
-  opacity: var(--hero-opacity,.5);
+  opacity: var(--hero-opacity,);
   z-index:-1;
 }
 /* maroon tint for legibility */
@@ -51,19 +51,20 @@ header.hero::after{
 .header-text p{ margin:.3em 0 0; color:#ffdc8f; }
 
 
-    /* ---------- Wave + Circles (single nav) ---------- */
 /* ---------- Wave + Circles (single nav) ---------- */
-.wave-nav{
-  position:relative;
-  background:transparent;      /* no solid color! */
-  overflow-x:auto;
-  overflow-y:hidden;
-  -webkit-overflow-scrolling:touch;
-  min-height:160px;
-  scrollbar-width:none;
+.wave-nav {
+  position: relative;
+  background: transparent;   /* fully transparent, no maroon strip */
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  min-height: 160px;
+  scrollbar-width: none;
 }
-.wave-nav::-webkit-scrollbar{ display:none; height:0; }
-
+.wave-nav::-webkit-scrollbar {
+  display: none;
+  height: 0;
+}
 
     .wave-track{ position:relative; height:100%; min-width:1100px; }
     .wave{
