@@ -15,6 +15,30 @@
   
 
 <style>
+/* --- Wave band under header --- */
+.hero-wave {
+  position: relative;
+  background:#633747;          /* same as header so it blends */
+  height: clamp(90px, 18vw, 180px);
+  overflow: hidden;
+}
+
+/* full-width, scalable SVG; we draw a filled path inside via JS */
+.hero-wave svg {
+  display:block;
+  width:100%;
+  height:100%;
+}
+
+/* optional: soft highlight on the crest to add depth */
+.hero-wave .crest-glow {
+  position:absolute; inset:0;
+  pointer-events:none;
+  background: radial-gradient(120% 60% at 50% 0%,
+              rgba(255,255,255,.18), rgba(255,255,255,0) 60%);
+  mix-blend-mode: screen;
+}
+
 header {
   background-color: #633747;
   color: white;
@@ -269,6 +293,13 @@ header {
   </div>
 </header>
 
+<!-- WAVE band -->
+<div class="hero-wave" aria-hidden="true">
+  <svg class="wave"></svg>
+  <div class="crest-glow"></div>
+</div>
+
+
  <div class="nav-scroller">
   <nav class="main-nav">
   <div class="dropdown"><a href="{{ '/' | relative_url }}">Home</a></div>
@@ -417,6 +448,50 @@ onScroll();
 window.addEventListener('scroll', onScroll, {passive:true});
 </script>
 
+<script>
+(() => {
+  const waveWrap = document.querySelector('.hero-wave');
+  const svg = waveWrap?.querySelector('svg.wave');
+  if (!svg) return;
+
+  // Tweak these to taste
+  const WAVES = 2.25;  // number of full sine cycles across the width
+  const AMPFR = 0.35;  // amplitude as fraction of the wave height (0–0.5 is good)
+  const BASE  = 0.55;  // baseline as fraction of height (lower number = higher crest)
+  const FILL  = '#7a4a60'; // slightly lighter than #633747 for depth
+
+  function draw(){
+    const W = svg.clientWidth  || svg.getBoundingClientRect().width;
+    const H = svg.clientHeight || svg.getBoundingClientRect().height;
+    const A = AMPFR * H;                  // amplitude in px
+    const k = 2*Math.PI*WAVES / W;        // frequency
+    const phi = 0;                        // phase (shift if you want)
+
+    const N = 160; // sample points
+    let d = `M 0 ${BASE*H + A*Math.sin(phi)}`;
+    for (let i=1;i<=N;i++){
+      const x = (i/N)*W;
+      const y = BASE*H + A*Math.sin(k*x + phi);
+      d += ` L ${x} ${y}`;
+    }
+    // close to bottom so we can fill
+    d += ` L ${W} ${H} L 0 ${H} Z`;
+
+    svg.innerHTML = '';
+    const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+    path.setAttribute('d', d);
+    path.setAttribute('fill', FILL);
+    svg.appendChild(path);
+  }
+
+  // draw now + on resize (debounced)
+  let to=null;
+  const onResize = () => { clearTimeout(to); to = setTimeout(draw, 80); };
+  window.addEventListener('resize', onResize, {passive:true});
+  window.addEventListener('load', draw);
+  draw();
+})();
+</script>
 
 
 </body>
