@@ -17,23 +17,23 @@
     main{ width:min(100%,1100px); margin-inline:auto; padding:clamp(16px,4vw,28px); text-align:center; }
 
     /* ---------- Header (with per-page hero photo) ---------- */
-   header.hero{
-  position:relative;
+header{
+  position: relative;
   color:#fff;
-  background:#633747;              /* fallback color */
   padding: clamp(0.8em, 3vw, 1.2em);
+  text-align:center;
   overflow:hidden;
-  isolation:isolate;               /* keep overlays under content */
 }
-/* photo layer */
-header.hero::before{
+header::before{
   content:"";
-  position:absolute; inset:0;
-  background-image: var(--hero-url);
-  background-position: var(--hero-pos);
-  background-size: cover;
-  opacity: var(--hero-opacity);
-  z-index:-2;
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(rgba(99,55,71,var(--hero-tint,0.5)),
+                    rgba(99,55,71,var(--hero-tint,0.5))),
+    url('{{ page.hero | relative_url }}') no-repeat center/cover;
+  opacity: var(--hero-opacity,.5);
+  z-index:-1;
 }
 /* maroon tint for legibility */
 header.hero::after{
@@ -52,13 +52,18 @@ header.hero::after{
 
 
     /* ---------- Wave + Circles (single nav) ---------- */
-    .wave-nav{
-      position:relative; background:#633747;
-      overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch;
-      min-height:160px;                      /* JS increases if needed */
-      scrollbar-width:none;                  /* Firefox hide bar */
-    }
-    .wave-nav::-webkit-scrollbar{ display:none; height:0; } /* WebKit */
+/* ---------- Wave + Circles (single nav) ---------- */
+.wave-nav{
+  position:relative;
+  background:transparent;      /* no solid color! */
+  overflow-x:auto;
+  overflow-y:hidden;
+  -webkit-overflow-scrolling:touch;
+  min-height:160px;
+  scrollbar-width:none;
+}
+.wave-nav::-webkit-scrollbar{ display:none; height:0; }
+
 
     .wave-track{ position:relative; height:100%; min-width:1100px; }
     .wave{
