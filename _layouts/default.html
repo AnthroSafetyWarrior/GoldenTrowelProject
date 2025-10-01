@@ -75,18 +75,24 @@
     .wave-nav .wave{ width:100%; height:100%; display:block; }
 
     .circle-nav{ position:absolute; inset:0; pointer-events:none; }
-    .circle-btn{
-      --size: clamp(54px, 7vw, 76px);
-      position:absolute; width:var(--size); height:var(--size);
-      border-radius:50%; border:none; cursor:pointer; pointer-events:auto;
-      background:#ffdc8f; color:#000; font-weight:800;
-      box-shadow:0 6px 18px rgba(0,0,0,.18);
-      transition: transform .15s ease, background .15s ease, color .15s ease;
-    }
-    .circle-btn:hover{ transform:translateY(-2px); background:#633747; color:#fff; }
-    .circle-btn:focus-visible{ outline:3px solid #e8a084; outline-offset:3px; }
-    .circle-btn::after{
-      content: attr(data-label);
+    /* remove this if present */
+/* .circle-nav .circle-btn::after { content: none !important; } */
+
+.circle-btn{
+  --size: clamp(54px, 7vw, 76px);
+  position:absolute; width:var(--size); height:var(--size);
+  border-radius:50%; border:none; pointer-events:auto; cursor:pointer;
+  background:#ffdc8f; color:#000; font-weight:800;
+  display:flex; align-items:center; justify-content:center; text-align:center;
+  padding:6px; line-height:1.1;   /* helps multi-line labels */
+  box-shadow:0 8px 20px rgba(0,0,0,.22);  /* stronger shadow */
+  transition: transform .15s ease, background .15s ease, color .15s ease;
+}
+.circle-btn:hover{ transform:translateY(-2px); background:#633747; color:#fff; }
+
+/* kill the below-button label pseudo-element entirely */
+.circle-btn::after{ content:none; }
+
       position:absolute; left:50%; transform:translateX(-50%);
       bottom: -1.9em; white-space:nowrap; font-size:.95rem; font-weight:800; color:#000;
     }
@@ -157,7 +163,12 @@
     {% endif %}
 /* put this near the END of your <style> */
 .circle-nav .circle-btn::after { content: none !important; }
- 
+ /* make the SVG wave cast a soft shadow downward */
+.wave-nav .wave{
+  width:100%; height:100%; display:block;
+  filter: drop-shadow(0 10px 14px rgba(0,0,0,.18));
+}
+
  </style>
 </head>
 
