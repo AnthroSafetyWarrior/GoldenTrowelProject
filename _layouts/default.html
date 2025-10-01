@@ -17,43 +17,39 @@
     main{ width:min(100%,1100px); margin-inline:auto; padding:clamp(16px,4vw,28px); text-align:center; }
 
     /* ---------- Header (with per-page hero photo) ---------- */
-    header.hero{
-      --hero-url: url('{{ page.hero | default: "/assets/headers/placeholder.jpg" | relative_url }}');
-      --hero-pos: {{ page.hero_pos | default: "center center" }};
-      --hero-opacity: {{ page.hero_opacity | default: .30 }};
-      --hero-tint: {{ page.hero_tint | default: .60 }};
+   header.hero{
+  position:relative;
+  color:#fff;
+  background:#633747;              /* fallback color */
+  padding: clamp(0.8em, 3vw, 1.2em);
+  overflow:hidden;
+  isolation:isolate;               /* keep overlays under content */
+}
+/* photo layer */
+header.hero::before{
+  content:"";
+  position:absolute; inset:0;
+  background-image: var(--hero-url);
+  background-position: var(--hero-pos);
+  background-size: cover;
+  opacity: var(--hero-opacity);
+  z-index:-2;
+}
+/* maroon tint for legibility */
+header.hero::after{
+  content:"";
+  position:absolute; inset:0;
+  background: rgba(99,55,71, var(--hero-tint));
+  z-index:-1;
+}
+.header-content{
+  display:flex; align-items:center; justify-content:center; gap:1em;
+  max-width:1100px; margin:0 auto;
+}
+.header-content img{ width:130px; border-radius:12px; }
+.header-text{ text-align:left; }
+.header-text p{ margin:.3em 0 0; color:#ffdc8f; }
 
-      position:relative;
-      color:#fff;
-      background:#633747;                    /* fallback color */
-      padding: clamp(0.8em, 3vw, 1.2em);
-      overflow:hidden;
-      isolation:isolate;                     /* keeps overlays under content */
-    }
-    /* Hero image layer */
-    header.hero::before{
-      content:"";
-      position:absolute; inset:0;
-      background-image: var(--hero-url);
-      background-position: var(--hero-pos);
-      background-size: cover;
-      opacity: var(--hero-opacity);
-      z-index: -2;
-    }
-    /* Maroon tint to guarantee readable text on any photo */
-    header.hero::after{
-      content:"";
-      position:absolute; inset:0;
-      background: rgba(99,55,71, var(--hero-tint));
-      z-index: -1;
-    }
-    .header-content{
-      display:flex; align-items:center; justify-content:center; gap:1em;
-      max-width:1100px; margin:0 auto;
-    }
-    .header-content img{ width:130px; border-radius:12px; }
-    .header-text{ text-align:left; }
-    .header-text p{ margin:.3em 0 0; color:#ffdc8f; }
 
     /* ---------- Wave + Circles (single nav) ---------- */
     .wave-nav{
@@ -123,18 +119,27 @@
 
 <body>
   <!-- Header with per-page hero photo -->
-  <header class="hero">
-    <div class="header-content">
-      <img
-        src="{{ '/assets/img/IMG_3241.PNG' | absolute_url }}?v={{ site.time | date: '%s' }}"
-        alt="Logo for the Golden Trowel Project."
-        loading="lazy" decoding="async" fetchpriority="low">
-      <div class="header-text">
-        <h1>Recognizing power. Reclaiming safety.</h1>
-        <p>Practical tools. Powerful boundaries. Safer fieldwork.</p>
-      </div>
+  <header
+  class="hero"
+  style="
+    --hero-url: url('{{ page.hero | default: '/assets/headers/placeholder.jpg' | relative_url }}');
+    --hero-pos: {{ page.hero_pos | default: 'center center' }};
+    --hero-opacity: {{ page.hero_opacity | default: 0.30 }};
+    --hero-tint: {{ page.hero_tint | default: 0.60 }};
+  "
+>
+  <div class="header-content">
+    <img
+      src="{{ '/assets/img/IMG_3241.PNG' | absolute_url }}?v={{ site.time | date: '%s' }}"
+      alt="Logo for the Golden Trowel Project."
+      loading="lazy" decoding="async" fetchpriority="low">
+    <div class="header-text">
+      <h1>Recognizing power. Reclaiming safety.</h1>
+      <p>Practical tools. Powerful boundaries. Safer fieldwork.</p>
     </div>
-  </header>
+  </div>
+</header>
+
 
   <!-- Wave + Circle Nav -->
   <section class="wave-nav" aria-label="Primary navigation">
