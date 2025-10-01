@@ -16,10 +16,36 @@
     p { font-size:clamp(1rem,2.8vw,1.2rem); margin:.6em 0; }
     main{ width:min(100%,1100px); margin-inline:auto; padding:clamp(16px,4vw,28px); text-align:center; }
 
-    /* ---------- Header ---------- */
-    header{
-      background:#633747; color:#fff;
+    /* ---------- Header (with per-page hero photo) ---------- */
+    header.hero{
+      --hero-url: url('{{ page.hero | default: "/assets/headers/placeholder.jpg" | relative_url }}');
+      --hero-pos: {{ page.hero_pos | default: "center center" }};
+      --hero-opacity: {{ page.hero_opacity | default: .30 }};
+      --hero-tint: {{ page.hero_tint | default: .60 }};
+
+      position:relative;
+      color:#fff;
+      background:#633747;                    /* fallback color */
       padding: clamp(0.8em, 3vw, 1.2em);
+      overflow:hidden;
+      isolation:isolate;                     /* keeps overlays under content */
+    }
+    /* Hero image layer */
+    header.hero::before{
+      content:"";
+      position:absolute; inset:0;
+      background-image: var(--hero-url);
+      background-position: var(--hero-pos);
+      background-size: cover;
+      opacity: var(--hero-opacity);
+      z-index: -2;
+    }
+    /* Maroon tint to guarantee readable text on any photo */
+    header.hero::after{
+      content:"";
+      position:absolute; inset:0;
+      background: rgba(99,55,71, var(--hero-tint));
+      z-index: -1;
     }
     .header-content{
       display:flex; align-items:center; justify-content:center; gap:1em;
@@ -50,7 +76,7 @@
     .circle{
       position:absolute; /* we position this wrapper with JS */
       width:var(--size); height:var(--size);
-      --size: clamp(80px, 9.25vw, 112px);    /* bigger minimum */
+      --size: clamp(80px, 9.25vw, 112px);    /* larger minimum as requested */
       pointer-events:auto;                   /* allow interaction */
     }
     .circle-btn{
@@ -67,7 +93,7 @@
     .circle-btn:hover{ transform:translateY(-2px); background:#633747; color:#fff; }
     .circle-btn::after{ content:none; }
 
-    /* ---------- Flyout pills (appear on hover/focus in an arc to the right) ---------- */
+    /* ---------- Flyout pills (arc to the right on hover/focus) ---------- */
     .flyout{
       position:absolute; inset:0;
       pointer-events:none; opacity:0;
@@ -96,8 +122,8 @@
 </head>
 
 <body>
-  <!-- Header -->
-  <header>
+  <!-- Header with per-page hero photo -->
+  <header class="hero">
     <div class="header-content">
       <img
         src="{{ '/assets/img/IMG_3241.PNG' | absolute_url }}?v={{ site.time | date: '%s' }}"
@@ -196,12 +222,10 @@
       const size = rect.width;   // circle is square
       const cx = size/2, cy = size/2;
 
-      // arc radius proportional to circle size
-      const R = size * 0.7;
-      // total angular spread (in degrees) of the fan; adjust to taste
-      const SPREAD = 90;
-      // center angle (0° points right, positive is downwards in screen coords)
-      const CENTER = 0;
+      // Tighter arc (as you asked): hug the circle more closely
+      const R = size * 0.9;           // radius from center to pill
+      const SPREAD = 50;              // total degrees of fan
+      const CENTER = 0;               // 0° = to the right
 
       const m = pills.length;
       pills.forEach((pill, i) => {
@@ -244,7 +268,7 @@
       p.setAttribute('fill', FILL1);
       svg.appendChild(p);
 
-      // Position each circle at the sine maxima (visual troughs), with consistent offset
+      // Position each circle at the sine maxima (visual troughs)
       const pad = Math.max(48, W * 0.03);
       circles.forEach((circleEl, n) => {
         const size = parseFloat(getComputedStyle(circleEl).getPropertyValue('--size')) || circleEl.offsetWidth;
@@ -256,7 +280,7 @@
         const INSET_FR   = 0.38;                  // 0 = trough bottom; higher = farther above
         const inset      = A * INSET_FR;
 
-        // nice balanced lift that scales with circle size and header height
+        // balanced lift that scales with circle size and header height
         const baseLift   = size * 0.52;
         const dropHuge   = Math.max(0, size - 96) * 0.40;
         const extraLift  = H * 0.05;
@@ -269,12 +293,12 @@
         circleEl.style.left = left + 'px';
         circleEl.style.top  = top  + 'px';
 
-        // wire up click to go to the circle's main page (if user clicks the circle itself)
+        // click navigates to the circle's main page
         const href = circleEl.getAttribute('data-href');
         const btn  = circleEl.querySelector('.circle-btn');
         if (btn && href) btn.onclick = () => { location.href = href; };
 
-        // position the flyout pills for this circle
+        // position this circle's flyouts
         positionFlyout(circleEl);
       });
     }
