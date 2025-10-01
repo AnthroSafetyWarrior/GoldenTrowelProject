@@ -344,17 +344,17 @@
   </script>
 
   <!-- Draw 5-cycle sine + place circle buttons at troughs -->
-  <script>
+<script>
 (() => {
   const wrap = document.querySelector('.wave-nav');
   const svg  = wrap?.querySelector('svg.wave');
   const btns = wrap?.querySelectorAll('.circle-btn') || [];
   if (!wrap || !svg || !btns.length) return;
 
-  const WAVES = 5;          // 5 troughs
+  const WAVES = 5;          // 5 troughs across the width
   const AMPFR = 0.24;       // amplitude (fraction of height)
   const BASE  = 0.46;       // vertical baseline (fraction of height)
-  const FILL1 = '#7a4a60';  // wave fill color
+  const FILL1 = '#eae6df';  // wave fill = page background (cream)
 
   function draw(){
     const W = svg.clientWidth  || svg.getBoundingClientRect().width;
@@ -363,7 +363,7 @@
     const k = (2 * Math.PI * WAVES) / W;
     const phi = 0;
 
-    // build the filled sine path
+    // build wave path
     const N = 200;
     let d = `M 0 ${BASE*H + A*Math.sin(phi)}`;
     for (let i = 1; i <= N; i++){
@@ -379,24 +379,28 @@
     p.setAttribute('fill', FILL1);
     svg.appendChild(p);
 
-    // place circle buttons at troughs (3π/2 + 2πn), inset upward to sit inside
+    // place circles at WAVE MAXIMA (π/2 + 2πn) = visible troughs in page coords
     const pad = Math.max(40, W * 0.03);
     [...btns].forEach((btn, n) => {
-      const theta = 0.5 * Math.PI + 2 * Math.PI * n; // 3π/2 + 2πn
+      const theta = 0.5 * Math.PI + 2 * Math.PI * n; // maxima
       let x = theta / k;                              // x = theta / k
       x = Math.max(pad, Math.min(W - pad, x));
 
       const yCurve = BASE*H + A*Math.sin(k*x + phi);
       const size = btn.offsetWidth || parseFloat(getComputedStyle(btn).width);
 
-      const inset = Math.min(A * 0.65, size * 0.6); // sit comfortably inside trough
+      const inset = Math.min(A * 0.65, size * 0.6);
+      const lift  = size * 0.15;                      // <-- raise circles a bit
       const cx = x - size/2;
-      const cy = yCurve - inset - size/2;
+      const cy = yCurve - inset - size/2 - lift;      // higher = visually nicer
 
       btn.style.left = `${cx}px`;
       btn.style.top  = `${cy}px`;
 
-      // click to navigate + a11y labels
+      // put the label text INSIDE the circle
+      btn.textContent = btn.dataset.label || '';
+
+      // click to navigate + a11y
       btn.onclick = () => {
         const href = btn.getAttribute('data-href');
         if (href) window.location.href = href;
@@ -406,10 +410,10 @@
     });
   }
 
-  // draw now and on resize
   draw();
   window.addEventListener('resize', draw, { passive: true });
 })();
 </script>
+
 </body>
 </html>
