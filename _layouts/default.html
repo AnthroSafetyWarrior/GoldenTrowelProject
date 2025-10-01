@@ -1,45 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 <head>
-  <script>
-    document.documentElement.classList.remove('no-js');
-    document.documentElement.classList.add('js');
-  </script>
-
+  <script>document.documentElement.classList.replace('no-js','js');</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{{ page.title | default: "Golden Trowel Project" }}</title>
-
-  <!-- Canonical URL for SEO -->
   <link rel="canonical" href="{{ page.url | absolute_url }}">
 
   <style>
-.wave-btn {
-  position:absolute;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  width:70px; height:70px;
-  border-radius:50%;
-  background:#ffdc8f;
-  font-weight:bold;
-  font-size:clamp(.8rem, 1vw, 1rem);
-  color:#000;
-  text-align:center;
-  line-height:1.2;
-  box-shadow:0 2px 6px rgba(0,0,0,.2);
-  cursor:pointer;
-  transition:background .3s, color .3s;
-}
-
-.wave-btn:hover {
-  background:#633747;
-  color:#fff;
-}
-
-/* remove old label-below effect */
-.wave-btn::after { content:none; }
-
     /* ---------- Base ---------- */
     *, *::before, *::after { box-sizing: border-box; }
     body { font-family: Calibri, sans-serif; background:#eae6df; margin:0; }
@@ -65,35 +33,36 @@
 
     /* ---------- Wave + Circle Nav (desktop) ---------- */
     .wave-nav{
-      position:relative; background:#633747; height:clamp(120px,22vw,220px);
-      overflow:hidden; display:none;   /* hidden on mobile, shown ≥900px */
+      position:relative; background:#633747;
+      overflow-x:auto; overflow-y:hidden;  /* scroll horizontally when needed */
+      -webkit-overflow-scrolling:touch;
+      display:none;                         /* hidden on mobile; shown ≥900px */
     }
-.wave-nav{
-  height: clamp(110px, 18vw, 180px); /* was 120/22vw/220 */
-}
+    @media (min-width:900px){ .wave-nav{ display:block; } }
 
-    .wave-nav .wave{ width:100%; height:100%; display:block; }
+    .wave-track{ position:relative; height:100%; min-width:1100px; }
+    .wave-nav .wave{
+      width:100%; height:100%; display:block;
+      filter:
+        drop-shadow(0 18px 24px rgba(0,0,0,.26))   /* main soft shadow */
+        drop-shadow(0 2px 0 rgba(0,0,0,.08));      /* crisp rim */
+    }
 
     .circle-nav{ position:absolute; inset:0; pointer-events:none; }
-    /* remove this if present */
-/* .circle-nav .circle-btn::after { content: none !important; } */
-
-.circle-btn{
-  --size: clamp(64px, 8.5vw, 96px);      /* bigger */
-  position:absolute; width:var(--size); height:var(--size);
-  border:none; border-radius:50%;
-  display:flex; align-items:center; justify-content:center; text-align:center;
-  padding:6px; line-height:1.1; font-weight:800;
-  background:#ffdc8f; color:#000;
-  /* deeper, softer shadow */
-  box-shadow:
-    0 14px 28px rgba(0,0,0,.28),
-    0 2px 0 rgba(255,255,255,.6) inset;  /* tiny inner highlight */
-  transition: transform .15s ease, background .15s ease, color .15s ease;
-}
-.circle-btn:hover{ transform:translateY(-2px); background:#633747; color:#fff; }
-.circle-btn::after{ content:none; } /* keep labels inside the circle */
+    .circle-btn{
+      --size: clamp(64px, 8.5vw, 96px);
+      position:absolute; width:var(--size); height:var(--size);
+      border:none; border-radius:50%;
+      display:flex; align-items:center; justify-content:center; text-align:center;
+      padding:6px; line-height:1.1; font-weight:800;
+      background:#ffdc8f; color:#000; pointer-events:auto; cursor:pointer;
+      box-shadow:
+        0 14px 28px rgba(0,0,0,.28),
+        0 2px 0 rgba(255,255,255,.6) inset;
+      transition: transform .15s ease, background .15s ease, color .15s ease;
     }
+    .circle-btn:hover{ transform:translateY(-2px); background:#633747; color:#fff; }
+    .circle-btn::after{ content:none; } /* labels go inside the circle */
 
     /* ---------- Sticky dropdown bar (mobile / fallback) ---------- */
     .nav-scroller{
@@ -127,7 +96,6 @@
     .dropdown-content a{ display:block; padding:.55em .7em; line-height:2; border-radius:6px; color:#000; }
     .dropdown-content a:hover, .dropdown-content a:focus-visible{ background:#633747; color:#fff; }
 
-    /* mobile nav scroll + grid adjustments */
     :root { --nav-tile-w: 120px; }
     @media (max-width:900px){
       .nav-scroller{ overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
@@ -136,13 +104,7 @@
       .dropdown > a{ width:100%; }
     }
 
-    /* show wave + circle nav on desktop; hide bar */
-    @media (min-width:900px){
-      .wave-nav{ display:block; }
-      .nav-scroller{ display:none; }
-    }
-
-    /* home-page cards etc (unchanged) */
+    /* Home-page cards (unchanged) */
     {% if page.is_homepage %}
       .main-section{ padding-block: clamp(10px, 2vw, 18px); }
       .main-section > .docs-container{ margin: clamp(6px, 1vw, 10px) auto; }
@@ -159,16 +121,7 @@
       .doc-card a{ margin-top:auto; align-self:center; background:#633747; color:#fff; text-decoration:none; padding:.5em 1em; border-radius:6px; display:inline-block; }
       .doc-card a:hover{ background:#ffdc8f; color:#000; }
     {% endif %}
-/* put this near the END of your <style> */
-.circle-nav .circle-btn::after { content: none !important; }
- /* make the SVG wave cast a soft shadow downward */
-.wave-nav .wave{
-  width:100%; height:100%; display:block;
-  filter:
-    drop-shadow(0 18px 24px rgba(0,0,0,.26))   /* main soft shadow */
-    drop-shadow(0 2px 0 rgba(0,0,0,.08));      /* crisp edge */
-}
- </style>
+  </style>
 </head>
 
 <body>
@@ -177,7 +130,7 @@
     <div class="header-content">
       <img
         src="{{ '/assets/img/IMG_3241.PNG' | absolute_url }}?v={{ site.time | date: '%s' }}"
-        alt="Logo for the Golden Trowel Project: a stylized golden trowel and skull emblem encircled by text."
+        alt="Logo for the Golden Trowel Project."
         loading="lazy" decoding="async" fetchpriority="low">
       <div class="header-text">
         <h1>Recognizing power. Reclaiming safety.</h1>
@@ -188,22 +141,19 @@
 
   <!-- Wave + Circle Nav (desktop) -->
   <section class="wave-nav" aria-label="Primary decorative nav">
-    <svg class="wave" preserveAspectRatio="none" aria-hidden="true"></svg>
-    <nav class="circle-nav" aria-label="Primary navigation (desktop)">
-      <button class="circle-btn" data-label="Home"
-              data-href="{{ '/' | relative_url }}"></button>
-      <button class="circle-btn" data-label="Preparing"
-              data-href="{{ '/preparing.html' | relative_url }}"></button>
-      <button class="circle-btn" data-label="Reporting"
-              data-href="{{ '/reporting.html' | relative_url }}"></button>
-      <button class="circle-btn" data-label="Surveys"
-              data-href="{{ '/surveys.html' | relative_url }}"></button>
-      <button class="circle-btn" data-label="Contact"
-              data-href="mailto:anthrosafetywarrior@gmail.com"></button>
-    </nav>
+    <div class="wave-track">
+      <svg class="wave" preserveAspectRatio="none" aria-hidden="true"></svg>
+      <nav class="circle-nav" aria-label="Primary navigation (desktop)">
+        <button class="circle-btn" data-label="Home"      data-href="{{ '/' | relative_url }}"></button>
+        <button class="circle-btn" data-label="Preparing" data-href="{{ '/preparing.html' | relative_url }}"></button>
+        <button class="circle-btn" data-label="Reporting" data-href="{{ '/reporting.html' | relative_url }}"></button>
+        <button class="circle-btn" data-label="Surveys"   data-href="{{ '/surveys.html' | relative_url }}"></button>
+        <button class="circle-btn" data-label="Contact"   data-href="mailto:anthrosafetywarrior@gmail.com"></button>
+      </nav>
+    </div>
   </section>
 
-  <!-- Existing dropdown bar (mobile/fallback) -->
+  <!-- Mobile/fallback bar -->
   <div class="nav-scroller">
     <nav class="main-nav">
       <div class="dropdown"><a href="{{ '/' | relative_url }}">Home</a></div>
@@ -218,10 +168,10 @@
       <div class="dropdown">
         <a href="{{ '/reporting.html' | relative_url }}">Reporting & Resources</a>
         <div class="dropdown-content">
-          <a href="{{ '/statelaw.html'          | relative_url }}">USA Laws by State</a>
-          <a href="{{ '/internationallaw.html'  | relative_url }}">International Laws by Country</a>
-          <a href="{{ '/titleIX.html'           | relative_url }}">Title IX Reporting by University</a>
-          <a href="{{ '/fundingethics.html'     | relative_url }}">Funding Agencies &amp; Professional Associations Reporting</a>
+          <a href="{{ '/statelaw.html'         | relative_url }}">USA Laws by State</a>
+          <a href="{{ '/internationallaw.html' | relative_url }}">International Laws by Country</a>
+          <a href="{{ '/titleIX.html'          | relative_url }}">Title IX Reporting by University</a>
+          <a href="{{ '/fundingethics.html'    | relative_url }}">Funding Agencies &amp; Professional Associations Reporting</a>
         </div>
       </div>
 
@@ -245,7 +195,7 @@
   <script>
     (function () {
       const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
-      const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      const canHover = matchMedia('(hover: hover) and (pointer: fine)').matches;
 
       document.querySelectorAll('.dropdown').forEach(drop => {
         const btn   = drop.querySelector(':scope > a');
@@ -274,59 +224,36 @@
           const r = btn.getBoundingClientRect();
           const margin = 12;
           const minW = 220;
-          const maxW = Math.min(320, window.innerWidth - margin*2);
+          const maxW = Math.min(320, innerWidth - margin*2);
           const width = clamp(Math.max(r.width, minW), minW, maxW);
 
           let left = r.left + (r.width/2) - (width/2);
-          left = clamp(left, margin, window.innerWidth - margin - width);
+          left = clamp(left, margin, innerWidth - margin - width);
 
           panel.style.width = width + 'px';
           panel.style.left  = Math.round(left) + 'px';
           panel.style.top   = Math.round(r.bottom) + 'px';
         }
 
-        function show(){
-          if (isOpen) return;
-          moveToBody();
-          panel.classList.add('is-floating');
-          panel.style.display = 'block';
-          isOpen = true;
-          positionPanel();
-          window.addEventListener('scroll', positionPanel, { passive: true });
-          window.addEventListener('resize', positionPanel);
+        function show(){ if (isOpen) return; moveToBody(); panel.style.display = 'block'; isOpen = true; positionPanel();
+          addEventListener('scroll', positionPanel, { passive:true });
+          addEventListener('resize', positionPanel);
         }
-
-        function hide(){
-          if (!isOpen) return;
-          panel.style.display = 'none';
-          panel.classList.remove('is-floating');
-          panel.style.width = panel.style.left = panel.style.top = '';
-          isOpen = false;
-          window.removeEventListener('scroll', positionPanel);
-          window.removeEventListener('resize', positionPanel);
+        function hide(){ if (!isOpen) return; panel.style.display = 'none'; isOpen = false;
+          removeEventListener('scroll', positionPanel);
+          removeEventListener('resize', positionPanel);
           moveBack();
         }
 
-        if (window.PointerEvent) {
-          drop.addEventListener('pointerenter', show);
-          drop.addEventListener('pointerleave', hide);
-        } else {
-          drop.addEventListener('mouseenter', show);
-          drop.addEventListener('mouseleave', hide);
-        }
+        (window.PointerEvent ? drop.addEventListener('pointerenter', show) : drop.addEventListener('mouseenter', show));
+        (window.PointerEvent ? drop.addEventListener('pointerleave', hide) : drop.addEventListener('mouseleave', hide));
         btn.addEventListener('focus', show);
         btn.addEventListener('blur', hide);
 
         if (!canHover) {
           let armed = false;
-          btn.addEventListener('click', (e) => {
-            if (!armed) {
-              e.preventDefault(); show(); armed = true; setTimeout(() => armed = false, 1200);
-            }
-          });
-          document.addEventListener('click', (e) => {
-            if (!drop.contains(e.target) && !panel.contains(e.target)) hide();
-          }, { passive: true });
+          btn.addEventListener('click', (e) => { if (!armed) { e.preventDefault(); show(); armed = true; setTimeout(()=>armed=false,1200); }});
+          document.addEventListener('click', (e) => { if (!drop.contains(e.target) && !panel.contains(e.target)) hide(); }, { passive:true });
         }
         btn.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') hide(); });
       });
@@ -337,87 +264,96 @@
   <script>
     const nav = document.querySelector('.nav-scroller');
     if (nav){
-      const onScroll = () => nav.classList.toggle('is-stuck', window.scrollY > 0);
-      onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+      const onScroll = () => nav.classList.toggle('is-stuck', scrollY > 0);
+      onScroll(); addEventListener('scroll', onScroll, {passive:true});
     }
   </script>
 
-  <!-- Draw 5-cycle sine + place circle buttons at troughs -->
-<script>
-(() => {
-  const wrap = document.querySelector('.wave-nav');
-  const svg  = wrap?.querySelector('svg.wave');
-  const btns = wrap?.querySelectorAll('.circle-btn') || [];
-  if (!wrap || !svg || !btns.length) return;
+  <!-- Wave + buttons (scrollable, size-aware) -->
+  <script>
+  (() => {
+    const wrap  = document.querySelector('.wave-nav');
+    const track = wrap?.querySelector('.wave-track');
+    const svg   = track?.querySelector('svg.wave');
+    const btns  = track?.querySelectorAll('.circle-btn') || [];
+    if (!wrap || !track || !svg || !btns.length) return;
 
-  const WAVES = 5;
-  const AMPFR = 0.24;
-  const BASE  = 0.46;
-  const FILL1 = '#eae6df';   // page background
+    const WAVES = 5;
+    const AMPFR = 0.24;
+    const BASE  = 0.46;
+    const FILL1 = '#eae6df';   // page background
 
-  function draw(){
-    const W = svg.clientWidth  || svg.getBoundingClientRect().width;
-    const H = svg.clientHeight || svg.getBoundingClientRect().height;
-    const A = AMPFR * H;
-    const k = (2 * Math.PI * WAVES) / W;
-    const phi = 0;
-
-    // build wave
-    const N = 200;
-    let d = `M 0 ${BASE*H + A*Math.sin(phi)}`;
-    for (let i = 1; i <= N; i++){
-      const x = (i / N) * W;
-      const y = BASE*H + A*Math.sin(k*x + phi);
-      d += ` L ${x} ${y}`;
+    function setHeight(){
+      const btn = wrap.querySelector('.circle-btn');
+      const size = btn ? (btn.offsetHeight || parseFloat(getComputedStyle(btn).height)) : 72;
+      const h = Math.max(140, size*1.6);   // baseline + room for bigger buttons
+      wrap.style.height = h + 'px';
     }
-    d += ` L ${W} ${H} L 0 ${H} Z`;
 
-    svg.innerHTML = '';
-    const p = document.createElementNS('http://www.w3.org/2000/svg','path');
-    p.setAttribute('d', d);
-    p.setAttribute('fill', FILL1);
-    svg.appendChild(p);
+    function draw(){
+      // scrollable track width (scrolls when viewport < 1280)
+      const vw = wrap.clientWidth;
+      const W  = Math.max(vw, 1280);
+      track.style.width = W + 'px';
+      svg.style.width = W + 'px';
 
-   // place circles at wave maxima (troughs visually), lifted higher
-const pad = Math.max(40, W * 0.03);
-[...btns].forEach((btn, n) => {
-  const theta = 0.5 * Math.PI + 2 * Math.PI * n; // maxima
-  let x = theta / k;
-  x = Math.max(pad, Math.min(W - pad, x));
+      const H = wrap.clientHeight || wrap.getBoundingClientRect().height;
+      const A = AMPFR * H;
+      const k = (2*Math.PI*WAVES) / W;
 
-  const yCurve = BASE*H + A*Math.sin(k*x + phi);
-  const size   = btn.offsetWidth || parseFloat(getComputedStyle(btn).width);
+      // build wave
+      const N = 200;
+      let d = `M 0 ${BASE*H + A*Math.sin(0)}`;
+      for (let i=1;i<=N;i++){
+        const x = (i/N)*W;
+        const y = BASE*H + A*Math.sin(k*x);
+        d += ` L ${x} ${y}`;
+      }
+      d += ` L ${W} ${H} L 0 ${H} Z`;
+      svg.innerHTML = '';
+      const p = document.createElementNS('http://www.w3.org/2000/svg','path');
+      p.setAttribute('d', d);
+      p.setAttribute('fill', FILL1);
+      svg.appendChild(p);
 
-  // tweak these two numbers to taste
-  const INSET_FR   = 0.35;         // smaller = deeper in trough; bigger = higher
-  const LIFT_FR    = 0.55;         // fraction of the circle size to lift further
-  const EXTRA_LIFT = H * 0.06;     // extra lift tied to header height (optional)
+      // place circles at maxima (visual troughs), lift intelligently
+      const overlay = track.querySelector('.circle-nav');
+      overlay.style.width = W + 'px';
 
-  const inset = A * INSET_FR;
-  const lift  = size * LIFT_FR;
+      const pad = Math.max(40, W * 0.03);
+      [...btns].forEach((btn, n) => {
+        const theta = 0.5*Math.PI + 2*Math.PI*n;
+        let x = theta / k; x = Math.max(pad, Math.min(W - pad, x));
 
-  const cx = x - size/2;
-  const cy = yCurve - inset - size/2 - lift - EXTRA_LIFT;
+        const yCurve = BASE*H + A*Math.sin(k*x);
+        const size   = btn.offsetWidth || parseFloat(getComputedStyle(btn).width);
 
-  btn.style.left = `${cx}px`;
-  btn.style.top  = `${cy}px`;
+        const INSET_FR   = 0.38;            // higher number = farther above trough
+        const BASE_LIFT  = size * 0.50;     // proportional raise
+        const DOWN_FOR_BIG = Math.max(0, size - 86) * 0.35; // nudge down when huge
+        const EXTRA_LIFT = H * 0.05;        // lift tied to header height
 
-  // label inside circle + click
-  btn.textContent = btn.dataset.label || '';
-  btn.onclick = () => {
-    const href = btn.getAttribute('data-href');
-    if (href) window.location.href = href;
-  };
-  btn.setAttribute('aria-label', btn.dataset.label || '');
-  btn.setAttribute('title', btn.dataset.label || '');
-});
+        const inset = A * INSET_FR;
+        const lift  = BASE_LIFT - DOWN_FOR_BIG + EXTRA_LIFT;
 
-  }
+        const cx = x - size/2;
+        let cy = yCurve - inset - size/2 - lift;
+        cy = Math.max(6, cy);               // never clip at top
 
-  draw();
-  window.addEventListener('resize', draw, { passive: true });
-})();
-</script>
+        btn.style.left = `${cx}px`;
+        btn.style.top  = `${cy}px`;
 
+        btn.textContent = btn.dataset.label || '';
+        btn.onclick = () => { const href = btn.getAttribute('data-href'); if (href) location.href = href; };
+        btn.setAttribute('aria-label', btn.dataset.label || '');
+        btn.setAttribute('title', btn.dataset.label || '');
+      });
+    }
+
+    setHeight();
+    draw();
+    addEventListener('resize', () => { setHeight(); draw(); }, { passive:true });
+  })();
+  </script>
 </body>
 </html>
