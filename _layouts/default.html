@@ -1,498 +1,371 @@
 <!DOCTYPE html>
-<html lang="en"  class="no-js">
+<html lang="en" class="no-js">
 <head>
   <script>
-  document.documentElement.classList.remove('no-js');
-  document.documentElement.classList.add('js');
-</script>
+    document.documentElement.classList.remove('no-js');
+    document.documentElement.classList.add('js');
+  </script>
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{{ page.title | default: "Golden Trowel Project" }}</title>
 
- <!-- Canonical URL for SEO -->
+  <!-- Canonical URL for SEO -->
   <link rel="canonical" href="{{ page.url | absolute_url }}">
-  
 
-<style>
-/* --- Wave band under header --- */
-.hero-wave {
-  position: relative;
-  background:#633747;          /* same as header so it blends */
-  height: clamp(90px, 18vw, 180px);
-  overflow: hidden;
-}
-
-/* full-width, scalable SVG; we draw a filled path inside via JS */
-.hero-wave svg {
-  display:block;
-  width:100%;
-  height:100%;
-}
-
-/* optional: soft highlight on the crest to add depth */
-.hero-wave .crest-glow {
-  position:absolute; inset:0;
-  pointer-events:none;
-  background: radial-gradient(120% 60% at 50% 0%,
-              rgba(255,255,255,.18), rgba(255,255,255,0) 60%);
-  mix-blend-mode: screen;
-}
-
-header {
-  background-color: #633747;
-  color: white;
-  padding: clamp(0.8em, 3vw, 1.2em);
-}
-
-.header-content {
-  display: flex;
-  align-items: center;         /* vertically centers logo with text */
-  justify-content: center;     /* keeps everything centered overall */
-  gap: 1em;                    /* space between logo and text */
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.header-content img {
-  width: 130px;                 /* adjust logo size */
-  height: auto;
-  border-radius: 12px;
-}
-
-.header-text {
-  text-align: left;            /* aligns text to left of logo */
-}
-
-.header-text h1 {
-  margin: 0;
-  font-size: clamp(1.8rem, 5.5vw, 2.4rem);
-}
-
-.header-text p {
-  margin: .3em 0 0;
-  font-size: clamp(1rem, 2.8vw, 1.2rem);
-}
-    
-/* --- Base / global --- */
-    *, *::before, *::after { box-sizing: border-box; }
-
-    body {
-      font-family: Calibri, sans-serif;
-      background-color: #eae6df;
-      margin: 0;
-      padding: 0;
-    }
-
-    /* Responsive type */
-    h1 { font-size: clamp(1.8rem, 5.5vw, 2.4rem); text-align: center; margin: .4em 0 .2em; }
-    h2 { font-size: clamp(1.4rem, 4.5vw, 2rem);   text-align: center; margin: .3em 0 .4em; }
-    h3 { font-size: clamp(1.2rem, 4vw, 1.6rem);   text-align: center; margin: .25em 0 .4em; }
-    p  { font-size: clamp(1rem, 2.8vw, 1.2rem);   margin: .6em 0; }
-
-    img, svg, video { max-width: 100%; height: auto; display: block; }
-
-    /* Only force-wrap when needed */
-    .wrap-long { overflow-wrap:anywhere; word-break:break-word;}
-
-    /* Section layout */
-    .main-section{
-      max-width: 1100px;
-      margin-inline: auto;
-      padding-block: clamp(12px, 3vw, 28px);
-    }
-    .main-section p{ max-width: 75ch; margin-left:auto; margin-right:auto; }
-    .main-section > :first-child{ margin-top:0; }
-    .main-section > :last-child { margin-bottom:0; }
-
-    header {
-      background-color: #633747;
-      color: white;
-      padding: clamp(0.8em, 3vw, 1.2em);
-      text-align: center;
-    }
-
-
-/* Nav links only (keeps underlines in page content) */
-.main-nav a,
-.dropdown-content a { text-decoration: none; color: inherit; }
-
-
-/* NAV WRAPPER — sticky so the dropdowns stay anchored at the top */
-.nav-scroller{
-  width:100%;
-  background:#e8a084;
-  overflow-x:hidden;
-  overflow-y:visible !important;
-  position: sticky;   /* was relative */
-  top: 0;
-  z-index: 2000;      /* keep above page content */
-}
-
-
-/* Center the 5-button grid inside the band */
-.main-nav{
-  background:transparent;       /* <-- was #e8a084 */
-  display:grid;
-  grid-template-columns: repeat(5, minmax(60px, 220px));
-  justify-content:center;
-  align-items:stretch;
-  gap: clamp(6px, .6vw, 6px);
-  padding: clamp(6px, 1vw, 10px);
-  overflow:visible;
-  width: min(100%, 1200px);     /* keeps it centered; tweak max if you like */
-  margin-inline:auto;
-}
-
-/* BUTTONS */
-.dropdown{ position:relative; min-width:0;}
-.dropdown > a{
-  display:flex; align-items:center; justify-content:center; text-align:center;
-  padding: clamp(6px, 1vw, 6px) clamp(6px, 1vw, 10px);
-  font-size: clamp(.9rem, 1vw, 1rem);
-  font-weight:bold; color:black; border-radius:6px; line-height:1.4;
-  white-space: normal; min-height:44px;
-}
-.dropdown:hover > a, .dropdown > a:focus-visible{ background:#633747; color:#fff; }
-
-/* DROPDOWN (CSS fallback; JS will float it) */
-.dropdown-content{
-  display:none;
-  position:absolute;           /* fallback if JS fails */
-  top:100%;
-  left:50%;
-  transform:translateX(-50%);
-  background:#e8a084;
-  z-index:1000; text-align:center;
-  font-weight:bold; font-size:clamp(.9rem, .7vw, 1rem);
-  padding:.25em 0; border-radius:6px;
-  min-width:max(220px, 100%);
-  max-width:min(90vw, 30rem);
-  z-index:10;    
-  box-shadow:0 8px 24px rgba(0,0,0,.18);
-}
-/* Fallback only when JS is disabled */
-.no-js .dropdown:hover .dropdown-content,
-.no-js .dropdown:focus-within .dropdown-content { display:block; }
-
-/* When JS is on, never show the fallback */
-.js .dropdown .dropdown-content { display:none; }
-
-
-.dropdown-content a{
-  display:block; padding:.55em .7em; line-height:2;
-  border-radius:6px; margin:2px 6px; color:black;
-}
-.dropdown-content a:hover,
-.dropdown-content a:focus-visible{ background:#633747; color:#fff; }
-
-:root { --nav-tile-w: 120px; }  /* width that makes labels 2 lines */
-@media (max-width: 900px){      /* was 500px */
-  .nav-scroller{
-    overflow-x:auto; -webkit-overflow-scrolling:touch;
-    scrollbar-width:none; overscroll-behavior-x: contain;
-  }
-  .nav-scroller::-webkit-scrollbar{ width:0; height:0; }
-
-/* when navbar is stuck, add elevation */
-.nav-scroller.is-stuck {
-  box-shadow: 0 6px 14px rgba(0,0,0,.18);
-}
-
-
-  .main-nav{
-    display:grid;
-    grid-template-columns: none !important;   /* <-- reset desktop grid */
-    grid-auto-flow: column;
-    grid-auto-columns: var(--nav-tile-w);     /* fixed tile width */
-    width: max-content;
-    justify-content: start;
-  }
-
-  .dropdown{ min-width:0; }
-  .dropdown > a{ width:100%; }                /* anchor fills the tile */
-}
-
-/* When JS floats the panel, kill the viewport min-width and the translate */
-.dropdown-content.is-floating{
-  position: fixed;
-  left: 0; top: 0; width: auto; right: auto;
-  transform: none !important;   /* cancel the translateX(-50%) from the fallback */
-  min-width: 0;                 /* <-- stop 100% viewport min-width */
-  max-width: none;              /* let JS width win */
-  z-index: 1000;
-  box-shadow: 0 8px 24px rgba(0,0,0,.18);
-}
-
-
-
-   /* --- Main wrapper --- */
-    main{
-      width: min(100%, 1100px);
-      margin-inline: auto;
-      padding: clamp(16px, 4vw, 28px);
-      text-align: center;
-    }
-  </style>
-
-
-  {% if page.is_homepage %}
   <style>
-    /* --- Home Page Specific --- */
-    .main-section{ padding-block: clamp(10px, 2vw, 18px); }
-    .main-section > .docs-container{ margin: clamp(6px, 1vw, 10px) auto; }
+    /* ---------- Base ---------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: Calibri, sans-serif; background:#eae6df; margin:0; }
+    img, svg, video { max-width:100%; height:auto; display:block; }
+    h1{ font-size:clamp(1.8rem,5.5vw,2.4rem); margin:.2em 0; }
+    h2{ font-size:clamp(1.4rem,4.5vw,2rem);  margin:.3em 0 .4em; }
+    h3{ font-size:clamp(1.2rem,4vw,1.6rem);  margin:.25em 0 .4em; }
+    p { font-size:clamp(1rem,2.8vw,1.2rem);  margin:.6em 0; }
+    main{ width:min(100%,1100px); margin-inline:auto; padding:clamp(16px,4vw,28px); text-align:center; }
 
-    .docs-container{
-      width: min(100%, 1000px);
-      padding: clamp(12px, 2.2vw, 18px);
-      border-radius: 16px;
+    /* ---------- Header ---------- */
+    header{
+      background:#633747; color:#fff;
+      padding: clamp(0.8em, 3vw, 1.2em);
     }
-    .docs-container > :first-child{ margin-top:0; }
-    .docs-container > :last-child { margin-bottom:0; }
-
-    .docs-container.prevalence{ background:#ffdc8f; }
-    .docs-container.safety-plan{ background:#633747; color:#fff; }
-    .docs-container.safety-plan h2{ margin:.2em 0 .3em; }
-    .docs-container.safety-plan p{ margin:.2em auto .8em; max-width:72ch; }
-
-    .doc-links{
-      display:grid; gap: clamp(10px, 2vw, 18px);
-      grid-template-columns: 1fr; justify-items:center; margin-top:.5em;
+    .header-content{
+      display:flex; align-items:center; justify-content:center; gap:1em;
+      max-width:1100px; margin:0 auto;
     }
-    @media (min-width:720px){  .doc-links{ grid-template-columns: repeat(2,1fr); } }
-    @media (min-width:1024px){ .doc-links{ grid-template-columns: repeat(2,1fr); } }
+    .header-content img{ width:130px; border-radius:12px; }
+    .header-text{ text-align:left; }
+    .header-text p{ margin:.3em 0 0; color:#ffdc8f; }
 
-    .doc-card{
-      width:100%; max-width:420px; background:#e8a084; color:#000; border-radius:10px;
-      padding: clamp(12px, 2.2vw, 18px); box-shadow:0 2px 6px rgba(0,0,0,.08);
-      text-align:center; display:flex; flex-direction:column; gap:.6em;
+    /* ---------- Wave + Circle Nav (desktop) ---------- */
+    .wave-nav{
+      position:relative; background:#633747; height:clamp(120px,22vw,220px);
+      overflow:hidden; display:none;   /* hidden on mobile, shown ≥900px */
     }
-    .doc-card h3{ margin:.1em 0 .2em; }
-    .doc-card p{ margin:.2em 0 .6em; }
-    .doc-card a{ margin-top:auto; align-self:center; background:#633747; 
-              color:#fff; text-decoration:none; padding:.5em 1em; border-radius:6px; 
-              display:inline-block; }
-    .doc-card a:hover{ background:#ffdc8f; color:#000; }
+    .wave-nav .wave{ width:100%; height:100%; display:block; }
+
+    .circle-nav{ position:absolute; inset:0; pointer-events:none; }
+    .circle-btn{
+      --size: clamp(54px, 7vw, 76px);
+      position:absolute; width:var(--size); height:var(--size);
+      border-radius:50%; border:none; cursor:pointer; pointer-events:auto;
+      background:#ffdc8f; color:#000; font-weight:800;
+      box-shadow:0 6px 18px rgba(0,0,0,.18);
+      transition: transform .15s ease, background .15s ease, color .15s ease;
+    }
+    .circle-btn:hover{ transform:translateY(-2px); background:#633747; color:#fff; }
+    .circle-btn:focus-visible{ outline:3px solid #e8a084; outline-offset:3px; }
+    .circle-btn::after{
+      content: attr(data-label);
+      position:absolute; left:50%; transform:translateX(-50%);
+      bottom: -1.9em; white-space:nowrap; font-size:.95rem; font-weight:800; color:#000;
+    }
+
+    /* ---------- Sticky dropdown bar (mobile / fallback) ---------- */
+    .nav-scroller{
+      width:100%; background:#e8a084; position:sticky; top:0; z-index:2000;
+      overflow-x:hidden; overflow-y:visible !important;
+    }
+    .main-nav{
+      background:transparent; display:grid;
+      grid-template-columns: repeat(5, minmax(60px, 220px));
+      justify-content:center; align-items:stretch;
+      gap: clamp(6px, .6vw, 6px);
+      padding: clamp(6px, 1vw, 10px);
+      width:min(100%,1200px); margin-inline:auto;
+    }
+    .main-nav a, .dropdown-content a{ text-decoration:none; color:inherit; }
+    .dropdown{ position:relative; min-width:0; }
+    .dropdown > a{
+      display:flex; align-items:center; justify-content:center; text-align:center;
+      padding: clamp(6px, 1vw, 6px) clamp(6px, 1vw, 10px);
+      font-size: clamp(.9rem, 1vw, 1rem);
+      font-weight:bold; color:#000; border-radius:6px; line-height:1.4;
+      white-space: normal; min-height:44px;
+    }
+    .dropdown:hover > a, .dropdown > a:focus-visible{ background:#633747; color:#fff; }
+    .dropdown-content{
+      display:none; position:absolute; top:100%; left:50%; transform:translateX(-50%);
+      background:#e8a084; font-weight:bold; font-size:clamp(.9rem,.7vw,1rem);
+      padding:.25em 0; border-radius:6px; min-width:max(220px, 100%);
+      max-width:min(90vw, 30rem); z-index:10; box-shadow:0 8px 24px rgba(0,0,0,.18);
+    }
+    .dropdown-content a{ display:block; padding:.55em .7em; line-height:2; border-radius:6px; color:#000; }
+    .dropdown-content a:hover, .dropdown-content a:focus-visible{ background:#633747; color:#fff; }
+
+    /* mobile nav scroll + grid adjustments */
+    :root { --nav-tile-w: 120px; }
+    @media (max-width:900px){
+      .nav-scroller{ overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+      .nav-scroller::-webkit-scrollbar{ width:0; height:0; }
+      .main-nav{ grid-template-columns:none !important; grid-auto-flow:column; grid-auto-columns:var(--nav-tile-w); width:max-content; justify-content:start; }
+      .dropdown > a{ width:100%; }
+    }
+
+    /* show wave + circle nav on desktop; hide bar */
+    @media (min-width:900px){
+      .wave-nav{ display:block; }
+      .nav-scroller{ display:none; }
+    }
+
+    /* home-page cards etc (unchanged) */
+    {% if page.is_homepage %}
+      .main-section{ padding-block: clamp(10px, 2vw, 18px); }
+      .main-section > .docs-container{ margin: clamp(6px, 1vw, 10px) auto; }
+      .docs-container{ width:min(100%,1000px); padding:clamp(12px,2.2vw,18px); border-radius:16px; }
+      .docs-container.prevalence{ background:#ffdc8f; }
+      .docs-container.safety-plan{ background:#633747; color:#fff; }
+      .docs-container.safety-plan h2{ margin:.2em 0 .3em; }
+      .docs-container.safety-plan p{ margin:.2em auto .8em; max-width:72ch; }
+      .doc-links{ display:grid; gap:clamp(10px,2vw,18px); grid-template-columns:1fr; justify-items:center; margin-top:.5em; }
+      @media (min-width:720px){ .doc-links{ grid-template-columns:repeat(2,1fr);} }
+      @media (min-width:1024px){ .doc-links{ grid-template-columns:repeat(2,1fr);} }
+      .doc-card{ width:100%; max-width:420px; background:#e8a084; color:#000; border-radius:10px;
+                 padding:clamp(12px,2.2vw,18px); box-shadow:0 2px 6px rgba(0,0,0,.08); text-align:center; display:flex; flex-direction:column; gap:.6em; }
+      .doc-card a{ margin-top:auto; align-self:center; background:#633747; color:#fff; text-decoration:none; padding:.5em 1em; border-radius:6px; display:inline-block; }
+      .doc-card a:hover{ background:#ffdc8f; color:#000; }
+    {% endif %}
   </style>
-  {% endif %}
 </head>
 
 <body>
-<header>
-  <div class="header-content">
-    <img
-      src="{{ '/assets/img/IMG_3241.PNG' | absolute_url }}?v={{ site.time | date: '%s' }}"
-      alt="Logo for the Golden Trowel Project: a stylized golden Marshalltown trowel encircled by text. The logo symbolizes safer fieldwork through consent, dignity, and accountability."
-      loading="lazy" decoding="async" fetchpriority="low"
-    >
-
-    <div class="header-text">
-      <h1>Recognizing power. Reclaiming safety.</h1>
-      <p>Practical tools. Powerful boundaries. Safer fieldwork.</p>
+  <!-- Header -->
+  <header>
+    <div class="header-content">
+      <img
+        src="{{ '/assets/img/IMG_3241.PNG' | absolute_url }}?v={{ site.time | date: '%s' }}"
+        alt="Logo for the Golden Trowel Project: a stylized golden trowel and skull emblem encircled by text."
+        loading="lazy" decoding="async" fetchpriority="low">
+      <div class="header-text">
+        <h1>Recognizing power. Reclaiming safety.</h1>
+        <p>Practical tools. Powerful boundaries. Safer fieldwork.</p>
+      </div>
     </div>
+  </header>
+
+  <!-- Wave + Circle Nav (desktop) -->
+  <section class="wave-nav" aria-label="Primary decorative nav">
+    <svg class="wave" preserveAspectRatio="none" aria-hidden="true"></svg>
+    <nav class="circle-nav" aria-label="Primary navigation (desktop)">
+      <button class="circle-btn" data-label="Home"
+              data-href="{{ '/' | relative_url }}"></button>
+      <button class="circle-btn" data-label="Preparing"
+              data-href="{{ '/preparing.html' | relative_url }}"></button>
+      <button class="circle-btn" data-label="Reporting"
+              data-href="{{ '/reporting.html' | relative_url }}"></button>
+      <button class="circle-btn" data-label="Surveys"
+              data-href="{{ '/surveys.html' | relative_url }}"></button>
+      <button class="circle-btn" data-label="Contact"
+              data-href="mailto:anthrosafetywarrior@gmail.com"></button>
+    </nav>
+  </section>
+
+  <!-- Existing dropdown bar (mobile/fallback) -->
+  <div class="nav-scroller">
+    <nav class="main-nav">
+      <div class="dropdown"><a href="{{ '/' | relative_url }}">Home</a></div>
+
+      <div class="dropdown">
+        <a href="{{ '/preparing.html' | relative_url }}">Preparing for Fieldwork</a>
+        <div class="dropdown-content">
+          <a href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing" target="_blank" rel="noopener">Pre-Fieldwork Safety Checklist</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <a href="{{ '/reporting.html' | relative_url }}">Reporting & Resources</a>
+        <div class="dropdown-content">
+          <a href="{{ '/statelaw.html'          | relative_url }}">USA Laws by State</a>
+          <a href="{{ '/internationallaw.html'  | relative_url }}">International Laws by Country</a>
+          <a href="{{ '/titleIX.html'           | relative_url }}">Title IX Reporting by University</a>
+          <a href="{{ '/fundingethics.html'     | relative_url }}">Funding Agencies &amp; Professional Associations Reporting</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <a href="{{ '/surveys.html' | relative_url }}">Anonymous Surveys</a>
+        <div class="dropdown-content">
+          <a href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank" rel="noopener">Fieldwork Misconduct Survey</a>
+          <a href="https://forms.gle/9DjrMVNP2oUu1GDD8" target="_blank" rel="noopener">Website Feedback Survey</a>
+        </div>
+      </div>
+
+      <div class="dropdown"><a href="mailto:anthrosafetywarrior@gmail.com">Contact Us</a></div>
+    </nav>
   </div>
-</header>
-
-<!-- WAVE band -->
-<div class="hero-wave" aria-hidden="true">
-  <svg class="wave"></svg>
-  <div class="crest-glow"></div>
-</div>
-
-
- <div class="nav-scroller">
-  <nav class="main-nav">
-  <div class="dropdown"><a href="{{ '/' | relative_url }}">Home</a></div>
-
-  <div class="dropdown">
-    <a href="{{ '/preparing.html' | relative_url }}">Preparing for Fieldwork</a>
-    <div class="dropdown-content">
-      <a href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing" target="_blank" rel="noopener">Pre-Fieldwork Safety Checklist</a>
-    </div>
-  </div>
-
-  <div class="dropdown">
-    <a href="{{ '/reporting.html' | relative_url }}">Reporting & Resources</a>
-    <div class="dropdown-content">
-      <a href="{{ '/statelaw.html'          | relative_url }}">USA Laws by State</a>
-      <a href="{{ '/internationallaw.html'  | relative_url }}">International Laws by Country</a>
-      <a href="{{ '/titleIX.html'           | relative_url }}">Title IX Reporting by University</a>
-      <a href="{{ '/fundingethics.html'     | relative_url }}">Funding Agencies &amp; Professional Associations Reporting</a>
-    </div>
-  </div>
-
-  <div class="dropdown">
-    <a href="{{ '/surveys.html' | relative_url }}">Anonymous Surveys</a>
-    <div class="dropdown-content">
-      <a href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank" rel="noopener">Fieldwork Misconduct Survey</a>
-      <a href="https://forms.gle/9DjrMVNP2oUu1GDD8" target="_blank" rel="noopener">Website Feedback Survey</a>
-    </div>
-  </div>
-
-  <div class="dropdown"><a href="mailto:anthrosafetywarrior@gmail.com">Contact Us</a></div>
-</nav>
-</div>
 
   <main>
     {{ content }}
   </main>
 
-<script>
-(function () {
-  const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
-  const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  <!-- Dropdown hover/portal logic (unchanged) -->
+  <script>
+    (function () {
+      const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+      const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-  document.querySelectorAll('.dropdown').forEach(drop => {
-    const btn   = drop.querySelector(':scope > a');
-    const panel = drop.querySelector('.dropdown-content');
-    if (!btn || !panel) return;
+      document.querySelectorAll('.dropdown').forEach(drop => {
+        const btn   = drop.querySelector(':scope > a');
+        const panel = drop.querySelector('.dropdown-content');
+        if (!btn || !panel) return;
 
-    // Move panel to <body> only on touch devices (prevents clipping)
-    const usePortal = !canHover;
-    let placeholder = null;
-    let isOpen = false;
+        const usePortal = !canHover;
+        let placeholder = null;
+        let isOpen = false;
 
-    const moveToBody = () => {
-      if (!usePortal || panel.parentElement === document.body) return;
-      placeholder = document.createElement('span');
-      placeholder.hidden = true;
-      drop.appendChild(placeholder);
-      document.body.appendChild(panel);
-    };
-    const moveBack = () => {
-      if (!usePortal || !placeholder) return;
-      placeholder.replaceWith(panel);
-      placeholder = null;
-    };
+        const moveToBody = () => {
+          if (!usePortal || panel.parentElement === document.body) return;
+          placeholder = document.createElement('span');
+          placeholder.hidden = true;
+          drop.appendChild(placeholder);
+          document.body.appendChild(panel);
+        };
+        const moveBack = () => {
+          if (!usePortal || !placeholder) return;
+          placeholder.replaceWith(panel);
+          placeholder = null;
+        };
 
-    function positionPanel(){
-      if (!isOpen) return;
-      const r = btn.getBoundingClientRect();   // viewport coords
-      const margin = 12;
-      const minW   = 220;
-      const maxW   = Math.min(320, window.innerWidth - margin*2);
-      const width  = clamp(Math.max(r.width, minW), minW, maxW);
+        function positionPanel(){
+          if (!isOpen) return;
+          const r = btn.getBoundingClientRect();
+          const margin = 12;
+          const minW = 220;
+          const maxW = Math.min(320, window.innerWidth - margin*2);
+          const width = clamp(Math.max(r.width, minW), minW, maxW);
 
-      let left = r.left + (r.width/2) - (width/2);
-      left = clamp(left, margin, window.innerWidth - margin - width);
+          let left = r.left + (r.width/2) - (width/2);
+          left = clamp(left, margin, window.innerWidth - margin - width);
 
-      panel.style.width = width + 'px';
-      panel.style.left  = Math.round(left) + 'px';
-      panel.style.top   = Math.round(r.bottom) + 'px'; // <-- no window.scrollY
-    }
-
-    function show(){
-      if (isOpen) return;
-      moveToBody();
-      panel.classList.add('is-floating');   // gives position:fixed, etc.
-      panel.style.display = 'block';
-      isOpen = true;
-      positionPanel();
-
-      // keep it attached while scrolling/resizing
-      window.addEventListener('scroll', positionPanel, { passive: true });
-      window.addEventListener('resize', positionPanel);
-    }
-
-    function hide(){
-      if (!isOpen) return;
-      panel.style.display = 'none';
-      panel.classList.remove('is-floating');
-      panel.style.width = panel.style.left = panel.style.top = '';
-      isOpen = false;
-
-      window.removeEventListener('scroll', positionPanel);
-      window.removeEventListener('resize', positionPanel);
-      moveBack();
-    }
-
-    // Desktop / pointer devices
-    if (window.PointerEvent) {
-      drop.addEventListener('pointerenter', show);
-      drop.addEventListener('pointerleave', hide);
-    } else {
-      drop.addEventListener('mouseenter', show);
-      drop.addEventListener('mouseleave', hide);
-    }
-    btn.addEventListener('focus', show);
-    btn.addEventListener('blur', hide);
-
-    // Touch: first tap opens, second tap navigates
-    if (!canHover) {
-      let armed = false;
-      btn.addEventListener('click', (e) => {
-        if (!armed) {
-          e.preventDefault();
-          show();
-          armed = true;
-          setTimeout(() => armed = false, 1200);
+          panel.style.width = width + 'px';
+          panel.style.left  = Math.round(left) + 'px';
+          panel.style.top   = Math.round(r.bottom) + 'px';
         }
-        // second tap navigates naturally
+
+        function show(){
+          if (isOpen) return;
+          moveToBody();
+          panel.classList.add('is-floating');
+          panel.style.display = 'block';
+          isOpen = true;
+          positionPanel();
+          window.addEventListener('scroll', positionPanel, { passive: true });
+          window.addEventListener('resize', positionPanel);
+        }
+
+        function hide(){
+          if (!isOpen) return;
+          panel.style.display = 'none';
+          panel.classList.remove('is-floating');
+          panel.style.width = panel.style.left = panel.style.top = '';
+          isOpen = false;
+          window.removeEventListener('scroll', positionPanel);
+          window.removeEventListener('resize', positionPanel);
+          moveBack();
+        }
+
+        if (window.PointerEvent) {
+          drop.addEventListener('pointerenter', show);
+          drop.addEventListener('pointerleave', hide);
+        } else {
+          drop.addEventListener('mouseenter', show);
+          drop.addEventListener('mouseleave', hide);
+        }
+        btn.addEventListener('focus', show);
+        btn.addEventListener('blur', hide);
+
+        if (!canHover) {
+          let armed = false;
+          btn.addEventListener('click', (e) => {
+            if (!armed) {
+              e.preventDefault(); show(); armed = true; setTimeout(() => armed = false, 1200);
+            }
+          });
+          document.addEventListener('click', (e) => {
+            if (!drop.contains(e.target) && !panel.contains(e.target)) hide();
+          }, { passive: true });
+        }
+        btn.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') hide(); });
+      });
+    })();
+  </script>
+
+  <!-- Sticky shadow on scroll for mobile bar -->
+  <script>
+    const nav = document.querySelector('.nav-scroller');
+    if (nav){
+      const onScroll = () => nav.classList.toggle('is-stuck', window.scrollY > 0);
+      onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+    }
+  </script>
+
+  <!-- Draw 5-cycle sine + place circle buttons at troughs -->
+  <script>
+    (() => {
+      const wrap = document.querySelector('.wave-nav');
+      const svg  = wrap?.querySelector('svg.wave');
+      const btns = wrap?.querySelectorAll('.circle-btn') || [];
+      if (!wrap || !svg || !btns.length) return;
+
+      const WAVES = 5;          // five full sine cycles across the width
+      const AMPFR = 0.35;       // amplitude as fraction of height (0–0.5 good)
+      const BASE  = 0.55;       // baseline (fraction of height)
+      const FILL1 = '#7a4a60';  // slightly lighter than header for depth
+      const DROP  = 16;         // px to drop buttons below the curve
+
+      function draw(){
+        const W = svg.clientWidth  || svg.getBoundingClientRect().width;
+        const H = svg.clientHeight || svg.getBoundingClientRect().height;
+        const A = AMPFR * H;
+        const k = 2*Math.PI*WAVES / W;
+        const phi = 0;
+
+        // build fill path
+        const N = 200;
+        let d = `M 0 ${BASE*H + A*Math.sin(phi)}`;
+        for (let i=1;i<=N;i++){
+          const x = (i/N)*W;
+          const y = BASE*H + A*Math.sin(k*x + phi);
+          d += ` L ${x} ${y}`;
+        }
+        d += ` L ${W} ${H} L 0 ${H} Z`;
+
+        svg.innerHTML = '';
+        const p = document.createElementNS('http://www.w3.org/2000/svg','path');
+        p.setAttribute('d', d);
+        p.setAttribute('fill', FILL1);
+        svg.appendChild(p);
+
+        // troughs at 3π/2 + 2πn
+        const pad = Math.max(40, W*0.03);
+        [...btns].forEach((btn, n) => {
+          const theta = 1.5*Math.PI + 2*Math.PI*n - phi;
+          let x = theta / k;
+          x = Math.max(pad, Math.min(W - pad, x));
+          const yCurve = BASE*H + A*Math.sin(k*x + phi);
+
+          const size = btn.offsetWidth || parseFloat(getComputedStyle(btn).width);
+          btn.textContent = btn.dataset.label || btn.textContent;
+
+          btn.style.left = `${x - size/2}px`;
+          btn.style.top  = `${yCurve + DROP}px`;
+        });
+      }
+
+      // click -> navigate
+      wrap.addEventListener('click', (e) => {
+        const b = e.target.closest('.circle-btn');
+        if (!b) return;
+        const href = b.dataset.href;
+        if (href) window.location.href = href;
       });
 
-      // Tap outside closes
-      document.addEventListener('click', (e) => {
-        if (!drop.contains(e.target) && !panel.contains(e.target)) hide();
-      }, { passive: true });
-    }
-
-    btn.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') hide(); });
-  });
-})();
-</script>
-
-<script>
-const nav = document.querySelector('.nav-scroller');
-const onScroll = () => nav.classList.toggle('is-stuck', window.scrollY > 0);
-onScroll();
-window.addEventListener('scroll', onScroll, {passive:true});
-</script>
-
-<script>
-(() => {
-  const waveWrap = document.querySelector('.hero-wave');
-  const svg = waveWrap?.querySelector('svg.wave');
-  if (!svg) return;
-
-  // Tweak these to taste
-  const WAVES = 2.25;  // number of full sine cycles across the width
-  const AMPFR = 0.35;  // amplitude as fraction of the wave height (0–0.5 is good)
-  const BASE  = 0.55;  // baseline as fraction of height (lower number = higher crest)
-  const FILL  = '#7a4a60'; // slightly lighter than #633747 for depth
-
-  function draw(){
-    const W = svg.clientWidth  || svg.getBoundingClientRect().width;
-    const H = svg.clientHeight || svg.getBoundingClientRect().height;
-    const A = AMPFR * H;                  // amplitude in px
-    const k = 2*Math.PI*WAVES / W;        // frequency
-    const phi = 0;                        // phase (shift if you want)
-
-    const N = 160; // sample points
-    let d = `M 0 ${BASE*H + A*Math.sin(phi)}`;
-    for (let i=1;i<=N;i++){
-      const x = (i/N)*W;
-      const y = BASE*H + A*Math.sin(k*x + phi);
-      d += ` L ${x} ${y}`;
-    }
-    // close to bottom so we can fill
-    d += ` L ${W} ${H} L 0 ${H} Z`;
-
-    svg.innerHTML = '';
-    const path = document.createElementNS('http://www.w3.org/2000/svg','path');
-    path.setAttribute('d', d);
-    path.setAttribute('fill', FILL);
-    svg.appendChild(path);
-  }
-
-  // draw now + on resize (debounced)
-  let to=null;
-  const onResize = () => { clearTimeout(to); to = setTimeout(draw, 80); };
-  window.addEventListener('resize', onResize, {passive:true});
-  window.addEventListener('load', draw);
-  draw();
-})();
-</script>
-
-
+      let to=null;
+      const onResize = () => { clearTimeout(to); to=setTimeout(draw, 80); };
+      window.addEventListener('resize', onResize, {passive:true});
+      window.addEventListener('load', draw);
+      draw();
+    })();
+  </script>
 </body>
 </html>
