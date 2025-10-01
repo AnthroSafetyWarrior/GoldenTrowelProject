@@ -14,8 +14,6 @@
   <link rel="canonical" href="{{ page.url | absolute_url }}">
 
   <style>
-.circle-btn::after { content: none; }
-
 .wave-btn {
   position:absolute;
   display:flex;
@@ -157,7 +155,10 @@
       .doc-card a{ margin-top:auto; align-self:center; background:#633747; color:#fff; text-decoration:none; padding:.5em 1em; border-radius:6px; display:inline-block; }
       .doc-card a:hover{ background:#ffdc8f; color:#000; }
     {% endif %}
-  </style>
+/* put this near the END of your <style> */
+.circle-nav .circle-btn::after { content: none !important; }
+ 
+ </style>
 </head>
 
 <body>
@@ -370,7 +371,7 @@
     // place circle buttons at troughs (3π/2 + 2πn), inset upward to sit inside
     const pad = Math.max(40, W * 0.03);
     [...btns].forEach((btn, n) => {
-      const theta = 1.5 * Math.PI + 2 * Math.PI * n; // 3π/2 + 2πn
+      const theta = 0.5 * Math.PI + 2 * Math.PI * n; // 3π/2 + 2πn
       let x = theta / k;                              // x = theta / k
       x = Math.max(pad, Math.min(W - pad, x));
 
