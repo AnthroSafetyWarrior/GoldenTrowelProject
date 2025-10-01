@@ -378,36 +378,40 @@
     p.setAttribute('fill', FILL1);
     svg.appendChild(p);
 
-    // place circles at wave maxima (troughs visually), lifted higher
-    const pad = Math.max(40, W * 0.03);
-    [...btns].forEach((btn, n) => {
-      const theta = 0.5 * Math.PI + 2 * Math.PI * n; // maxima
-      let x = theta / k;
-      x = Math.max(pad, Math.min(W - pad, x));
+   // place circles at wave maxima (troughs visually), lifted higher
+const pad = Math.max(40, W * 0.03);
+[...btns].forEach((btn, n) => {
+  const theta = 0.5 * Math.PI + 2 * Math.PI * n; // maxima
+  let x = theta / k;
+  x = Math.max(pad, Math.min(W - pad, x));
 
-      const yCurve = BASE*H + A*Math.sin(k*x + phi);
-      const size   = btn.offsetWidth || parseFloat(getComputedStyle(btn).width);
+  const yCurve = BASE*H + A*Math.sin(k*x + phi);
+  const size   = btn.offsetWidth || parseFloat(getComputedStyle(btn).width);
 
-      const INSET_FR = 0.48;                 // how far up from the bottom of trough
-      const LIFT_FR  = 0.30;                 // raise relative to circle size
-      const inset = A * INSET_FR;
-      const lift  = size * LIFT_FR;
+  // tweak these two numbers to taste
+  const INSET_FR   = 0.35;         // smaller = deeper in trough; bigger = higher
+  const LIFT_FR    = 0.55;         // fraction of the circle size to lift further
+  const EXTRA_LIFT = H * 0.06;     // extra lift tied to header height (optional)
 
-      const cx = x - size/2;
-      const cy = yCurve - inset - size/2 - lift;
+  const inset = A * INSET_FR;
+  const lift  = size * LIFT_FR;
 
-      btn.style.left = `${cx}px`;
-      btn.style.top  = `${cy}px`;
+  const cx = x - size/2;
+  const cy = yCurve - inset - size/2 - lift - EXTRA_LIFT;
 
-      // label inside circle
-      btn.textContent = btn.dataset.label || '';
-      btn.onclick = () => {
-        const href = btn.getAttribute('data-href');
-        if (href) window.location.href = href;
-      };
-      btn.setAttribute('aria-label', btn.dataset.label || '');
-      btn.setAttribute('title', btn.dataset.label || '');
-    });
+  btn.style.left = `${cx}px`;
+  btn.style.top  = `${cy}px`;
+
+  // label inside circle + click
+  btn.textContent = btn.dataset.label || '';
+  btn.onclick = () => {
+    const href = btn.getAttribute('data-href');
+    if (href) window.location.href = href;
+  };
+  btn.setAttribute('aria-label', btn.dataset.label || '');
+  btn.setAttribute('title', btn.dataset.label || '');
+});
+
   }
 
   draw();
