@@ -2,7 +2,7 @@
 layout: default
 title: Home
 is_homepage: true
-hero: assets/img/romania_cave.JPG   # your file under /assets
+hero: /assets/img/romania_cave.JPG   # your file under /assets
 hero_pos: "center 40%"                # optional
 hero_opacity: .34                     # optional (0–1: lower = darker tint / more visible photo)
 hero_tint: .60                        # optional (0–1: higher = more maroon overlay)
