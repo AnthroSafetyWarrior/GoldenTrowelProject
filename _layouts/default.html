@@ -8,108 +8,122 @@
   <link rel="canonical" href="{{ page.url | absolute_url }}">
 
   <style>
-    /* =============== Design Tokens (Moss palette) =============== */
-:root{
-  --soil:#3B2A1F;
-  --kraft:#EAE6DF;   /* page background (cream) */
-  --offwhite:#FAF7F2;
-  --moss:#6B8D6A;
-  --gold:#E8C15A;
-  --logo-orange:#C46A2A;
-  --accent:#6B8D6A;
-  --ink:#111;
-  --maxw:1100px;
+    /* ===================== Design Tokens ===================== */
+    :root{
+      --soil:#3B2A1F;
+      --kraft:#EAE6DF;     /* page background (cream) */
+      --offwhite:#FAF7F2;
+      --moss:#6B8D6A;      /* moss button hover */
+      --gold:#E8C15A;      /* ring/outline */
+      --logo-orange:#C46A2A;
+      --accent:#6B8D6A;
+      --ink:#111;
+      --maxw:1100px;
 
-  /* wave section colors */
-  --banner:#DED7CC;     /* light taupe area behind the waves */
-  --wave-dark:#8A7C82;  /* solid dark band behind the buttons */
-}
+      /* wave section colors */
+      --banner:#DED7CC;     /* light taupe strip behind SVG waves */
+      --wave-dark:#8A7C82;  /* solid dark band behind buttons */
+    }
 
+    /* ===================== Base / Layout ===================== */
+    *,*::before,*::after{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0; color:var(--ink);
+      font-family: Calibri, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      /* kraft paper vibe */
+      background:
+        radial-gradient(1px 1px at 20% 30%, rgba(0,0,0,.04) 50%, transparent 51%),
+        radial-gradient(1px 1px at 80% 60%, rgba(0,0,0,.035) 50%, transparent 51%),
+        radial-gradient(1px 1px at 40% 80%, rgba(0,0,0,.03) 50%, transparent 51%),
+        linear-gradient(0deg, rgba(255,255,255,.6), rgba(255,255,255,.6)),
+        var(--kraft);
+      background-size:120px 120px,140px 140px,160px 160px,auto,auto;
+      background-attachment:fixed;
+    }
+    .container{ width:min(100%, var(--maxw)); margin:0 auto; padding:0 clamp(12px,2vw,20px); }
+    img,svg,video{ max-width:100%; height:auto; display:block; }
+    h1{ color:var(--soil); font-size:clamp(1.8rem,5.5vw,2.4rem); margin:.4em 0 .2em; }
+    h2{ color:var(--soil); font-size:clamp(1.3rem,3.6vw,1.6rem); margin:1.2em 0 .6em; }
+    p{ font-size:clamp(1rem,2.6vw,1.125rem); line-height:1.6; margin:.6em 0; }
+    a{ color:var(--accent); text-decoration-thickness:.08em; text-underline-offset:.18em; }
+    a:hover{ color:var(--logo-orange); }
+    main{ padding-bottom:2rem; }
 
-/* --- Per-page header photo (tint with page bg, not purple) --- */
-.page-hero{
-  width:100%;
-  height:clamp(220px, 32vw, 380px);
-  background:center/cover no-repeat;
-  background-image: var(--hero, none);
-  position:relative; overflow:hidden;
-}
-/* Creamy wash (uses page bg) instead of purple */
-.page-hero{
-  width:100%;
-  height:clamp(220px, 32vw, 380px);
-  background:center/cover no-repeat;
-  background-image: var(--hero, none);
-  position:relative; overflow:hidden;
-}
+    /* ===================== Header / Brand ===================== */
+    header.site-header{ position:relative; padding:0; }
+    .brand{ position:absolute; z-index:3; left:clamp(12px,2vw,20px); right:clamp(12px,2vw,20px); top: clamp(10px, 2.6vw, 18px); display:flex; align-items:center; gap:.8rem; color:#fff; text-shadow:0 2px 10px rgba(0,0,0,.35); }
+    .brand a{ text-decoration:none; color:inherit; }
+    .brand img.logo{ width:68px; height:auto; }
+    .brand .titles{ display:flex; flex-direction:column; }
+    .brand h1{ margin:0; color:#fff; }
+    .brand .tagline{ font-weight:600; color:#ffefc0; font-size:clamp(.95rem,2.4vw,1.05rem); }
 
-/* Creamy wash using page bg (no purple) */
-.page-hero::before{
-  content:""; position:absolute; inset:0; pointer-events:none;
-  background: color-mix(in srgb, var(--kraft) calc( (var(--hero-tint, .30)) * 100% ), transparent);
-}
+    /* ===================== Hero photo (cream wash, no fade) ===================== */
+    .page-hero{
+      width:100%;
+      height:clamp(220px, 32vw, 380px);
+      background:center/cover no-repeat;
+      background-image: var(--hero, none);
+      position:relative; overflow:hidden;
+    }
+    .page-hero::before{
+      content:""; position:absolute; inset:0; pointer-events:none;
+      background: var(--kraft);          /* warm cream wash */
+      mix-blend-mode: multiply;
+      opacity: var(--hero-tint, .35);    /* control per page via hero_tint */
+    }
+    .page-hero::after{ content:none !important; } /* ensure no tan fade */
 
-/* REMOVE the tan gradient into the photo */
-.page-hero::after{ content:none; }
+    /* ===================== Wave strip + Solid band ===================== */
+    .hero-wave{ position:relative; background: var(--banner); }
+    .hero-wave svg{ display:block; width:100%; height:auto; position:relative; z-index:0; }
 
+    /* Solid dark band behind the buttons */
+    .nav-gradient{
+      position:relative; z-index:1;
+      height: clamp(42px, 6vw, 64px);
+      background: var(--wave-dark);
+      border-top: 1px solid color-mix(in srgb, #000 8%, transparent);
+      border-bottom: 1px solid color-mix(in srgb, #000 8%, transparent);
+    }
 
-/* --- Wave section is the “banner” strip --- */
-/* Wave section background (same light taupe you liked) */
-.hero-wave{ position:relative; background: var(--banner); }
-.hero-wave svg{ display:block; width:100%; height:auto; position:relative; z-index:0; }
+    /* ===================== Circle Nav (inside wave) ===================== */
+    .wave-nav{
+      position:absolute; left:0; right:0; bottom:0;
+      transform: translateY(28%);      /* centers on the dark band */
+      z-index:2;
+      pointer-events:none;
+    }
+    .wave-links{
+      pointer-events:auto;
+      display:grid; grid-template-columns:repeat(5,1fr);
+      gap:clamp(6px,1.6vw,14px);
+      width:min(100%, var(--maxw)); margin:0 auto; padding:0 clamp(12px,2vw,20px);
+      list-style:none;
+    }
+    .wave-links li{ display:flex; justify-content:center; }
+    .bubble-link{
+      display:flex; align-items:center; justify-content:center;
+      width:clamp(68px,10vw,104px); height:clamp(68px,10vw,104px);
+      border-radius:999px; text-decoration:none; font-weight:800; color:var(--soil);
+      background:var(--offwhite);
+      border:3px solid color-mix(in srgb, var(--gold) 70%, transparent);
+      box-shadow:0 8px 0 rgba(0,0,0,.10), 0 2px 8px rgba(0,0,0,.08);
+      transition: transform .15s ease, background .15s ease, color .15s ease, box-shadow .15s ease, border-color .15s ease;
+    }
+    .bubble-link:hover,
+    .bubble-link[aria-current="page"]{
+      background:var(--moss); color:#fff; border-color:var(--gold);
+      transform:translateY(-2px);
+      box-shadow:0 12px 0 rgba(0,0,0,.12), 0 6px 14px rgba(0,0,0,.12);
+    }
+    .bubble-link:focus-visible{ outline:3px solid var(--gold); outline-offset:3px; }
+    @media (max-width:720px){
+      .wave-nav{ transform: translateY(22%); }
+    }
 
-/* SOLID band behind buttons: darkest wave color (no gradient) */
-.nav-gradient{
-  position:relative; z-index:1;
-  height: clamp(42px, 6vw, 64px);
-  background: var(--wave-dark);
-  border-top: 1px solid color-mix(in srgb, #000 8%, transparent);
-  border-bottom: 1px solid color-mix(in srgb, #000 8%, transparent);
-}
-
-/* Buttons are part of the wave section and sit on the band */
-.wave-nav{
-  position:absolute; left:0; right:0; bottom:0;
-  transform: translateY(28%);   /* nudge to center on the dark band */
-  z-index:2;
-  pointer-events:none;
-}
-.wave-links{ pointer-events:auto; }
-@media (max-width:720px){ .wave-nav{ transform: translateY(22%); } }
-.wave-links li{ display:flex; justify-content:center; }
-.bubble-link{
-  display:flex; align-items:center; justify-content:center;
-  width:clamp(68px,10vw,104px); height:clamp(68px,10vw,104px);
-  border-radius:999px; text-decoration:none; font-weight:800; color:var(--soil);
-  background:var(--offwhite);
-  border:3px solid color-mix(in srgb, var(--gold) 70%, transparent);
-  box-shadow:0 8px 0 rgba(0,0,0,.10), 0 2px 8px rgba(0,0,0,.08);
-  transition: transform .15s ease, background .15s ease, color .15s ease, box-shadow .15s ease, border-color .15s ease;
-}
-.bubble-link:hover,
-.bubble-link[aria-current="page"]{
-  background:var(--moss); color:#fff; border-color:var(--gold);
-  transform:translateY(-2px);
-  box-shadow:0 12px 0 rgba(0,0,0,.12), 0 6px 14px rgba(0,0,0,.12);
-}
-.bubble-link:focus-visible{ outline:3px solid var(--gold); outline-offset:3px; }
-
-@media (max-width:720px){
-  .wave-nav{ transform: translateY(22%); }
-}
-
-/* OPTIONAL: put brand (logo + title) on top of the photo */
-.brand-over-hero{
-  position:absolute; z-index:3; left:clamp(12px,2vw,20px); right:clamp(12px,2vw,20px);
-  top: clamp(10px, 2.6vw, 18px);
-  mix-blend-mode: normal;
-  color: #fff;
-  text-shadow: 0 2px 10px rgba(0,0,0,.35);
-}
-.brand-over-hero h1{ color:#fff; margin:0; }
-.brand-over-hero .tagline{ color:#ffefc0; }
-
-    /* =============== Hub (optional accordion blocks used in content) =============== */
+    /* ===================== Hub (optional accordion blocks) ===================== */
     .hub{
       display:grid; gap:1.2rem;
       grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
@@ -143,14 +157,12 @@
     }
     .pill:hover{ background:var(--accent); color:#fff; border-color:transparent; transform:translateY(-1px); }
     .pill:focus-visible{ outline:3px solid var(--accent); outline-offset:3px; }
-
-    /* =============== Main spacing =============== */
-    main{ padding-bottom:2rem; }
   </style>
 </head>
 
 <body>
   <header class="site-header">
+    <!-- Brand OVER the photo -->
     <div class="container brand">
       <a href="{{ '/' | relative_url }}" aria-label="Golden Trowel Project home">
         <img class="logo" src="{{ '/assets/img/IMG_3241.PNG' | relative_url }}" alt="Golden Trowel Project logo">
@@ -161,40 +173,38 @@
       </div>
     </div>
 
-    <!-- Per-page header photo (reads `hero:` from front matter) -->
+    <!-- Per-page header photo (reads `hero:` + `hero_tint:` from front matter) -->
     <div class="page-hero"
          style="--hero: url('{{ page.hero | default: site.default_header | relative_url }}');
                 --hero-tint: {{ page.hero_tint | default: 0.30 }}">
     </div>
 
-<!-- Waves + short gradient band + BUTTONS INSIDE -->
-<div class="hero-wave" role="presentation" aria-hidden="false">
-  <svg viewBox="0 0 1440 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0,64 C160,120 320,8 480,48 C640,88 800,168 960,128 C1120,88 1280,16 1440,64 L1440,160 L0,160 Z" fill="#63374722"></path>
-    <path d="M0,100 C160,140 320,40 480,70 C640,100 800,160 960,120 C1120,80 1280,30 1440,70 L1440,160 L0,160 Z" fill="#00000018"></path>
-  </svg>
+    <!-- Waves + solid band + buttons INSIDE -->
+    <div class="hero-wave" role="presentation" aria-hidden="false">
+      <svg viewBox="0 0 1440 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,64 C160,120 320,8 480,48 C640,88 800,168 960,128 C1120,88 1280,16 1440,64 L1440,160 L0,160 Z" fill="#63374722"></path>
+        <path d="M0,100 C160,140 320,40 480,70 C640,100 800,160 960,120 C1120,80 1280,30 1440,70 L1440,160 L0,160 Z" fill="#00000018"></path>
+      </svg>
 
-  <!-- short dark→cream band -->
-  <div class="nav-gradient"></div>
+      <div class="nav-gradient"></div>
 
-  <!-- five-circle nav sits ON the band -->
-  <nav class="wave-nav" aria-label="Main">
-    <ul class="wave-links">
-      <li><a class="bubble-link" href="{{ '/' | relative_url }}" aria-current="{% if page.url == '/' %}page{% endif %}">Home</a></li>
-      <li><a class="bubble-link" href="{{ '/preparing/'  | relative_url }}" aria-current="{% if page.url contains '/preparing/' %}page{% endif %}">Preparing</a></li>
-      <li><a class="bubble-link" href="{{ '/reporting/'  | relative_url }}" aria-current="{% if page.url contains '/reporting/' %}page{% endif %}">Reporting</a></li>
-      <li><a class="bubble-link" href="{{ '/surveys/'    | relative_url }}" aria-current="{% if page.url contains '/surveys/' %}page{% endif %}">Surveys</a></li>
-      <li><a class="bubble-link" href="{{ '/contact/'    | relative_url }}" aria-current="{% if page.url contains '/contact/' %}page{% endif %}">Contact</a></li>
-    </ul>
-  </nav>
-</div>
+      <nav class="wave-nav" aria-label="Main">
+        <ul class="wave-links">
+          <li><a class="bubble-link" href="{{ '/' | relative_url }}" aria-current="{% if page.url == '/' %}page{% endif %}">Home</a></li>
+          <li><a class="bubble-link" href="{{ '/preparing/'  | relative_url }}" aria-current="{% if page.url contains '/preparing/' %}page{% endif %}">Preparing</a></li>
+          <li><a class="bubble-link" href="{{ '/reporting/'  | relative_url }}" aria-current="{% if page.url contains '/reporting/' %}page{% endif %}">Reporting</a></li>
+          <li><a class="bubble-link" href="{{ '/surveys/'    | relative_url }}" aria-current="{% if page.url contains '/surveys/' %}page{% endif %}">Surveys</a></li>
+          <li><a class="bubble-link" href="{{ '/contact/'    | relative_url }}" aria-current="{% if page.url contains '/contact/' %}page{% endif %}">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
   <main class="container">
     {{ content }}
   </main>
 
-  <!-- Optional: accordion behavior for .hub blocks -->
+  <!-- Optional: accordion behavior for .hub blocks in page content -->
   <script>
     (function(){
       const groups = document.querySelectorAll('.hub-group');
