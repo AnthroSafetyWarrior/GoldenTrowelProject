@@ -119,6 +119,45 @@
 
     /* -------------------- Main content spacing -------------------- */
     main{ padding-bottom: 2rem; }
+
+/* --- Circle buttons over the wave --- */
+.wave-nav{
+  position: relative;
+  margin-top: -52px; /* lifts the buttons into the troughs; tweak if needed */
+  pointer-events: none; /* so clicks pass unless on buttons */
+}
+.wave-links{
+  pointer-events: auto;
+  display:grid; grid-template-columns: repeat(5, 1fr);
+  gap: clamp(6px,1.6vw,14px);
+  width:min(100%, var(--maxw));
+  margin: 0 auto; padding: 0 clamp(12px,2vw,20px);
+  list-style: none;
+}
+.wave-links li{ display:flex; justify-content:center; }
+.bubble-link{
+  display:flex; align-items:center; justify-content:center;
+  width: clamp(68px, 10vw, 104px); height: clamp(68px, 10vw, 104px);
+  border-radius: 999px;
+  background: var(--offwhite);
+  color: var(--soil); text-decoration:none; font-weight:800;
+  border: 2px solid color-mix(in srgb, var(--soil) 25%, transparent);
+  box-shadow: 0 8px 0 rgba(0,0,0,.12), 0 2px 8px rgba(0,0,0,.08);
+  transition: transform .15s ease, background .15s ease, color .15s ease, box-shadow .15s ease;
+}
+.bubble-link:hover, .bubble-link:focus-visible{
+  background: var(--logo-orange); color:#fff; transform: translateY(-2px);
+  outline:3px solid var(--accent); outline-offset:3px;
+  box-shadow: 0 12px 0 rgba(0,0,0,.12), 0 6px 14px rgba(0,0,0,.12);
+}
+
+/* Fallback to rectangular bar on smaller screens for clarity */
+@media (max-width:720px){
+  .wave-nav{ display:none; }
+  /* show rectangular bar */
+  .topnav{ display:block; }
+}
+
   </style>
 </head>
 
@@ -144,6 +183,15 @@
       </svg>
     </div>
   </header>
+<div class="wave-nav" aria-label="Main">
+  <ul class="wave-links">
+    <li><a class="bubble-link" href="/">Home</a></li>
+    <li><a class="bubble-link" href="/preparing/">Preparing</a></li>
+    <li><a class="bubble-link" href="/reporting/">Reporting</a></li>
+    <li><a class="bubble-link" href="/surveys/">Surveys</a></li>
+    <li><a class="bubble-link" href="/contact/">Contact</a></li>
+  </ul>
+</div>
 
   <main class="container">
     {{ content }}
