@@ -13,7 +13,7 @@
       --soil:#3B2A1F;
       --offwhite:#FAF7F2;
       --moss:#6B8D6A;
-      --gold:#d68d15;
+      --gold:#e7bf72;
       --logo-orange:#8a340a;
       --accent:#6B8D6A;
       --ink:#111;
@@ -84,7 +84,7 @@
     .hero-wave{ position:relative; }
     .hero-wave svg{
       display:block; width:100%;
-      height: clamp(56px, 8vw, 88px);   /* smaller wave */
+      height: clamp(42px, 6vw, 68px);   /* smaller wave */
       transform: scaleY(.85);           /* reduce amplitude slightly */
       transform-origin: top;
       margin-bottom:-2px;               /* hide seam */
@@ -93,29 +93,24 @@
     /* Band that wraps the nav; shorter + softer fade */
     .nav-gradient{
       position: relative;
-      margin-top:-16px;                 /* tuck under wave */
-      padding-top: clamp(4px, .8vw, 10px);
-      padding-bottom: clamp(12px, 2.2vw, 24px);
-      min-height: clamp(110px, 14vw, 180px);   /* not so tall */
+      margin-top:-10px;                 /* tuck under wave */
+      padding-top: clamp(2px, .5vw, 6px);
+      padding-bottom: clamp(6px, 1vw, 12px);
+      min-height: clamp(80px, 10vw, 130px);   /* not so tall */
       background: linear-gradient(
         to bottom,
-        var(--band-grad-top) 0%,
-        var(--band-grad-mid) 45%,
-        var(--band-grad-bottom) 90%
+       var(--band-grad-top) 0%,
+    #d5cbc4 40%,
+    #ece8e3 75%,
+    #f5f2ee 100%    
       );
       border:none; box-shadow:none;
     }
-    /* soft feather into the page */
-    .nav-gradient::after{
-      content:""; position:absolute; left:0; right:0; bottom:-1px; height:48px;
-      background: linear-gradient(to bottom, rgba(247,245,242,1) 0%, rgba(255,255,255,0) 100%);
-      pointer-events:none;
-    }
-
+.nav-gradient::after{ content:none; }   
     /* ============== Five-circle Nav ============== */
     .wave-nav{
       position: relative;
-      margin-top: clamp(10px, 1.8vw, 22px);   /* push bubbles down a touch */
+      margin-top: clamp(-10px, -1vw, -6px);   /* push bubbles down a touch */
       pointer-events: none;
     }
     .wave-links{
@@ -130,7 +125,7 @@
 
     .bubble-link{
       display:flex; align-items:center; justify-content:center;
-      width: clamp(64px, 9vw, 96px); height: clamp(64px, 9vw, 96px);  /* slightly smaller */
+      width: clamp(60px, 8.4vw, 92px); height: clamp(60px, 8.4vw, 92px);  /* slightly smaller */
       border-radius:999px; text-decoration:none; font-weight:800;
       background: var(--gold); color: var(--soil);
       border: 3px solid var(--gold);
