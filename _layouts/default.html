@@ -13,7 +13,7 @@
       --soil:#3B2A1F;
       --offwhite:#FAF7F2;
       --moss:#6B8D6A;
-      --gold:#e7bf72;
+      --gold:#d68d15;
       --logo-orange:#8a340a;
       --accent:#6B8D6A;
       --ink:#111;
@@ -33,7 +33,6 @@
     body{
       margin:0; color:var(--ink);
       font-family: Calibri, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      /* smooth, subtle page background */
       background: linear-gradient(to bottom, #eae6df 0%, #f5f2ee 55%, #ffffff 100%);
       background-attachment: fixed;
     }
@@ -44,7 +43,7 @@
     h2{ color:var(--accent); font-size:clamp(1.2rem,3.4vw,1.6rem); margin:1.2em 0 .6em; }
     p{ font-size:clamp(1rem,2.4vw,1.125rem); line-height:1.6; margin:.6em 0; }
 
-    /* ============== Header + Hero (photo sits behind content) ============== */
+    /* ============== Header + Hero ============== */
     header.hero{
       position:relative; color:#fff;
       padding: clamp(0.6em, 2.4vw, 1.2em) 0 0;
@@ -67,95 +66,102 @@
       text-shadow:0 2px 10px rgba(0,0,0,.35);
     }
     .header-content img{ width: clamp(150px, 11vw, 190px); border-radius:12px; }
-    .header-text{ text-align:left; }
     .header-text h1{
       color:#fff; margin:.1em 0;
       font-size: clamp(2.2rem, 6.2vw, 3.2rem);
       line-height:1.12;
     }
     .header-text p{
-      margin:.35em 0 0;
-      color: var(--logo-orange);
-      font-weight:700;
+      margin:.35em 0 0; color: var(--logo-orange); font-weight:700;
       font-size: clamp(1.05rem, 2.6vw, 1.25rem);
     }
 
-    /* ============== Classic Waves + Band (inside header) ============== */
+    /* ============== Crest waves above the band ============== */
     .hero-wave{ position:relative; }
     .hero-wave svg{
       display:block; width:100%;
-      height: clamp(42px, 6vw, 68px);   /* smaller wave */
-      transform: scaleY(.85);           /* reduce amplitude slightly */
+      height: clamp(42px, 6vw, 68px);   /* small */
+      transform: scaleY(.75);           /* low amplitude */
       transform-origin: top;
-      margin-bottom:-2px;               /* hide seam */
+      margin-bottom:-2px;
     }
 
-    /* Band that wraps the nav; shorter + softer fade */
+    /* ============== Gradient band (wraps the scroll nav) ============== */
     .nav-gradient{
       position: relative;
-      margin-top:-10px;                 /* tuck under wave */
-      padding-top: clamp(2px, .5vw, 6px);
-      padding-bottom: clamp(6px, 1vw, 12px);
-      min-height: clamp(80px, 10vw, 130px);   /* not so tall */
+      margin-top:-10px;                 /* tuck under crest */
+      padding-top: clamp(2px,.5vw,6px);
+      padding-bottom: clamp(8px, 1.2vw, 14px);
+      min-height: clamp(120px, 14vw, 190px);   /* room for circles */
       background: linear-gradient(
         to bottom,
-       var(--band-grad-top) 0%,
-    #d5cbc4 40%,
-    #ece8e3 75%,
-    #f5f2ee 100%    
+        var(--band-grad-top) 0%,
+        var(--band-grad-mid) 45%,
+        var(--band-grad-bottom) 100%
       );
       border:none; box-shadow:none;
     }
-.nav-gradient::after{ content:none; }   
-    /* ============== Five-circle Nav ============== */
-    .wave-nav{
-      position: relative;
-      margin-top: clamp(-10px, -1vw, -6px);   /* push bubbles down a touch */
-      pointer-events: none;
-    }
-    .wave-links{
-      pointer-events:auto;
-      list-style:none; margin:0;
-      padding:0 clamp(12px,2vw,20px);
-      display:grid; grid-template-columns: repeat(5, 1fr);
-      gap: clamp(6px,1.6vw,14px);
-      width:min(100%, var(--maxw)); margin-inline:auto;
-    }
-    .wave-links li{ display:flex; justify-content:center; }
 
-    .bubble-link{
-      display:flex; align-items:center; justify-content:center;
-      width: clamp(60px, 8.4vw, 92px); height: clamp(60px, 8.4vw, 92px);  /* slightly smaller */
-      border-radius:999px; text-decoration:none; font-weight:800;
-      background: var(--gold); color: var(--soil);
-      border: 3px solid var(--gold);
-      box-shadow: 0 8px 0 rgba(0,0,0,.10), 0 2px 8px rgba(0,0,0,.08);
-      transition: transform .15s ease, background .15s ease, color .15s ease, box-shadow .15s ease, border-color .15s ease;
+    /* ============== Scrollable Wave Nav ============== */
+    .wave-nav{
+      position:relative; background:transparent;
+      overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch;
+      scrollbar-width:none;         /* Firefox */
+      margin: clamp(6px, 1vw, 10px) auto 0;
+      height: 160px;                /* JS will resize based on circle size */
     }
-    .bubble-link:hover,
-    .bubble-link[aria-current="page"]{
-      background: var(--logo-orange); color:#fff; border-color: var(--gold);
+    .wave-nav::-webkit-scrollbar{ display:none; height:0; } /* WebKit */
+
+    .wave-track{ position:relative; height:100%; min-width:1100px; }
+    .wave{ width:100%; height:100%; display:block; }
+
+    /* Circles layer */
+    .circle-nav{ position:absolute; inset:0; pointer-events:none; }
+    .circle{
+      position:absolute; pointer-events:auto;
+      --size: clamp(80px, 9.25vw, 112px);       /* <-- never gets smaller than 80px */
+      width: var(--size); height: var(--size);
+    }
+    .circle-btn{
+      position:absolute; inset:0; border:0; border-radius:50%;
+      display:flex; align-items:center; justify-content:center; text-align:center;
+      padding:6px; line-height:1.1; font-weight:800;
+      font-size:clamp(.9rem, 1.1vw, 1rem);
+      background: var(--gold); color: var(--soil); cursor:pointer;
+      border: 3px solid var(--gold);
+      box-shadow: 0 10px 0 rgba(0,0,0,.10), 0 2px 8px rgba(0,0,0,.08);
+      transition: transform .15s ease, background .15s ease, color .15s ease, box-shadow .15s ease, border-color .15s ease;
+      z-index:1;
+    }
+    .circle-btn:hover,
+    .circle-btn:focus-visible{
+      background: var(--logo-orange); color:#fff; outline:0;
       transform: translateY(-2px);
       box-shadow: 0 12px 0 rgba(0,0,0,.12), 0 6px 14px rgba(0,0,0,.12);
     }
-    .bubble-link:focus-visible{ outline:3px solid var(--gold); outline-offset:3px; }
 
-    @media (max-width:720px){
-      .wave-links{ grid-template-columns: repeat(3, 1fr); }
+    /* Flyout pills (if present for a circle) */
+    .flyout{ position:absolute; inset:0; pointer-events:none; opacity:0; transition:opacity .18s ease; z-index:2; }
+    .circle:hover .flyout, .circle:focus-within .flyout{ opacity:1; pointer-events:auto; }
+    .pill{
+      position:absolute; background: var(--gold); color: var(--soil);
+      font-weight:700; font-size:.9rem; white-space:nowrap;
+      padding:.45em .9em; border-radius:999px; text-decoration:none;
+      box-shadow:0 10px 20px rgba(0,0,0,.18);
+      transition:transform .15s ease, background .15s ease, color .15s ease, box-shadow .15s ease;
+    }
+    .pill:hover, .pill:focus-visible{
+      background: var(--logo-orange); color:#fff; transform:translateY(-1px);
+      box-shadow:0 12px 24px rgba(0,0,0,.22);
+      outline:0;
     }
 
-    /* ====== Optional hub styles kept (unchanged) ====== */
+    /* (Optional) hub styles kept */
     .hub{ display:grid; gap:1.2rem; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); align-items:start; margin:clamp(12px,2vw,20px) auto; }
     .hub-group{ background: color-mix(in srgb, var(--offwhite) 92%, white); border:1px solid color-mix(in srgb, var(--soil) 18%, transparent); border-radius:16px; padding:.9rem; box-shadow:0 2px 6px rgba(0,0,0,.05); }
     .bubble{ width:100%; border-radius:999px; padding:.8rem 1rem; font-weight:800; background:var(--offwhite); color:var(--soil); border:2px solid color-mix(in srgb, var(--soil) 25%, transparent); transition:background .18s ease, color .18s ease, transform .18s ease, border-color .18s ease; min-height:44px; }
     .bubble:hover{ background:var(--logo-orange); color:#fff; transform:translateY(-2px); }
     .bubble:focus-visible{ outline:3px solid var(--accent); outline-offset:3px; }
-    .pill-panel{ overflow:hidden; transition:max-height .25s ease; will-change:max-height; }
-    @media (prefers-reduced-motion: reduce){ .pill-panel{ transition:none; } }
-    .pill-list{ display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.7rem; }
-    .pill-list .pill{ display:inline-flex; align-items:center; gap:.4rem; background:#fff; color:var(--soil); border-radius:999px; padding:.48rem .9rem; border:1px solid color-mix(in srgb, var(--soil) 20%, transparent); font-weight:600; line-height:1; min-height:40px; transition:background .15s ease, color .15s ease, border-color .15s ease, transform .15s ease; }
-    .pill-list .pill:hover{ background:var(--accent); color:#fff; border-color:transparent; transform:translateY(-1px); }
-    .pill-list .pill:focus-visible{ outline:3px solid var(--accent); outline-offset:3px; }
   </style>
 </head>
 
@@ -179,7 +185,7 @@
       </div>
     </div>
 
-    <!-- Waves + band + nav -->
+    <!-- Crest waves (static) -->
     <div class="hero-wave" aria-hidden="true" role="presentation">
       <svg viewBox="0 0 1440 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M0,64 C160,120 320,8 480,48 C640,88 800,168 960,128 C1120,88 1280,16 1440,64 L1440,160 L0,160 Z"
@@ -188,16 +194,51 @@
               fill="{{ '#baafa8' }}"></path>
       </svg>
 
+      <!-- Gradient band that holds the scrollable nav -->
       <div class="nav-gradient">
-        <nav class="wave-nav" aria-label="Main">
-          <ul class="wave-links">
-            <li><a class="bubble-link" href="{{ '/' | relative_url }}" aria-current="{% if page.url == '/' %}page{% endif %}">Home</a></li>
-            <li><a class="bubble-link" href="{{ '/preparing/'  | relative_url }}" aria-current="{% if page.url contains '/preparing/' %}page{% endif %}">Preparing</a></li>
-            <li><a class="bubble-link" href="{{ '/reporting/'  | relative_url }}" aria-current="{% if page.url contains '/reporting/' %}page{% endif %}">Reporting</a></li>
-            <li><a class="bubble-link" href="{{ '/surveys/'    | relative_url }}" aria-current="{% if page.url contains '/surveys/' %}page{% endif %}">Surveys</a></li>
-            <li><a class="bubble-link" href="{{ '/contact/'    | relative_url }}" aria-current="{% if page.url contains '/contact/' %}page{% endif %}">Contact</a></li>
-          </ul>
-        </nav>
+        <section class="wave-nav" aria-label="Primary navigation">
+          <div class="wave-track">
+            <!-- The JS will draw a subtle wave here (fill blends with band) -->
+            <svg class="wave" preserveAspectRatio="none" aria-hidden="true"></svg>
+
+            <nav class="circle-nav">
+              <div class="circle" data-label="Home" data-href="{{ '/' | relative_url }}">
+                <button class="circle-btn" type="button">Home</button>
+                <div class="flyout"></div>
+              </div>
+
+              <div class="circle" data-label="Preparing" data-href="{{ '/preparing/' | relative_url }}">
+                <button class="circle-btn" type="button">Preparing</button>
+                <div class="flyout">
+                  <a class="pill" href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing" target="_blank" rel="noopener">Pre-Fieldwork Safety Checklist</a>
+                </div>
+              </div>
+
+              <div class="circle" data-label="Reporting" data-href="{{ '/reporting/' | relative_url }}">
+                <button class="circle-btn" type="button">Reporting</button>
+                <div class="flyout">
+                  <a class="pill" href="{{ '/statelaw.html' | relative_url }}">USA Laws by State</a>
+                  <a class="pill" href="{{ '/internationallaw.html' | relative_url }}">International Laws by Country</a>
+                  <a class="pill" href="{{ '/titleIX.html' | relative_url }}">Title IX Reporting by University</a>
+                  <a class="pill" href="{{ '/fundingethics.html' | relative_url }}">Funding &amp; Professional Associations</a>
+                </div>
+              </div>
+
+              <div class="circle" data-label="Surveys" data-href="{{ '/surveys/' | relative_url }}">
+                <button class="circle-btn" type="button">Surveys</button>
+                <div class="flyout">
+                  <a class="pill" href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank" rel="noopener">Fieldwork Misconduct Survey</a>
+                  <a class="pill" href="https://forms.gle/9DjrMVNP2oUu1GDD8" target="_blank" rel="noopener">Website Feedback Survey</a>
+                </div>
+              </div>
+
+              <div class="circle" data-label="Contact" data-href="mailto:anthrosafetywarrior@gmail.com">
+                <button class="circle-btn" type="button">Contact</button>
+                <div class="flyout"></div>
+              </div>
+            </nav>
+          </div>
+        </section>
       </div>
     </div>
   </header>
@@ -205,5 +246,107 @@
   <main>
     {{ content }}
   </main>
+
+  <!-- Wave + circles + flyout positioning -->
+  <script>
+  (() => {
+    const wrap  = document.querySelector('.wave-nav');
+    const track = wrap?.querySelector('.wave-track');
+    const svg   = track?.querySelector('svg.wave');
+    const circles = track?.querySelectorAll('.circle') || [];
+    if (!wrap || !track || !svg || !circles.length) return;
+
+    /* Vibe-tuned wave settings (subtle) */
+    const WAVES = 5;              // number of oscillations across the width
+    const AMPFR = 0.20;           // amplitude as a fraction of height (gentle)
+    const BASE  = 0.52;           // baseline (0=top, 1=bottom)
+    const FILL1 = getComputedStyle(document.documentElement)
+                    .getPropertyValue('--band-grad-mid')?.trim() || '#e6ddd7';
+
+    function setHeight(){
+      const any = circles[0];
+      const size = any ? (any.offsetHeight || parseFloat(getComputedStyle(any).width)) : 96;
+      const h = Math.max(150, size * 1.55);   // keep enough headroom, but compact
+      wrap.style.height = h + 'px';
+    }
+
+    function positionFlyout(circleEl){
+      const flyout = circleEl.querySelector('.flyout');
+      const pills  = flyout ? flyout.querySelectorAll('.pill') : [];
+      if (!flyout || !pills.length) return;
+
+      const rect = circleEl.getBoundingClientRect();
+      const size = rect.width;
+      const cx = size/2, cy = size/2;
+
+      const R = size * 0.95;  // close to the circle
+      const SPREAD = 48;      // tight fan
+      const CENTER = 0;       // to the right
+
+      const m = pills.length;
+      pills.forEach((pill, i) => {
+        const t = (m === 1) ? 0 : (i/(m-1) - 0.5);
+        const rad = (CENTER + t*SPREAD) * Math.PI/180;
+        const x = cx + Math.cos(rad) * (R + size*0.05);
+        const y = cy + Math.sin(rad) * (R + size*0.05);
+        pill.style.left = x + 'px';
+        pill.style.top  = y + 'px';
+      });
+    }
+
+    function draw(){
+      const vw = wrap.clientWidth;
+      const W  = Math.max(vw, 1280);    // wider than viewport -> enables horizontal scroll
+      track.style.width = W + 'px';
+      svg.style.width   = W + 'px';
+
+      const H = wrap.clientHeight || wrap.getBoundingClientRect().height;
+      const A = AMPFR * H;
+      const k = (2*Math.PI*WAVES) / W;
+
+      const N = 240;
+      let d = `M 0 ${BASE*H + A*Math.sin(0)}`;
+      for (let i=1;i<=N;i++){
+        const x = (i/N)*W;
+        const y = BASE*H + A*Math.sin(k*x);
+        d += ` L ${x} ${y}`;
+      }
+      d += ` L ${W} ${H} L 0 ${H} Z`;
+      svg.innerHTML = '';
+      const p = document.createElementNS('http://www.w3.org/2000/svg','path');
+      p.setAttribute('d', d);
+      p.setAttribute('fill', FILL1);    // blends with band
+      svg.appendChild(p);
+
+      /* Place circles along the curve, keep a nice vertical lock-up */
+      const pad = Math.max(48, W * 0.03);
+      circles.forEach((circleEl, n) => {
+        const size = parseFloat(getComputedStyle(circleEl).getPropertyValue('--size')) || circleEl.offsetWidth;
+        const theta = Math.PI/2 + 2*Math.PI*n;
+        let x = theta / k; x = Math.max(pad, Math.min(W - pad, x));
+
+        const yCurve = BASE*H + A*Math.sin(k*x);
+        const inset    = A * 0.35;
+        const lift     = size * 0.58;   // pull circles up toward the crest
+
+        const left = x - size/2;
+        const top  = Math.max(6, yCurve - inset - size/2 - lift);
+        circleEl.style.left = left + 'px';
+        circleEl.style.top  = top + 'px';
+
+        /* Click -> navigate */
+        const href = circleEl.getAttribute('data-href');
+        const btn  = circleEl.querySelector('.circle-btn');
+        if (btn && href) btn.onclick = () => { location.href = href; };
+
+        positionFlyout(circleEl);
+      });
+    }
+
+    setHeight();
+    draw();
+    addEventListener('resize', () => { setHeight(); draw(); }, { passive:true });
+  })();
+  </script>
 </body>
 </html>
