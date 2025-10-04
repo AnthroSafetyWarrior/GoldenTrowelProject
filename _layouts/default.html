@@ -15,7 +15,7 @@
       --offwhite:#FAF7F2;
       --moss:#6B8D6A;
       --gold:#E8C15A;
-      --logo-orange:#C46A2A;
+      --logo-orange:#8a340a;
       --accent:#6B8D6A;
       --ink:#111;
       --maxw:1100px;
@@ -89,23 +89,19 @@
 /* gradient band behind the buttons — extended & seam-less */
 .nav-gradient{
   position: relative;
-  /* let it grow instead of being a thin strip */
+  z-index: 0;
+  margin-top: -36px;                 /* tuck under the SVG crest to hide the line */
   height: auto;
-  min-height: clamp(140px, 18vw, 220px);   /* extend downward */
-  padding: 0 0 clamp(28px, 6vw, 56px);     /* extra bottom to reach the text */
-  margin-top: -10px;                        /* tucks up into the wave */
-  background: linear-gradient(
-    to bottom,
-    var(--band-grad-top) 0%,
-    var(--band-grad-bottom) 100%
-  );
-  /* remove the hairline rules */
+  min-height: clamp(240px, 28vw, 420px);  /* reach down to the body text */
+  padding-bottom: clamp(28px, 6vw, 56px);
+  background: linear-gradient(to bottom, var(--band-grad-top) 0%, var(--band-grad-bottom) 100%);
   border-top: none;
   border-bottom: none;
   box-shadow: none;
 }
 
-
+/* tiny nudge so the SVG and gradient don't leave a 1px seam */
+.hero-wave svg{ display:block; width:100%; height:auto; margin-bottom:-2px; }
 
 
     /* ============== Five-circle Nav (the “old” buttons) ============== */
@@ -147,7 +143,7 @@
     }
     .bubble-link:hover,
     .bubble-link[aria-current="page"]{
-      background: var(--soil); color:#fff; border-color: var(--gold);
+      background: var(--logo-orange); color:#fff; border-color: var(--gold);
       transform: translateY(-2px);
       box-shadow: 0 12px 0 rgba(0,0,0,.12), 0 6px 14px rgba(0,0,0,.12);
     }
