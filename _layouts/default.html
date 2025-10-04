@@ -12,20 +12,19 @@
     :root{
       --soil:#3B2A1F;
       --kraft:#EAE6DF;   /* page bg */
-      --taupe:#CFC6BA;   /* band top under waves */
+      --taupe:#CFC6BA;   /* not used for the band anymore but kept */
       --offwhite:#FAF7F2;
       --moss:#6B8D6A;
       --gold:#E8C15A;
       --logo-orange:#C46A2A;
-      --accent:#6B8D6A;  /* default link/focus accent */
+      --accent:#6B8D6A;
       --ink:#111;
       --maxw:1100px;
+
+      /* NEW: exact banner + darkest-wave tones for the area under the waves */
+      --banner:#DED7CC;     /* light taupe strip (what you called “banner”) */
+      --wave-dark:#8A7C82;  /* darkest wave tone – start of short gradient */
     }
-:root{
-  /* ...existing tokens... */
-  --banner:#DED7CC;     /* the light taupe you want above the waves */
-  --wave-dark:#8A7C82;  /* darkest wave tone to start the short gradient */
-}
 
     /* =============== Base + kraft texture =============== */
     *,*::before,*::after{ box-sizing:border-box; }
@@ -42,17 +41,15 @@
       background-size:120px 120px,140px 140px,160px 160px,auto,auto;
       background-attachment:fixed;
     }
-    @media (prefers-reduced-transparency: reduce){
-      body{ background: var(--kraft); }
-    }
+    @media (prefers-reduced-transparency: reduce){ body{ background:var(--kraft); } }
 
     img,svg,video{ max-width:100%; height:auto; display:block; }
     h1{ color:var(--soil); font-size:clamp(1.8rem,5.5vw,2.4rem); margin:.4em 0 .2em; }
     h2{ color:var(--soil); font-size:clamp(1.3rem,3.6vw,1.6rem); margin:1.2em 0 .6em; }
-    p{ font-size:clamp(1rem,2.6vw,1.125rem); line-height:1.6; margin:.6em 0; }
-    a{ color:var(--accent); text-decoration-thickness:.08em; text-underline-offset:.18em; }
+    p{  font-size:clamp(1rem,2.6vw,1.125rem); line-height:1.6; margin:.6em 0; }
+    a{  color:var(--accent); text-decoration-thickness:.08em; text-underline-offset:.18em; }
     a:hover{ color:var(--logo-orange); }
-    .container{ width:min(100%, var(--maxw)); margin:0 auto; padding:0 clamp(12px,2vw,20px); }
+    .container{ width:min(100%,var(--maxw)); margin:0 auto; padding:0 clamp(12px,2vw,20px); }
 
     /* =============== Header / Brand =============== */
     header.site-header{ padding:.6rem 0 0; }
@@ -62,15 +59,15 @@
     .brand .titles{ display:flex; flex-direction:column; }
     .brand h1{ margin:0; }
     .brand .tagline{
-      font-weight:600; color: color-mix(in srgb, var(--soil) 70%, #fff 30%);
+      font-weight:600; color:color-mix(in srgb, var(--soil) 70%, #fff 30%);
       font-size:clamp(.95rem,2.4vw,1.05rem);
     }
 
-    /* =============== Per-page header photo + bottom fade =============== */
+    /* =============== Per-page hero photo (uses page.hero) + bottom fade to banner =============== */
     .page-hero{
       width:100%;
       height:clamp(220px, 32vw, 380px);
-      background: center/cover no-repeat;
+      background:center/cover no-repeat;
       background-image: var(--hero, none);
       position:relative; overflow:hidden;
     }
@@ -80,63 +77,41 @@
       background: rgba(99,55,71, var(--hero-tint, .30));
       pointer-events:none;
     }
-    /* fade from photo into taupe band */
+    /* fade from the photo into the banner color so it meets the waves cleanly */
     .page-hero::after{
       content:""; position:absolute; inset:0; pointer-events:none;
       background: linear-gradient(to bottom,
-                  rgba(207,198,186,0) 60%,
-                  rgba(207,198,186,.35) 80%,
-                  rgba(207,198,186,1) 100%);
+                  rgba(222,215,204,0) 60%,   /* transparent -> banner */
+                  rgba(222,215,204,.45) 78%,
+                  var(--banner) 100%);
     }
 
-    /* =============== Waves + taupe→kraft gradient band =============== */
-    .hero-wave{ position:relative; }
+    /* =============== Waves + short gradient band behind buttons =============== */
+    .hero-wave{ position:relative; background:var(--banner); } /* banner strip stays this light taupe */
     .hero-wave svg{ display:block; width:100%; height:auto; }
+
+    /* short gradient right behind the circles: darkest wave -> kraft */
     .nav-gradient{
       position:relative;
-      height:clamp(52px, 9vw, 96px);
-      margin-top:-10px; /* tuck into wave trough */
-      background:linear-gradient(to bottom, var(--taupe) 0%, var(--kraft) 100%);
+      height:clamp(36px, 6vw, 60px);   /* short */
+      margin-top:-8px;                 /* tuck into trough tip */
+      background:linear-gradient(
+        to bottom,
+        var(--wave-dark) 0%,
+        color-mix(in srgb, var(--wave-dark) 50%, var(--kraft) 50%) 60%,
+        var(--kraft) 100%
+      );
       border-top:1px solid color-mix(in srgb, var(--soil) 10%, transparent);
       border-bottom:1px solid color-mix(in srgb, var(--soil) 10%, transparent);
     }
-/* the strip behind the SVG waves */
-.hero-wave{ position:relative; background: var(--banner); }
-.hero-wave svg{ display:block; width:100%; height:auto; }
-
-/* fade the bottom of the photo into that same banner color */
-.page-hero::after{
-  content:""; position:absolute; inset:0; pointer-events:none;
-  background: linear-gradient(to bottom,
-              rgba(222,215,204,0) 60%,  /* transparent -> banner */
-              rgba(222,215,204,.45) 78%,
-              var(--banner) 100%);
-}
-/* short band behind buttons: darkest wave -> cream */
-.nav-gradient{
-  position: relative;
-  height: clamp(36px, 6vw, 60px);   /* shorter band */
-  margin-top: -8px;                 /* tuck into the trough */
-  background: linear-gradient(
-    to bottom,
-    var(--wave-dark) 0%,
-    color-mix(in srgb, var(--wave-dark) 50%, var(--kraft) 50%) 60%,
-    var(--kraft) 100%
-  );
-  border-top: 1px solid color-mix(in srgb, var(--soil) 10%, transparent);
-  border-bottom: 1px solid color-mix(in srgb, var(--soil) 10%, transparent);
-}
-
-/* keep the circles nicely overlapping the band */
-.wave-nav{ margin-top: -50px; }  /* adjust -44 to -56 to taste */
 
     /* =============== Wave nav (circle buttons) =============== */
-    .wave-nav{ position:relative; margin-top:-56px; pointer-events:none; }
+    .wave-nav{ position:relative; margin-top:-50px; pointer-events:none; } /* adjust -44..-56 if needed */
     .wave-links{
       pointer-events:auto;
       display:grid; grid-template-columns:repeat(5,1fr);
       gap:clamp(6px,1.6vw,14px);
-      width:min(100%, var(--maxw)); margin:0 auto; padding:0 clamp(12px,2vw,20px);
+      width:min(100%,var(--maxw)); margin:0 auto; padding:0 clamp(12px,2vw,20px);
       list-style:none;
     }
     .wave-links li{ display:flex; justify-content:center; }
@@ -157,19 +132,17 @@
     }
     .bubble-link:focus-visible{ outline:3px solid var(--gold); outline-offset:3px; }
 
-    @media (max-width:720px){
-      .wave-nav{ margin-top:-44px; }
-    }
+    @media (max-width:720px){ .wave-nav{ margin-top:-44px; } }
 
-    /* =============== Hub (optional accordion blocks used in content) =============== */
+    /* =============== Hub (optional accordion blocks in content) =============== */
     .hub{
       display:grid; gap:1.2rem;
-      grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+      grid-template-columns:repeat(auto-fit, minmax(240px,1fr));
       align-items:start;
       margin:clamp(12px,2vw,20px) auto;
     }
     .hub-group{
-      background: color-mix(in srgb, var(--offwhite) 92%, white);
+      background:color-mix(in srgb, var(--offwhite) 92%, white);
       border:1px solid color-mix(in srgb, var(--soil) 18%, transparent);
       border-radius:16px; padding:.9rem; box-shadow:0 2px 6px rgba(0,0,0,.05);
     }
@@ -191,92 +164,4 @@
       border-radius:999px; padding:.48rem .9rem;
       border:1px solid color-mix(in srgb, var(--soil) 20%, transparent);
       font-weight:600; line-height:1; min-height:40px;
-      transition:background .15s ease, color .15s ease, border-color .15s ease, transform .15s ease;
-    }
-    .pill:hover{ background:var(--accent); color:#fff; border-color:transparent; transform:translateY(-1px); }
-    .pill:focus-visible{ outline:3px solid var(--accent); outline-offset:3px; }
-
-    /* =============== Main spacing =============== */
-    main{ padding-bottom:2rem; }
-  </style>
-</head>
-
-<body>
-  <header class="site-header">
-    <div class="container brand">
-      <a href="{{ '/' | relative_url }}" aria-label="Golden Trowel Project home">
-        <img class="logo" src="{{ '/assets/img/IMG_3241.PNG' | relative_url }}" alt="Golden Trowel Project logo">
-      </a>
-      <div class="titles">
-        <h1>{{ site.title | default: "Golden Trowel Project" }}</h1>
-        <div class="tagline">Practical tools. Powerful boundaries. Safer fieldwork.</div>
-      </div>
-    </div>
-
-    <!-- Per-page header photo (set in front matter) -->
-    <div class="page-hero"
-         style="--hero: url('{{ page.header_image | default: site.default_header | relative_url }}');
-                --hero-tint: {{ page.header_tint | default: 0.30 }}">
-    </div>
-
-    <!-- Waves + gradient band -->
-    <div class="hero-wave" aria-hidden="true" role="presentation">
-      <svg viewBox="0 0 1440 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,64 C160,120 320,8 480,48 C640,88 800,168 960,128 C1120,88 1280,16 1440,64 L1440,160 L0,160 Z" fill="#63374722"></path>
-        <path d="M0,100 C160,140 320,40 480,70 C640,100 800,160 960,120 C1120,80 1280,30 1440,70 L1440,160 L0,160 Z" fill="#00000018"></path>
-      </svg>
-      <div class="nav-gradient"></div>
-    </div>
-
-    <!-- Five-circle nav -->
-    <nav class="wave-nav" aria-label="Main">
-      <ul class="wave-links">
-        <li><a class="bubble-link" href="{{ '/' | relative_url }}" aria-current="{% if page.url == '/' %}page{% endif %}">Home</a></li>
-        <li><a class="bubble-link" href="{{ '/preparing/'  | relative_url }}" aria-current="{% if page.url contains '/preparing/' %}page{% endif %}">Preparing</a></li>
-        <li><a class="bubble-link" href="{{ '/reporting/'  | relative_url }}" aria-current="{% if page.url contains '/reporting/' %}page{% endif %}">Reporting</a></li>
-        <li><a class="bubble-link" href="{{ '/surveys/'    | relative_url }}" aria-current="{% if page.url contains '/surveys/' %}page{% endif %}">Surveys</a></li>
-        <li><a class="bubble-link" href="{{ '/contact/'    | relative_url }}" aria-current="{% if page.url contains '/contact/' %}page{% endif %}">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <main class="container">
-    {{ content }}
-  </main>
-
-  <!-- Optional: accordion behavior for .hub blocks in page content -->
-  <script>
-    (function(){
-      const groups = document.querySelectorAll('.hub-group');
-      function setPanelState(btn, panel, expanded){
-        btn.setAttribute('aria-expanded', expanded);
-        if(expanded){
-          panel.hidden = false;
-          panel.style.maxHeight = panel.scrollHeight + 'px';
-          panel.addEventListener('transitionend', () => { panel.style.maxHeight = 'none'; }, { once:true });
-        }else{
-          panel.style.maxHeight = panel.scrollHeight + 'px';
-          requestAnimationFrame(() => { panel.style.maxHeight = '0px'; });
-          panel.addEventListener('transitionend', () => { panel.hidden = true; }, { once:true });
-        }
-      }
-      groups.forEach(g => {
-        const btn = g.querySelector('.bubble');
-        const panel = g.querySelector('.pill-panel');
-        if(!btn || !panel) return;
-        btn.setAttribute('aria-expanded','false');
-        panel.hidden = true;
-        panel.style.maxHeight = '0px';
-        btn.addEventListener('click', () => {
-          const expanded = btn.getAttribute('aria-expanded') === 'true';
-          setPanelState(btn, panel, !expanded);
-        });
-        btn.addEventListener('keydown', (e) => {
-          if(e.key === 'ArrowDown'){ e.preventDefault(); setPanelState(btn, panel, true); }
-          if(e.key === 'ArrowUp'){   e.preventDefault(); setPanelState(btn, panel, false); }
-        });
-      });
-    })();
-  </script>
-</body>
-</html>
+      transition:background .15s ease, color .15s ease,
