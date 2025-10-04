@@ -3,264 +3,203 @@
 <head>
   <script>document.documentElement.classList.replace('no-js','js');</script>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{{ page.title | default: "Golden Trowel Project" }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ page.title | default: site.title | default: "Golden Trowel Project" }}</title>
   <link rel="canonical" href="{{ page.url | absolute_url }}">
 
   <style>
-    /* ---------- Base ---------- */
-    *, *::before, *::after { box-sizing: border-box; }
-    body { font-family: Calibri, sans-serif; background:#eae6df; margin:0; }
-    img, svg, video { max-width:100%; height:auto; display:block; }
-    h1{ font-size:clamp(1.8rem,5.5vw,2.4rem); margin:.2em 0; }
-    p { font-size:clamp(1rem,2.8vw,1.2rem); margin:.6em 0; }
-    main{ width:min(100%,1100px); margin-inline:auto; padding:clamp(16px,4vw,28px); text-align:center; }
-
-    /* ---------- Header with hero photo (variables come from front-matter) ---------- */
-    header.hero{
-      position:relative; color:#fff;
-      padding: clamp(0.8em, 3vw, 1.2em) 0 clamp(10px, 2vw, 16px);
-      overflow:visible; /* so the wave inside can show */
+    /* -------------------- Design Tokens (Moss palette) -------------------- */
+    :root{
+      --soil:#3B2A1F;        /* headings, primary UI */
+      --kraft:#EAE6DF;       /* page background */
+      --offwhite:#FAF7F2;    /* cards/pills bg */
+      --logo-orange:#C46A2A; /* warm accent / hovers */
+      --salmon:#E8A084;      /* soft highlight */
+      --accent:#6B8D6A;      /* moss pop */
+      --ink:#111111;         /* body text */
+      --maxw:1100px;
     }
-    header.hero::before{
-      content:""; position:absolute; inset:0; z-index:-1;
+
+    /* -------------------- Base -------------------- */
+    *,*::before,*::after{ box-sizing: border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0; color:var(--ink); font-family: Calibri, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      /* subtle kraft texture (decorative) */
       background:
-        linear-gradient(rgba(99,55,71, var(--hero-tint, .6)),
-                        rgba(99,55,71, var(--hero-tint, .6))),
-        var(--hero-url) no-repeat;
-      background-position: var(--hero-pos, center 40%);
-      background-size: cover;
-      opacity: var(--hero-opacity, 1); /* 1 = fully visible image */
+        radial-gradient(1px 1px at 20% 30%, rgba(0,0,0,.04) 50%, transparent 51%),
+        radial-gradient(1px 1px at 80% 60%, rgba(0,0,0,.035) 50%, transparent 51%),
+        radial-gradient(1px 1px at 40% 80%, rgba(0,0,0,.03) 50%, transparent 51%),
+        linear-gradient(0deg, rgba(255,255,255,.6), rgba(255,255,255,.6)),
+        var(--kraft);
+      background-size:120px 120px,140px 140px,160px 160px,auto,auto;
+      background-attachment:fixed;
+    }
+    @media (prefers-reduced-transparency: reduce){
+      body{ background: var(--kraft); }
     }
 
-    .header-content{
-      display:flex; align-items:center; justify-content:center; gap:1em;
-      max-width:1100px; margin:0 auto; padding:0 clamp(16px,2vw,24px);
-    }
-    .header-content img{ width:130px; border-radius:12px; }
-    .header-text{ text-align:left; }
-    .header-text p{ margin:.3em 0 0; color:#ffdc8f; }
+    img,svg,video{ max-width:100%; height:auto; display:block; }
+    h1{ color:var(--soil); font-size: clamp(1.8rem, 5.5vw, 2.4rem); margin:.4em 0 .2em; }
+    h2{ color:var(--soil); font-size: clamp(1.3rem, 3.6vw, 1.6rem); margin:1.2em 0 .6em; }
+    p{ font-size: clamp(1rem, 2.6vw, 1.125rem); line-height:1.6; margin:.6em 0; }
+    a{ color:var(--accent); text-decoration-thickness:.08em; text-underline-offset:.18em; }
+    a:hover{ color:var(--logo-orange); }
 
-    /* ---------- Wave + Circles (inside header; fully transparent background) ---------- */
-    .wave-nav{
-      position:relative; background:transparent;
-      overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch;
-      min-height:160px; scrollbar-width:none;
-      margin-top: clamp(8px, 1.2vw, 12px);
-    }
-    .wave-nav::-webkit-scrollbar{ display:none; height:0; } /* WebKit */
+    .container{ width:min(100%, var(--maxw)); margin:0 auto; padding:0 clamp(12px,2vw,20px); }
 
-    .wave-track{ position:relative; height:100%; min-width:1100px; }
-    .wave{
-      width:100%; height:100%; display:block;
-      filter:
-        drop-shadow(0 18px 24px rgba(0,0,0,.26))
-        drop-shadow(0 2px 0 rgba(0,0,0,.08));
+    /* -------------------- Header / Banner -------------------- */
+    header.site-header{
+      padding: .6rem 0 0;
+    }
+    .brand{
+      display:flex; align-items:center; gap:.8rem;
+    }
+    .brand img.logo{
+      width: 68px; height:auto;
+    }
+    .brand .titles{
+      display:flex; flex-direction:column;
+    }
+    .brand h1{ margin:0; }
+    .brand .tagline{
+      font-weight:600; color: color-mix(in srgb, var(--soil) 70%, #fff 30%);
+      font-size: clamp(.95rem, 2.4vw, 1.05rem);
     }
 
-    .circle-nav{ position:absolute; inset:0; pointer-events:none; }
-    .circle{
-      position:absolute; width:var(--size); height:var(--size);
-      --size: clamp(80px, 9.25vw, 112px);
-      pointer-events:auto;
-    }
-    .circle-btn{
-      position:absolute; inset:0; border:0; border-radius:50%;
-      display:flex; align-items:center; justify-content:center; text-align:center;
-      padding:6px; line-height:1.1; font-weight:800;
-      font-size:clamp(.9rem, 1.1vw, 1rem);
-      background:#ffdc8f; color:#000; cursor:pointer;
-      box-shadow:0 14px 28px rgba(0,0,0,.28), 0 2px 0 rgba(255,255,255,.6) inset;
-      transition: transform .15s ease, background .15s ease, color .15s ease;
-      z-index:1;
-    }
-    .circle-btn:hover{ transform:translateY(-2px); background:#633747; color:#fff; }
+    /* -------------------- Hero wave (decorative) -------------------- */
+    .hero-wave{ margin-bottom: clamp(8px, 2vw, 18px); }
+    .hero-wave svg{ display:block; width:100%; height:auto; }
 
-    /* ---------- Flyout pills (tight arc on the right) ---------- */
-    .flyout{ position:absolute; inset:0; pointer-events:none; opacity:0;
-             transition:opacity .18s ease; z-index:2; }
-    .circle:hover .flyout, .circle:focus-within .flyout{ opacity:1; pointer-events:auto; }
+    /* -------------------- Hub: Bubbles + pills (accordion) -------------------- */
+    .hub{
+      display:grid; gap:1.2rem;
+      grid-template-columns: repeat( auto-fit, minmax(240px,1fr) );
+      align-items:start;
+      margin: clamp(12px,2vw,20px) auto;
+    }
+    .hub-group{
+      background: color-mix(in srgb, var(--offwhite) 92%, white);
+      border:1px solid color-mix(in srgb, var(--soil) 18%, transparent);
+      border-radius:16px; padding:.9rem;
+      box-shadow:0 2px 6px rgba(0,0,0,.05);
+    }
+    .bubble{
+      width:100%;
+      border-radius:999px;
+      padding:.8rem 1rem;
+      font-weight:800;
+      background:var(--offwhite);
+      color:var(--soil);
+      border:2px solid color-mix(in srgb, var(--soil) 25%, transparent);
+      transition:background .18s ease, color .18s ease, transform .18s ease, border-color .18s ease;
+      min-height:44px;
+    }
+    .bubble:hover{ background:var(--logo-orange); color:#fff; transform:translateY(-2px); }
+    .bubble:focus-visible{ outline:3px solid var(--accent); outline-offset:3px; }
+    .pill-panel{
+      overflow:hidden;
+      transition:max-height .25s ease;
+      will-change:max-height;
+    }
+    @media (prefers-reduced-motion: reduce){
+      .pill-panel{ transition:none; }
+    }
+    .pill-list{ display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.7rem; }
     .pill{
-      position:absolute; background:#ffdc8f; color:#000;
-      font-weight:700; font-size:.9rem; white-space:nowrap;
-      padding:.45em .9em; border-radius:999px;
-      box-shadow:0 10px 20px rgba(0,0,0,.22); text-decoration:none; outline:0;
-      transition:transform .15s ease, background .15s ease, color .15s ease, box-shadow .15s ease;
+      display:inline-flex; align-items:center; gap:.4rem;
+      background:#fff; color:var(--soil);
+      border-radius:999px; padding:.48rem .9rem;
+      border:1px solid color-mix(in srgb, var(--soil) 20%, transparent);
+      font-weight:600; line-height:1; min-height:40px;
+      transition:background .15s ease, color .15s ease, border-color .15s ease, transform .15s ease;
     }
-    .pill:hover, .pill:focus-visible{ background:#633747; color:#fff; transform:translateY(-1px);
-                                      box-shadow:0 12px 24px rgba(0,0,0,.28); }
+    .pill:hover{ background:var(--accent); color:#fff; border-color:transparent; transform:translateY(-1px); }
+    .pill:focus-visible{ outline:3px solid var(--accent); outline-offset:3px; }
+
+    /* -------------------- Main content spacing -------------------- */
+    main{ padding-bottom: 2rem; }
   </style>
 </head>
 
 <body>
-  <!-- Header + hero + wave nav (wave sits INSIDE header so the photo shows behind circles) -->
-  <header class="hero"
-    style="
-      --hero-url: url('{{ page.hero | default: '/assets/img/placeholder-header.jpg' | relative_url }}');
-      --hero-pos: {{ page.hero_pos | default: 'center 40%' }};
-      --hero-opacity: {{ page.hero_opacity | default: 1 }};
-      --hero-tint: {{ page.hero_tint | default: .60 }};
-    ">
-    <div class="header-content">
-      <img
-        src="{{ '/assets/img/IMG_3241.PNG' | absolute_url }}?v={{ site.time | date: '%s' }}"
-        alt="Logo for the Golden Trowel Project."
-        loading="lazy" decoding="async" fetchpriority="low">
-      <div class="header-text">
-        <h1>Recognizing power. Reclaiming safety.</h1>
-        <p>Practical tools. Powerful boundaries. Safer fieldwork.</p>
+  <header class="site-header">
+    <div class="container brand">
+      <!-- swap src for your real logo -->
+      <img class="logo" src="{{ '/assets/logo.png' | relative_url }}" alt="Golden Trowel Project logo">
+      <div class="titles">
+        <h1>{{ site.title | default: "Recognizing power. Reclaiming safety." }}</h1>
+        <div class="tagline">Practical tools. Powerful boundaries. Safer fieldwork.</div>
       </div>
     </div>
 
-    <!-- Wave + Circle Nav -->
-    <section class="wave-nav" aria-label="Primary navigation">
-      <div class="wave-track">
-        <svg class="wave" preserveAspectRatio="none" aria-hidden="true"></svg>
-
-        <nav class="circle-nav">
-          <div class="circle" data-label="Home" data-href="{{ '/' | relative_url }}">
-            <button class="circle-btn" type="button">Home</button>
-            <div class="flyout"></div>
-          </div>
-
-          <div class="circle" data-label="Preparing" data-href="{{ '/preparing.html' | relative_url }}">
-            <button class="circle-btn" type="button">Preparing</button>
-            <div class="flyout">
-              <a class="pill" href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing" target="_blank" rel="noopener">Pre-Fieldwork Safety Checklist</a>
-            </div>
-          </div>
-
-          <div class="circle" data-label="Reporting" data-href="{{ '/reporting.html' | relative_url }}">
-            <button class="circle-btn" type="button">Reporting</button>
-            <div class="flyout">
-              <a class="pill" href="{{ '/statelaw.html' | relative_url }}">USA Laws by State</a>
-              <a class="pill" href="{{ '/internationallaw.html' | relative_url }}">International Laws by Country</a>
-              <a class="pill" href="{{ '/titleIX.html' | relative_url }}">Title IX Reporting by University</a>
-              <a class="pill" href="{{ '/fundingethics.html' | relative_url }}">Funding &amp; Professional Associations</a>
-            </div>
-          </div>
-
-          <div class="circle" data-label="Surveys" data-href="{{ '/surveys.html' | relative_url }}">
-            <button class="circle-btn" type="button">Surveys</button>
-            <div class="flyout">
-              <a class="pill" href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank" rel="noopener">Fieldwork Misconduct Survey</a>
-              <a class="pill" href="https://forms.gle/9DjrMVNP2oUu1GDD8" target="_blank" rel="noopener">Website Feedback Survey</a>
-            </div>
-          </div>
-
-          <div class="circle" data-label="Contact" data-href="mailto:anthrosafetywarrior@gmail.com">
-            <button class="circle-btn" type="button">Contact</button>
-            <div class="flyout"></div>
-          </div>
-        </nav>
-      </div>
-    </section>
+    <!-- Decorative wave strip -->
+    <div class="hero-wave" aria-hidden="true" role="presentation">
+      <!-- simple blended wave; replace with your SVG if desired -->
+      <svg viewBox="0 0 1440 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,64 C160,120 320,8 480,48 C640,88 800,168 960,128 C1120,88 1280,16 1440,64 L1440,160 L0,160 Z"
+              fill="#63374722"></path>
+        <path d="M0,100 C160,140 320,40 480,70 C640,100 800,160 960,120 C1120,80 1280,30 1440,70 L1440,160 L0,160 Z"
+              fill="#00000018"></path>
+      </svg>
+    </div>
   </header>
 
-  <main>
+  <main class="container">
     {{ content }}
   </main>
 
-  <!-- Wave + circles + flyout arc positioning -->
+  <!-- Accessible accordion behavior for .bubble/.pill-panel -->
   <script>
-  (() => {
-    const wrap  = document.querySelector('.wave-nav');
-    const track = wrap?.querySelector('.wave-track');
-    const svg   = track?.querySelector('svg.wave');
-    const circles = track?.querySelectorAll('.circle') || [];
-    if (!wrap || !track || !svg || !circles.length) return;
+  (function(){
+    const groups = document.querySelectorAll('.hub-group');
+    if(!groups.length) return;
 
-    const WAVES = 5;
-    const AMPFR = 0.24;
-    const BASE  = 0.46;
-    const FILL1 = '#eae6df';
-
-    function setHeight(){
-      const any = circles[0];
-      const size = any ? (any.offsetHeight || parseFloat(getComputedStyle(any).width)) : 96;
-      const h = Math.max(170, size * 1.75);
-      wrap.style.height = h + 'px';
-    }
-
-    function positionFlyout(circleEl){
-      const flyout = circleEl.querySelector('.flyout');
-      const pills  = flyout ? flyout.querySelectorAll('.pill') : [];
-      if (!flyout || !pills.length) return;
-
-      const rect = circleEl.getBoundingClientRect();
-      const size = rect.width;
-      const cx = size/2, cy = size/2;
-
-      const R = size * 0.9;   // close to the circle
-      const SPREAD = 50;      // tight fan
-      const CENTER = 0;       // to the right
-
-      const m = pills.length;
-      pills.forEach((pill, i) => {
-        const t = (m === 1) ? 0 : (i/(m-1) - 0.5);
-        const rad = (CENTER + t*SPREAD) * Math.PI/180;
-        const x = cx + Math.cos(rad) * (R + size*0.05);
-        const y = cy + Math.sin(rad) * (R + size*0.05);
-        pill.style.left = x + 'px';
-        pill.style.top  = y + 'px';
-      });
-    }
-
-    function draw(){
-      const vw = wrap.clientWidth;
-      const W  = Math.max(vw, 1280);
-      track.style.width = W + 'px';
-      svg.style.width   = W + 'px';
-
-      const H = wrap.clientHeight || wrap.getBoundingClientRect().height;
-      const A = AMPFR * H;
-      const k = (2*Math.PI*WAVES) / W;
-
-      const N = 260;
-      let d = `M 0 ${BASE*H + A*Math.sin(0)}`;
-      for (let i=1;i<=N;i++){
-        const x = (i/N)*W;
-        const y = BASE*H + A*Math.sin(k*x);
-        d += ` L ${x} ${y}`;
+    function setPanelState(btn, panel, expanded){
+      btn.setAttribute('aria-expanded', expanded);
+      if(expanded){
+        panel.hidden = false;
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+        panel.addEventListener('transitionend', () => { panel.style.maxHeight = 'none'; }, { once:true });
+      }else{
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+        requestAnimationFrame(() => { panel.style.maxHeight = '0px'; });
+        panel.addEventListener('transitionend', () => { panel.hidden = true; }, { once:true });
       }
-      d += ` L ${W} ${H} L 0 ${H} Z`;
-      svg.innerHTML = '';
-      const p = document.createElementNS('http://www.w3.org/2000/svg','path');
-      p.setAttribute('d', d);
-      p.setAttribute('fill', FILL1);
-      svg.appendChild(p);
-
-      const pad = Math.max(48, W * 0.03);
-      circles.forEach((circleEl, n) => {
-        const size = parseFloat(getComputedStyle(circleEl).getPropertyValue('--size')) || circleEl.offsetWidth;
-        const theta = Math.PI/2 + 2*Math.PI*n;
-        let x = theta / k; x = Math.max(pad, Math.min(W - pad, x));
-
-        const yCurve = BASE*H + A*Math.sin(k*x);
-        const INSET_FR = 0.38;
-        const inset    = A * INSET_FR;
-
-        const baseLift  = size * 0.52;
-        const dropHuge  = Math.max(0, size - 96) * 0.40;
-        const extraLift = H * 0.05;
-        const lift      = baseLift - dropHuge + extraLift;
-
-        const left = x - size/2;
-        let top    = yCurve - inset - size/2 - lift;
-        circleEl.style.left = left + 'px';
-        circleEl.style.top  = Math.max(6, top) + 'px';
-
-        const href = circleEl.getAttribute('data-href');
-        const btn  = circleEl.querySelector('.circle-btn');
-        if (btn && href) btn.onclick = () => { location.href = href; };
-
-        positionFlyout(circleEl);
-      });
     }
 
-    setHeight();
-    draw();
-    addEventListener('resize', () => { setHeight(); draw(); }, { passive:true });
+    groups.forEach(g => {
+      const btn   = g.querySelector('.bubble');
+      const panel = g.querySelector('.pill-panel');
+      if(!btn || !panel) return;
+
+      // initialize collapsed
+      btn.setAttribute('aria-expanded','false');
+      panel.hidden = true;
+      panel.style.maxHeight = '0px';
+
+      btn.addEventListener('click', () => {
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        setPanelState(btn, panel, !expanded);
+      });
+
+      // keyboard helpers
+      btn.addEventListener('keydown', (e) => {
+        if(e.key === 'ArrowDown'){ e.preventDefault(); setPanelState(btn, panel, true); }
+        if(e.key === 'ArrowUp'){   e.preventDefault(); setPanelState(btn, panel, false); }
+      });
+    });
+
+    // OPTIONAL: only one open at a time
+    // document.addEventListener('click', (e)=>{
+    //   if(!e.target.classList.contains('bubble')) return;
+    //   const current = e.target.closest('.hub-group');
+    //   document.querySelectorAll('.hub-group').forEach(g=>{
+    //     if(g === current) return;
+    //     const b=g.querySelector('.bubble'), p=g.querySelector('.pill-panel');
+    //     if(b && p && b.getAttribute('aria-expanded')==='true'){ setPanelState(b,p,false); }
+    //   });
+    // });
   })();
   </script>
 </body>
