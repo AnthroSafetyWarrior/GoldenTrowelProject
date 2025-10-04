@@ -9,16 +9,19 @@
 
   <style>
     /* -------------------- Design Tokens (Moss palette) -------------------- */
-    :root{
-      --soil:#3B2A1F;        /* headings, primary UI */
-      --kraft:#EAE6DF;       /* page background */
-      --offwhite:#FAF7F2;    /* cards/pills bg */
-      --logo-orange:#C46A2A; /* warm accent / hovers */
-      --salmon:#E8A084;      /* soft highlight */
-      --accent:#6B8D6A;      /* moss pop */
-      --ink:#111111;         /* body text */
-      --maxw:1100px;
-    }
+:root{
+  --soil:#3B2A1F;
+  --kraft:#EAE6DF;
+  --offwhite:#FAF7F2;
+  --moss:#6B8D6A;
+  --gold:#E8C15A;              /* warm yellow from logo */
+  --orange-soft:#E8A074;       /* pastel orange */
+  --ink:#111111;
+  --maxw:1100px;
+
+  /* gradient band top color (taupe/cream-grey) */
+  --taupe:#CFC6BA;             /* tweak if needed */
+}
 
     /* -------------------- Base -------------------- */
     *,*::before,*::after{ box-sizing: border-box; }
@@ -127,29 +130,34 @@
   pointer-events: none; /* so clicks pass unless on buttons */
 }
 .wave-links{
-  pointer-events: auto;
   display:grid; grid-template-columns: repeat(5, 1fr);
   gap: clamp(6px,1.6vw,14px);
-  width:min(100%, var(--maxw));
-  margin: 0 auto; padding: 0 clamp(12px,2vw,20px);
-  list-style: none;
+  width:min(100%, var(--maxw)); margin:0 auto; padding:0 clamp(12px,2vw,20px);
+  list-style:none;
 }
 .wave-links li{ display:flex; justify-content:center; }
 .bubble-link{
   display:flex; align-items:center; justify-content:center;
   width: clamp(68px, 10vw, 104px); height: clamp(68px, 10vw, 104px);
-  border-radius: 999px;
-  background: var(--offwhite);
-  color: var(--soil); text-decoration:none; font-weight:800;
-  border: 2px solid color-mix(in srgb, var(--soil) 25%, transparent);
-  box-shadow: 0 8px 0 rgba(0,0,0,.12), 0 2px 8px rgba(0,0,0,.08);
-  transition: transform .15s ease, background .15s ease, color .15s ease, box-shadow .15s ease;
+  border-radius:999px; text-decoration:none; font-weight:800;
+  transition: transform .15s ease, background .15s ease, color .15s ease, box-shadow .15s ease, border-color .15s ease;
 }
-.bubble-link:hover, .bubble-link:focus-visible{
-  background: var(--logo-orange); color:#fff; transform: translateY(-2px);
-  outline:3px solid var(--accent); outline-offset:3px;
+.bubble-link:focus-visible{ outline:3px solid var(--gold); outline-offset:3px; }
+
+/* B: moss with gold outline */
+.wave-links.style--moss-gold .bubble-link{
+  background: var(--offwhite); color: var(--soil);
+  border: 3px solid color-mix(in srgb, var(--gold) 70%, transparent);
+  box-shadow: 0 8px 0 rgba(0,0,0,.10), 0 2px 8px rgba(0,0,0,.08);
+}
+.wave-links.style--moss-gold .bubble-link:hover,
+.wave-links.style--moss-gold .bubble-link[aria-current="page"]{
+  background: var(--moss); color:#fff;
+  border-color: var(--gold);
+  transform: translateY(-2px);
   box-shadow: 0 12px 0 rgba(0,0,0,.12), 0 6px 14px rgba(0,0,0,.12);
 }
+
 
 /* Fallback to rectangular bar on smaller screens for clarity */
 @media (max-width:720px){
@@ -165,7 +173,7 @@
   <header class="site-header">
     <div class="container brand">
       <!-- swap src for your real logo -->
-      <img class="logo" src="{{ '/assets/logo.png' | relative_url }}" alt="Golden Trowel Project logo">
+      <img class="logo" src="{{ '/assets/img/IMG_3241.PNG' | relative_url }}" alt="Golden Trowel Project logo">
       <div class="titles">
         <h1>{{ site.title | default: "Recognizing power. Reclaiming safety." }}</h1>
         <div class="tagline">Practical tools. Powerful boundaries. Safer fieldwork.</div>
@@ -184,7 +192,7 @@
     </div>
   </header>
 <div class="wave-nav" aria-label="Main">
-  <ul class="wave-links">
+  <ul class="wave-links style--moss-gold">…</ul>
     <li><a class="bubble-link" href="/">Home</a></li>
     <li><a class="bubble-link" href="/preparing/">Preparing</a></li>
     <li><a class="bubble-link" href="/reporting/">Reporting</a></li>
