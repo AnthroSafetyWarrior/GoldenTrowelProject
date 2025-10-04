@@ -9,11 +9,22 @@
 
   <style>
     /* =============== Design Tokens (Moss palette) =============== */
-/* --- Tokens for band colors --- */
 :root{
-  --banner:#DED7CC;     /* light taupe strip behind the waves */
-  --wave-dark:#8A7C82;  /* darkest wave tone (start of the short band) */
+  --soil:#3B2A1F;
+  --kraft:#EAE6DF;   /* page background (cream) */
+  --offwhite:#FAF7F2;
+  --moss:#6B8D6A;
+  --gold:#E8C15A;
+  --logo-orange:#C46A2A;
+  --accent:#6B8D6A;
+  --ink:#111;
+  --maxw:1100px;
+
+  /* wave section colors */
+  --banner:#DED7CC;     /* light taupe area behind the waves */
+  --wave-dark:#8A7C82;  /* solid dark band behind the buttons */
 }
+
 
 /* --- Per-page header photo (tint with page bg, not purple) --- */
 .page-hero{
@@ -24,51 +35,47 @@
   position:relative; overflow:hidden;
 }
 /* Creamy wash (uses page bg) instead of purple */
+.page-hero{
+  width:100%;
+  height:clamp(220px, 32vw, 380px);
+  background:center/cover no-repeat;
+  background-image: var(--hero, none);
+  position:relative; overflow:hidden;
+}
+
+/* Creamy wash using page bg (no purple) */
 .page-hero::before{
   content:""; position:absolute; inset:0; pointer-events:none;
   background: color-mix(in srgb, var(--kraft) calc( (var(--hero-tint, .30)) * 100% ), transparent);
 }
-/* Fade photo → banner (so waves sit on same color) */
-.page-hero::after{
-  content:""; position:absolute; inset:0; pointer-events:none;
-  background: linear-gradient(to bottom,
-              color-mix(in srgb, var(--banner) 0%, transparent) 60%,
-              color-mix(in srgb, var(--banner) 45%, transparent) 78%,
-              var(--banner) 100%);
-}
+
+/* REMOVE the tan gradient into the photo */
+.page-hero::after{ content:none; }
+
 
 /* --- Wave section is the “banner” strip --- */
+/* Wave section background (same light taupe you liked) */
 .hero-wave{ position:relative; background: var(--banner); }
 .hero-wave svg{ display:block; width:100%; height:auto; position:relative; z-index:0; }
 
-/* Short gradient behind buttons: darkest wave → page bg */
+/* SOLID band behind buttons: darkest wave color (no gradient) */
 .nav-gradient{
   position:relative; z-index:1;
-  height:clamp(36px, 6vw, 60px);
-  background: linear-gradient(
-    to bottom,
-    var(--wave-dark) 0%,
-    color-mix(in srgb, var(--wave-dark) 50%, var(--kraft) 50%) 60%,
-    var(--kraft) 100%
-  );
-  border-top:1px solid color-mix(in srgb, var(--soil) 10%, transparent);
-  border-bottom:1px solid color-mix(in srgb, var(--soil) 10%, transparent);
+  height: clamp(42px, 6vw, 64px);
+  background: var(--wave-dark);
+  border-top: 1px solid color-mix(in srgb, #000 8%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, #000 8%, transparent);
 }
 
-/* --- Buttons now live INSIDE the wave section and sit ON it --- */
+/* Buttons are part of the wave section and sit on the band */
 .wave-nav{
-  position:absolute; left:0; right:0; bottom:0;    /* anchored to the wave section */
-  transform: translateY(30%);                      /* lifts into the gradient band */
-  z-index:2;                                       /* above wave + gradient */
-  pointer-events:none;                             /* only buttons receive events */
+  position:absolute; left:0; right:0; bottom:0;
+  transform: translateY(28%);   /* nudge to center on the dark band */
+  z-index:2;
+  pointer-events:none;
 }
-.wave-links{
-  pointer-events:auto;
-  display:grid; grid-template-columns:repeat(5,1fr);
-  gap:clamp(6px,1.6vw,14px);
-  width:min(100%, var(--maxw)); margin:0 auto; padding:0 clamp(12px,2vw,20px);
-  list-style:none;
-}
+.wave-links{ pointer-events:auto; }
+@media (max-width:720px){ .wave-nav{ transform: translateY(22%); } }
 .wave-links li{ display:flex; justify-content:center; }
 .bubble-link{
   display:flex; align-items:center; justify-content:center;
