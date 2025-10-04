@@ -86,26 +86,39 @@
     .hero-wave{ position:relative; background: transparent; }
     .hero-wave svg{ display:block; width:100%; height:auto; }
 
-    /* gradient strip behind the buttons */
-    .nav-gradient{
-      position: relative;
-      height: clamp(42px, 6vw, 64px);
-      margin-top: -10px; /* tucks into trough a bit */
-      background: linear-gradient(to bottom, var(--band-grad-top) 0%, var(--band-grad-bottom) 100%);
-      border-top: 1px solid rgba(0,0,0,.08);
-      border-bottom: 1px solid rgba(0,0,0,.08);
-    }
+/* gradient band behind the buttons — extended */
+.nav-gradient{
+  position: relative;
+  /* let it grow instead of being a thin strip */
+  height: auto;
+  min-height: clamp(140px, 18vw, 220px);   /* extend downward */
+  padding: 0 0 clamp(28px, 6vw, 56px);     /* extra bottom to reach the text */
+  margin-top: -10px;                        /* tucks up into the wave */
+  background: linear-gradient(
+    to bottom,
+    var(--band-grad-top) 0%,
+    var(--band-grad-bottom) 100%
+  );
+  /* remove the hairline rules */
+  border-top: none;
+  border-bottom: none;
+  box-shadow: none;
+}
+
 
     /* ============== Five-circle Nav (the “old” buttons) ============== */
-    .wave-nav{ position: relative; margin-top: -50px; pointer-events:none; }
-    .wave-links{
-      pointer-events:auto;
-      display:grid; grid-template-columns: repeat(5, 1fr);
-      gap: clamp(6px,1.6vw,14px);
-      width:min(100%, var(--maxw)); margin:0 auto; padding:0 clamp(12px,2vw,20px);
-      list-style:none;
-    }
-    .wave-links li{ display:flex; justify-content:center; }
+/* five-circle nav positioning over the band */
+.wave-nav{
+  position: relative;
+  margin-top: -50px;     /* how much they overlap the wave */
+  pointer-events: none;
+}
+.wave-links{ pointer-events:auto; }
+
+/* optional: on small screens, overlap a bit less */
+@media (max-width:720px){
+  .wave-nav{ margin-top:-42px; }
+}
 
     .bubble-link{
       display:flex; align-items:center; justify-content:center;
