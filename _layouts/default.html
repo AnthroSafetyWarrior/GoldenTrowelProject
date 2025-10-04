@@ -85,37 +85,31 @@
     /* ============== Classic Waves + Band (inside header) ============== */
     .hero-wave{ position:relative; background: transparent; }
     .hero-wave svg{ display:block; width:100%; height:auto; }
+/* kill any tiny seam between SVG and band */
+.hero-wave svg{ display:block; width:100%; height:auto; margin-bottom:-2px; }
 
-/* gradient band behind the buttons — extended & seam-less */
+/* gradient band that now wraps the nav */
 .nav-gradient{
   position: relative;
   z-index: 0;
-  margin-top: -36px;                 /* tuck under the SVG crest to hide the line */
-  height: auto;
-  min-height: clamp(240px, 28vw, 420px);  /* reach down to the body text */
-  padding-bottom: clamp(28px, 6vw, 56px);
+  margin-top: -28px; /* tucks under the SVG trough */
   background: linear-gradient(to bottom, var(--band-grad-top) 0%, var(--band-grad-bottom) 100%);
-  border-top: none;
-  border-bottom: none;
+  padding: clamp(8px, 2vw, 16px) 0 clamp(36px, 6vw, 72px); /* space above & below buttons */
+  min-height: clamp(220px, 28vw, 420px); /* extend down behind buttons to body text */
+  border: none;
   box-shadow: none;
 }
 
-/* tiny nudge so the SVG and gradient don't leave a 1px seam */
-.hero-wave svg{ display:block; width:100%; height:auto; margin-bottom:-2px; }
-
-
-    /* ============== Five-circle Nav (the “old” buttons) ============== */
-/* five-circle nav positioning over the band */
+/* five-circle nav layout */
 .wave-nav{
   position: relative;
-  margin-top: -50px;     /* overlap amount with the band */
-  pointer-events: none;
+  margin-top: clamp(-34px, -3.5vw, -18px); /* slight overlap into the trough */
+  pointer-events: none; /* keep bubbles clickable only */
 }
 
-/* HORIZONTAL grid + no bullets */
 .wave-links{
   pointer-events:auto;
-  list-style:none;            /* remove bullets */
+  list-style:none;
   margin:0;
   padding:0 clamp(12px,2vw,20px);
   display:grid;
@@ -127,10 +121,10 @@
 .wave-links li{ display:flex; justify-content:center; }
 
 @media (max-width:720px){
-  .wave-nav{ margin-top:-42px; }
-  /* optional: wrap to 3 columns on small screens */
+  .wave-nav{ margin-top:-22px; }
   .wave-links{ grid-template-columns: repeat(3, 1fr); }
 }
+
 
     .bubble-link{
       display:flex; align-items:center; justify-content:center;
@@ -189,21 +183,16 @@
     </div>
 
     <!-- CLASSIC WAVES INSIDE THE HEADER -->
-    <div class="hero-wave" aria-hidden="true" role="presentation">
-      <svg viewBox="0 0 1440 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- light mid-tone wave -->
-        <path d="M0,64 C160,120 320,8 480,48 C640,88 800,168 960,128 C1120,88 1280,16 1440,64 L1440,160 L0,160 Z"
-              fill="{{ '#c9beb7' }}"></path>
-        <!-- darker crest wave -->
-        <path d="M0,100 C160,140 320,40 480,70 C640,100 800,160 960,120 C1120,80 1280,30 1440,70 L1440,160 L0,160 Z"
-              fill="{{ '#baafa8' }}"></path>
-      </svg>
+<div class="hero-wave" aria-hidden="true" role="presentation">
+  <svg viewBox="0 0 1440 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- light mid-tone wave -->
+    <path d="M0,64 C160,120 320,8 480,48 C640,88 800,168 960,128 C1120,88 1280,16 1440,64 L1440,160 L0,160 Z" fill="#c9beb7"></path>
+    <!-- darker crest wave -->
+    <path d="M0,100 C160,140 320,40 480,70 C640,100 800,160 960,120 C1120,80 1280,30 1440,70 L1440,160 L0,160 Z" fill="#baafa8"></path>
+  </svg>
 
-      <!-- gradient band behind the circle buttons -->
-      <div class="nav-gradient"></div>
-    </div>
-
-    <!-- FIVE CIRCLE BUTTONS -->
+  <!-- gradient band now WRAPS the nav -->
+  <div class="nav-gradient">
     <nav class="wave-nav" aria-label="Main">
       <ul class="wave-links">
         <li><a class="bubble-link" href="{{ '/' | relative_url }}" aria-current="{% if page.url == '/' %}page{% endif %}">Home</a></li>
@@ -213,6 +202,9 @@
         <li><a class="bubble-link" href="{{ '/contact/'    | relative_url }}" aria-current="{% if page.url contains '/contact/' %}page{% endif %}">Contact</a></li>
       </ul>
     </nav>
+  </div>
+</div>
+
   </header>
 
   <main>
