@@ -86,52 +86,65 @@
     .hero-wave{ position:relative; background: transparent; }
     .hero-wave svg{ display:block; width:100%; height:auto; }
 
-/* gradient band behind the buttons — extended */
+/* gradient band behind the buttons — extended & seam-less */
 .nav-gradient{
   position: relative;
-  /* let it grow instead of being a thin strip */
+  z-index: 0;
+  margin-top: -36px;                 /* tuck under the SVG crest to hide the line */
   height: auto;
-  min-height: clamp(140px, 18vw, 220px);   /* extend downward */
-  padding: 0 0 clamp(28px, 6vw, 56px);     /* extra bottom to reach the text */
-  margin-top: -10px;                        /* tucks up into the wave */
-  background: linear-gradient(
-    to bottom,
-    var(--band-grad-top) 0%,
-    var(--band-grad-bottom) 100%
-  );
-  /* remove the hairline rules */
+  min-height: clamp(240px, 28vw, 420px);  /* reach down to the body text */
+  padding-bottom: clamp(28px, 6vw, 56px);
+  background: linear-gradient(to bottom, var(--band-grad-top) 0%, var(--band-grad-bottom) 100%);
   border-top: none;
   border-bottom: none;
   box-shadow: none;
 }
+
+/* tiny nudge so the SVG and gradient don't leave a 1px seam */
+.hero-wave svg{ display:block; width:100%; height:auto; margin-bottom:-2px; }
+
 
 
     /* ============== Five-circle Nav (the “old” buttons) ============== */
 /* five-circle nav positioning over the band */
 .wave-nav{
   position: relative;
-  margin-top: -50px;     /* how much they overlap the wave */
+  margin-top: -50px;     /* overlap amount with the band */
   pointer-events: none;
 }
-.wave-links{ pointer-events:auto; }
 
-/* optional: on small screens, overlap a bit less */
+/* HORIZONTAL grid + no bullets */
+.wave-links{
+  pointer-events:auto;
+  list-style:none;            /* remove bullets */
+  margin:0;
+  padding:0 clamp(12px,2vw,20px);
+  display:grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: clamp(6px,1.6vw,14px);
+  width:min(100%, var(--maxw));
+  margin-inline:auto;
+}
+.wave-links li{ display:flex; justify-content:center; }
+
 @media (max-width:720px){
   .wave-nav{ margin-top:-42px; }
+  /* optional: wrap to 3 columns on small screens */
+  .wave-links{ grid-template-columns: repeat(3, 1fr); }
 }
 
     .bubble-link{
       display:flex; align-items:center; justify-content:center;
       width: clamp(68px, 10vw, 104px); height: clamp(68px, 10vw, 104px);
       border-radius:999px; text-decoration:none; font-weight:800;
-      background: var(--offwhite); color: var(--soil);
+      background: var(--gold); color: var(--soil);
       border: 3px solid var(--gold);
       box-shadow: 0 8px 0 rgba(0,0,0,.10), 0 2px 8px rgba(0,0,0,.08);
       transition: transform .15s ease, background .15s ease, color .15s ease, box-shadow .15s ease, border-color .15s ease;
     }
     .bubble-link:hover,
     .bubble-link[aria-current="page"]{
-      background: var(--moss); color:#fff; border-color: var(--gold);
+      background: var(--accent); color:#fff; border-color: var(--gold);
       transform: translateY(-2px);
       box-shadow: 0 12px 0 rgba(0,0,0,.12), 0 6px 14px rgba(0,0,0,.12);
     }
