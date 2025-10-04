@@ -11,20 +11,20 @@
     /* ============== Design Tokens ============== */
     :root{
       --soil:#3B2A1F;
-      --kraft:#EAE6DF;      /* page background */
       --offwhite:#FAF7F2;
       --moss:#6B8D6A;
-      --gold:#e8cd84;
+      --gold:#d68d15;
       --logo-orange:#8a340a;
       --accent:#6B8D6A;
       --ink:#111;
       --maxw:1100px;
 
-      /* classic wave + band colors */
+      /* Waves + band */
       --wave-mid:#c9beb7;
-      --wave-dark:#baafa8;             /* darker wave you requested */
-      --band-grad-top:#baafa8;         /* behind buttons */
-      --band-grad-bottom:#eae6df;      /* page bg end */
+      --wave-dark:#baafa8;
+      --band-grad-top:#baafa8;
+      --band-grad-mid:#cfc4bd;
+      --band-grad-bottom:#f7f5f2;
     }
 
     /* ============== Base / Layout ============== */
@@ -33,102 +33,104 @@
     body{
       margin:0; color:var(--ink);
       font-family: Calibri, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      /* kraft paper vibe */
-      background:
-        radial-gradient(1px 1px at 20% 30%, rgba(0,0,0,.04) 50%, transparent 51%),
-        radial-gradient(1px 1px at 80% 60%, rgba(0,0,0,.035) 50%, transparent 51%),
-        radial-gradient(1px 1px at 40% 80%, rgba(0,0,0,.03) 50%, transparent 51%),
-        linear-gradient(0deg, rgba(255,255,255,.6), rgba(255,255,255,.6)),
-        var(--kraft);
-      background-size:120px 120px,140px 140px,160px 160px,auto,auto;
-      background-attachment:fixed;
+      /* smooth, subtle page background */
+      background: linear-gradient(to bottom, #eae6df 0%, #f5f2ee 55%, #ffffff 100%);
+      background-attachment: fixed;
     }
-    .container{ width:min(100%, var(--maxw)); margin:0 auto; padding:0 clamp(12px,2vw,20px); }
+    main{ width:min(100%, var(--maxw)); margin-inline:auto; padding:clamp(16px,4vw,28px); }
     img,svg,video{ max-width:100%; height:auto; display:block; }
-    h1{ color:#fff; font-size:clamp(1.8rem,5.5vw,2.4rem); margin:.2em 0; }
-    h2{ color:var(--accent); font-size:clamp(1.3rem,3.6vw,1.6rem); margin:1.2em 0 .6em; }
-    p{ font-size:clamp(1rem,2.6vw,1.125rem); line-height:1.6; margin:.6em 0; }
     a{ color:var(--soil); text-decoration-thickness:.08em; text-underline-offset:.18em; }
     a:hover{ color:var(--logo-orange); }
-    main{ width:min(100%, var(--maxw)); margin-inline:auto; padding:clamp(16px,4vw,28px); }
+    h2{ color:var(--accent); font-size:clamp(1.2rem,3.4vw,1.6rem); margin:1.2em 0 .6em; }
+    p{ font-size:clamp(1rem,2.4vw,1.125rem); line-height:1.6; margin:.6em 0; }
 
     /* ============== Header + Hero (photo sits behind content) ============== */
     header.hero{
       position:relative; color:#fff;
-      padding: clamp(0.8em, 3vw, 1.2em) 0 0;
+      padding: clamp(0.6em, 2.4vw, 1.2em) 0 0;
       overflow:visible;
     }
     header.hero::before{
       content:""; position:absolute; inset:0; z-index:-1;
       background:
-        linear-gradient(rgba(99,55,71, var(--hero-tint, .6)),
-                        rgba(99,55,71, var(--hero-tint, .6))),
+        linear-gradient(rgba(99,55,71, var(--hero-tint, .55)),
+                        rgba(99,55,71, var(--hero-tint, .55))),
         var(--hero-url) no-repeat;
       background-position: var(--hero-pos, center 40%);
       background-size: cover;
-      opacity: var(--hero-opacity, 1); /* keep hero_opacity */
+      opacity: var(--hero-opacity, 1);
     }
 
     .header-content{
-      display:flex; align-items:center; justify-content:center; gap:1em;
-      max-width:1100px; margin:0 auto; padding:0 clamp(16px,2vw,24px);
+      display:flex; align-items:center; justify-content:center; gap:clamp(.6rem,2vw,1.2rem);
+      max-width:var(--maxw); margin:0 auto; padding:0 clamp(16px,2vw,24px);
       text-shadow:0 2px 10px rgba(0,0,0,.35);
     }
-    .header-content img{ width:130px; border-radius:12px; }
+    .header-content img{ width: clamp(150px, 11vw, 190px); border-radius:12px; }
     .header-text{ text-align:left; }
+    .header-text h1{
+      color:#fff; margin:.1em 0;
+      font-size: clamp(2.2rem, 6.2vw, 3.2rem);
+      line-height:1.12;
+    }
     .header-text p{
-      margin:.3em 0 0;
-      color: var(--logo-orange);   /* stronger contrast per your request */
+      margin:.35em 0 0;
+      color: var(--logo-orange);
       font-weight:700;
+      font-size: clamp(1.05rem, 2.6vw, 1.25rem);
     }
 
     /* ============== Classic Waves + Band (inside header) ============== */
-    .hero-wave{ position:relative; background: transparent; }
-    .hero-wave svg{ display:block; width:100%; height:auto; }
-/* kill any tiny seam between SVG and band */
-.hero-wave svg{ display:block; width:100%; height:auto; margin-bottom:-2px; }
+    .hero-wave{ position:relative; }
+    .hero-wave svg{
+      display:block; width:100%;
+      height: clamp(56px, 8vw, 88px);   /* smaller wave */
+      transform: scaleY(.85);           /* reduce amplitude slightly */
+      transform-origin: top;
+      margin-bottom:-2px;               /* hide seam */
+    }
 
-/* gradient band that now wraps the nav */
-.nav-gradient{
-  position: relative;
-  z-index: 0;
-  margin-top: -35px; /* tucks under the SVG trough */
-  background: linear-gradient(to bottom, var(--band-grad-top) 0%, var(--band-grad-bottom) 100%);
-  padding: clamp(10px, 2vw, 16px) 0 clamp(20px, 6vw, 72px); /* space above & below buttons */
-  min-height: clamp(90px, 28vw, 220px); /* extend down behind buttons to body text */
-  border: none;
-  box-shadow: none;
-}
+    /* Band that wraps the nav; shorter + softer fade */
+    .nav-gradient{
+      position: relative;
+      margin-top:-16px;                 /* tuck under wave */
+      padding-top: clamp(4px, .8vw, 10px);
+      padding-bottom: clamp(12px, 2.2vw, 24px);
+      min-height: clamp(110px, 14vw, 180px);   /* not so tall */
+      background: linear-gradient(
+        to bottom,
+        var(--band-grad-top) 0%,
+        var(--band-grad-mid) 45%,
+        var(--band-grad-bottom) 90%
+      );
+      border:none; box-shadow:none;
+    }
+    /* soft feather into the page */
+    .nav-gradient::after{
+      content:""; position:absolute; left:0; right:0; bottom:-1px; height:48px;
+      background: linear-gradient(to bottom, rgba(247,245,242,1) 0%, rgba(255,255,255,0) 100%);
+      pointer-events:none;
+    }
 
-/* five-circle nav layout */
-.wave-nav{
-  position: relative;
-  margin-top: clamp(-34px, -3.5vw, -18px); /* slight overlap into the trough */
-  pointer-events: none; /* keep bubbles clickable only */
-}
-
-.wave-links{
-  pointer-events:auto;
-  list-style:none;
-  margin:0;
-  padding:0 clamp(12px,2vw,20px);
-  display:grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: clamp(6px,1.6vw,14px);
-  width:min(100%, var(--maxw));
-  margin-inline:auto;
-}
-.wave-links li{ display:flex; justify-content:center; }
-
-@media (max-width:720px){
-  .wave-nav{ margin-top:-22px; }
-  .wave-links{ grid-template-columns: repeat(3, 1fr); }
-}
-
+    /* ============== Five-circle Nav ============== */
+    .wave-nav{
+      position: relative;
+      margin-top: clamp(10px, 1.8vw, 22px);   /* push bubbles down a touch */
+      pointer-events: none;
+    }
+    .wave-links{
+      pointer-events:auto;
+      list-style:none; margin:0;
+      padding:0 clamp(12px,2vw,20px);
+      display:grid; grid-template-columns: repeat(5, 1fr);
+      gap: clamp(6px,1.6vw,14px);
+      width:min(100%, var(--maxw)); margin-inline:auto;
+    }
+    .wave-links li{ display:flex; justify-content:center; }
 
     .bubble-link{
       display:flex; align-items:center; justify-content:center;
-      width: clamp(68px, 10vw, 104px); height: clamp(68px, 10vw, 104px);
+      width: clamp(64px, 9vw, 96px); height: clamp(64px, 9vw, 96px);  /* slightly smaller */
       border-radius:999px; text-decoration:none; font-weight:800;
       background: var(--gold); color: var(--soil);
       border: 3px solid var(--gold);
@@ -144,10 +146,10 @@
     .bubble-link:focus-visible{ outline:3px solid var(--gold); outline-offset:3px; }
 
     @media (max-width:720px){
-      .wave-nav{ margin-top:-42px; }
+      .wave-links{ grid-template-columns: repeat(3, 1fr); }
     }
 
-    /* ====== (Optional) Hub styles kept from your file ====== */
+    /* ====== Optional hub styles kept (unchanged) ====== */
     .hub{ display:grid; gap:1.2rem; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); align-items:start; margin:clamp(12px,2vw,20px) auto; }
     .hub-group{ background: color-mix(in srgb, var(--offwhite) 92%, white); border:1px solid color-mix(in srgb, var(--soil) 18%, transparent); border-radius:16px; padding:.9rem; box-shadow:0 2px 6px rgba(0,0,0,.05); }
     .bubble{ width:100%; border-radius:999px; padding:.8rem 1rem; font-weight:800; background:var(--offwhite); color:var(--soil); border:2px solid color-mix(in srgb, var(--soil) 25%, transparent); transition:background .18s ease, color .18s ease, transform .18s ease, border-color .18s ease; min-height:44px; }
@@ -159,37 +161,7 @@
     .pill-list .pill{ display:inline-flex; align-items:center; gap:.4rem; background:#fff; color:var(--soil); border-radius:999px; padding:.48rem .9rem; border:1px solid color-mix(in srgb, var(--soil) 20%, transparent); font-weight:600; line-height:1; min-height:40px; transition:background .15s ease, color .15s ease, border-color .15s ease, transform .15s ease; }
     .pill-list .pill:hover{ background:var(--accent); color:#fff; border-color:transparent; transform:translateY(-1px); }
     .pill-list .pill:focus-visible{ outline:3px solid var(--accent); outline-offset:3px; }
-
-/* --- Tuning: smaller wave + lower buttons --- */
-:root{
-  /* adjust these 3 if you want finer control later */
-  --wave-height: clamp(70px, 9vw, 110px);   /* ↓ shorter crest */
-  --wave-tuck: -18px;                       /* how much the gradient overlaps the wave */
-  --buttons-drop: clamp(16px, 2vw, 28px);   /* ↓ push bubbles down */
-}
-
-/* 1) smaller wave */
-.hero-wave svg{
-  height: var(--wave-height);
-  margin-bottom: calc(var(--wave-tuck) - 2px); /* keep seam hidden */
-}
-
-/* 2) keep the gradient tucked neatly under the wave */
-.nav-gradient{
-  margin-top: var(--wave-tuck);
-  /* optional: if you want a touch more air above bubbles */
-  padding-top: clamp(6px, 1.2vw, 14px);
-  /* keep enough height so the band reaches the body text */
-  min-height: clamp(180px, 22vw, 320px);
-}
-
-/* 3) shift the buttons down */
-.wave-nav{
-  margin-top: var(--buttons-drop);
-}
- 
-
- </style>
+  </style>
 </head>
 
 <body>
@@ -199,7 +171,7 @@
       --hero-url: url('{{ page.hero | default: '/assets/img/placeholder-header.jpg' | relative_url }}');
       --hero-pos: {{ page.hero_pos | default: 'center 40%' }};
       --hero-opacity: {{ page.hero_opacity | default: 1 }};
-      --hero-tint: {{ page.hero_tint | default: .60 }};
+      --hero-tint: {{ page.hero_tint | default: .55 }};
     ">
     <div class="header-content">
       <img
@@ -212,29 +184,27 @@
       </div>
     </div>
 
-    <!-- CLASSIC WAVES INSIDE THE HEADER -->
-<div class="hero-wave" aria-hidden="true" role="presentation">
-  <svg viewBox="0 0 1440 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <!-- light mid-tone wave -->
-    <path d="M0,64 C160,120 320,8 480,48 C640,88 800,168 960,128 C1120,88 1280,16 1440,64 L1440,160 L0,160 Z" fill="#c9beb7"></path>
-    <!-- darker crest wave -->
-    <path d="M0,100 C160,140 320,40 480,70 C640,100 800,160 960,120 C1120,80 1280,30 1440,70 L1440,160 L0,160 Z" fill="#baafa8"></path>
-  </svg>
+    <!-- Waves + band + nav -->
+    <div class="hero-wave" aria-hidden="true" role="presentation">
+      <svg viewBox="0 0 1440 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,64 C160,120 320,8 480,48 C640,88 800,168 960,128 C1120,88 1280,16 1440,64 L1440,160 L0,160 Z"
+              fill="{{ '#c9beb7' }}"></path>
+        <path d="M0,100 C160,140 320,40 480,70 C640,100 800,160 960,120 C1120,80 1280,30 1440,70 L1440,160 L0,160 Z"
+              fill="{{ '#baafa8' }}"></path>
+      </svg>
 
-  <!-- gradient band now WRAPS the nav -->
-  <div class="nav-gradient">
-    <nav class="wave-nav" aria-label="Main">
-      <ul class="wave-links">
-        <li><a class="bubble-link" href="{{ '/' | relative_url }}" aria-current="{% if page.url == '/' %}page{% endif %}">Home</a></li>
-        <li><a class="bubble-link" href="{{ '/preparing/'  | relative_url }}" aria-current="{% if page.url contains '/preparing/' %}page{% endif %}">Preparing</a></li>
-        <li><a class="bubble-link" href="{{ '/reporting/'  | relative_url }}" aria-current="{% if page.url contains '/reporting/' %}page{% endif %}">Reporting</a></li>
-        <li><a class="bubble-link" href="{{ '/surveys/'    | relative_url }}" aria-current="{% if page.url contains '/surveys/' %}page{% endif %}">Surveys</a></li>
-        <li><a class="bubble-link" href="{{ '/contact/'    | relative_url }}" aria-current="{% if page.url contains '/contact/' %}page{% endif %}">Contact</a></li>
-      </ul>
-    </nav>
-  </div>
-</div>
-
+      <div class="nav-gradient">
+        <nav class="wave-nav" aria-label="Main">
+          <ul class="wave-links">
+            <li><a class="bubble-link" href="{{ '/' | relative_url }}" aria-current="{% if page.url == '/' %}page{% endif %}">Home</a></li>
+            <li><a class="bubble-link" href="{{ '/preparing/'  | relative_url }}" aria-current="{% if page.url contains '/preparing/' %}page{% endif %}">Preparing</a></li>
+            <li><a class="bubble-link" href="{{ '/reporting/'  | relative_url }}" aria-current="{% if page.url contains '/reporting/' %}page{% endif %}">Reporting</a></li>
+            <li><a class="bubble-link" href="{{ '/surveys/'    | relative_url }}" aria-current="{% if page.url contains '/surveys/' %}page{% endif %}">Surveys</a></li>
+            <li><a class="bubble-link" href="{{ '/contact/'    | relative_url }}" aria-current="{% if page.url contains '/contact/' %}page{% endif %}">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
   </header>
 
   <main>
