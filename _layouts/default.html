@@ -8,31 +8,26 @@
   <link rel="canonical" href="{{ page.url | absolute_url }}">
 
   <style>
-    /* -------------------- Design Tokens (Moss palette) -------------------- */
+    /* =============== Design Tokens (Moss palette) =============== */
     :root{
       --soil:#3B2A1F;
-      --kraft:#EAE6DF;
+      --kraft:#EAE6DF;   /* page bg */
+      --taupe:#CFC6BA;   /* band top under waves */
       --offwhite:#FAF7F2;
       --moss:#6B8D6A;
-      --gold:#E8C15A;             /* warm yellow from logo */
-      --orange-soft:#E8A074;      /* pastel orange (optional) */
-      --logo-orange:#C46A2A;      /* original logo orange */
-      --accent:#6B8D6A;           /* default accent = moss */
-      --ink:#111111;
+      --gold:#E8C15A;
+      --logo-orange:#C46A2A;
+      --accent:#6B8D6A;  /* default link/focus accent */
+      --ink:#111;
       --maxw:1100px;
-
-      /* gradient band top color (taupe/cream-grey) */
-      --taupe:#CFC6BA;
     }
 
-    /* -------------------- Base -------------------- */
-    *,*::before,*::after{ box-sizing: border-box; }
+    /* =============== Base + kraft texture =============== */
+    *,*::before,*::after{ box-sizing:border-box; }
     html,body{ height:100%; }
     body{
       margin:0; color:var(--ink);
       font-family: Calibri, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-
-      /* subtle kraft texture (decorative) */
       background:
         radial-gradient(1px 1px at 20% 30%, rgba(0,0,0,.04) 50%, transparent 51%),
         radial-gradient(1px 1px at 80% 60%, rgba(0,0,0,.035) 50%, transparent 51%),
@@ -47,15 +42,14 @@
     }
 
     img,svg,video{ max-width:100%; height:auto; display:block; }
-    h1{ color:var(--soil); font-size: clamp(1.8rem, 5.5vw, 2.4rem); margin:.4em 0 .2em; }
-    h2{ color:var(--soil); font-size: clamp(1.3rem, 3.6vw, 1.6rem); margin:1.2em 0 .6em; }
-    p{ font-size: clamp(1rem, 2.6vw, 1.125rem); line-height:1.6; margin:.6em 0; }
+    h1{ color:var(--soil); font-size:clamp(1.8rem,5.5vw,2.4rem); margin:.4em 0 .2em; }
+    h2{ color:var(--soil); font-size:clamp(1.3rem,3.6vw,1.6rem); margin:1.2em 0 .6em; }
+    p{ font-size:clamp(1rem,2.6vw,1.125rem); line-height:1.6; margin:.6em 0; }
     a{ color:var(--accent); text-decoration-thickness:.08em; text-underline-offset:.18em; }
     a:hover{ color:var(--logo-orange); }
-
     .container{ width:min(100%, var(--maxw)); margin:0 auto; padding:0 clamp(12px,2vw,20px); }
 
-    /* -------------------- Header / Brand -------------------- */
+    /* =============== Header / Brand =============== */
     header.site-header{ padding:.6rem 0 0; }
     .brand{ display:flex; align-items:center; gap:.8rem; }
     .brand a{ text-decoration:none; color:inherit; }
@@ -64,83 +58,86 @@
     .brand h1{ margin:0; }
     .brand .tagline{
       font-weight:600; color: color-mix(in srgb, var(--soil) 70%, #fff 30%);
-      font-size: clamp(.95rem, 2.4vw, 1.05rem);
+      font-size:clamp(.95rem,2.4vw,1.05rem);
     }
 
-    /* -------------------- Page Header Photo (per-page) -------------------- */
+    /* =============== Per-page header photo + bottom fade =============== */
     .page-hero{
       width:100%;
-      height: clamp(180px, 30vw, 320px);
-      background: var(--taupe) center/cover no-repeat;
-      background-image: var(--hero);
-      position: relative;
-      overflow: hidden;
+      height:clamp(220px, 32vw, 380px);
+      background: center/cover no-repeat;
+      background-image: var(--hero, none);
+      position:relative; overflow:hidden;
     }
-    /* soft vignette so white text would be readable if you add headings later */
-    .page-hero::after{
-      content:"";
-      position:absolute; inset:0;
-      background: linear-gradient(to bottom, rgba(0,0,0,.08), rgba(0,0,0,.02) 65%, transparent 100%);
+    /* optional tint for busy photos */
+    .page-hero::before{
+      content:""; position:absolute; inset:0;
+      background: rgba(99,55,71, var(--hero-tint, .30));
       pointer-events:none;
     }
-
-    /* -------------------- Hero waves + gradient band -------------------- */
-    .hero-wave{ position:relative; margin-bottom: clamp(8px, 2vw, 18px); }
-    .hero-wave svg{ display:block; width:100%; height:auto; }
-    .nav-gradient{
-      position: relative;
-      height: clamp(46px, 9vw, 90px);
-      margin-top: -10px;
-      background: linear-gradient(to bottom, var(--taupe) 0%, var(--kraft) 100%);
-      border-top: 1px solid color-mix(in srgb, var(--soil) 10%, transparent);
-      border-bottom: 1px solid color-mix(in srgb, var(--soil) 10%, transparent);
+    /* fade from photo into taupe band */
+    .page-hero::after{
+      content:""; position:absolute; inset:0; pointer-events:none;
+      background: linear-gradient(to bottom,
+                  rgba(207,198,186,0) 60%,
+                  rgba(207,198,186,.35) 80%,
+                  rgba(207,198,186,1) 100%);
     }
 
-    /* -------------------- Wave nav (circle buttons) -------------------- */
-    .wave-nav{ position: relative; margin-top: -52px; pointer-events:none; }
+    /* =============== Waves + taupe→kraft gradient band =============== */
+    .hero-wave{ position:relative; }
+    .hero-wave svg{ display:block; width:100%; height:auto; }
+    .nav-gradient{
+      position:relative;
+      height:clamp(52px, 9vw, 96px);
+      margin-top:-10px; /* tuck into wave trough */
+      background:linear-gradient(to bottom, var(--taupe) 0%, var(--kraft) 100%);
+      border-top:1px solid color-mix(in srgb, var(--soil) 10%, transparent);
+      border-bottom:1px solid color-mix(in srgb, var(--soil) 10%, transparent);
+    }
+
+    /* =============== Wave nav (circle buttons) =============== */
+    .wave-nav{ position:relative; margin-top:-56px; pointer-events:none; }
     .wave-links{
       pointer-events:auto;
-      display:grid; grid-template-columns: repeat(5, 1fr);
-      gap: clamp(6px,1.6vw,14px);
+      display:grid; grid-template-columns:repeat(5,1fr);
+      gap:clamp(6px,1.6vw,14px);
       width:min(100%, var(--maxw)); margin:0 auto; padding:0 clamp(12px,2vw,20px);
       list-style:none;
     }
     .wave-links li{ display:flex; justify-content:center; }
     .bubble-link{
       display:flex; align-items:center; justify-content:center;
-      width: clamp(68px, 10vw, 104px); height: clamp(68px, 10vw, 104px);
+      width:clamp(68px,10vw,104px); height:clamp(68px,10vw,104px);
       border-radius:999px; text-decoration:none; font-weight:800; color:var(--soil);
-      background: var(--offwhite);
-      border: 3px solid color-mix(in srgb, var(--gold) 70%, transparent);
-      box-shadow: 0 8px 0 rgba(0,0,0,.10), 0 2px 8px rgba(0,0,0,.08);
+      background:var(--offwhite);
+      border:3px solid color-mix(in srgb, var(--gold) 70%, transparent);
+      box-shadow:0 8px 0 rgba(0,0,0,.10), 0 2px 8px rgba(0,0,0,.08);
       transition: transform .15s ease, background .15s ease, color .15s ease, box-shadow .15s ease, border-color .15s ease;
     }
     .bubble-link:hover,
     .bubble-link[aria-current="page"]{
-      background: var(--moss); color:#fff;
-      border-color: var(--gold);
-      transform: translateY(-2px);
-      box-shadow: 0 12px 0 rgba(0,0,0,.12), 0 6px 14px rgba(0,0,0,.12);
+      background:var(--moss); color:#fff; border-color:var(--gold);
+      transform:translateY(-2px);
+      box-shadow:0 12px 0 rgba(0,0,0,.12), 0 6px 14px rgba(0,0,0,.12);
     }
     .bubble-link:focus-visible{ outline:3px solid var(--gold); outline-offset:3px; }
 
-    /* Fallback: on small screens, you can replace with a simple bar if desired */
     @media (max-width:720px){
-      .wave-nav{ margin-top: -40px; }
+      .wave-nav{ margin-top:-44px; }
     }
 
-    /* -------------------- Hub: Bubbles + pills (accordion blocks in content) -------------------- */
+    /* =============== Hub (optional accordion blocks used in content) =============== */
     .hub{
       display:grid; gap:1.2rem;
-      grid-template-columns: repeat( auto-fit, minmax(240px,1fr) );
+      grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
       align-items:start;
-      margin: clamp(12px,2vw,20px) auto;
+      margin:clamp(12px,2vw,20px) auto;
     }
     .hub-group{
       background: color-mix(in srgb, var(--offwhite) 92%, white);
       border:1px solid color-mix(in srgb, var(--soil) 18%, transparent);
-      border-radius:16px; padding:.9rem;
-      box-shadow:0 2px 6px rgba(0,0,0,.05);
+      border-radius:16px; padding:.9rem; box-shadow:0 2px 6px rgba(0,0,0,.05);
     }
     .bubble{
       width:100%; border-radius:999px; padding:.8rem 1rem; font-weight:800;
@@ -165,15 +162,14 @@
     .pill:hover{ background:var(--accent); color:#fff; border-color:transparent; transform:translateY(-1px); }
     .pill:focus-visible{ outline:3px solid var(--accent); outline-offset:3px; }
 
-    /* -------------------- Main content spacing -------------------- */
-    main{ padding-bottom: 2rem; }
+    /* =============== Main spacing =============== */
+    main{ padding-bottom:2rem; }
   </style>
 </head>
 
 <body>
   <header class="site-header">
     <div class="container brand">
-      <!-- Logo linked to home (your requested path) -->
       <a href="{{ '/' | relative_url }}" aria-label="Golden Trowel Project home">
         <img class="logo" src="{{ '/assets/img/IMG_3241.PNG' | relative_url }}" alt="Golden Trowel Project logo">
       </a>
@@ -183,28 +179,24 @@
       </div>
     </div>
 
-    <!-- Per-page header photo (set in page front matter) -->
-    <div
-      class="page-hero"
-      style="--hero: url('{{ page.header_image | default: site.default_header | relative_url }}');"
-      role="img"
-      aria-label="{{ page.header_alt | default: site.default_header_alt | default: 'Page header image' }}">
+    <!-- Per-page header photo (set in front matter) -->
+    <div class="page-hero"
+         style="--hero: url('{{ page.header_image | default: site.default_header | relative_url }}');
+                --hero-tint: {{ page.header_tint | default: 0.30 }}">
     </div>
 
-    <!-- Decorative waves + gradient band -->
+    <!-- Waves + gradient band -->
     <div class="hero-wave" aria-hidden="true" role="presentation">
       <svg viewBox="0 0 1440 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,64 C160,120 320,8 480,48 C640,88 800,168 960,128 C1120,88 1280,16 1440,64 L1440,160 L0,160 Z"
-              fill="#63374722"></path>
-        <path d="M0,100 C160,140 320,40 480,70 C640,100 800,160 960,120 C1120,80 1280,30 1440,70 L1440,160 L0,160 Z"
-              fill="#00000018"></path>
+        <path d="M0,64 C160,120 320,8 480,48 C640,88 800,168 960,128 C1120,88 1280,16 1440,64 L1440,160 L0,160 Z" fill="#63374722"></path>
+        <path d="M0,100 C160,140 320,40 480,70 C640,100 800,160 960,120 C1120,80 1280,30 1440,70 L1440,160 L0,160 Z" fill="#00000018"></path>
       </svg>
       <div class="nav-gradient"></div>
     </div>
 
-    <!-- Wave nav (five circles) -->
+    <!-- Five-circle nav -->
     <nav class="wave-nav" aria-label="Main">
-      <ul class="wave-links style--moss-gold">
+      <ul class="wave-links">
         <li><a class="bubble-link" href="{{ '/' | relative_url }}" aria-current="{% if page.url == '/' %}page{% endif %}">Home</a></li>
         <li><a class="bubble-link" href="{{ '/preparing/'  | relative_url }}" aria-current="{% if page.url contains '/preparing/' %}page{% endif %}">Preparing</a></li>
         <li><a class="bubble-link" href="{{ '/reporting/'  | relative_url }}" aria-current="{% if page.url contains '/reporting/' %}page{% endif %}">Reporting</a></li>
@@ -218,7 +210,7 @@
     {{ content }}
   </main>
 
-  <!-- Accordion behavior for .hub blocks in page content -->
+  <!-- Optional: accordion behavior for .hub blocks in page content -->
   <script>
     (function(){
       const groups = document.querySelectorAll('.hub-group');
