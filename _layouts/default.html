@@ -46,9 +46,9 @@
     .container{ width:min(100%, var(--maxw)); margin:0 auto; padding:0 clamp(12px,2vw,20px); }
     img,svg,video{ max-width:100%; height:auto; display:block; }
     h1{ color:#fff; font-size:clamp(1.8rem,5.5vw,2.4rem); margin:.2em 0; }
-    h2{ color:var(--soil); font-size:clamp(1.3rem,3.6vw,1.6rem); margin:1.2em 0 .6em; }
+    h2{ color:var(--accent); font-size:clamp(1.3rem,3.6vw,1.6rem); margin:1.2em 0 .6em; }
     p{ font-size:clamp(1rem,2.6vw,1.125rem); line-height:1.6; margin:.6em 0; }
-    a{ color:var(--accent); text-decoration-thickness:.08em; text-underline-offset:.18em; }
+    a{ color:var(--soil); text-decoration-thickness:.08em; text-underline-offset:.18em; }
     a:hover{ color:var(--logo-orange); }
     main{ width:min(100%, var(--maxw)); margin-inline:auto; padding:clamp(16px,4vw,28px); }
 
@@ -89,17 +89,21 @@
 /* gradient band behind the buttons — extended & seam-less */
 .nav-gradient{
   position: relative;
-  z-index: 0;
-  margin-top: -36px;                 /* tuck under the SVG crest to hide the line */
+  /* let it grow instead of being a thin strip */
   height: auto;
-  min-height: clamp(240px, 28vw, 420px);  /* reach down to the body text */
-  padding-bottom: clamp(28px, 6vw, 56px);
-  background: linear-gradient(to bottom, var(--band-grad-top) 0%, var(--band-grad-bottom) 100%);
+  min-height: clamp(140px, 18vw, 220px);   /* extend downward */
+  padding: 0 0 clamp(28px, 6vw, 56px);     /* extra bottom to reach the text */
+  margin-top: -10px;                        /* tucks up into the wave */
+  background: linear-gradient(
+    to bottom,
+    var(--band-grad-top) 0%,
+    var(--band-grad-bottom) 100%
+  );
+  /* remove the hairline rules */
   border-top: none;
   border-bottom: none;
   box-shadow: none;
 }
-
 /* tiny nudge so the SVG and gradient don't leave a 1px seam */
 .hero-wave svg{ display:block; width:100%; height:auto; margin-bottom:-2px; }
 
@@ -144,7 +148,7 @@
     }
     .bubble-link:hover,
     .bubble-link[aria-current="page"]{
-      background: var(--accent); color:#fff; border-color: var(--gold);
+      background: var(--soil); color:#fff; border-color: var(--gold);
       transform: translateY(-2px);
       box-shadow: 0 12px 0 rgba(0,0,0,.12), 0 6px 14px rgba(0,0,0,.12);
     }
