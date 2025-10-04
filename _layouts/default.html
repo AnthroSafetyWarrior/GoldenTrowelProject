@@ -14,7 +14,7 @@
       --kraft:#EAE6DF;      /* page background */
       --offwhite:#FAF7F2;
       --moss:#6B8D6A;
-      --gold:#E8C15A;
+      --gold:#e8cd84;
       --logo-orange:#8a340a;
       --accent:#6B8D6A;
       --ink:#111;
@@ -159,7 +159,37 @@
     .pill-list .pill{ display:inline-flex; align-items:center; gap:.4rem; background:#fff; color:var(--soil); border-radius:999px; padding:.48rem .9rem; border:1px solid color-mix(in srgb, var(--soil) 20%, transparent); font-weight:600; line-height:1; min-height:40px; transition:background .15s ease, color .15s ease, border-color .15s ease, transform .15s ease; }
     .pill-list .pill:hover{ background:var(--accent); color:#fff; border-color:transparent; transform:translateY(-1px); }
     .pill-list .pill:focus-visible{ outline:3px solid var(--accent); outline-offset:3px; }
-  </style>
+
+/* --- Tuning: smaller wave + lower buttons --- */
+:root{
+  /* adjust these 3 if you want finer control later */
+  --wave-height: clamp(70px, 9vw, 110px);   /* ↓ shorter crest */
+  --wave-tuck: -18px;                       /* how much the gradient overlaps the wave */
+  --buttons-drop: clamp(16px, 2vw, 28px);   /* ↓ push bubbles down */
+}
+
+/* 1) smaller wave */
+.hero-wave svg{
+  height: var(--wave-height);
+  margin-bottom: calc(var(--wave-tuck) - 2px); /* keep seam hidden */
+}
+
+/* 2) keep the gradient tucked neatly under the wave */
+.nav-gradient{
+  margin-top: var(--wave-tuck);
+  /* optional: if you want a touch more air above bubbles */
+  padding-top: clamp(6px, 1.2vw, 14px);
+  /* keep enough height so the band reaches the body text */
+  min-height: clamp(180px, 22vw, 320px);
+}
+
+/* 3) shift the buttons down */
+.wave-nav{
+  margin-top: var(--buttons-drop);
+}
+ 
+
+ </style>
 </head>
 
 <body>
