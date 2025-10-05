@@ -9,7 +9,7 @@ hero_tint: .60                        # optional (0–1: higher = more maroon ov
 ---
 
 <section class="main-section">
-  <h2><style="color:var(--accent)"><strong>Integrity in research begins with safety and respect in the field.</style></strong></h2>
+  <h2 style="color:var(--accent);"><strong>Integrity in research begins with safety and respect in the field.</style></strong></h2>
   <h3 style="margin-top: 0.5em; font-weight: normal;">
     We’re redefining fieldwork protocols to center consent, dignity, and accountability — because harm has no place in science.
   </h3>
