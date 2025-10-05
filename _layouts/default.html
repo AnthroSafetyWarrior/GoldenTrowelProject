@@ -26,6 +26,11 @@
       --band-grad-mid:#baafa8;
       --band-grad-bottom:#eae6df;
     }
+:root{
+  /* …your tokens… */
+  --circle-gap: 32;   /* px between buttons */
+  --circle-pad: 28;   /* px padding on left/right ends */
+}
 
     /* ============== Base / Layout ============== */
     *,*::before,*::after{ box-sizing: border-box; }
@@ -283,8 +288,16 @@
 
     function draw(){
       const size = getCircleSize();
-      const GAP = Math.max(14, Math.round(size * 0.24)); // spacing betweencircles
-      const PAD = Math.max(12, Math.round(size * 0.34)); // left/right padding
+ const css = getComputedStyle(document.documentElement);
+const px = (name, fallback) => {
+  const v = parseFloat(css.getPropertyValue(name));
+  return Number.isFinite(v) ? v : fallback;
+};
+
+// spacing between buttons and side padding
+const GAP = px('--circle-gap', Math.round(size * 0.28));
+const PAD = px('--circle-pad', Math.round(size * 0.42));
+
 
 
       const count = circles.length;
