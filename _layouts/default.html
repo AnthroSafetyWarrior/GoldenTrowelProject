@@ -117,44 +117,49 @@
 
     /* Circles layer */
     .circle-nav{ position:absolute; inset:0; pointer-events:none; }
-    .circle{
-      position:absolute; pointer-events:auto;
-      --size: clamp(80px, 9.25vw, 112px);       /* <-- never gets smaller than 80px */
-      width: var(--size); height: var(--size);
-    }
-    .circle-btn{
-      position:absolute; inset:0; border:0; border-radius:50%;
-      display:flex; align-items:center; justify-content:center; text-align:center;
-      padding:6px; line-height:1.1; font-weight:800;
-      font-size:clamp(.9rem, 1.1vw, 1rem);
-      background: var(--gold); color: var(--soil); cursor:pointer;
-      border: 3px solid var(--gold);
-      box-shadow: 0 10px 0 rgba(0,0,0,.10), 0 2px 8px rgba(0,0,0,.08);
-      transition: transform .15s ease, background .15s ease, color .15s ease, box-shadow .15s ease, border-color .15s ease;
-      z-index:1;
-    }
-    .circle-btn:hover,
-    .circle-btn:focus-visible{
-      background: var(--logo-orange); color:#fff; outline:0;
-      transform: translateY(-2px);
-      box-shadow: 0 12px 0 rgba(0,0,0,.12), 0 6px 14px rgba(0,0,0,.12);
-    }
+  /* Circles layer (unchanged sizing) */
+.circle{ position:absolute; pointer-events:auto; --size: clamp(80px, 9.25vw, 112px);
+         width: var(--size); height: var(--size); }
 
-    /* Flyout pills (if present for a circle) */
-    .flyout{ position:absolute; inset:0; pointer-events:none; opacity:0; transition:opacity .18s ease; z-index:2; }
-    .circle:hover .flyout, .circle:focus-within .flyout{ opacity:1; pointer-events:auto; }
-    .pill{
-      position:absolute; background: var(--gold); color: var(--soil);
-      font-weight:700; font-size:.9rem; white-space:nowrap;
-      padding:.45em .9em; border-radius:999px; text-decoration:none;
-      box-shadow:0 10px 20px rgba(0,0,0,.18);
-      transition:transform .15s ease, background .15s ease, color .15s ease, box-shadow .15s ease;
-    }
-    .pill:hover, .pill:focus-visible{
-      background: var(--logo-orange); color:#fff; transform:translateY(-1px);
-      box-shadow:0 12px 24px rgba(0,0,0,.22);
-      outline:0;
-    }
+/* Button uses root colors */
+.circle-btn{
+  position:absolute; inset:0; border-radius:50%; border:3px solid var(--gold);
+  display:flex; align-items:center; justify-content:center; text-align:center;
+  padding:6px; line-height:1.1; font-weight:800; cursor:pointer;
+  font-size:clamp(.9rem, 1.1vw, 1rem);
+  background: var(--gold); color: var(--soil);
+  box-shadow: 0 10px 0 rgba(0,0,0,.10), 0 2px 8px rgba(0,0,0,.08);
+  transition: transform .15s ease, background .15s ease, color .15s ease,
+              box-shadow .15s ease, border-color .15s ease;
+  z-index:1;
+}
+.circle-btn:hover,
+.circle-btn:focus-visible{
+  background: var(--logo-orange); color:#fff; border-color: var(--gold); outline:0;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 0 rgba(0,0,0,.12), 0 6px 14px rgba(0,0,0,.12);
+}
+
+/* Pills BELOW each circle (CSS-only positioning) */
+.flyout{
+  position:absolute; left:50%; top: calc(100% + 10px); transform: translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:8px;
+  pointer-events:none; opacity:0; transition:opacity .18s ease; z-index:2;
+}
+.circle:hover .flyout, .circle:focus-within .flyout{ opacity:1; pointer-events:auto; }
+
+.pill{
+  position:static;               /* no absolute math */
+  background: var(--gold); color: var(--soil);
+  font-weight:700; font-size:.9rem; white-space:nowrap;
+  padding:.45em .9em; border-radius:999px; text-decoration:none;
+  box-shadow:0 10px 20px rgba(0,0,0,.18);
+  transition:transform .15s ease, background .15s ease, color .15s ease, box-shadow .15s ease;
+}
+.pill:hover, .pill:focus-visible{
+  background: var(--logo-orange); color:#fff; transform:translateY(-1px);
+  box-shadow:0 12px 24px rgba(0,0,0,.22); outline:0;
+}
 
     /* (Optional) hub styles kept */
     .hub{ display:grid; gap:1.2rem; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); align-items:start; margin:clamp(12px,2vw,20px) auto; }
@@ -248,105 +253,77 @@
   </main>
 
   <!-- Wave + circles + flyout positioning -->
-  <script>
-  (() => {
-    const wrap  = document.querySelector('.wave-nav');
-    const track = wrap?.querySelector('.wave-track');
-    const svg   = track?.querySelector('svg.wave');
-    const circles = track?.querySelectorAll('.circle') || [];
-    if (!wrap || !track || !svg || !circles.length) return;
+<script>
+(() => {
+  const wrap  = document.querySelector('.wave-nav');
+  const track = wrap?.querySelector('.wave-track');
+  const svg   = track?.querySelector('svg.wave');
+  const circles = track?.querySelectorAll('.circle') || [];
+  if (!wrap || !track || !svg || !circles.length) return;
 
-    /* Vibe-tuned wave settings (subtle) */
-    const WAVES = 5;              // number of oscillations across the width
-    const AMPFR = 0.20;           // amplitude as a fraction of height (gentle)
-    const BASE  = 0.52;           // baseline (0=top, 1=bottom)
-    const FILL1 = getComputedStyle(document.documentElement)
-                    .getPropertyValue('--band-grad-mid')?.trim() || '#e6ddd7';
+  const WAVES = 5, AMPFR = 0.20, BASE = 0.52;
+  const FILL1 = getComputedStyle(document.documentElement)
+                  .getPropertyValue('--band-grad-mid')?.trim() || '#e6ddd7';
 
-    function setHeight(){
-      const any = circles[0];
-      const size = any ? (any.offsetHeight || parseFloat(getComputedStyle(any).width)) : 96;
-      const h = Math.max(150, size * 1.55);   // keep enough headroom, but compact
-      wrap.style.height = h + 'px';
+  function setHeight(){
+    const any = circles[0];
+    const size = any ? (any.offsetHeight || parseFloat(getComputedStyle(any).width)) : 96;
+    const h = Math.max(150, size * 1.55);
+    wrap.style.height = h + 'px';
+  }
+
+  /* CSS handles flyout placement; this is a harmless stub */
+  function positionFlyout(){ /* no-op */ }
+
+  function draw(){
+    const vw = wrap.clientWidth;
+    const W  = Math.max(vw, 1280);
+    track.style.width = W + 'px';
+    svg.style.width   = W + 'px';
+
+    const H = wrap.clientHeight || wrap.getBoundingClientRect().height;
+    const A = AMPFR * H;
+    const k = (2*Math.PI*WAVES) / W;
+
+    const N = 240;
+    let d = `M 0 ${BASE*H + A*Math.sin(0)}`;
+    for (let i=1;i<=N;i++){
+      const x = (i/N)*W;
+      const y = BASE*H + A*Math.sin(k*x);
+      d += ` L ${x} ${y}`;
     }
+    d += ` L ${W} ${H} L 0 ${H} Z`;
+    svg.innerHTML = '';
+    const p = document.createElementNS('http://www.w3.org/2000/svg','path');
+    p.setAttribute('d', d);
+    p.setAttribute('fill', FILL1);
+    svg.appendChild(p);
 
-    function positionFlyout(circleEl){
-      const flyout = circleEl.querySelector('.flyout');
-      const pills  = flyout ? flyout.querySelectorAll('.pill') : [];
-      if (!flyout || !pills.length) return;
+    const pad = Math.max(48, W * 0.03);
+    circles.forEach((circleEl, n) => {
+      const size = parseFloat(getComputedStyle(circleEl).getPropertyValue('--size')) || circleEl.offsetWidth;
+      const theta = Math.PI/2 + 2*Math.PI*n;
+      let x = theta / k; x = Math.max(pad, Math.min(W - pad, x));
 
-      const rect = circleEl.getBoundingClientRect();
-      const size = rect.width;
-      const cx = size/2, cy = size/2;
+      const yCurve = BASE*H + A*Math.sin(k*x);
+      const inset  = A * 0.35;
+      const lift   = size * 0.58;
 
-      const R = size * 0.95;  // close to the circle
-      const SPREAD = 48;      // tight fan
-      const CENTER = 0;       // to the right
+      circleEl.style.left = (x - size/2) + 'px';
+      circleEl.style.top  = Math.max(6, yCurve - inset - size/2 - lift) + 'px';
 
-      const m = pills.length;
-      pills.forEach((pill, i) => {
-        const t = (m === 1) ? 0 : (i/(m-1) - 0.5);
-        const rad = (CENTER + t*SPREAD) * Math.PI/180;
-        const x = cx + Math.cos(rad) * (R + size*0.05);
-        const y = cy + Math.sin(rad) * (R + size*0.05);
-        pill.style.left = x + 'px';
-        pill.style.top  = y + 'px';
-      });
-    }
+      const href = circleEl.getAttribute('data-href');
+      const btn  = circleEl.querySelector('.circle-btn');
+      if (btn && href) btn.onclick = () => { location.href = href; };
 
-    function draw(){
-      const vw = wrap.clientWidth;
-      const W  = Math.max(vw, 1280);    // wider than viewport -> enables horizontal scroll
-      track.style.width = W + 'px';
-      svg.style.width   = W + 'px';
+      positionFlyout(circleEl); // no-op, keeps API shape
+    });
+  }
 
-      const H = wrap.clientHeight || wrap.getBoundingClientRect().height;
-      const A = AMPFR * H;
-      const k = (2*Math.PI*WAVES) / W;
-
-      const N = 240;
-      let d = `M 0 ${BASE*H + A*Math.sin(0)}`;
-      for (let i=1;i<=N;i++){
-        const x = (i/N)*W;
-        const y = BASE*H + A*Math.sin(k*x);
-        d += ` L ${x} ${y}`;
-      }
-      d += ` L ${W} ${H} L 0 ${H} Z`;
-      svg.innerHTML = '';
-      const p = document.createElementNS('http://www.w3.org/2000/svg','path');
-      p.setAttribute('d', d);
-      p.setAttribute('fill', FILL1);    // blends with band
-      svg.appendChild(p);
-
-      /* Place circles along the curve, keep a nice vertical lock-up */
-      const pad = Math.max(48, W * 0.03);
-      circles.forEach((circleEl, n) => {
-        const size = parseFloat(getComputedStyle(circleEl).getPropertyValue('--size')) || circleEl.offsetWidth;
-        const theta = Math.PI/2 + 2*Math.PI*n;
-        let x = theta / k; x = Math.max(pad, Math.min(W - pad, x));
-
-        const yCurve = BASE*H + A*Math.sin(k*x);
-        const inset    = A * 0.35;
-        const lift     = size * 0.58;   // pull circles up toward the crest
-
-        const left = x - size/2;
-        const top  = Math.max(6, yCurve - inset - size/2 - lift);
-        circleEl.style.left = left + 'px';
-        circleEl.style.top  = top + 'px';
-
-        /* Click -> navigate */
-        const href = circleEl.getAttribute('data-href');
-        const btn  = circleEl.querySelector('.circle-btn');
-        if (btn && href) btn.onclick = () => { location.href = href; };
-
-        positionFlyout(circleEl);
-      });
-    }
-
-    setHeight();
-    draw();
-    addEventListener('resize', () => { setHeight(); draw(); }, { passive:true });
-  })();
-  </script>
+  setHeight();
+  draw();
+  addEventListener('resize', () => { setHeight(); draw(); }, { passive:true });
+})();
+</script>
 </body>
 </html>
