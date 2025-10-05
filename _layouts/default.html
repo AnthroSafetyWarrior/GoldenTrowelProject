@@ -25,19 +25,51 @@
       --band-grad-top:#baafa8;
       --band-grad-mid:#cfc4bd;
       --band-grad-bottom:#eae6df;
+
+      /* circle lift (nudges buttons upward) */
+      --circle-lift: -8px;
+
+      /* responsive heading margins (only apply inside <main>) */
+      --h1-mt: clamp(20px, 3.2vw, 44px);
+      --h1-mb: clamp(12px, 1.8vw, 24px);
+      --h2-mt: clamp(18px, 2.8vw, 36px);
+      --h2-mb: clamp(10px, 1.6vw, 20px);
+      --h3-mt: clamp(16px, 2.4vw, 28px);
+      --h3-mb: clamp( 8px, 1.4vw, 16px);
     }
-/* Pull the buttons a bit closer to the crest */
-:root { --circle-lift: -8px; }              /* tweak: -6px … -14px */
-.circle-nav { transform: translateY(var(--circle-lift)); }
 
     /* ============== Base / Layout ============== */
     *,*::before,*::after{ box-sizing: border-box; }
     html,body{ height:100%; }
-/* ---------- Base ---------- */ *, 
-*::before, *::after { box-sizing: border-box; } body { font-family: Calibri, sans-serif; background:#eae6df; margin:0; } img, svg, video { max-width:100%; height:auto; display:block; } h1{ font-size:clamp(1.8rem,5.5vw,2.4rem); margin:.2em 0; } h2{ font-size:clamp(1.6rem,4.5vw,1.8rem); margin:.3em 0 .4em; } h3{ font-size:clamp(1.4rem,4vw,1.6rem); margin:.25em 0 .4em; } p { font-size:clamp(1.2rem,2.8vw,1.4rem); margin:.6em 0; } main{ width:min(100%,1100px); margin-inline:auto; padding:clamp(16px,4vw,28px); }
+    body{
+      margin:0; color:var(--ink);
+      font-family: Calibri, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: linear-gradient(to bottom, #eae6df 0%, #f5f2ee 55%, #ffffff 100%);
+      background-attachment: fixed;
+    }
+    main{ width:min(100%, var(--maxw)); margin-inline:auto; padding:clamp(16px,4vw,28px); }
     img,svg,video{ max-width:100%; height:auto; display:block; }
     a{ color:var(--soil); text-decoration-thickness:.08em; text-underline-offset:.18em; }
-    a:hover{ color:var(--logo-orange); }  
+    a:hover{ color:var(--logo-orange); }
+    p{ font-size:clamp(1rem,2.4vw,1.125rem); line-height:1.6; margin:.6em 0; }
+
+    /* ---------- Heading spacing (scoped to main so hero h1 is unchanged) ---------- */
+    main h1{
+      font-size: clamp(1.8rem, 5.5vw, 2.4rem);
+      line-height: 1.2;
+      margin: var(--h1-mt) 0 var(--h1-mb);
+    }
+    main h2{
+      font-size: clamp(1.6rem, 4.5vw, 1.8rem);
+      line-height: 1.25;
+      margin: var(--h2-mt) 0 var(--h2-mb);
+    }
+    main h3{
+      font-size: clamp(1.4rem, 4vw, 1.6rem);
+      line-height: 1.3;
+      margin: var(--h3-mt) 0 var(--h3-mb);
+    }
+    main h1 + p, main h2 + p, main h3 + p { margin-top: .4em; }
 
     /* ============== Header + Hero ============== */
     header.hero{
@@ -76,44 +108,36 @@
 
     /* ============== Crest waves above the band ============== */
     .hero-wave{ position:relative; }
-    .hero-wave svg{ margin-bottom:-6px; } /* tuck tighter to band */
+    .hero-wave svg{ margin-bottom:-8px; } /* tuck tighter to band */
 
     /* Gradient band (wraps the scroll nav) */
     .nav-gradient{
-  margin-top:-18px;
-  padding-top:0;
-  /* just a little real padding; shadows can overflow below */
-  padding-bottom:0;
-  min-height: clamp(110px, 8vw, 120px);
-  position: relative;
-  overflow: visible;
- background: linear-gradient(
-    to bottom,
-    var(--wave-dark) 0%,
-    color-mix(in srgb, var(--wave-dark) 75%, var(--wave-mid)) 22%,
-    var(--wave-mid) 46%,
-    color-mix(in srgb, var(--wave-mid) 65%, #eae6dfff) 72%,
-    color-mix(in srgb, var(--wave-mid) 35%, #eae6dfff) 88%,
-    #eae6dfff 100%   /* ← match body’s background near this area */
-  );
+      margin-top:-18px;
+      padding-top:0;
+      padding-bottom:0;
+      min-height: clamp(110px, 8vw, 120px);
+      position: relative;
+      overflow: visible;
+      background: linear-gradient(
+        to bottom,
+        var(--wave-dark) 0%,
+        color-mix(in srgb, var(--wave-dark) 75%, var(--wave-mid)) 22%,
+        var(--wave-mid) 46%,
+        color-mix(in srgb, var(--wave-mid) 65%, #eae6df) 72%,
+        color-mix(in srgb, var(--wave-mid) 35%, #eae6df) 88%,
+        #eae6df 100%
+      );
     }
-
-
-/* (tiny tuck so the waves hug the band nicely) */
-.hero-wave svg{ margin-bottom:-8px; }
 
     /* ============== Scrollable Wave Nav (horizontal only) ============== */
     .wave-nav{
       position:relative; background:transparent;
       overflow-x:auto;
-      overflow-y:visible;           /* no vertical scrollbar inside the nav */
+      overflow-y:visible;
       -webkit-overflow-scrolling:touch;
-
-      /* Firefox scrollbar style */
       scrollbar-width: thin;
       scrollbar-color: rgba(0,0,0,.28) transparent;
     }
-    /* WebKit scrollbar (horizontal) */
     .wave-nav::-webkit-scrollbar{ height:10px; }
     .wave-nav::-webkit-scrollbar-track{ background:transparent; }
     .wave-nav::-webkit-scrollbar-thumb{
@@ -126,10 +150,10 @@
     .nav-gradient .wave{ display:none !important; } /* no inner sine */
 
     /* Circles layer */
-    .circle-nav{ position:absolute; inset:0; pointer-events:none; z-index:5; }
+    .circle-nav{ position:absolute; inset:0; pointer-events:none; z-index:5; transform: translateY(var(--circle-lift)); }
     .circle{
       position:absolute; pointer-events:auto;
-      --size: clamp(96px, 9.25vw, 112px); /* keep your preferred size range */
+      --size: clamp(96px, 9.25vw, 112px);
       width: var(--size); height: var(--size);
     }
     .circle-btn{
@@ -181,7 +205,7 @@
 
     /* (Optional) hub styles kept */
     .hub{ display:grid; gap:1.2rem; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); align-items:start; margin:clamp(12px,2vw,20px) auto; }
-    .hub-group{ background: #eae6dfff; border:1px solid color-mix(in srgb, var(--soil) 18%, transparent); border-radius:16px; padding:.9rem; box-shadow:0 2px 6px rgba(0,0,0,.05); }
+    .hub-group{ background:#eae6df; border:1px solid color-mix(in srgb, var(--soil) 18%, transparent); border-radius:16px; padding:.9rem; box-shadow:0 2px 6px rgba(0,0,0,.05); }
     .bubble{ width:100%; border-radius:999px; padding:.8rem 1rem; font-weight:800; background:var(--offwhite); color:var(--soil); border:2px solid color-mix(in srgb, var(--soil) 25%, transparent); transition:background .18s ease, color .18s ease, transform .18s ease, border-color .18s ease; min-height:44px; }
     .bubble:hover{ background:var(--logo-orange); color:#fff; transform:translateY(-2px); }
     .bubble:focus-visible{ outline:3px solid var(--accent); outline-offset:3px; }
@@ -275,14 +299,10 @@
     const circles = track?.querySelectorAll('.circle') || [];
     if (!wrap || !track || !circles.length) return;
 
-    /* ---------- Responsive spacing controls (edit these) ---------- */
-    const GAP_MIN = 120;         // px
-    const GAP_MAX = 220;        // px
-    const GAP_VW  = 0.06;       // 6vw
-
-    const PAD_MIN = 34;         // px
-    const PAD_MAX = 72;         // px
-    const PAD_VW  = 0.08;       // 8vw
+    /* ---------- Responsive spacing controls ---------- */
+    const GAP_MIN = 120;   // px
+    const GAP_MAX = 220;   // px
+    const PAD_MIN = 24;    // px
 
     const getCircleSize = () => {
       const any = circles[0];
@@ -291,47 +311,35 @@
 
     function setHeight(){
       const size = getCircleSize();
-      const h = Math.max(100, Math.round(size * 1.12));  // compact band
+      const h = Math.max(100, Math.round(size * 1.12));
       wrap.style.height = h + 'px';
     }
 
-   function draw(){
-  const size   = getCircleSize();
-  const wrapW  = wrap.clientWidth;
-  const count  = circles.length;
+    function draw(){
+      const size   = getCircleSize();
+      const wrapW  = wrap.clientWidth;
+      const count  = circles.length;
 
-  // Your constraints
-  const GAP_MIN = 120;     // min space between buttons
-  const GAP_MAX = 220;    // max space between buttons
-  const PAD_MIN = 24;     // min side padding
+      // Fit-to-width gap (then clamp), and centered row
+      const gapFit = (wrapW - 2*PAD_MIN - count*size) / Math.max(1, (count - 1));
+      const gap    = Math.max(GAP_MIN, Math.min(gapFit, GAP_MAX));
+      const rowW   = count*size + (count-1)*gap;
+      const pad    = Math.max(PAD_MIN, Math.floor((wrapW - rowW) / 2));
 
-  // 1) Try to fill the available width: compute a gap that would fit the row,
-  //    then clamp it to your min/max so accessibility stays consistent.
-  const gapFit = (wrapW - 2*PAD_MIN - count*size) / Math.max(1, (count - 1));
-  const gap    = Math.max(GAP_MIN, Math.min(gapFit, GAP_MAX));
+      const neededWidth = rowW + 2*pad;
+      track.style.width = Math.max(wrapW, neededWidth) + 'px';
 
-  // 2) With the chosen gap, center the row by distributing leftover as side pad.
-  const rowWidth = count*size + (count-1)*gap;
-  const pad      = Math.max(PAD_MIN, Math.floor((wrapW - rowWidth) / 2));
+      const TOP = Math.max(2, Math.round(size * 0.08));
+      circles.forEach((circleEl, i) => {
+        const left = pad + i*(size + gap);
+        circleEl.style.left = left + 'px';
+        circleEl.style.top  = TOP  + 'px';
 
-  // 3) If the viewport is too small, allow horizontal scroll by expanding the track.
-  const neededWidth = rowWidth + 2*pad;
-  const trackWidth  = Math.max(wrapW, neededWidth);
-  track.style.width = trackWidth + 'px';
-
-  // 4) Position circles
-  const TOP = Math.max(2, Math.round(size * 0.08));
-  circles.forEach((circleEl, i) => {
-    const left = pad + i*(size + gap);
-    circleEl.style.left = left + 'px';
-    circleEl.style.top  = TOP  + 'px';
-
-    const href = circleEl.getAttribute('data-href');
-    const btn  = circleEl.querySelector('.circle-btn');
-    if (btn && href) btn.onclick = () => { location.href = href; };
-  });
-}
-
+        const href = circleEl.getAttribute('data-href');
+        const btn  = circleEl.querySelector('.circle-btn');
+        if (btn && href) btn.onclick = () => { location.href = href; };
+      });
+    }
 
     setHeight(); draw();
     addEventListener('resize', () => { setHeight(); draw(); }, { passive:true });
@@ -362,7 +370,7 @@
         const r = btn.getBoundingClientRect();
         fly.classList.add('is-floating');
         fly.style.left = Math.round(r.left + r.width/2) + 'px';
-        fly.style.top  = Math.round(r.bottom + 8) + 'px'; // 8px gap below button
+        fly.style.top  = Math.round(r.bottom + 8) + 'px';
         fly.style.display = 'flex';
       };
 
@@ -379,21 +387,18 @@
         backHome();
       };
 
-      /* Desktop hover: keep open while mouse is on button or flyout */
       btn.addEventListener('pointerenter', show);
       btn.addEventListener('pointerleave', () => { hideTimer = setTimeout(hide, 120); });
       fly.addEventListener('pointerenter', () => clearTimeout(hideTimer));
       fly.addEventListener('pointerleave', () => { hideTimer = setTimeout(hide, 120); });
 
-      /* Keyboard focus */
       btn.addEventListener('focus', show);
       btn.addEventListener('blur',  () => { hideTimer = setTimeout(hide, 150); });
 
-      /* Touch: first tap opens, second tap navigates (if no flyout content, it just navigates) */
       let armed = false;
       btn.addEventListener('click', (e) => {
         const hasItems = fly.querySelector('.pill');
-        if (!hasItems) return;  // no dropdown -> let it navigate
+        if (!hasItems) return;
         if (!armed) {
           e.preventDefault();
           show();
@@ -402,7 +407,6 @@
         }
       }, { passive:false });
 
-      // Close on scroll/resize/outside click
       addEventListener('scroll', hide, { passive:true });
       addEventListener('resize', () => { hide(); positionFlyout(); }, { passive:true });
       document.addEventListener('click', (ev) => {
