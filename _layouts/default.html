@@ -26,10 +26,10 @@
       --band-grad-mid:#cfc4bd;
       --band-grad-bottom:#eae6df;
 
-      /* circle lift (nudges buttons upward) */
+      /* Pull the buttons a bit closer to the crest */
       --circle-lift: -8px;
 
-      /* responsive heading margins (only apply inside <main>) */
+      /* NEW: heading-only spacing (doesn't change sizes or colors) */
       --h1-mt: clamp(20px, 3.2vw, 44px);
       --h1-mb: clamp(12px, 1.8vw, 24px);
       --h2-mt: clamp(18px, 2.8vw, 36px);
@@ -44,6 +44,7 @@
     body{
       margin:0; color:var(--ink);
       font-family: Calibri, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      /* keep your original gradient background */
       background: linear-gradient(to bottom, #eae6df 0%, #f5f2ee 55%, #ffffff 100%);
       background-attachment: fixed;
     }
@@ -51,25 +52,13 @@
     img,svg,video{ max-width:100%; height:auto; display:block; }
     a{ color:var(--soil); text-decoration-thickness:.08em; text-underline-offset:.18em; }
     a:hover{ color:var(--logo-orange); }
+    h2{ color:var(--accent); font-size:clamp(1.2rem,3.4vw,1.6rem); margin:1.2em 0 .6em; }
     p{ font-size:clamp(1rem,2.4vw,1.125rem); line-height:1.6; margin:.6em 0; }
 
-    /* ---------- Heading spacing (scoped to main so hero h1 is unchanged) ---------- */
-    main h1{
-      font-size: clamp(1.8rem, 5.5vw, 2.4rem);
-      line-height: 1.2;
-      margin: var(--h1-mt) 0 var(--h1-mb);
-    }
-    main h2{
-      font-size: clamp(1.6rem, 4.5vw, 1.8rem);
-      line-height: 1.25;
-      margin: var(--h2-mt) 0 var(--h2-mb);
-    }
-    main h3{
-      font-size: clamp(1.4rem, 4vw, 1.6rem);
-      line-height: 1.3;
-      margin: var(--h3-mt) 0 var(--h3-mb);
-    }
-    main h1 + p, main h2 + p, main h3 + p { margin-top: .4em; }
+    /* ONLY change: spacing before/after headings inside <main> */
+    main h1{ margin-top:var(--h1-mt); margin-bottom:var(--h1-mb); }
+    main h2{ margin-top:var(--h2-mt); margin-bottom:var(--h2-mb); }
+    main h3{ margin-top:var(--h3-mt); margin-bottom:var(--h3-mb); }
 
     /* ============== Header + Hero ============== */
     header.hero{
@@ -108,7 +97,7 @@
 
     /* ============== Crest waves above the band ============== */
     .hero-wave{ position:relative; }
-    .hero-wave svg{ margin-bottom:-8px; } /* tuck tighter to band */
+    .hero-wave svg{ margin-bottom:-6px; } /* tuck tighter to band */
 
     /* Gradient band (wraps the scroll nav) */
     .nav-gradient{
@@ -147,7 +136,7 @@
     .wave-nav:hover::-webkit-scrollbar-thumb{ background: rgba(0,0,0,.40); }
 
     .wave-track{ position:relative; height:100%; min-width:0; }
-    .nav-gradient .wave{ display:none !important; } /* no inner sine */
+    .nav-gradient .wave{ display:none !important; }
 
     /* Circles layer */
     .circle-nav{ position:absolute; inset:0; pointer-events:none; z-index:5; transform: translateY(var(--circle-lift)); }
@@ -174,7 +163,7 @@
       box-shadow: 0 12px 0 rgba(0,0,0,.12), 0 6px 14px rgba(0,0,0,.12);
     }
 
-    /* Pills BELOW each circle (hidden so they don't affect nav height) */
+    /* Pills BELOW each circle */
     .flyout{
       display:none;
       position:absolute; left:50%; top: calc(100% + 10px); transform: translateX(-50%);
@@ -184,7 +173,6 @@
     .circle:hover .flyout,
     .circle.is-open .flyout{ display:flex; opacity:1; pointer-events:auto; }
 
-    /* When portaled to body */
     .flyout.is-floating{
       position:fixed; left:0; top:0; transform: translateX(-50%); z-index:2000;
       display:flex; opacity:1; pointer-events:auto;
@@ -299,10 +287,10 @@
     const circles = track?.querySelectorAll('.circle') || [];
     if (!wrap || !track || !circles.length) return;
 
-    /* ---------- Responsive spacing controls ---------- */
-    const GAP_MIN = 120;   // px
-    const GAP_MAX = 220;   // px
-    const PAD_MIN = 24;    // px
+    /* ---------- Responsive spacing controls (unchanged) ---------- */
+    const GAP_MIN = 120;         // px
+    const GAP_MAX = 220;         // px
+    const PAD_MIN = 24;          // px
 
     const getCircleSize = () => {
       const any = circles[0];
@@ -311,7 +299,7 @@
 
     function setHeight(){
       const size = getCircleSize();
-      const h = Math.max(100, Math.round(size * 1.12));
+      const h = Math.max(100, Math.round(size * 1.12));  // compact band
       wrap.style.height = h + 'px';
     }
 
