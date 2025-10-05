@@ -19,12 +19,12 @@
       --ink:#111;
       --maxw:1100px;
 
-      /* Waves + band */
+      /* Wave + band colors */
       --wave-mid:#c9beb7;
       --wave-dark:#baafa8;
       --band-grad-top:#baafa8;
       --band-grad-mid:#baafa8;
-      --band-grad-bottom:#f7f5f2;
+      --band-grad-bottom:#eae6df;
     }
 
     /* ============== Base / Layout ============== */
@@ -67,11 +67,8 @@
     }
     .header-content img{ width: clamp(150px, 11vw, 190px); border-radius:12px; }
     .header-text h1{
-      color:#fff; margin:.1em 0;
-      font-size: clamp(2.2rem, 6.2vw, 3.2rem);
-      line-height:1.12;
+      color:#fff; margin:.1em 0; font-size: clamp(2.2rem, 6.2vw, 3.2rem); line-height:1.12;
     }
-    /* stronger legibility over the photo */
     .header-text p{
       margin:.35em 0 0; color: var(--logo-orange); font-weight:700;
       font-size: clamp(1.05rem, 2.6vw, 1.25rem);
@@ -83,54 +80,44 @@
 
     /* ============== Crest waves above the band ============== */
     .hero-wave{ position:relative; }
-    .hero-wave svg{ margin-bottom:-6px; }  /* tuck tighter to band */
+    .hero-wave svg{ margin-bottom:-6px; } /* tuck tighter to band */
 
     /* Gradient band (wraps the scroll nav) */
     .nav-gradient{
       margin-top:-18px;
       padding-top:0;
-      padding-bottom: clamp(4px, .8vw, 10px);
-      min-height: clamp(80px, 10vw, 120px);
+      padding-bottom: clamp(2px, .5vw, 8px);  /* less space below buttons */
+      min-height: clamp(72px, 9vw, 108px);
       overflow: visible; /* allow pills to overflow into page */
       background: linear-gradient(
         to bottom,
         var(--band-grad-top) 0%,
-        var(--band-grad-mid) 45%,
+        var(--band-grad-mid) 35%,
         var(--band-grad-bottom) 100%
       );
     }
 
-    /* ============== Scrollable Wave Nav ============== */
+    /* ============== Scrollable Wave Nav (horizontal only) ============== */
     .wave-nav{
       position:relative; background:transparent;
-      overflow-x:auto; overflow-y:visible;       /* pills can spill over band */
+      overflow-x:auto; overflow-y:visible;   /* NO vertical scrolling inside */
       -webkit-overflow-scrolling:touch;
 
-      /* Firefox scrollbar (visible & subtle) */
+      /* Firefox scrollbar style */
       scrollbar-width: thin;
       scrollbar-color: rgba(0,0,0,.28) transparent;
     }
-
-    /* WebKit scrollbar (RESTORED & styled) */
-    .wave-nav::-webkit-scrollbar{ height: 10px; }
-    .wave-nav::-webkit-scrollbar-track{
-      background: transparent;
-    }
+    /* WebKit scrollbar (horizontal) */
+    .wave-nav::-webkit-scrollbar{ height:10px; }
+    .wave-nav::-webkit-scrollbar-track{ background:transparent; }
     .wave-nav::-webkit-scrollbar-thumb{
       background: rgba(0,0,0,.25);
-      border-radius: 999px;
-      border: 2px solid transparent;      /* nice pill shape */
-      background-clip: padding-box;
+      border-radius:999px; border:2px solid transparent; background-clip:padding-box;
     }
-    .wave-nav:hover::-webkit-scrollbar-thumb{
-      background: rgba(0,0,0,.40);
-    }
+    .wave-nav:hover::-webkit-scrollbar-thumb{ background: rgba(0,0,0,.40); }
 
-    /* inner helper track (no forced min-width; JS sets width) */
     .wave-track{ position:relative; height:100%; min-width:0; }
-
-    /* We don't draw a sine shape inside the band */
-    .nav-gradient .wave{ display:none !important; }
+    .nav-gradient .wave{ display:none !important; } /* no inner sine */
 
     /* Circles layer */
     .circle-nav{ position:absolute; inset:0; pointer-events:none; z-index:5; }
@@ -163,7 +150,15 @@
       display:flex; flex-direction:column; align-items:center; gap:8px;
       pointer-events:none; opacity:0; transition:opacity .18s ease; z-index:10;
     }
-    .circle:hover .flyout, .circle:focus-within .flyout{ opacity:1; pointer-events:auto; }
+    .circle:hover .flyout,
+    .circle.is-open .flyout{ opacity:1; pointer-events:auto; }
+
+    /* When portaled to body on touch */
+    .flyout.is-floating{
+      position:fixed; left:0; top:0; transform: translateX(-50%); z-index:2000;
+      opacity:1; pointer-events:auto;
+    }
+
     .pill{
       position:static;
       background: var(--gold); color: var(--soil);
@@ -206,35 +201,33 @@
       </div>
     </div>
 
-    <!-- Crest waves (static) -->
+    <!-- Abstract crest waves -->
     <div class="hero-wave" aria-hidden="true" role="presentation">
       <svg viewBox="0 0 1440 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,64 C160,120 320,8 480,48 C640,88 800,168 960,128 C1120,88 1280,16 1440,64 L1440,160 L0,160 Z"
-              fill="{{ '#c9beb7' }}"></path>
-        <path d="M0,100 C160,140 320,40 480,70 C640,100 800,160 960,120 C1120,80 1280,30 1440,70 L1440,160 L0,160 Z"
-              fill="{{ '#baafa8' }}"></path>
+        <path d="M0,64 C160,120 320,8 480,48 C640,88 800,168 960,128 C1120,88 1280,16 1440,64 L1440,160 L0,160 Z" fill="{{ '#c9beb7' }}"></path>
+        <path d="M0,100 C160,140 320,40 480,70 C640,100 800,160 960,120 C1120,80 1280,30 1440,70 L1440,160 L0,160 Z" fill="{{ '#baafa8' }}"></path>
       </svg>
 
-      <!-- Gradient band that holds the scrollable nav -->
+      <!-- Gradient band + scrollable circles -->
       <div class="nav-gradient">
         <section class="wave-nav" aria-label="Primary navigation">
           <div class="wave-track">
             <svg class="wave" preserveAspectRatio="none" aria-hidden="true"></svg>
 
             <nav class="circle-nav">
-              <div class="circle" data-label="Home" data-href="{{ '/' | relative_url }}">
+              <div class="circle" data-href="{{ '/' | relative_url }}">
                 <button class="circle-btn" type="button">Home</button>
                 <div class="flyout"></div>
               </div>
 
-              <div class="circle" data-label="Preparing" data-href="{{ '/preparing/' | relative_url }}">
+              <div class="circle" data-href="{{ '/preparing/' | relative_url }}">
                 <button class="circle-btn" type="button">Preparing</button>
                 <div class="flyout">
                   <a class="pill" href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing" target="_blank" rel="noopener">Pre-Fieldwork Safety Checklist</a>
                 </div>
               </div>
 
-              <div class="circle" data-label="Reporting" data-href="{{ '/reporting/' | relative_url }}">
+              <div class="circle" data-href="{{ '/reporting/' | relative_url }}">
                 <button class="circle-btn" type="button">Reporting</button>
                 <div class="flyout">
                   <a class="pill" href="{{ '/statelaw.html' | relative_url }}">USA Laws by State</a>
@@ -244,7 +237,7 @@
                 </div>
               </div>
 
-              <div class="circle" data-label="Surveys" data-href="{{ '/surveys/' | relative_url }}">
+              <div class="circle" data-href="{{ '/surveys/' | relative_url }}">
                 <button class="circle-btn" type="button">Surveys</button>
                 <div class="flyout">
                   <a class="pill" href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank" rel="noopener">Fieldwork Misconduct Survey</a>
@@ -252,7 +245,7 @@
                 </div>
               </div>
 
-              <div class="circle" data-label="Contact" data-href="mailto:anthrosafetywarrior@gmail.com">
+              <div class="circle" data-href="mailto:anthrosafetywarrior@gmail.com">
                 <button class="circle-btn" type="button">Contact</button>
                 <div class="flyout"></div>
               </div>
@@ -267,7 +260,7 @@
     {{ content }}
   </main>
 
-  <!-- Even, tight circle layout; pills handled by CSS -->
+  <!-- Layout + touch-friendly flyouts (portal to body) -->
   <script>
   (() => {
     const wrap  = document.querySelector('.wave-nav');
@@ -288,8 +281,8 @@
 
     function draw(){
       const size = getCircleSize();
-      const GAP = Math.max(14, Math.round(size * 0.26));   // spacing between circles
-      const PAD = Math.max(16, Math.round(size * 0.40));   // side padding
+      const GAP = Math.max(14, Math.round(size * 0.24));   // tighter gaps
+      const PAD = Math.max(12, Math.round(size * 0.34));   // side padding
 
       const count = circles.length;
       const neededWidth = PAD*2 + count*size + (count-1)*GAP;
@@ -297,7 +290,7 @@
 
       track.style.width = W + 'px';
 
-      const TOP = Math.max(4, Math.round(size * 0.10));    // distance below crest
+      const TOP = Math.max(2, Math.round(size * 0.08));    // close under the crest
 
       circles.forEach((circleEl, i) => {
         const left = PAD + i*(size + GAP);
@@ -310,9 +303,87 @@
       });
     }
 
-    setHeight();
-    draw();
+    setHeight(); draw();
     addEventListener('resize', () => { setHeight(); draw(); }, { passive:true });
+
+    /* -------- Touch-friendly flyouts (portal) -------- */
+    const canHover = matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    circles.forEach(circle => {
+      const btn = circle.querySelector('.circle-btn');
+      const fly = circle.querySelector('.flyout');
+      if (!btn || !fly) return;
+
+      let armed = false;          // tap-to-open on touch
+      let placeholder = null;     // where to put flyout back
+
+      const toBody = () => {
+        if (fly.parentElement === document.body) return;
+        placeholder = document.createElement('span');
+        placeholder.hidden = true;
+        circle.appendChild(placeholder);
+        document.body.appendChild(fly);
+      };
+      const backHome = () => {
+        if (!placeholder) return;
+        placeholder.replaceWith(fly);
+        placeholder = null;
+      };
+
+      const show = () => {
+        if (!canHover) {
+          // Move to body and place under the button (viewport coords)
+          toBody();
+          const r = btn.getBoundingClientRect();
+          const left = Math.round(r.left + r.width/2);
+          const top  = Math.round(r.bottom + 8); // 8px gap below button
+          fly.classList.add('is-floating');
+          fly.style.left = left + 'px';
+          fly.style.top  = top + 'px';
+        } else {
+          circle.classList.add('is-open'); // enables keyboard/focus open on desktop
+        }
+      };
+
+      const hide = () => {
+        if (!canHover) {
+          fly.classList.remove('is-floating');
+          fly.style.left = fly.style.top = '';
+          backHome();
+        }
+        circle.classList.remove('is-open');
+      };
+
+      // Desktop (hover/focus)
+      if (canHover) {
+        circle.addEventListener('mouseenter', show);
+        circle.addEventListener('mouseleave', hide);
+        btn.addEventListener('focus', show);
+        btn.addEventListener('blur', hide);
+      } else {
+        // Touch: first tap opens, second tap navigates
+        btn.addEventListener('click', (e) => {
+          if (!armed && fly && fly.children.length) {
+            e.preventDefault();
+            show();
+            armed = true;
+            setTimeout(() => armed = false, 1200);
+          }
+          // if no flyout items, navigate immediately
+        }, { passive:false });
+
+        // Tap outside closes
+        document.addEventListener('click', (e) => {
+          if (!circle.contains(e.target) && !fly.contains(e.target)) hide();
+        }, { passive:true });
+
+        // Scroll/resize closes (so it never lags behind)
+        addEventListener('scroll', hide, { passive:true });
+        addEventListener('resize', hide);
+      }
+
+      btn.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') hide(); });
+    });
   })();
   </script>
 </body>
