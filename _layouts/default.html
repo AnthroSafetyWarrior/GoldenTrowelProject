@@ -26,6 +26,9 @@
       --band-grad-mid:#baafa8;
       --band-grad-bottom:#eae6df;
     }
+/* Pull the buttons a bit closer to the crest */
+:root { --circle-lift: -8px; }              /* tweak: -6px … -14px */
+.circle-nav { transform: translateY(var(--circle-lift)); }
 
     /* ============== Base / Layout ============== */
     *,*::before,*::after{ box-sizing: border-box; }
