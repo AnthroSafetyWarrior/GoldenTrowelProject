@@ -101,7 +101,7 @@
     .wave-nav{
       position:relative; background:transparent;
       overflow-x:auto;
-      overflow-y:clip;           /* no vertical scrollbar */
+      overflow-y:clip;           /* ⬅ prevents vertical scrollbar entirely */
       -webkit-overflow-scrolling:touch;
 
       /* Firefox scrollbar style */
@@ -124,16 +124,14 @@
     .circle-nav{ position:absolute; inset:0; pointer-events:none; z-index:5; }
     .circle{
       position:absolute; pointer-events:auto;
-      /* Bigger minimum & slightly bigger maximum for accessibility */
-      --size: clamp(96px, 10.2vw, 128px);
+      --size: clamp(96px, 9.25vw, 112px);
       width: var(--size); height: var(--size);
     }
     .circle-btn{
       position:absolute; inset:0; border-radius:50%; border:3px solid var(--gold);
       display:flex; align-items:center; justify-content:center; text-align:center;
       padding:6px; line-height:1.1; font-weight:800; cursor:pointer;
-      /* small legibility bump */
-      font-size:clamp(1rem, 1.2vw, 1.1rem);
+      font-size:clamp(.9rem, 1.1vw, 1rem);
       background: var(--gold); color: var(--soil);
       box-shadow: 0 10px 0 rgba(0,0,0,.10), 0 2px 8px rgba(0,0,0,.08);
       transition: transform .15s ease, background .15s ease, color .15s ease,
@@ -149,7 +147,7 @@
 
     /* Pills BELOW each circle (hidden by default so they don't create overflow) */
     .flyout{
-      display:none;
+      display:none;                      /* ⬅ prevents any vertical scrollbars */
       position:absolute; left:50%; top: calc(100% + 10px); transform: translateX(-50%);
       flex-direction:column; align-items:center; gap:8px;
       pointer-events:none; opacity:0; transition:opacity .18s ease; z-index:10;
@@ -279,31 +277,25 @@
 
     function setHeight(){
       const size = getCircleSize();
-      /* a touch taller to fit larger min circles comfortably */
-      const h = Math.max(110, Math.round(size * 1.20));
+      const h = Math.max(100, Math.round(size * 1.12));  // compact band
       wrap.style.height = h + 'px';
     }
 
     function draw(){
       const size = getCircleSize();
-
-      /* More room between circles, and a bit more side padding */
-      const GAP = Math.max(22, Math.round(size * 0.34));
-      const PAD = Math.max(20, Math.round(size * 0.50));
+      const GAP = Math.max(20, Math.round(size * 0.26));   // tighter gaps
+      const PAD = Math.max(12, Math.round(size * 0.34));   // side padding
 
       const count = circles.length;
-      const rowWidth = count*size + (count-1)*GAP;
-      const W = Math.max(wrap.clientWidth, PAD*2 + rowWidth);
+      const neededWidth = PAD*2 + count*size + (count-1)*GAP;
+      const W = Math.max(wrap.clientWidth, neededWidth);
+
       track.style.width = W + 'px';
 
-      /* Center the row if there’s extra space */
-      const start = Math.max(PAD, Math.round((W - rowWidth) / 2));
-
-      /* keep close under the crest */
-      const TOP = Math.max(2, Math.round(size * 0.08));
+      const TOP = Math.max(2, Math.round(size * 0.08));    // close under the crest
 
       circles.forEach((circleEl, i) => {
-        const left = start + i*(size + GAP);
+        const left = PAD + i*(size + GAP);
         circleEl.style.left = left + 'px';
         circleEl.style.top  = TOP  + 'px';
 
@@ -316,7 +308,7 @@
     setHeight(); draw();
     addEventListener('resize', () => { setHeight(); draw(); }, { passive:true });
 
-    /* -------- Portal flyouts so they never affect nav height -------- */
+    /* -------- Portal flyouts on ALL devices so they never affect nav height -------- */
     circles.forEach(circle => {
       const btn = circle.querySelector('.circle-btn');
       const fly = circle.querySelector('.flyout');
@@ -342,7 +334,7 @@
         const r = btn.getBoundingClientRect();
         fly.classList.add('is-floating');
         fly.style.left = Math.round(r.left + r.width/2) + 'px';
-        fly.style.top  = Math.round(r.bottom + 8) + 'px';
+        fly.style.top  = Math.round(r.bottom + 8) + 'px'; // 8px gap below button
         fly.style.display = 'flex';
       };
 
@@ -359,10 +351,38 @@
         backHome();
       };
 
+      /* Desktop hover: keep open while mouse is on button or flyout */
       btn.addEventListener('pointerenter', show);
       btn.addEventListener('pointerleave', () => { hideTimer = setTimeout(hide, 120); });
       fly.addEventListener('pointerenter', () => clearTimeout(hideTimer));
       fly.addEventListener('pointerleave', () => { hideTimer = setTimeout(hide, 120); });
 
+      /* Keyboard focus */
       btn.addEventListener('focus', show);
-      btn.addEventListener('blur',  () => { hideTimer =
+      btn.addEventListener('blur',  () => { hideTimer = setTimeout(hide, 150); });
+
+      /* Touch: first tap opens, second tap navigates (if no flyout content, it just navigates) */
+      let armed = false;
+      btn.addEventListener('click', (e) => {
+        const hasItems = fly.querySelector('.pill');
+        if (!hasItems) return;  // no dropdown -> let it navigate
+        if (!armed) {
+          e.preventDefault();
+          show();
+          armed = true;
+          setTimeout(() => armed = false, 1200);
+        }
+        // second tap navigates naturally
+      }, { passive:false });
+
+      // Close on scroll/resize/outside click
+      addEventListener('scroll', hide, { passive:true });
+      addEventListener('resize', () => { hide(); positionFlyout(); }, { passive:true });
+      document.addEventListener('click', (ev) => {
+        if (!fly.contains(ev.target) && !btn.contains(ev.target)) hide();
+      }, { passive:true });
+    });
+  })();
+  </script>
+</body>
+</html>
