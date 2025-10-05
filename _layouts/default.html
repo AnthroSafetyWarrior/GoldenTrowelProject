@@ -89,12 +89,13 @@
       padding-bottom: clamp(3px, .5vw, 8px);  /* less space below buttons */
       min-height: clamp(82px, 9vw, 108px);
       overflow: visible; /* allow pills to overflow into page */
-      background: linear-gradient(
-        to bottom,
-        var(--band-grad-top) 0%,
-        var(--band-grad-mid) 45%,
-        var(--band-grad-bottom) 100%
-      );
+ background: linear-gradient(
+    to bottom,
+    var(--band-grad-top) 0%,
+    #d5cbc4 40%,
+    #ece8e3 75%,
+    #f5f2ee 100%                               /* matches page bg */
+  );
     }
 
     /* ============== Scrollable Wave Nav (horizontal only) ============== */
@@ -290,31 +291,43 @@
       wrap.style.height = h + 'px';
     }
 
-    function draw(){
-      const size = getCircleSize();
+   function draw(){
+  const size   = getCircleSize();
+  const wrapW  = wrap.clientWidth;
+  const count  = circles.length;
 
-      // compute gap/pad as clamp(min, vw-based, max)
-      const gap = Math.round(Math.max(GAP_MIN, Math.min(window.innerWidth * GAP_VW, GAP_MAX)));
-      const pad = Math.round(Math.max(PAD_MIN, Math.min(window.innerWidth * PAD_VW, PAD_MAX)));
+  // Your constraints
+  const GAP_MIN = 50;     // min space between buttons
+  const GAP_MAX = 112;    // max space between buttons
+  const PAD_MIN = 24;     // min side padding
 
-      const count = circles.length;
-      const neededWidth = pad*2 + count*size + (count-1)*gap;
-      const W = Math.max(wrap.clientWidth, neededWidth);
+  // 1) Try to fill the available width: compute a gap that would fit the row,
+  //    then clamp it to your min/max so accessibility stays consistent.
+  const gapFit = (wrapW - 2*PAD_MIN - count*size) / Math.max(1, (count - 1));
+  const gap    = Math.max(GAP_MIN, Math.min(gapFit, GAP_MAX));
 
-      track.style.width = W + 'px';
+  // 2) With the chosen gap, center the row by distributing leftover as side pad.
+  const rowWidth = count*size + (count-1)*gap;
+  const pad      = Math.max(PAD_MIN, Math.floor((wrapW - rowWidth) / 2));
 
-      const TOP = Math.max(2, Math.round(size * 0.08));    // close under the crest
+  // 3) If the viewport is too small, allow horizontal scroll by expanding the track.
+  const neededWidth = rowWidth + 2*pad;
+  const trackWidth  = Math.max(wrapW, neededWidth);
+  track.style.width = trackWidth + 'px';
 
-      circles.forEach((circleEl, i) => {
-        const left = pad + i*(size + gap);
-        circleEl.style.left = left + 'px';
-        circleEl.style.top  = TOP  + 'px';
+  // 4) Position circles
+  const TOP = Math.max(2, Math.round(size * 0.08));
+  circles.forEach((circleEl, i) => {
+    const left = pad + i*(size + gap);
+    circleEl.style.left = left + 'px';
+    circleEl.style.top  = TOP  + 'px';
 
-        const href = circleEl.getAttribute('data-href');
-        const btn  = circleEl.querySelector('.circle-btn');
-        if (btn && href) btn.onclick = () => { location.href = href; };
-      });
-    }
+    const href = circleEl.getAttribute('data-href');
+    const btn  = circleEl.querySelector('.circle-btn');
+    if (btn && href) btn.onclick = () => { location.href = href; };
+  });
+}
+
 
     setHeight(); draw();
     addEventListener('resize', () => { setHeight(); draw(); }, { passive:true });
