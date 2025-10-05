@@ -86,22 +86,24 @@
     .nav-gradient{
       margin-top:-18px;
       padding-top:0;
-      padding-bottom: clamp(4px, .5vw, 18px);  /* less space below buttons */
-      min-height: clamp(90px, 10vw, 110px);
-      overflow: visible; /* allow pills to overflow into page */
-  background: linear-gradient(
+      padding-bottom: clamp(8px, 1.2vw, 20px);
+  min-height: clamp(92px, 10vw, 120px);
+  overflow: visible; /* allow pills to overflow into page */
+   background: linear-gradient(
     to bottom,
-    var(--band-grad-top) 50%,
-    #d5cbc4 70%,
-    #eae6dfff 100%                               /* matches page bg */
+    var(--band-grad-top) 0%,
+    color-mix(in srgb, var(--band-grad-top) 72%, #ffffff) 38%,
+    #d7cdc7 60%,
+    #ece8e3 80%,
+    #f5f2ee 100%         /* ← same as the page background near the top of the page */
   );
     }
-
+.hero-wave svg{ margin-bottom:-8px; }
     /* ============== Scrollable Wave Nav (horizontal only) ============== */
     .wave-nav{
       position:relative; background:transparent;
       overflow-x:auto;
-      overflow-y:clip;           /* no vertical scrollbar inside the nav */
+      overflow-y:visible;           /* no vertical scrollbar inside the nav */
       -webkit-overflow-scrolling:touch;
 
       /* Firefox scrollbar style */
@@ -271,7 +273,7 @@
     if (!wrap || !track || !circles.length) return;
 
     /* ---------- Responsive spacing controls (edit these) ---------- */
-    const GAP_MIN = 100;         // px
+    const GAP_MIN = 120;         // px
     const GAP_MAX = 220;        // px
     const GAP_VW  = 0.06;       // 6vw
 
@@ -296,7 +298,7 @@
   const count  = circles.length;
 
   // Your constraints
-  const GAP_MIN = 100;     // min space between buttons
+  const GAP_MIN = 120;     // min space between buttons
   const GAP_MAX = 220;    // max space between buttons
   const PAD_MIN = 24;     // min side padding
 
