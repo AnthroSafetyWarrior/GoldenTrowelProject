@@ -26,11 +26,6 @@
       --band-grad-mid:#baafa8;
       --band-grad-bottom:#eae6df;
     }
-:root{
-  /* …your tokens… */
-  --circle-gap: 32;   /* px between buttons */
-  --circle-pad: 28;   /* px padding on left/right ends */
-}
 
     /* ============== Base / Layout ============== */
     *,*::before,*::after{ box-sizing: border-box; }
@@ -106,7 +101,7 @@
     .wave-nav{
       position:relative; background:transparent;
       overflow-x:auto;
-      overflow-y:clip;           /* ⬅ prevents vertical scrollbar entirely */
+      overflow-y:clip;           /* no vertical scrollbar inside the nav */
       -webkit-overflow-scrolling:touch;
 
       /* Firefox scrollbar style */
@@ -129,7 +124,7 @@
     .circle-nav{ position:absolute; inset:0; pointer-events:none; z-index:5; }
     .circle{
       position:absolute; pointer-events:auto;
-      --size: clamp(96px, 9.25vw, 112px);
+      --size: clamp(96px, 9.25vw, 112px); /* keep your preferred size range */
       width: var(--size); height: var(--size);
     }
     .circle-btn{
@@ -150,9 +145,9 @@
       box-shadow: 0 12px 0 rgba(0,0,0,.12), 0 6px 14px rgba(0,0,0,.12);
     }
 
-    /* Pills BELOW each circle (hidden by default so they don't create overflow) */
+    /* Pills BELOW each circle (hidden so they don't affect nav height) */
     .flyout{
-      display:none;                      /* ⬅ prevents any vertical scrollbars */
+      display:none;
       position:absolute; left:50%; top: calc(100% + 10px); transform: translateX(-50%);
       flex-direction:column; align-items:center; gap:8px;
       pointer-events:none; opacity:0; transition:opacity .18s ease; z-index:10;
@@ -160,7 +155,7 @@
     .circle:hover .flyout,
     .circle.is-open .flyout{ display:flex; opacity:1; pointer-events:auto; }
 
-    /* When portaled to body on hover/touch */
+    /* When portaled to body */
     .flyout.is-floating{
       position:fixed; left:0; top:0; transform: translateX(-50%); z-index:2000;
       display:flex; opacity:1; pointer-events:auto;
@@ -275,6 +270,15 @@
     const circles = track?.querySelectorAll('.circle') || [];
     if (!wrap || !track || !circles.length) return;
 
+    /* ---------- Responsive spacing controls (edit these) ---------- */
+    const GAP_MIN = 50;         // px
+    const GAP_MAX = 112;        // px
+    const GAP_VW  = 0.06;       // 6vw
+
+    const PAD_MIN = 24;         // px
+    const PAD_MAX = 72;         // px
+    const PAD_VW  = 0.08;       // 8vw
+
     const getCircleSize = () => {
       const any = circles[0];
       return any ? (any.offsetWidth || parseFloat(getComputedStyle(any).getPropertyValue('--size'))) : 96;
@@ -288,20 +292,13 @@
 
     function draw(){
       const size = getCircleSize();
- const css = getComputedStyle(document.documentElement);
-const px = (name, fallback) => {
-  const v = parseFloat(css.getPropertyValue(name));
-  return Number.isFinite(v) ? v : fallback;
-};
 
-// spacing between buttons and side padding
-const GAP = px('--circle-gap', Math.round(size * 0.28));
-const PAD = px('--circle-pad', Math.round(size * 0.42));
-
-
+      // compute gap/pad as clamp(min, vw-based, max)
+      const gap = Math.round(Math.max(GAP_MIN, Math.min(window.innerWidth * GAP_VW, GAP_MAX)));
+      const pad = Math.round(Math.max(PAD_MIN, Math.min(window.innerWidth * PAD_VW, PAD_MAX)));
 
       const count = circles.length;
-      const neededWidth = PAD*2 + count*size + (count-1)*GAP;
+      const neededWidth = pad*2 + count*size + (count-1)*gap;
       const W = Math.max(wrap.clientWidth, neededWidth);
 
       track.style.width = W + 'px';
@@ -309,7 +306,7 @@ const PAD = px('--circle-pad', Math.round(size * 0.42));
       const TOP = Math.max(2, Math.round(size * 0.08));    // close under the crest
 
       circles.forEach((circleEl, i) => {
-        const left = PAD + i*(size + GAP);
+        const left = pad + i*(size + gap);
         circleEl.style.left = left + 'px';
         circleEl.style.top  = TOP  + 'px';
 
@@ -386,7 +383,6 @@ const PAD = px('--circle-pad', Math.round(size * 0.42));
           armed = true;
           setTimeout(() => armed = false, 1200);
         }
-        // second tap navigates naturally
       }, { passive:false });
 
       // Close on scroll/resize/outside click
