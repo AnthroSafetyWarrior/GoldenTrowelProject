@@ -86,15 +86,14 @@
     .nav-gradient{
       margin-top:-18px;
       padding-top:0;
-      padding-bottom: clamp(6px, .5vw, 12px);  /* less space below buttons */
+      padding-bottom: clamp(8px, .5vw, 18px);  /* less space below buttons */
       min-height: clamp(80px, 10vw, 110px);
       overflow: visible; /* allow pills to overflow into page */
   background: linear-gradient(
     to bottom,
-    var(--band-grad-top) 60%,
-    #d5cbc4 80%,
-    #ece8e3 100%,
-    #f5f2ee 0%                               /* matches page bg */
+    var(--band-grad-top) 50%,
+    #d5cbc4 85%,
+    #eae6dfff 100%,                               /* matches page bg */
   );
     }
 
@@ -272,8 +271,8 @@
     if (!wrap || !track || !circles.length) return;
 
     /* ---------- Responsive spacing controls (edit these) ---------- */
-    const GAP_MIN = 90;         // px
-    const GAP_MAX = 120;        // px
+    const GAP_MIN = 100;         // px
+    const GAP_MAX = 220;        // px
     const GAP_VW  = 0.06;       // 6vw
 
     const PAD_MIN = 34;         // px
@@ -297,8 +296,8 @@
   const count  = circles.length;
 
   // Your constraints
-  const GAP_MIN = 90;     // min space between buttons
-  const GAP_MAX = 120;    // max space between buttons
+  const GAP_MIN = 100;     // min space between buttons
+  const GAP_MAX = 220;    // max space between buttons
   const PAD_MIN = 24;     // min side padding
 
   // 1) Try to fill the available width: compute a gap that would fit the row,
