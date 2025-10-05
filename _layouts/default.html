@@ -72,93 +72,110 @@
       line-height:1.12;
     }
     /* stronger legibility over the photo */
-.header-text p{
-  margin:.35em 0 0;
-  color: var(--logo-orange);
-  font-weight:700;
-  font-size: clamp(1.05rem, 2.6vw, 1.25rem);
-  text-shadow:
-    0 1px 0 rgba(255,255,255,.85),
-    0 0 8px rgba(255,255,255,.45),
-    0 0 14px rgba(255,255,255,.25);
-}
-
+    .header-text p{
+      margin:.35em 0 0; color: var(--logo-orange); font-weight:700;
+      font-size: clamp(1.05rem, 2.6vw, 1.25rem);
+      text-shadow:
+        0 1px 0 rgba(255,255,255,.85),
+        0 0 8px rgba(255,255,255,.45),
+        0 0 14px rgba(255,255,255,.25);
+    }
 
     /* ============== Crest waves above the band ============== */
     .hero-wave{ position:relative; }
- /* 1) Nudge the crest tighter to the band (kill the gap) */
-.hero-wave svg{ margin-bottom:-6px; }          /* was -2px */
-.nav-gradient{
-  margin-top:-18px;                             /* tuck further under the crest */
-  padding-top: 0;                               /* no extra air above circles */
-  padding-bottom: clamp(4px, .8vw, 10px);       /* a little air below */
-  min-height: clamp(80px, 10vw, 120px);         /* slimmer band */
-  overflow: visible;                             /* allow pills to overflow */
-}
+    .hero-wave svg{ margin-bottom:-6px; }  /* tuck tighter to band */
 
-/* 2) Let the nav scroll horizontally BUT allow vertical overflow for pills */
-.wave-nav{
-  overflow-x:auto;
-  overflow-y:visible;                            /* pills can spill over the band */
-  -webkit-overflow-scrolling:touch;
-}
+    /* Gradient band (wraps the scroll nav) */
+    .nav-gradient{
+      margin-top:-18px;
+      padding-top:0;
+      padding-bottom: clamp(4px, .8vw, 10px);
+      min-height: clamp(80px, 10vw, 120px);
+      overflow: visible; /* allow pills to overflow into page */
+      background: linear-gradient(
+        to bottom,
+        var(--band-grad-top) 0%,
+        var(--band-grad-mid) 45%,
+        var(--band-grad-bottom) 100%
+      );
+    }
 
-/* 3) Make sure pills render on top of the body text */
-.circle-nav{ z-index: 5; }
-.flyout{ z-index: 10; }
+    /* ============== Scrollable Wave Nav ============== */
+    .wave-nav{
+      position:relative; background:transparent;
+      overflow-x:auto; overflow-y:visible;       /* pills can spill over band */
+      -webkit-overflow-scrolling:touch;
 
-/* (optional) keep circles a touch closer to the crest on the slimmer band */
- 
-    .wave-nav::-webkit-scrollbar{ display:none; height:0; } /* WebKit */
+      /* Firefox scrollbar (visible & subtle) */
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0,0,0,.28) transparent;
+    }
 
-    .wave-track{ position:relative; height:100%; min-width:1100px; }
-    .wave{ width:100%; height:100%; display:block; }
+    /* WebKit scrollbar (RESTORED & styled) */
+    .wave-nav::-webkit-scrollbar{ height: 10px; }
+    .wave-nav::-webkit-scrollbar-track{
+      background: transparent;
+    }
+    .wave-nav::-webkit-scrollbar-thumb{
+      background: rgba(0,0,0,.25);
+      border-radius: 999px;
+      border: 2px solid transparent;      /* nice pill shape */
+      background-clip: padding-box;
+    }
+    .wave-nav:hover::-webkit-scrollbar-thumb{
+      background: rgba(0,0,0,.40);
+    }
+
+    /* inner helper track (no forced min-width; JS sets width) */
+    .wave-track{ position:relative; height:100%; min-width:0; }
+
+    /* We don't draw a sine shape inside the band */
+    .nav-gradient .wave{ display:none !important; }
 
     /* Circles layer */
-    .circle-nav{ position:absolute; inset:0; pointer-events:none; }
-  /* Circles layer (unchanged sizing) */
-.circle{ position:absolute; pointer-events:auto; --size: clamp(80px, 9.25vw, 112px);
-         width: var(--size); height: var(--size); }
+    .circle-nav{ position:absolute; inset:0; pointer-events:none; z-index:5; }
+    .circle{
+      position:absolute; pointer-events:auto;
+      --size: clamp(80px, 9.25vw, 112px);
+      width: var(--size); height: var(--size);
+    }
+    .circle-btn{
+      position:absolute; inset:0; border-radius:50%; border:3px solid var(--gold);
+      display:flex; align-items:center; justify-content:center; text-align:center;
+      padding:6px; line-height:1.1; font-weight:800; cursor:pointer;
+      font-size:clamp(.9rem, 1.1vw, 1rem);
+      background: var(--gold); color: var(--soil);
+      box-shadow: 0 10px 0 rgba(0,0,0,.10), 0 2px 8px rgba(0,0,0,.08);
+      transition: transform .15s ease, background .15s ease, color .15s ease,
+                  box-shadow .15s ease, border-color .15s ease;
+      z-index:1;
+    }
+    .circle-btn:hover,
+    .circle-btn:focus-visible{
+      background: var(--logo-orange); color:#fff; border-color: var(--gold); outline:0;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 0 rgba(0,0,0,.12), 0 6px 14px rgba(0,0,0,.12);
+    }
 
-/* Button uses root colors */
-.circle-btn{
-  position:absolute; inset:0; border-radius:50%; border:3px solid var(--gold);
-  display:flex; align-items:center; justify-content:center; text-align:center;
-  padding:6px; line-height:1.1; font-weight:800; cursor:pointer;
-  font-size:clamp(.9rem, 1.1vw, 1rem);
-  background: var(--gold); color: var(--soil);
-  box-shadow: 0 10px 0 rgba(0,0,0,.10), 0 2px 8px rgba(0,0,0,.08);
-  transition: transform .15s ease, background .15s ease, color .15s ease,
-              box-shadow .15s ease, border-color .15s ease;
-  z-index:1;
-}
-.circle-btn:hover,
-.circle-btn:focus-visible{
-  background: var(--logo-orange); color:#fff; border-color: var(--gold); outline:0;
-  transform: translateY(-2px);
-  box-shadow: 0 12px 0 rgba(0,0,0,.12), 0 6px 14px rgba(0,0,0,.12);
-}
-
-/* Pills BELOW each circle (CSS-only positioning) */
-.flyout{
-  position:absolute; left:50%; top: calc(100% + 10px); transform: translateX(-50%);
-  display:flex; flex-direction:column; align-items:center; gap:8px;
-  pointer-events:none; opacity:0; transition:opacity .18s ease; z-index:2;
-}
-.circle:hover .flyout, .circle:focus-within .flyout{ opacity:1; pointer-events:auto; }
-
-.pill{
-  position:static;               /* no absolute math */
-  background: var(--gold); color: var(--soil);
-  font-weight:700; font-size:.9rem; white-space:nowrap;
-  padding:.45em .9em; border-radius:999px; text-decoration:none;
-  box-shadow:0 10px 20px rgba(0,0,0,.18);
-  transition:transform .15s ease, background .15s ease, color .15s ease, box-shadow .15s ease;
-}
-.pill:hover, .pill:focus-visible{
-  background: var(--logo-orange); color:#fff; transform:translateY(-1px);
-  box-shadow:0 12px 24px rgba(0,0,0,.22); outline:0;
-}
+    /* Pills BELOW each circle */
+    .flyout{
+      position:absolute; left:50%; top: calc(100% + 10px); transform: translateX(-50%);
+      display:flex; flex-direction:column; align-items:center; gap:8px;
+      pointer-events:none; opacity:0; transition:opacity .18s ease; z-index:10;
+    }
+    .circle:hover .flyout, .circle:focus-within .flyout{ opacity:1; pointer-events:auto; }
+    .pill{
+      position:static;
+      background: var(--gold); color: var(--soil);
+      font-weight:700; font-size:.9rem; white-space:nowrap;
+      padding:.45em .9em; border-radius:999px; text-decoration:none;
+      box-shadow:0 10px 20px rgba(0,0,0,.18);
+      transition:transform .15s ease, background .15s ease, color .15s ease, box-shadow .15s ease;
+    }
+    .pill:hover, .pill:focus-visible{
+      background: var(--logo-orange); color:#fff; transform:translateY(-1px);
+      box-shadow:0 12px 24px rgba(0,0,0,.22); outline:0;
+    }
 
     /* (Optional) hub styles kept */
     .hub{ display:grid; gap:1.2rem; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); align-items:start; margin:clamp(12px,2vw,20px) auto; }
@@ -166,25 +183,7 @@
     .bubble{ width:100%; border-radius:999px; padding:.8rem 1rem; font-weight:800; background:var(--offwhite); color:var(--soil); border:2px solid color-mix(in srgb, var(--soil) 25%, transparent); transition:background .18s ease, color .18s ease, transform .18s ease, border-color .18s ease; min-height:44px; }
     .bubble:hover{ background:var(--logo-orange); color:#fff; transform:translateY(-2px); }
     .bubble:focus-visible{ outline:3px solid var(--accent); outline-offset:3px; }
-/* Clean gradient band: hide the inside sine-wave shape */
-/* band stays a gradient; no inner sine-shape drawn */
-.nav-gradient .wave{ display:none !important; }
-
-/* let the track width be JS-controlled (no forced 1100px) */
-.wave-track{ min-width: 0 !important; }
-
-/* band: slimmer bottom air */
-.nav-gradient{
-  padding-bottom: clamp(2px, .5vw, 8px) !important;
-  min-height: clamp(72px, 9vw, 108px) !important;
-}
-
-/* scroll container: allow pills to spill over page */
-.wave-nav{ overflow-y: visible !important; }
-.circle-nav{ z-index: 5; }
-.flyout{ z-index: 10; }
- 
- </style>
+  </style>
 </head>
 
 <body>
@@ -220,7 +219,6 @@
       <div class="nav-gradient">
         <section class="wave-nav" aria-label="Primary navigation">
           <div class="wave-track">
-            <!-- The JS will draw a subtle wave here (fill blends with band) -->
             <svg class="wave" preserveAspectRatio="none" aria-hidden="true"></svg>
 
             <nav class="circle-nav">
@@ -269,58 +267,53 @@
     {{ content }}
   </main>
 
-  <!-- Wave + circles + flyout positioning -->
-<script>
-(() => {
-  const wrap  = document.querySelector('.wave-nav');
-  const track = wrap?.querySelector('.wave-track');
-  const circles = track?.querySelectorAll('.circle') || [];
-  if (!wrap || !track || !circles.length) return;
+  <!-- Even, tight circle layout; pills handled by CSS -->
+  <script>
+  (() => {
+    const wrap  = document.querySelector('.wave-nav');
+    const track = wrap?.querySelector('.wave-track');
+    const circles = track?.querySelectorAll('.circle') || [];
+    if (!wrap || !track || !circles.length) return;
 
-  const getCircleSize = () => {
-    const any = circles[0];
-    return any ? (any.offsetWidth || parseFloat(getComputedStyle(any).getPropertyValue('--size'))) : 96;
-  };
+    const getCircleSize = () => {
+      const any = circles[0];
+      return any ? (any.offsetWidth || parseFloat(getComputedStyle(any).getPropertyValue('--size'))) : 96;
+    };
 
-  function setHeight(){
-    const size = getCircleSize();
-    /* shorter band -> less space below circles */
-    const h = Math.max(100, Math.round(size * 1.12));
-    wrap.style.height = h + 'px';
-  }
+    function setHeight(){
+      const size = getCircleSize();
+      const h = Math.max(100, Math.round(size * 1.12));  // compact band
+      wrap.style.height = h + 'px';
+    }
 
-  function draw(){
-    const size = getCircleSize();
+    function draw(){
+      const size = getCircleSize();
+      const GAP = Math.max(14, Math.round(size * 0.26));   // spacing between circles
+      const PAD = Math.max(16, Math.round(size * 0.40));   // side padding
 
-    /* tighter spacing between circles */
-    const GAP = Math.max(14, Math.round(size * 0.26));
-    const PAD = Math.max(16, Math.round(size * 0.40));   // side padding
+      const count = circles.length;
+      const neededWidth = PAD*2 + count*size + (count-1)*GAP;
+      const W = Math.max(wrap.clientWidth, neededWidth);
 
-    const count = circles.length;
-    const neededWidth = PAD*2 + count*size + (count-1)*GAP;
-    const W = Math.max(wrap.clientWidth, neededWidth);
+      track.style.width = W + 'px';
 
-    track.style.width = W + 'px';
+      const TOP = Math.max(4, Math.round(size * 0.10));    // distance below crest
 
-    /* keep roughly the same distance from the crest */
-    const TOP = Math.max(4, Math.round(size * 0.10));
+      circles.forEach((circleEl, i) => {
+        const left = PAD + i*(size + GAP);
+        circleEl.style.left = left + 'px';
+        circleEl.style.top  = TOP  + 'px';
 
-    circles.forEach((circleEl, i) => {
-      const left = PAD + i*(size + GAP);
-      circleEl.style.left = left + 'px';
-      circleEl.style.top  = TOP  + 'px';
+        const href = circleEl.getAttribute('data-href');
+        const btn  = circleEl.querySelector('.circle-btn');
+        if (btn && href) btn.onclick = () => { location.href = href; };
+      });
+    }
 
-      const href = circleEl.getAttribute('data-href');
-      const btn  = circleEl.querySelector('.circle-btn');
-      if (btn && href) btn.onclick = () => { location.href = href; };
-    });
-  }
-
-  setHeight();
-  draw();
-  addEventListener('resize', () => { setHeight(); draw(); }, { passive:true });
-})();
-</script>
-
+    setHeight();
+    draw();
+    addEventListener('resize', () => { setHeight(); draw(); }, { passive:true });
+  })();
+  </script>
 </body>
 </html>
