@@ -84,21 +84,42 @@
 
     /* Gradient band (wraps the scroll nav) */
     .nav-gradient{
-      margin-top:-18px;
-      padding-top:0;
-      padding-bottom: clamp(8px, 1.2vw, 20px);
+  margin-top:-18px;
+  padding-top:0;
+  /* just a little real padding; shadows can overflow below */
+  padding-bottom: clamp(2px, .6vw, 8px);
   min-height: clamp(92px, 10vw, 120px);
-  overflow: visible; /* allow pills to overflow into page */
-   background: linear-gradient(
+  position: relative;
+  overflow: visible;
+ background: linear-gradient(
     to bottom,
-    var(--band-grad-top) 0%,
-    color-mix(in srgb, var(--band-grad-top) 72%, #ffffff) 38%,
-    #d7cdc7 60%,
-    #ece8e3 80%,
-    #f5f2ee 100%         /* ← same as the page background near the top of the page */
+    var(--wave-dark) 0%,
+    color-mix(in srgb, var(--wave-dark) 75%, var(--wave-mid)) 22%,
+    var(--wave-mid) 46%,
+    color-mix(in srgb, var(--wave-mid) 65%, #fff) 72%,
+    color-mix(in srgb, var(--wave-mid) 35%, #fff) 88%,
+    #f5f2ee 100%   /* ← match body’s background near this area */
   );
     }
+
+/* Soft feather below the band so there’s never a seam
+   and button shadows aren’t “cut” visually */
+.nav-gradient::after{
+  content:"";
+  position:absolute;
+  left:0; right:0; bottom:-22px; height:22px;
+  background: linear-gradient(
+    to bottom,
+    rgba(245,242,238,0) 0%,
+    rgba(245,242,238,.6) 70%,
+    #f5f2ee 100%
+  );
+  pointer-events:none;
+}
+
+/* (tiny tuck so the waves hug the band nicely) */
 .hero-wave svg{ margin-bottom:-8px; }
+
     /* ============== Scrollable Wave Nav (horizontal only) ============== */
     .wave-nav{
       position:relative; background:transparent;
