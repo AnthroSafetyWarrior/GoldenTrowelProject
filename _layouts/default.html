@@ -92,9 +92,10 @@
  background: linear-gradient(
     to bottom,
     var(--band-grad-top) 0%,
-    #d5cbc4 40%,
+    var(--band-grad-middle) 40%,
+    #d5cbc4 60%,
     #ece8e3 75%,
-    #f5f2ee 100%                               /* matches page bg */
+    #eae6dfff 100%                               /* matches page bg */
   );
     }
 
@@ -272,7 +273,7 @@
     if (!wrap || !track || !circles.length) return;
 
     /* ---------- Responsive spacing controls (edit these) ---------- */
-    const GAP_MIN = 50;         // px
+    const GAP_MIN = 80;         // px
     const GAP_MAX = 112;        // px
     const GAP_VW  = 0.06;       // 6vw
 
