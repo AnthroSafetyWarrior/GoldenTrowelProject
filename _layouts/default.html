@@ -167,7 +167,22 @@
     .bubble:hover{ background:var(--logo-orange); color:#fff; transform:translateY(-2px); }
     .bubble:focus-visible{ outline:3px solid var(--accent); outline-offset:3px; }
 /* Clean gradient band: hide the inside sine-wave shape */
+/* band stays a gradient; no inner sine-shape drawn */
 .nav-gradient .wave{ display:none !important; }
+
+/* let the track width be JS-controlled (no forced 1100px) */
+.wave-track{ min-width: 0 !important; }
+
+/* band: slimmer bottom air */
+.nav-gradient{
+  padding-bottom: clamp(2px, .5vw, 8px) !important;
+  min-height: clamp(72px, 9vw, 108px) !important;
+}
+
+/* scroll container: allow pills to spill over page */
+.wave-nav{ overflow-y: visible !important; }
+.circle-nav{ z-index: 5; }
+.flyout{ z-index: 10; }
  
  </style>
 </head>
@@ -259,66 +274,45 @@
 (() => {
   const wrap  = document.querySelector('.wave-nav');
   const track = wrap?.querySelector('.wave-track');
-  const svg   = track?.querySelector('svg.wave');
   const circles = track?.querySelectorAll('.circle') || [];
-  if (!wrap || !track || !svg || !circles.length) return;
+  if (!wrap || !track || !circles.length) return;
 
-  const WAVES = 5, AMPFR = 0.20, BASE = 0.52;
-  const FILL1 = getComputedStyle(document.documentElement)
-                  .getPropertyValue('--band-grad-mid')?.trim() || '#e6ddd7';
+  const getCircleSize = () => {
+    const any = circles[0];
+    return any ? (any.offsetWidth || parseFloat(getComputedStyle(any).getPropertyValue('--size'))) : 96;
+  };
 
   function setHeight(){
-    const any = circles[0];
-    const size = any ? (any.offsetHeight || parseFloat(getComputedStyle(any).width)) : 96;
-    const h = Math.max(120, size * 1.35);
+    const size = getCircleSize();
+    /* shorter band -> less space below circles */
+    const h = Math.max(100, Math.round(size * 1.12));
     wrap.style.height = h + 'px';
   }
 
-  /* CSS handles flyout placement; this is a harmless stub */
-  function positionFlyout(){ /* no-op */ }
-
   function draw(){
-    const vw = wrap.clientWidth;
-    const W  = Math.max(vw, 1280);
+    const size = getCircleSize();
+
+    /* tighter spacing between circles */
+    const GAP = Math.max(14, Math.round(size * 0.26));
+    const PAD = Math.max(16, Math.round(size * 0.40));   // side padding
+
+    const count = circles.length;
+    const neededWidth = PAD*2 + count*size + (count-1)*GAP;
+    const W = Math.max(wrap.clientWidth, neededWidth);
+
     track.style.width = W + 'px';
-    svg.style.width   = W + 'px';
 
-    const H = wrap.clientHeight || wrap.getBoundingClientRect().height;
-    const A = AMPFR * H;
-    const k = (2*Math.PI*WAVES) / W;
+    /* keep roughly the same distance from the crest */
+    const TOP = Math.max(4, Math.round(size * 0.10));
 
-    const N = 240;
-    let d = `M 0 ${BASE*H + A*Math.sin(0)}`;
-    for (let i=1;i<=N;i++){
-      const x = (i/N)*W;
-      const y = BASE*H + A*Math.sin(k*x);
-      d += ` L ${x} ${y}`;
-    }
-    d += ` L ${W} ${H} L 0 ${H} Z`;
-    svg.innerHTML = '';
-    const p = document.createElementNS('http://www.w3.org/2000/svg','path');
-    p.setAttribute('d', d);
-    p.setAttribute('fill', FILL1);
-    svg.appendChild(p);
-
-    const pad = Math.max(48, W * 0.03);
-    circles.forEach((circleEl, n) => {
-      const size = parseFloat(getComputedStyle(circleEl).getPropertyValue('--size')) || circleEl.offsetWidth;
-      const theta = Math.PI/2 + 2*Math.PI*n;
-      let x = theta / k; x = Math.max(pad, Math.min(W - pad, x));
-
-      const yCurve = BASE*H + A*Math.sin(k*x);
-      const inset  = A * 0.35;
-      const lift   = size * 0.58;
-
-      circleEl.style.left = (x - size/2) + 'px';
-      circleEl.style.top  = Math.max(6, yCurve - inset - size/2 - lift) + 'px';
+    circles.forEach((circleEl, i) => {
+      const left = PAD + i*(size + GAP);
+      circleEl.style.left = left + 'px';
+      circleEl.style.top  = TOP  + 'px';
 
       const href = circleEl.getAttribute('data-href');
       const btn  = circleEl.querySelector('.circle-btn');
       if (btn && href) btn.onclick = () => { location.href = href; };
-
-      positionFlyout(circleEl); // no-op, keeps API shape
     });
   }
 
@@ -327,5 +321,6 @@
   addEventListener('resize', () => { setHeight(); draw(); }, { passive:true });
 })();
 </script>
+
 </body>
 </html>
