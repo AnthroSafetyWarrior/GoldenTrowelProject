@@ -166,7 +166,10 @@
     .bubble{ width:100%; border-radius:999px; padding:.8rem 1rem; font-weight:800; background:var(--offwhite); color:var(--soil); border:2px solid color-mix(in srgb, var(--soil) 25%, transparent); transition:background .18s ease, color .18s ease, transform .18s ease, border-color .18s ease; min-height:44px; }
     .bubble:hover{ background:var(--logo-orange); color:#fff; transform:translateY(-2px); }
     .bubble:focus-visible{ outline:3px solid var(--accent); outline-offset:3px; }
-  </style>
+/* Clean gradient band: hide the inside sine-wave shape */
+.nav-gradient .wave{ display:none !important; }
+ 
+ </style>
 </head>
 
 <body>
