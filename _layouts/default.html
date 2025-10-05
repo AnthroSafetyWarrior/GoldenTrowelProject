@@ -92,7 +92,7 @@
       background: linear-gradient(
         to bottom,
         var(--band-grad-top) 0%,
-        var(--band-grad-mid) 35%,
+        var(--band-grad-mid) 45%,
         var(--band-grad-bottom) 100%
       );
     }
@@ -100,7 +100,8 @@
     /* ============== Scrollable Wave Nav (horizontal only) ============== */
     .wave-nav{
       position:relative; background:transparent;
-      overflow-x:auto; overflow-y:visible;   /* NO vertical scrolling inside */
+      overflow-x:auto;
+      overflow-y:clip;           /* ⬅ prevents vertical scrollbar entirely */
       -webkit-overflow-scrolling:touch;
 
       /* Firefox scrollbar style */
@@ -144,19 +145,20 @@
       box-shadow: 0 12px 0 rgba(0,0,0,.12), 0 6px 14px rgba(0,0,0,.12);
     }
 
-    /* Pills BELOW each circle */
+    /* Pills BELOW each circle (hidden by default so they don't create overflow) */
     .flyout{
+      display:none;                      /* ⬅ prevents any vertical scrollbars */
       position:absolute; left:50%; top: calc(100% + 10px); transform: translateX(-50%);
-      display:flex; flex-direction:column; align-items:center; gap:8px;
+      flex-direction:column; align-items:center; gap:8px;
       pointer-events:none; opacity:0; transition:opacity .18s ease; z-index:10;
     }
     .circle:hover .flyout,
-    .circle.is-open .flyout{ opacity:1; pointer-events:auto; }
+    .circle.is-open .flyout{ display:flex; opacity:1; pointer-events:auto; }
 
-    /* When portaled to body on touch */
+    /* When portaled to body on hover/touch */
     .flyout.is-floating{
       position:fixed; left:0; top:0; transform: translateX(-50%); z-index:2000;
-      opacity:1; pointer-events:auto;
+      display:flex; opacity:1; pointer-events:auto;
     }
 
     .pill{
@@ -260,7 +262,7 @@
     {{ content }}
   </main>
 
-  <!-- Layout + touch-friendly flyouts (portal to body) -->
+  <!-- Tight layout + portal-on-open so flyouts sit over the page -->
   <script>
   (() => {
     const wrap  = document.querySelector('.wave-nav');
@@ -306,16 +308,14 @@
     setHeight(); draw();
     addEventListener('resize', () => { setHeight(); draw(); }, { passive:true });
 
-    /* -------- Touch-friendly flyouts (portal) -------- */
-    const canHover = matchMedia('(hover: hover) and (pointer: fine)').matches;
-
+    /* -------- Portal flyouts on ALL devices so they never affect nav height -------- */
     circles.forEach(circle => {
       const btn = circle.querySelector('.circle-btn');
       const fly = circle.querySelector('.flyout');
       if (!btn || !fly) return;
 
-      let armed = false;          // tap-to-open on touch
-      let placeholder = null;     // where to put flyout back
+      let placeholder = null;
+      let hideTimer = null;
 
       const toBody = () => {
         if (fly.parentElement === document.body) return;
@@ -330,59 +330,57 @@
         placeholder = null;
       };
 
+      const positionFlyout = () => {
+        const r = btn.getBoundingClientRect();
+        fly.classList.add('is-floating');
+        fly.style.left = Math.round(r.left + r.width/2) + 'px';
+        fly.style.top  = Math.round(r.bottom + 8) + 'px'; // 8px gap below button
+        fly.style.display = 'flex';
+      };
+
       const show = () => {
-        if (!canHover) {
-          // Move to body and place under the button (viewport coords)
-          toBody();
-          const r = btn.getBoundingClientRect();
-          const left = Math.round(r.left + r.width/2);
-          const top  = Math.round(r.bottom + 8); // 8px gap below button
-          fly.classList.add('is-floating');
-          fly.style.left = left + 'px';
-          fly.style.top  = top + 'px';
-        } else {
-          circle.classList.add('is-open'); // enables keyboard/focus open on desktop
-        }
+        clearTimeout(hideTimer);
+        toBody();
+        positionFlyout();
       };
 
       const hide = () => {
-        if (!canHover) {
-          fly.classList.remove('is-floating');
-          fly.style.left = fly.style.top = '';
-          backHome();
-        }
-        circle.classList.remove('is-open');
+        fly.classList.remove('is-floating');
+        fly.style.left = fly.style.top = '';
+        fly.style.display = 'none';
+        backHome();
       };
 
-      // Desktop (hover/focus)
-      if (canHover) {
-        circle.addEventListener('mouseenter', show);
-        circle.addEventListener('mouseleave', hide);
-        btn.addEventListener('focus', show);
-        btn.addEventListener('blur', hide);
-      } else {
-        // Touch: first tap opens, second tap navigates
-        btn.addEventListener('click', (e) => {
-          if (!armed && fly && fly.children.length) {
-            e.preventDefault();
-            show();
-            armed = true;
-            setTimeout(() => armed = false, 1200);
-          }
-          // if no flyout items, navigate immediately
-        }, { passive:false });
+      /* Desktop hover: keep open while mouse is on button or flyout */
+      btn.addEventListener('pointerenter', show);
+      btn.addEventListener('pointerleave', () => { hideTimer = setTimeout(hide, 120); });
+      fly.addEventListener('pointerenter', () => clearTimeout(hideTimer));
+      fly.addEventListener('pointerleave', () => { hideTimer = setTimeout(hide, 120); });
 
-        // Tap outside closes
-        document.addEventListener('click', (e) => {
-          if (!circle.contains(e.target) && !fly.contains(e.target)) hide();
-        }, { passive:true });
+      /* Keyboard focus */
+      btn.addEventListener('focus', show);
+      btn.addEventListener('blur',  () => { hideTimer = setTimeout(hide, 150); });
 
-        // Scroll/resize closes (so it never lags behind)
-        addEventListener('scroll', hide, { passive:true });
-        addEventListener('resize', hide);
-      }
+      /* Touch: first tap opens, second tap navigates (if no flyout content, it just navigates) */
+      let armed = false;
+      btn.addEventListener('click', (e) => {
+        const hasItems = fly.querySelector('.pill');
+        if (!hasItems) return;  // no dropdown -> let it navigate
+        if (!armed) {
+          e.preventDefault();
+          show();
+          armed = true;
+          setTimeout(() => armed = false, 1200);
+        }
+        // second tap navigates naturally
+      }, { passive:false });
 
-      btn.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') hide(); });
+      // Close on scroll/resize/outside click
+      addEventListener('scroll', hide, { passive:true });
+      addEventListener('resize', () => { hide(); positionFlyout(); }, { passive:true });
+      document.addEventListener('click', (ev) => {
+        if (!fly.contains(ev.target) && !btn.contains(ev.target)) hide();
+      }, { passive:true });
     });
   })();
   </script>
