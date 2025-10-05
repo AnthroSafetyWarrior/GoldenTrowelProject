@@ -86,8 +86,8 @@
     .nav-gradient{
       margin-top:-18px;
       padding-top:0;
-      padding-bottom: clamp(2px, .5vw, 8px);  /* less space below buttons */
-      min-height: clamp(72px, 9vw, 108px);
+      padding-bottom: clamp(3px, .5vw, 8px);  /* less space below buttons */
+      min-height: clamp(82px, 9vw, 108px);
       overflow: visible; /* allow pills to overflow into page */
       background: linear-gradient(
         to bottom,
@@ -283,8 +283,9 @@
 
     function draw(){
       const size = getCircleSize();
-      const GAP = Math.max(20, Math.round(size * 0.26));   // tighter gaps
-      const PAD = Math.max(12, Math.round(size * 0.34));   // side padding
+      const GAP = Math.max(14, Math.round(size * 0.24)); // spacing betweencircles
+      const PAD = Math.max(12, Math.round(size * 0.34)); // left/right padding
+
 
       const count = circles.length;
       const neededWidth = PAD*2 + count*size + (count-1)*GAP;
