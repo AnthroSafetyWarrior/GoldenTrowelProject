@@ -13,7 +13,7 @@
       --soil:#3B2A1F;
       --offwhite:#FAF7F2;
       --moss:#6B8D6A;
-      --gold:#d68d15;
+      --gold:#fac441;
       --logo-orange:#8a340a;
       --accent:#6B8D6A;
       --ink:#111;
@@ -71,45 +71,44 @@
       font-size: clamp(2.2rem, 6.2vw, 3.2rem);
       line-height:1.12;
     }
-    .header-text p{
-      margin:.35em 0 0; color: var(--logo-orange); font-weight:700;
-      font-size: clamp(1.05rem, 2.6vw, 1.25rem);
-    }
+    /* stronger legibility over the photo */
+.header-text p{
+  margin:.35em 0 0;
+  color: var(--logo-orange);
+  font-weight:700;
+  font-size: clamp(1.05rem, 2.6vw, 1.25rem);
+  text-shadow:
+    0 1px 0 rgba(255,255,255,.85),
+    0 0 8px rgba(255,255,255,.45),
+    0 0 14px rgba(255,255,255,.25);
+}
+
 
     /* ============== Crest waves above the band ============== */
     .hero-wave{ position:relative; }
-    .hero-wave svg{
-      display:block; width:100%;
-      height: clamp(42px, 6vw, 68px);   /* small */
-      transform: scaleY(.75);           /* low amplitude */
-      transform-origin: top;
-      margin-bottom:-2px;
-    }
+ /* 1) Nudge the crest tighter to the band (kill the gap) */
+.hero-wave svg{ margin-bottom:-6px; }          /* was -2px */
+.nav-gradient{
+  margin-top:-18px;                             /* tuck further under the crest */
+  padding-top: 0;                               /* no extra air above circles */
+  padding-bottom: clamp(4px, .8vw, 10px);       /* a little air below */
+  min-height: clamp(80px, 10vw, 120px);         /* slimmer band */
+  overflow: visible;                             /* allow pills to overflow */
+}
 
-    /* ============== Gradient band (wraps the scroll nav) ============== */
-    .nav-gradient{
-      position: relative;
-      margin-top:-10px;                 /* tuck under crest */
-      padding-top: clamp(2px,.5vw,6px);
-      padding-bottom: clamp(8px, 1.2vw, 14px);
-      min-height: clamp(120px, 14vw, 190px);   /* room for circles */
-      background: linear-gradient(
-        to bottom,
-        var(--band-grad-top) 0%,
-        var(--band-grad-mid) 45%,
-        var(--band-grad-bottom) 100%
-      );
-      border:none; box-shadow:none;
-    }
+/* 2) Let the nav scroll horizontally BUT allow vertical overflow for pills */
+.wave-nav{
+  overflow-x:auto;
+  overflow-y:visible;                            /* pills can spill over the band */
+  -webkit-overflow-scrolling:touch;
+}
 
-    /* ============== Scrollable Wave Nav ============== */
-    .wave-nav{
-      position:relative; background:transparent;
-      overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch;
-      scrollbar-width:none;         /* Firefox */
-      margin: clamp(6px, 1vw, 10px) auto 0;
-      height: 160px;                /* JS will resize based on circle size */
-    }
+/* 3) Make sure pills render on top of the body text */
+.circle-nav{ z-index: 5; }
+.flyout{ z-index: 10; }
+
+/* (optional) keep circles a touch closer to the crest on the slimmer band */
+ 
     .wave-nav::-webkit-scrollbar{ display:none; height:0; } /* WebKit */
 
     .wave-track{ position:relative; height:100%; min-width:1100px; }
@@ -268,7 +267,7 @@
   function setHeight(){
     const any = circles[0];
     const size = any ? (any.offsetHeight || parseFloat(getComputedStyle(any).width)) : 96;
-    const h = Math.max(150, size * 1.55);
+    const h = Math.max(120, size * 1.35);
     wrap.style.height = h + 'px';
   }
 
