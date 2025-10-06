@@ -163,15 +163,17 @@ a:hover{ color:var(--logo-orange); }
 /* ===== Flyouts: equal-width, touching pills with gold outline ===== */
 
 /* the flyout container (kept portal behavior from your JS) */
+/* ===== Flyouts: equal-width, touching pills with gold outline ===== */
+
+/* container (your JS still portals this; no change needed) */
 .flyout{
   display:none;
   position:absolute;
-  left:50%;
-  top:calc(100% + 10px);
+  left:50%; top:calc(100% + 10px);
   transform:translateX(-50%);
   flex-direction:column;
   align-items:center;
-  gap:0;                           /* ← no vertical gap between pills */
+  gap:0;                   /* no space between pills */
   pointer-events:none;
   opacity:0;
   transition:opacity .18s ease;
@@ -184,45 +186,43 @@ a:hover{ color:var(--logo-orange); }
   display:flex; opacity:1; pointer-events:auto; z-index:2000;
 }
 
-/* each link becomes a full-width pill */
-.flyout .pill {
-  display: block;
-  width: 240px;                  /* fixed width for uniformity */
-  text-align: center;
-  padding: 0.7em 1.2em;
-  font-weight: 700;
-  font-size: 0.9rem;
-  color: var(--soil);
-  background: var(--gold);
-  border: 2px solid var(--gold); /* border that stays yellow on hover */
-  text-decoration: none;
-  box-shadow: 0 10px 20px rgba(0,0,0,.18);
-  transition: background .15s ease, color .15s ease, transform .15s ease;
-  
-  /* no spacing between pills */
-  margin: 0;
-  
-  /* wavy / scalloped sides */
-  -webkit-mask:
-    radial-gradient(circle 8px at left center, #000 98%, transparent 100%) left,
-    radial-gradient(circle 8px at right center, #000 98%, transparent 100%) right;
-  -webkit-mask-size: 20px 100%;
-  -webkit-mask-repeat: repeat-y;
-  -webkit-mask-composite: source-over;
-  mask-composite: add;
+/* each link is a full-width pill */
+.flyout .pill{
+  display:block;
+  width:260px;             /* ← make them all the same width */
+  text-align:center;
+  padding:.7em 1.1em;
+  font-weight:700;
+  font-size:.95rem;
+  color:var(--soil);
+  background:var(--gold);
+  border:2px solid var(--gold);   /* gold outline */
+  border-radius:999px;            /* pill shape */
+  text-decoration:none;
+  background-clip:padding-box;    /* keep border clean on overlap */
+  box-shadow:0 10px 20px rgba(0,0,0,.18);
+  transition:background .15s ease, color .15s ease, transform .15s ease;
+  margin:0;                        /* no extra spacing */
 }
 
-.pill + .pill {
-  border-top: none; /* so they touch cleanly */
+/* make stacked pills “touch”: overlap borders by 2px so no gaps */
+.flyout .pill + .pill{
+  margin-top:-2px;                 /* visually seamless stack */
 }
 
-.pill:hover,
-.pill:focus-visible {
-  background: var(--logo-orange);
-  color: #fff;
-  transform: translateY(-1px);
-  box-shadow: 0 12px 24px rgba(0,0,0,.22);
-  border-color: var(--gold); /* keep border gold */
+/* hover/focus: keep border gold */
+.flyout .pill:hover,
+.flyout .pill:focus-visible{
+  background:var(--logo-orange);
+  color:#fff;
+  transform:translateY(-1px);
+  border-color:var(--gold);        /* stays yellow on hover */
+}
+
+/* optional focus ring for keyboard users */
+.flyout .pill:focus-visible{
+  outline:0;
+  box-shadow:0 0 0 3px #fff, 0 0 0 6px rgba(0,0,0,.25);
 }
 
 
