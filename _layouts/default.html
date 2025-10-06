@@ -13,7 +13,6 @@
       --offwhite:#FAF7F2;
       --slate:#444054;
       --sage:#56876D;
-
       --soil:#3B2A1F;
       --gold:#fac441;
       --logo-orange:#8a340a;
@@ -40,10 +39,8 @@
     h1{ font-size:clamp(1.8rem,5.5vw,2.4rem); margin:1em 0 .6em; }
     h2{ font-size:clamp(1.6rem,4.5vw,1.8rem); margin:.9em 0 .5em; }
     h3{ font-size:clamp(1.4rem,4vw,1.6rem);  margin:.8em 0 .45em; }
-
     p{ font-size:clamp(1.2rem,2.8vw,1.4rem); margin:.6em 0; }
 
-    /* use --maxw everywhere so pages can breathe */
     main{ width:min(100%, var(--maxw)); margin-inline:auto; padding:clamp(16px,4vw,28px); }
 
     a{ color:var(--soil); text-decoration-thickness:.08em; text-underline-offset:.18em; }
@@ -73,7 +70,6 @@
       text-shadow:0 2px 10px rgba(0,0,0,.35);
     }
     .header-content img{ width:clamp(150px,11vw,190px); border-radius:12px; }
-
     .header-text h1{
       color:#f9eedc; margin:.1em 0;
       font-size:clamp(2.2rem, 6.2vw, 3.2rem);
@@ -153,7 +149,6 @@
       flex-direction:column; align-items:center; gap:0; pointer-events:none; opacity:0; transition:opacity .18s ease; z-index:10; }
     .circle:hover .flyout,.circle.is-open .flyout{ display:flex; opacity:1; pointer-events:auto; }
     .flyout.is-floating{ position:fixed; left:0; top:0; transform:translateX(-50%); display:flex; opacity:1; pointer-events:auto; z-index:2000; }
-
     .flyout .pill{
       display:block; width:260px; text-align:center; padding:.7em 1.1em; font-weight:700; font-size:.95rem;
       color:var(--soil); background:var(--gold); border:2px solid var(--gold); border-radius:999px;
@@ -167,18 +162,30 @@
     }
 
     /* ============== Sections & Cards (global) ============== */
-    .section{ width:min(100%, var(--maxw)); margin-inline:auto; padding:clamp(28px,5vw,56px) clamp(16px,4vw,28px);
-      display:grid; gap:clamp(16px,2.4vw,28px); }
+    .section{
+      width:min(100%, var(--maxw));
+      margin-inline:auto;
+      padding:clamp(28px,5vw,56px) clamp(16px,4vw,28px);
+      display:grid; gap:clamp(16px,2.4vw,28px);
+    }
     .two-col{ grid-template-columns:1.15fr .85fr; }
     @media (max-width:880px){ .two-col{ grid-template-columns:1fr; } }
 
-    .card{ background:#fff; border-radius:16px; border:1px solid color-mix(in srgb, var(--soil) 14%, transparent);
-      padding:clamp(14px,2.2vw,20px); box-shadow:0 2px 10px rgba(0,0,0,.06); }
+    .card{
+      background:#fff; border-radius:16px;
+      border:1px solid color-mix(in srgb, var(--soil) 14%, transparent);
+      padding:clamp(14px,2.2vw,20px);
+      box-shadow:0 2px 10px rgba(0,0,0,.06);
+    }
     .card h3{ margin-top:.2em; }
 
-    .kpi{ font-weight:900; font-size:clamp(2rem, 5vw, 2.6rem); line-height:1; display:inline-block;
-      background:var(--gold); color:var(--soil); border:3px solid var(--gold); border-radius:14px;
-      padding:.35em .5em; box-shadow:0 8px 18px rgba(0,0,0,.12); }
+    .kpi{
+      font-weight:900; font-size:clamp(2rem, 5vw, 2.6rem);
+      line-height:1; display:inline-block;
+      background:var(--gold); color:var(--soil);
+      border:3px solid var(--gold); border-radius:14px;
+      padding:.35em .5em; box-shadow:0 8px 18px rgba(0,0,0,.12);
+    }
 
     .hub{ display:grid; gap:1.2rem; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); align-items:start;
       margin:clamp(12px,2vw,20px) auto; }
@@ -191,6 +198,58 @@
     .bubble:focus-visible{ outline:3px solid var(--accent); outline-offset:3px; }
 
     .header-content img.site-logo{ width:clamp(180px,11vw,220px); border-radius:12px; }
+
+    /* ============== Pill Sections (global) ============== */
+    :root{
+      --pill-radius: 44px;
+      --pill-margin: clamp(16px, 5vw, 120px); /* space on the rounded side */
+    }
+
+    .pillband{
+      position:relative;
+      min-height: clamp(220px, 34vw, 360px);
+      margin-block: clamp(18px, 3.6vw, 38px);
+      isolation:isolate;
+    }
+    .pillband .section{ position:relative; z-index:2; }
+
+    .pillband::before{
+      content:"";
+      position:absolute;
+      top:50%; transform:translateY(-50%);
+      height:100%;
+      width: calc(100vw - var(--pill-margin)); /* almost full-bleed */
+      background: var(--pill-color, var(--logo-orange));
+      border-radius: var(--pill-radius);
+      box-shadow: 0 8px 18px rgba(0,0,0,.10);
+      z-index:1;
+    }
+    .pill--clip-right::before{
+      right:0; left:auto;
+      border-top-right-radius:0; border-bottom-right-radius:0;
+    }
+    .pill--clip-left::before{
+      left:0; right:auto;
+      border-top-left-radius:0; border-bottom-left-radius:0;
+    }
+
+    .pill--orange{ --pill-color: var(--logo-orange); color:#fff; }
+    .pill--soil  { --pill-color: var(--soil);        color:#fff; }
+    .pill--sage  { --pill-color: var(--sage);        color:#0e2a1f; }
+    .pill--slate { --pill-color: var(--slate);       color:#fff; }
+
+    /* keep first paragraph tight when used in pill bands */
+    .pillband .section > p:first-child{ margin-top:0; }
+
+    /* On small screens, let the pill span full width and center the radius */
+    @media (max-width: 880px){
+      .pillband{ min-height: unset; }
+      .pillband::before{
+        width:100vw;
+        left:50%; right:auto; transform:translate(-50%,-50%);
+        border-radius: var(--pill-radius);
+      }
+    }
 
     /* ============== Homepage-only styles ============== */
     {% if page.home == true or page.homepage == true or page.url == '/' %}
@@ -209,7 +268,7 @@
       .intro-row{
         display:grid;
         grid-template-columns:minmax(320px,520px) minmax(0,1fr);
-        align-items:flex-start; /* top-align image with text */
+        align-items:flex-start;
         column-gap:clamp(16px,2.6vw,32px);
       }
       .intro-graphic{ display:flex; align-items:center; justify-content:center; margin:0; }
@@ -333,7 +392,7 @@
       const size = getCircleSize();
       const root  = getComputedStyle(document.documentElement);
       const lift  = parseFloat(root.getPropertyValue('--circle-lift')) || 0;
-      const extra = Math.max(0, -lift) + 12; // room for lift + shadow
+      const extra = Math.max(0, -lift) + 12;
       const h = Math.max(110, Math.round(size * 1.12) + extra);
       wrap.style.height = h + 'px';
     }
