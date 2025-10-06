@@ -25,7 +25,7 @@ hero_tint: .60                        # optional (0–1: higher = more maroon ov
 </section>
 
 <!-- Prevalence of Fieldwork Harassment and Assault -->
-<section id="prevalence" class="band band--kraft full bleed">
+<section id="prevalence" class="band band--kraft full-bleed">
   <div class="section two-col docs-container prevalence">
     <div>
       <h2>Prevalence of Fieldwork Harassment and Assault</h2>
@@ -61,7 +61,7 @@ hero_tint: .60                        # optional (0–1: higher = more maroon ov
   </div>
 </section>
 <!-- 3. What's at stake (emotional/contrast band) -->
-<section class="band band--slate full bleed">
+<section class="band band--slate full-bleed">
   <div class="section">
     <h2>What’s at stake</h2>
     <p>Unsafe fieldwork harms people and science. It drives students out of the discipline, silences witnesses, and biases what gets studied, published, and funded.</p>
