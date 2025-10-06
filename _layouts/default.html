@@ -66,7 +66,7 @@ a:hover{ color:var(--logo-orange); }
 
     .header-content{
       display:flex; align-items:center; justify-content:center; gap:clamp(.6rem,2vw,1.2rem);
-      max-width:var(--maxw); margin:0 auto; padding:0 clamp(16px,2vw,24px);
+      max-width:var(--maxw); margin:0 auto; padding: 0 clamp(16px,2vw,24px) clamp(16px, 6vw, 120px);
       text-shadow:0 2px 10px rgba(0,0,0,.35);
     }
     .header-content img{ width: clamp(150px, 11vw, 190px); border-radius:12px; }
@@ -111,16 +111,17 @@ a:hover{ color:var(--logo-orange); }
 .hero-wave svg{ margin-bottom:-8px; }
 
     /* ============== Scrollable Wave Nav (horizontal only) ============== */
-    .wave-nav{
-      position:relative; background:transparent;
-      overflow-x:auto;
-      overflow-y:visible;           /* no vertical scrollbar inside the nav */
-      -webkit-overflow-scrolling:touch;
+   .wave-nav{
+  position:relative; background:transparent;
+  overflow-x:auto;
+  overflow-y:clip;   /* ⬅ prevent any vertical scrollbar in the nav */
+  -webkit-overflow-scrolling:touch;
 
-      /* Firefox scrollbar style */
-      scrollbar-width: thin;
-      scrollbar-color: rgba(0,0,0,.28) transparent;
-    }
+  /* Firefox scrollbar style */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0,0,0,.28) transparent;
+}
+
     /* WebKit scrollbar (horizontal) */
     .wave-nav::-webkit-scrollbar{ height:10px; }
     .wave-nav::-webkit-scrollbar-track{ background:transparent; }
@@ -239,15 +240,16 @@ a:hover{ color:var(--logo-orange); }
                 <button class="circle-btn" type="button">Preparing</button>
                 <div class="flyout">
                   <a class="pill" href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing" target="_blank" rel="noopener">Pre-Fieldwork Safety Checklist</a>
-                </div>
+ <a class="pill" href="{{ '/statelaw.html' | relative_url }}">USA Laws by State</a>
+ <a class="pill" href="{{ '/internationallaw.html' | relative_url }}">International Laws by Country</a>
+                
+</div>
               </div>
 
               <div class="circle" data-href="{{ '/reporting/' | relative_url }}">
                 <button class="circle-btn" type="button">Reporting</button>
                 <div class="flyout">
-                  <a class="pill" href="{{ '/statelaw.html' | relative_url }}">USA Laws by State</a>
-                  <a class="pill" href="{{ '/internationallaw.html' | relative_url }}">International Laws by Country</a>
-                  <a class="pill" href="{{ '/titleIX.html' | relative_url }}">Title IX Reporting by University</a>
+              <a class="pill" href="{{ '/titleIX.html' | relative_url }}">Title IX Reporting by University</a>
                   <a class="pill" href="{{ '/fundingethics.html' | relative_url }}">Funding &amp; Professional Associations</a>
                 </div>
               </div>
@@ -297,11 +299,15 @@ a:hover{ color:var(--logo-orange); }
       return any ? (any.offsetWidth || parseFloat(getComputedStyle(any).getPropertyValue('--size'))) : 96;
     };
 
-    function setHeight(){
-      const size = getCircleSize();
-      const h = Math.max(100, Math.round(size * 1.12));  // compact band
-      wrap.style.height = h + 'px';
-    }
+function setHeight(){
+  const size = getCircleSize();
+  const root  = getComputedStyle(document.documentElement);
+  const lift  = parseFloat(root.getPropertyValue('--circle-lift')) || 0; // negative when lifted
+  const extra = Math.max(0, -lift) + 12; // room for lift + button drop shadow
+  const h = Math.max(110, Math.round(size * 1.12) + extra);
+  wrap.style.height = h + 'px';
+}
+
 
    function draw(){
   const size   = getCircleSize();
