@@ -270,14 +270,14 @@ a:hover{ color:var(--logo-orange); }
       color-mix(in srgb, var(--gold-glow) 25%, transparent) 60%,
       transparent 85%
     );
-  filter: blur(10px);
+  filter: blur(6 px);
   opacity:.85;
   pointer-events:none;
-  border-radius:16px;
+  border-radius:12px;
 }
 
 /* keep your previous sizing on the image */
-.header-content img.site-logo{ width: clamp(150px, 11vw, 190px); border-radius:12px; }
+.header-content img.site-logo{ width: clamp(180px, 11vw, 220px); border-radius:12px; }
 
  
  </style>
@@ -292,6 +292,7 @@ a:hover{ color:var(--logo-orange); }
       --hero-opacity: {{ page.hero_opacity | default: 1 }};
       --hero-tint: {{ page.hero_tint | default: .55 }};
     ">
+<div class="header-content">
 <div class="logo-wrap">
   <img
     class="site-logo"
