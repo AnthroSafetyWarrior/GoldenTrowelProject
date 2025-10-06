@@ -170,66 +170,38 @@
       display:flex; opacity:1; pointer-events:auto;
     }
 
-    /* ===== Wavy-side dropdown panel (replaces pills) ===== */
-    .flyout .sheet{
-      --scallop: 10px;            /* size of the waves on the sides */
-      --pad: 12px;                /* inner padding */
-      --spread: 10px;             /* how far the scallops stick out */
-      --radius: 14px;             /* top/bottom corner roundness */
-
-      position: relative;
+    /* ===== Connected same-width pills (stack) ===== */
+    .flyout .stack{
+      width: clamp(260px, 30vw, 480px);
+      border-radius:999px;                 /* capsule shape for the whole group */
       background: var(--gold);
-      color: var(--soil);
-      border-radius: var(--radius);
-      min-width: clamp(240px, 28vw, 440px);
-      max-width: min(90vw, 520px);
-      padding: calc(var(--pad) + 2px) clamp(16px, 2.4vw, 24px);
-      box-shadow: 0 10px 24px rgba(0,0,0,.22);
+      box-shadow: 0 12px 24px rgba(0,0,0,.22);
+      padding:6px;                          /* outer cushion */
     }
-    .flyout .sheet::before{
-      content:"";
-      position:absolute;
-      top:0; bottom:0;
-      left: calc(-1 * var(--spread));
-      right: calc(-1 * var(--spread));
-      background: var(--gold);
-      border-radius: var(--radius);
-      z-index:-1;
-
-      /* Wavy mask on the left and right edges only */
-      -webkit-mask:
-        radial-gradient(closest-side, #000 98%, transparent 101%) left   top/var(--scallop) calc(var(--scallop)*2) repeat-y,
-        radial-gradient(closest-side, #000 98%, transparent 101%) right  top/var(--scallop) calc(var(--scallop)*2) repeat-y,
-        linear-gradient(#000 0 0);
-              mask:
-        radial-gradient(closest-side, #000 98%, transparent 101%) left   top/var(--scallop) calc(var(--scallop)*2) repeat-y,
-        radial-gradient(closest-side, #000 98%, transparent 101%) right  top/var(--scallop) calc(var(--scallop)*2) repeat-y,
-        linear-gradient(#000 0 0);
-    }
-    .sheet .sheet-list{
-      display:flex; flex-direction:column; gap:10px;
+    .stack .seg-list{
+      display:flex; flex-direction:column;
       margin:0; padding:0; list-style:none;
+      overflow:hidden;                      /* clips inner radii so items touch */
+      border-radius:999px;
+      background: var(--gold);
     }
-    .sheet .sheet-link{
-      display:block; text-decoration:none;
-      background: color-mix(in srgb, var(--offwhite) 94%, white);
-      color: var(--soil);
-      font-weight:700;
-      padding:.55em .9em;
-      border-radius:10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,.12) inset;
-      transition: transform .15s ease, background .15s ease, color .15s ease, box-shadow .15s ease;
+    .stack .seg-link{
+      display:block; width:100%; text-align:center; text-decoration:none;
+      font-weight:800;
+      padding:.7em 1.1em;
+      background: var(--gold); color: var(--soil);
+      transition: background .15s ease, color .15s ease, transform .15s ease;
     }
-    .sheet .sheet-link:hover,
-    .sheet .sheet-link:focus-visible{
+    /* thin separators between items */
+    .seg-list .seg-link + .seg-link{
+      border-top:2px solid rgba(0,0,0,.08);
+    }
+    .stack .seg-link:hover,
+    .stack .seg-link:focus-visible{
       background: var(--logo-orange);
       color:#fff;
       transform: translateY(-1px);
       outline:0;
-    }
-    @supports not (mask: linear-gradient(#000 0 0)) {
-      .flyout .sheet::before{ display:none; }
-      .flyout .sheet{ border-radius: 14px; }
     }
 
     /* (Optional) hub styles kept */
@@ -285,13 +257,13 @@
               <div class="circle" data-href="{{ '/preparing/' | relative_url }}">
                 <button class="circle-btn" type="button">Preparing</button>
                 <div class="flyout">
-                  <div class="sheet" role="menu" aria-label="Preparing links">
-                    <ul class="sheet-list">
-                      <li><a class="sheet-link" role="menuitem"
+                  <div class="stack" role="menu" aria-label="Preparing links">
+                    <ul class="seg-list">
+                      <li><a class="seg-link" role="menuitem"
                              href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing"
                              target="_blank" rel="noopener">Pre-Fieldwork Safety Checklist</a></li>
-                      <li><a class="sheet-link" role="menuitem" href="{{ '/statelaw.html' | relative_url }}">USA Laws by State</a></li>
-                      <li><a class="sheet-link" role="menuitem" href="{{ '/internationallaw.html' | relative_url }}">International Laws by Country</a></li>
+                      <li><a class="seg-link" role="menuitem" href="{{ '/statelaw.html' | relative_url }}">USA Laws by State</a></li>
+                      <li><a class="seg-link" role="menuitem" href="{{ '/internationallaw.html' | relative_url }}">International Laws by Country</a></li>
                     </ul>
                   </div>
                 </div>
@@ -301,10 +273,10 @@
               <div class="circle" data-href="{{ '/reporting/' | relative_url }}">
                 <button class="circle-btn" type="button">Reporting</button>
                 <div class="flyout">
-                  <div class="sheet" role="menu" aria-label="Reporting links">
-                    <ul class="sheet-list">
-                      <li><a class="sheet-link" role="menuitem" href="{{ '/titleIX.html' | relative_url }}">Title IX Reporting by University</a></li>
-                      <li><a class="sheet-link" role="menuitem" href="{{ '/fundingethics.html' | relative_url }}">Funding &amp; Professional Associations</a></li>
+                  <div class="stack" role="menu" aria-label="Reporting links">
+                    <ul class="seg-list">
+                      <li><a class="seg-link" role="menuitem" href="{{ '/titleIX.html' | relative_url }}">Title IX Reporting by University</a></li>
+                      <li><a class="seg-link" role="menuitem" href="{{ '/fundingethics.html' | relative_url }}">Funding &amp; Professional Associations</a></li>
                     </ul>
                   </div>
                 </div>
@@ -314,11 +286,11 @@
               <div class="circle" data-href="{{ '/surveys/' | relative_url }}">
                 <button class="circle-btn" type="button">Surveys</button>
                 <div class="flyout">
-                  <div class="sheet" role="menu" aria-label="Surveys links">
-                    <ul class="sheet-list">
-                      <li><a class="sheet-link" role="menuitem"
+                  <div class="stack" role="menu" aria-label="Surveys links">
+                    <ul class="seg-list">
+                      <li><a class="seg-link" role="menuitem"
                              href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank" rel="noopener">Fieldwork Misconduct Survey</a></li>
-                      <li><a class="sheet-link" role="menuitem"
+                      <li><a class="seg-link" role="menuitem"
                              href="https://forms.gle/9DjrMVNP2oUu1GDD8" target="_blank" rel="noopener">Website Feedback Survey</a></li>
                     </ul>
                   </div>
@@ -341,7 +313,6 @@
     {{ content }}
   </main>
 
-  <!-- Tight layout + portal-on-open so flyouts sit over the page -->
   <script>
   (() => {
     const wrap  = document.querySelector('.wave-nav');
@@ -455,7 +426,7 @@
       /* Touch: first tap opens, second tap navigates (if there are submenu links) */
       let armed = false;
       btn.addEventListener('click', (e) => {
-        const hasItems = fly.querySelector('a'); // was '.pill' — now generic for sheet links
+        const hasItems = fly.querySelector('a'); // generic check for any link in the flyout
         if (!hasItems) return;  // no dropdown -> let it navigate
         if (!armed) {
           e.preventDefault();
