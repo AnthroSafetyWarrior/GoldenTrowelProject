@@ -59,8 +59,6 @@ hero_tint: .60                        # optional (0–1: higher = more maroon ov
   </div>
 
   <aside class="side">
-    <div class="kpi" aria-label="64 percent">64%</div>
-    <p class="muted">of surveyed anthropologists reported sexual harassment during fieldwork (Clancy et&nbsp;al., 2014).</p>
     <figure class="infographic">
       <img
         src="{{ '/assets/img/project-2025-08-06_01-08_AM.png' | relative_url }}"
