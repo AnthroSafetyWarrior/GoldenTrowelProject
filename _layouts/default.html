@@ -185,45 +185,46 @@ a:hover{ color:var(--logo-orange); }
 }
 
 /* each link becomes a full-width pill */
-.flyout .pill{
-  display:block;
-  width:clamp(240px, 28vw, 420px); /* ← same horizontal length per flyout */
-  text-align:center;
-  padding:.65em 1rem;
-  font-weight:800;
-  color:var(--soil);
-  background:var(--gold);
-  text-decoration:none;
-  border:3px solid var(--gold);    /* ← gold outline like the circles */
-  border-radius:0;                 /* rounded only on first/last below */
-  box-shadow:0 10px 20px rgba(0,0,0,.18);
-  transition:background .15s ease, color .15s ease, transform .15s ease;
+.flyout .pill {
+  display: block;
+  width: 240px;                  /* fixed width for uniformity */
+  text-align: center;
+  padding: 0.7em 1.2em;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--soil);
+  background: var(--gold);
+  border: 2px solid var(--gold); /* border that stays yellow on hover */
+  text-decoration: none;
+  box-shadow: 0 10px 20px rgba(0,0,0,.18);
+  transition: background .15s ease, color .15s ease, transform .15s ease;
+  
+  /* no spacing between pills */
+  margin: 0;
+  
+  /* wavy / scalloped sides */
+  -webkit-mask:
+    radial-gradient(circle 8px at left center, #000 98%, transparent 100%) left,
+    radial-gradient(circle 8px at right center, #000 98%, transparent 100%) right;
+  -webkit-mask-size: 20px 100%;
+  -webkit-mask-repeat: repeat-y;
+  -webkit-mask-composite: source-over;
+  mask-composite: add;
 }
 
-/* remove visible seams between stacked pills (overlap the borders) */
-.flyout .pill + .pill{
-  margin-top:-3px;                 /* overlaps the 3px borders perfectly */
+.pill + .pill {
+  border-top: none; /* so they touch cleanly */
 }
 
-/* round only the top & bottom ends of the stack */
-.flyout .pill:first-child{
-  border-top-left-radius:999px;
-  border-top-right-radius:999px;
-}
-.flyout .pill:last-child{
-  border-bottom-left-radius:999px;
-  border-bottom-right-radius:999px;
+.pill:hover,
+.pill:focus-visible {
+  background: var(--logo-orange);
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(0,0,0,.22);
+  border-color: var(--gold); /* keep border gold */
 }
 
-/* hover/focus: keep outline gold, change fill + text */
-.flyout .pill:hover,
-.flyout .pill:focus-visible{
-  background:var(--logo-orange);
-  color:#fff;
-  border-color:var(--gold);        /* stays gold on hover */
-  outline:0;
-  transform:translateY(-1px);
-}
 
     /* (Optional) hub styles kept */
     .hub{ display:grid; gap:1.2rem; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); align-items:start; margin:clamp(12px,2vw,20px) auto; }
