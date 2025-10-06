@@ -84,8 +84,12 @@ a:hover{ color:var(--logo-orange); }
 
     /* ============== Crest waves above the band ============== */
     .hero-wave{ position:relative; }
-    .hero-wave svg{ margin-bottom:-6px; } /* tuck tighter to band */
-
+.hero-wave svg{
+  display:block;
+  margin-bottom:-6px;            /* tuck tighter to band (your original) */
+  filter: drop-shadow(0 14px 22px rgba(0,0,0,.22))
+          drop-shadow(0 4px 6px rgba(0,0,0,.18));
+}
     /* Gradient band (wraps the scroll nav) */
     .nav-gradient{
   margin-top:-18px;
@@ -101,7 +105,7 @@ a:hover{ color:var(--logo-orange); }
     color-mix(in srgb, var(--wave-dark) 75%, var(--wave-mid)) 22%,
     var(--wave-mid) 46%,
     color-mix(in srgb, var(--wave-mid) 65%, #eae6dfff) 72%,
-    color-mix(in srgb, var(--wave-mid) 35%, #eae6dfff) 88%,
+    color-mix(in srgb, var(--wave-mid) 35%, #eae6dfff) 80%,
     #eae6dfff 100%   /* ← match body’s background near this area */
   );
     }
