@@ -24,51 +24,66 @@ hero_tint: .60                        # optional (0–1: higher = more maroon ov
   </p>
 </section>
 
-<!-- Prevalence of Fieldwork Harassment and Assault -->
-<section id="prevalence" class="band band--kraft full-bleed">
-  <div class="section two-col docs-container prevalence">
-    <div>
-      <h2>Prevalence of Fieldwork Harassment and Assault</h2>
-
-      <p class="wrap-long">
-        A 2014 survey sampling &gt;650 anthropologists revealed high frequencies of harassment and assault,
-        and low frequencies of awareness of reporting procedures (Clancy et&nbsp;al., 2014;
-        <a href="https://doi.org/10.1371/journal.pone.0102172" target="_blank" rel="noopener noreferrer">
-          DOI: 10.1371/journal.pone.0102172
-        </a>).
-      </p>
-
-      <ul>
-        <li>Hierarchies + dependency on gatekeepers</li>
-        <li>Remote settings with unclear jurisdiction</li>
-        <li>Ambiguous expectations and “off the record” norms</li>
-        <li>Opaque reporting paths; fear of retaliation</li>
-      </ul>
-    </div>
-
-    <aside class="side">
-      <div class="kpi" aria-label="64 percent">64%</div>
-      <p class="muted">of surveyed anthropologists reported sexual harassment during fieldwork (Clancy et&nbsp;al., 2014).</p>
-
-      <figure class="infographic">
-        <img
-          src="{{ '/assets/img/project-2025-08-06_01-08_AM.png' | relative_url }}"
-          alt="Infographic summarizing survey results on sexual harassment and assault during fieldwork among anthropologists (Clancy et al., 2014)"
-          loading="lazy" decoding="async" fetchpriority="low">
-        <figcaption>Source: Clancy et&nbsp;al. 2014.</figcaption>
-      </figure>
-    </aside>
+<!-- Prevalence (content only, no band bg) -->
+<section id="prevalence" class="section two-col docs-container prevalence">
+  <div>
+    <h2>Prevalence of Fieldwork Harassment and Assault</h2>
+    <p class="wrap-long">
+      A 2014 survey sampling &gt;650 anthropologists revealed high frequencies of harassment and assault,
+      and low frequencies of awareness of reporting procedures (Clancy et&nbsp;al., 2014;
+      <a href="https://doi.org/10.1371/journal.pone.0102172" target="_blank" rel="noopener noreferrer">
+        DOI: 10.1371/journal.pone.0102172
+      </a>).
+    </p>
+    <ul>
+      <li>Hierarchies + dependency on gatekeepers</li>
+      <li>Remote settings with unclear jurisdiction</li>
+      <li>Ambiguous expectations and “off the record” norms</li>
+      <li>Opaque reporting paths; fear of retaliation</li>
+    </ul>
   </div>
+
+  <aside class="side">
+    <div class="kpi" aria-label="64 percent">64%</div>
+    <p class="muted">of surveyed anthropologists reported sexual harassment during fieldwork (Clancy et&nbsp;al., 2014).</p>
+    <figure class="infographic">
+      <img
+        src="{{ '/assets/img/project-2025-08-06_01-08_AM.png' | relative_url }}"
+        alt="Infographic summarizing survey results on sexual harassment and assault during fieldwork among anthropologists (Clancy et al., 2014)"
+        loading="lazy" decoding="async" fetchpriority="low">
+      <figcaption>Source: Clancy et&nbsp;al. 2014.</figcaption>
+    </figure>
+  </aside>
 </section>
-<!-- 3. What's at stake (emotional/contrast band) -->
-<section class="band band--slate full-bleed">
-  <div class="section">
-    <h2>What’s at stake</h2>
-    <p>Unsafe fieldwork harms people and science. It drives students out of the discipline, silences witnesses, and biases what gets studied, published, and funded.</p>
-    <blockquote style="margin:0; font-style:italic; opacity:.95">
-      “I didn’t know who to tell without risking my degree.”
-    </blockquote>
-  </div>
+
+<!-- wave: top of the next section -->
+<div class="seam full-bleed" aria-hidden="true">
+  <svg viewBox="0 0 1440 64" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path class="back"  d="M0,30 C200,68 420,-6 640,16 C860,38 1060,58 1240,34 C1340,20 1390,24 1440,28 L1440,64 L0,64 Z"/>
+    <path class="front" d="M0,24 C180,64 360,-8 540,12 C720,32 900,60 1080,32 C1260,4 1350,12 1440,24 L1440,64 L0,64 Z"/>
+  </svg>
+</div>
+
+<!-- What's at stake (same bg; the wave above signals the change) -->
+<section class="section">
+  <h2>What’s at stake</h2>
+  <p>Unsafe fieldwork harms people and science. It drives students out of the discipline, silences witnesses, and biases what gets studied, published, and funded.</p>
+  <blockquote style="margin:0; font-style:italic; opacity:.95">
+    “I didn’t know who to tell without risking my degree.”
+  </blockquote>
+</section>
+
+<!-- wave: bottom of this section (flipped) -->
+<div class="seam seam--flip full-bleed" aria-hidden="true">
+  <svg viewBox="0 0 1440 64" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path class="back"  d="M0,30 C200,68 420,-6 640,16 C860,38 1060,58 1240,34 C1340,20 1390,24 1440,28 L1440,64 L0,64 Z"/>
+    <path class="front" d="M0,24 C180,64 360,-8 540,12 C720,32 900,60 1080,32 C1260,4 1350,12 1440,24 L1440,64 L0,64 Z"/>
+  </svg>
+</div>
+
+<!-- Our approach, etc… (repeat pattern) -->
+<section class="section">
+  <!-- cards / content -->
 </section>
 
 <!-- 4. Our approach (solutions in cards) -->
