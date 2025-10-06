@@ -101,7 +101,7 @@
         color-mix(in srgb, var(--wave-dark) 75%, var(--wave-mid)) 22%,
         var(--wave-mid) 46%,
         color-mix(in srgb, var(--wave-mid) 65%, #eae6dfff) 72%,
-        color-mix(in srgb, var(--wave-mid) 35%, #eae6dfff) 88%,
+        color-mix(in srgb, var(--wave-mid) 35%, #eae6dfff) 82%,
         #eae6dfff 100%
       );
     }
@@ -155,65 +155,95 @@
     }
 
   /* ===== Wavy-side flyout items ===== */
+/* ===== Flyouts: stacked pills, no vertical gaps, equal width ===== */
 .flyout{
   display:none;
-  position:absolute; left:50%; top: calc(100% + 10px); transform: translateX(-50%);
-  pointer-events:none; opacity:0; transition:opacity .18s ease; z-index:10;
+  position:absolute;
+  left:50%;
+  top:calc(100% + 10px);
+  transform:translateX(-50%);
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .18s ease;
+  z-index:10;
 }
+
+/* show state (applied by JS) */
 .circle:hover .flyout,
-.circle.is-open .flyout{ display:flex; opacity:1; pointer-events:auto; }
+.circle.is-open .flyout{
+  display:flex;
+  opacity:1;
+  pointer-events:auto;
+}
 
-/* when portaled to <body> we keep it positioned properly */
+/* When portaled to <body> to avoid affecting nav height */
 .flyout.is-floating{
-  position:fixed; left:0; top:0; transform: translateX(-50%); z-index:2000;
-  display:flex; opacity:1; pointer-events:auto;
+  position:fixed;
+  left:0;               /* real X/Y applied by JS */
+  top:0;
+  transform:translateX(-50%);
+  z-index:2000;
+  display:flex;
+  opacity:1;
+  pointer-events:auto;
 }
 
-/* container to lock equal width for all links */
-.flyout .wavy-list {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0;  /* remove spacing between pills */
-  overflow: hidden;
-  border-radius: 40px; /* rounded outer corners only */
-  box-shadow: 0 10px 20px rgba(0,0,0,.18);
+/* The stack container: locks a single width for all links */
+.flyout .wavy-list{
+  display:inline-flex;
+  flex-direction:column;
+  gap:0;                              /* no space between pills */
+  width:clamp(220px, 26vw, 360px);    /* equal width across items */
+  overflow:hidden;                    /* trims the rounded ends cleanly */
+  border-radius:40px;                 /* rounded outer corners only */
+  box-shadow:0 12px 26px rgba(0,0,0,.18);
+  background:transparent;             /* the items provide the color */
 }
 
-.wavy-link {
-  display: block;
-  width: 220px;
-  text-align: center;
-  padding: .7em 1em;
-  font-weight: 700;
-  font-size: .9rem;
-  color: var(--soil);
-  text-decoration: none;
-  background: var(--gold);
-  border: none;
-  transition: background .15s ease, color .15s ease;
+/* The “pills” */
+.wavy-link{
+  display:block;
+  width:100%;
+  text-align:center;
+  padding:.7em 1rem;
+  font-weight:700;
+  font-size:.95rem;
+  color:var(--soil);
+  text-decoration:none;
+  background:var(--gold);
+  transition:background .15s ease, color .15s ease;
+  outline:none;
+  /* No border-radius here except on first/last below */
 }
 
-/* Merge them visually */
-.wavy-link + .wavy-link {
-  border-top: 2px solid rgba(0,0,0,.1); /* subtle division */
+/* Subtle divider and guaranteed no seam (even with subpixel rounding) */
+.wavy-link + .wavy-link{
+  border-top:1px solid rgba(0,0,0,.12);
+  margin-top:-1px;  /* overlap the divider so there’s zero visible gap */
 }
 
-/* Rounded ends only at top and bottom */
-.wavy-link:first-child {
-  border-top-left-radius: 40px;
-  border-top-right-radius: 40px;
+/* Rounded ends only on the top & bottom items */
+.wavy-link:first-child{
+  border-top-left-radius:40px;
+  border-top-right-radius:40px;
 }
-.wavy-link:last-child {
-  border-bottom-left-radius: 40px;
-  border-bottom-right-radius: 40px;
+.wavy-link:last-child{
+  border-bottom-left-radius:40px;
+  border-bottom-right-radius:40px;
 }
 
-/* Hover color */
+/* Hover / focus */
 .wavy-link:hover,
-.wavy-link:focus-visible {
-  background: var(--logo-orange);
-  color: #fff;
+.wavy-link:focus-visible{
+  background:var(--logo-orange);
+  color:#fff;
+}
+
+/* Keyboard-focus ring that works on any background */
+.wavy-link:focus-visible{
+  box-shadow:0 0 0 3px #fff, 0 0 0 6px color-mix(in srgb, var(--logo-orange) 70%, #000);
+  position:relative;
+  z-index:1;
 }
 
 
@@ -333,138 +363,145 @@
     {{ content }}
   </main>
 
-  <script>
-  (() => {
-    const wrap  = document.querySelector('.wave-nav');
-    const track = wrap?.querySelector('.wave-track');
-    const circles = track?.querySelectorAll('.circle') || [];
-    if (!wrap || !track || !circles.length) return;
+ <script>
+(() => {
+  const wrap  = document.querySelector('.wave-nav');
+  const track = wrap?.querySelector('.wave-track');
+  const circles = track?.querySelectorAll('.circle') || [];
+  if (!wrap || !track || !circles.length) return;
 
-    function getCircleSize(){
-      const any = circles[0];
-      return any ? (any.offsetWidth || parseFloat(getComputedStyle(any).getPropertyValue('--size'))) : 96;
-    }
+  function getCircleSize(){
+    const any = circles[0];
+    return any ? (any.offsetWidth || parseFloat(getComputedStyle(any).getPropertyValue('--size'))) : 96;
+  }
 
-    function setHeight(){
-      const size = getCircleSize();
-      const root  = getComputedStyle(document.documentElement);
-      const lift  = parseFloat(root.getPropertyValue('--circle-lift')) || 0; // negative when lifted
-      const extra = Math.max(0, -lift) + 12; // room for lift + button drop shadow
-      const h = Math.max(110, Math.round(size * 1.12) + extra);
-      wrap.style.height = h + 'px';
-    }
+  function setHeight(){
+    const size = getCircleSize();
+    const root  = getComputedStyle(document.documentElement);
+    const lift  = parseFloat(root.getPropertyValue('--circle-lift')) || 0;
+    const extra = Math.max(0, -lift) + 12;
+    const h = Math.max(110, Math.round(size * 1.12) + extra);
+    wrap.style.height = h + 'px';
+  }
 
-    function draw(){
-      const size   = getCircleSize();
-      const wrapW  = wrap.clientWidth;
-      const count  = circles.length;
+  function draw(){
+    const size   = getCircleSize();
+    const wrapW  = wrap.clientWidth;
+    const count  = circles.length;
+    const GAP_MIN = 120;
+    const GAP_MAX = 220;
+    const PAD_MIN = 24;
 
-      const GAP_MIN = 120;     // min space between buttons
-      const GAP_MAX = 220;     // max space between buttons
-      const PAD_MIN = 24;      // min side padding
+    const gapFit = (wrapW - 2*PAD_MIN - count*size) / Math.max(1, (count - 1));
+    const gap    = Math.max(GAP_MIN, Math.min(gapFit, GAP_MAX));
 
-      // Fit-to-width gap, clamped
-      const gapFit = (wrapW - 2*PAD_MIN - count*size) / Math.max(1, (count - 1));
-      const gap    = Math.max(GAP_MIN, Math.min(gapFit, GAP_MAX));
+    const rowWidth = count*size + (count-1)*gap;
+    const pad      = Math.max(PAD_MIN, Math.floor((wrapW - rowWidth) / 2));
 
-      // Center the row
-      const rowWidth = count*size + (count-1)*gap;
-      const pad      = Math.max(PAD_MIN, Math.floor((wrapW - rowWidth) / 2));
+    const neededWidth = rowWidth + 2*pad;
+    track.style.width = Math.max(wrapW, neededWidth) + 'px';
 
-      // Expand track if needed to allow horizontal scroll
-      const neededWidth = rowWidth + 2*pad;
-      track.style.width = Math.max(wrapW, neededWidth) + 'px';
+    const TOP = Math.max(2, Math.round(size * 0.08));
+    circles.forEach((circleEl, i) => {
+      const left = pad + i*(size + gap);
+      circleEl.style.left = left + 'px';
+      circleEl.style.top  = TOP  + 'px';
 
-      const TOP = Math.max(2, Math.round(size * 0.08));
-      circles.forEach((circleEl, i) => {
-        const left = pad + i*(size + gap);
-        circleEl.style.left = left + 'px';
-        circleEl.style.top  = TOP  + 'px';
-
-        const href = circleEl.getAttribute('data-href');
-        const btn  = circleEl.querySelector('.circle-btn');
-        if (btn && href) btn.onclick = () => { location.href = href; };
-      });
-    }
-
-    setHeight(); draw();
-    addEventListener('resize', () => { setHeight(); draw(); }, { passive:true });
-
-    /* -------- Portal flyouts on ALL devices so they never affect nav height -------- */
-    circles.forEach(circle => {
-      const btn = circle.querySelector('.circle-btn');
-      const fly = circle.querySelector('.flyout');
-      if (!btn || !fly) return;
-
-      let placeholder = null;
-      let hideTimer = null;
-
-      const toBody = () => {
-        if (fly.parentElement === document.body) return;
-        placeholder = document.createElement('span');
-        placeholder.hidden = true;
-        circle.appendChild(placeholder);
-        document.body.appendChild(fly);
-      };
-      const backHome = () => {
-        if (!placeholder) return;
-        placeholder.replaceWith(fly);
-        placeholder = null;
-      };
-
-      const positionFlyout = () => {
-        const r = btn.getBoundingClientRect();
-        fly.classList.add('is-floating');
-        fly.style.left = Math.round(r.left + r.width/2) + 'px';
-        fly.style.top  = Math.round(r.bottom + 8) + 'px'; // 8px gap below button
-        fly.style.display = 'flex';
-      };
-
-      const show = () => {
-        clearTimeout(hideTimer);
-        toBody();
-        positionFlyout();
-      };
-
-      const hide = () => {
-        fly.classList.remove('is-floating');
-        fly.style.left = fly.style.top = '';
-        fly.style.display = 'none';
-        backHome();
-      };
-
-      /* Desktop hover: keep open while mouse is on button or flyout */
-      btn.addEventListener('pointerenter', show);
-      btn.addEventListener('pointerleave', () => { hideTimer = setTimeout(hide, 120); });
-      fly.addEventListener('pointerenter', () => clearTimeout(hideTimer));
-      fly.addEventListener('pointerleave', () => { hideTimer = setTimeout(hide, 120); });
-
-      /* Keyboard focus */
-      btn.addEventListener('focus', show);
-      btn.addEventListener('blur',  () => { hideTimer = setTimeout(hide, 150); });
-
-      /* Touch: first tap opens, second tap navigates (if there are submenu links) */
-      let armed = false;
-      btn.addEventListener('click', (e) => {
-        const hasItems = fly.querySelector('a'); // generic check for any link in the flyout
-        if (!hasItems) return;  // no dropdown -> let it navigate
-        if (!armed) {
-          e.preventDefault();
-          show();
-          armed = true;
-          setTimeout(() => armed = false, 1200);
-        }
-        // second tap navigates naturally
-      }, { passive:false });
-
-      // Close on scroll/resize/outside click
-      addEventListener('scroll', hide, { passive:true });
-      addEventListener('resize', () => { hide(); positionFlyout(); }, { passive:true });
-      document.addEventListener('click', (ev) => {
-        if (!fly.contains(ev.target) && !btn.contains(ev.target)) hide();
-      }, { passive:true });
+      const href = circleEl.getAttribute('data-href');
+      const btn  = circleEl.querySelector('.circle-btn');
+      if (btn && href) btn.onclick = () => { location.href = href; };
     });
-  })();
-  </script>
+  }
+
+  setHeight(); draw();
+  addEventListener('resize', () => { setHeight(); draw(); }, { passive:true });
+
+  /* -------- Flyouts -------- */
+  circles.forEach((circle, idx) => {
+    const btn = circle.querySelector('.circle-btn');
+    const fly = circle.querySelector('.flyout');
+    if (!btn || !fly) return;
+
+    const hasItems = !!fly.querySelector('a');
+    if (hasItems) {
+      btn.setAttribute('aria-haspopup', 'menu');
+      btn.setAttribute('aria-expanded', 'false');
+    }
+
+    let placeholder = null;
+    let hideTimer = null;
+    let armed = false;
+
+    function toBody() {
+      if (fly.parentElement === document.body) return;
+      placeholder = document.createElement('span');
+      placeholder.hidden = true;
+      circle.appendChild(placeholder);
+      document.body.appendChild(fly);
+    }
+
+    function backHome() {
+      if (!placeholder) return;
+      placeholder.replaceWith(fly);
+      placeholder = null;
+    }
+
+    function positionFlyout() {
+      const r = btn.getBoundingClientRect();
+      fly.classList.add('is-floating');
+      fly.style.left = Math.round(r.left + r.width / 2) + 'px';
+      fly.style.top  = Math.round(r.bottom + 10) + 'px';
+      fly.style.display = 'flex';
+    }
+
+    function openFlyout() {
+      clearTimeout(hideTimer);
+      circle.classList.add('is-open');
+      if (hasItems) btn.setAttribute('aria-expanded', 'true');
+      toBody();
+      positionFlyout();
+    }
+
+    function closeFlyout() {
+      fly.classList.remove('is-floating');
+      fly.style.left = fly.style.top = '';
+      fly.style.display = 'none';
+      circle.classList.remove('is-open');
+      if (hasItems) btn.setAttribute('aria-expanded', 'false');
+      backHome();
+    }
+
+    btn.addEventListener('pointerenter', openFlyout);
+    btn.addEventListener('pointerleave', () => { hideTimer = setTimeout(closeFlyout, 120); });
+    fly.addEventListener('pointerenter', () => clearTimeout(hideTimer));
+    fly.addEventListener('pointerleave', () => { hideTimer = setTimeout(closeFlyout, 120); });
+
+    btn.addEventListener('focus', openFlyout);
+    btn.addEventListener('blur',  () => { hideTimer = setTimeout(closeFlyout, 150); });
+    fly.addEventListener('focusin', () => clearTimeout(hideTimer));
+    fly.addEventListener('focusout', () => { hideTimer = setTimeout(closeFlyout, 150); });
+
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeFlyout(); });
+
+    btn.addEventListener('click', (e) => {
+      if (!hasItems) return;
+      if (!armed) {
+        e.preventDefault();
+        openFlyout();
+        armed = true;
+        setTimeout(() => (armed = false), 1200);
+      }
+    }, { passive:false });
+
+    addEventListener('scroll', () => { closeFlyout(); }, { passive:true });
+    addEventListener('resize', () => { closeFlyout(); positionFlyout(); }, { passive:true });
+
+    document.addEventListener('click', (ev) => {
+      if (!fly.contains(ev.target) && !btn.contains(ev.target)) closeFlyout();
+    }, { passive:true });
+  });
+})();
+</script>
+
 </body>
 </html>
