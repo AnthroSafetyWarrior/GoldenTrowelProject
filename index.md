@@ -8,21 +8,31 @@ hero_opacity: .34                     # optional (0–1: lower = darker tint / m
 hero_tint: .60                        # optional (0–1: higher = more maroon overlay)
 ---
 
-<section class="main-section">
-  <h1 style="color:var(--logo-orange); align=center"><strong>Integrity in research begins with safety and respect in the field.</strong></h1>
-  <h2 style="margin-top: 0.5em; font-weight: normal;">
-    <strong> We’re redefining fieldwork protocols to center consent, dignity, and accountability — because harm has no place in science.</strong>
-  </h2>
-  <p>
-    This project was built from urgency — to make fieldwork safer for ourselves, our students, and our colleagues.
-    It offers accessible, customizable tools to help researchers prevent and report sexual misconduct and other forms of behavioral harm during field research.
-  </p>
-  <p>
-    We cannot protect our science without protecting the people who do it. Safety begins with accountability:
-    clearly stated expectations, transparent reporting systems, and a shared commitment to safeguarding not just our data, but each other.
-    We are researchers, educators, and students — and we deserve to work in environments built on dignity, consent, and respect.
-  </p>
+<section class="section intro">
+  <figure class="intro-graphic">
+    <img
+      src="{{ '/assets/img/accountability.png' | relative_url }}"
+      alt="Accountability hub with three callouts: clearly stated expectations, transparent reporting systems, and shared commitment to safety."
+      loading="lazy" decoding="async" fetchpriority="low">
+  </figure>
+
+  <div class="intro-copy">
+    <h1 style="color:var(--logo-orange);"><strong>Integrity in research begins with safety and respect in the field.</strong></h1>
+    <h2 style="margin-top: 0.5em; font-weight: normal;">
+      <strong>We’re redefining fieldwork protocols to center consent, dignity, and accountability — because harm has no place in science.</strong>
+    </h2>
+    <p>
+      This project was built from urgency — to make fieldwork safer for ourselves, our students, and our colleagues.
+      It offers accessible, customizable tools to help researchers prevent and report sexual misconduct and other forms of behavioral harm during field research.
+    </p>
+    <p>
+      We cannot protect our science without protecting the people who do it. Safety begins with accountability:
+      clearly stated expectations, transparent reporting systems, and a shared commitment to safeguarding not just our data, but each other.
+      We are researchers, educators, and students — and we deserve to work in environments built on dignity, consent, and respect.
+    </p>
+  </div>
 </section>
+
 
 <!-- Prevalence (content only, no band bg) -->
 <section id="prevalence" class="section two-col docs-container prevalence">

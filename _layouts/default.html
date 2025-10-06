@@ -368,6 +368,25 @@ figure.infographic figcaption{
   text-align:center; font-size:.9rem; opacity:.7; margin-top:.4rem;
 }
 
+/* Intro: infographic left, copy right */
+.section.intro{
+  grid-template-columns: minmax(220px, 420px) 1fr; /* image column then text */
+  align-items: center;
+  gap: clamp(16px, 3vw, 28px);
+}
+.intro-graphic{
+  display:flex; align-items:center; justify-content:center;
+}
+.intro-graphic img{
+  width: clamp(220px, 28vw, 420px);
+  height:auto;
+  filter: drop-shadow(0 10px 18px rgba(0,0,0,.12))
+          drop-shadow(0 3px 6px rgba(0,0,0,.08));
+}
+@media (max-width:880px){
+  .section.intro{ grid-template-columns:1fr; }
+  .intro-graphic{ order:-1; margin-bottom:.5rem; }  /* image above text on mobile */
+}
 
  </style>
 </head>
