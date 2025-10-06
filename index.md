@@ -9,18 +9,21 @@ hero_tint: .60                        # optional (0–1: higher = more maroon ov
 ---
 
 <section class="section intro">
-  <figure class="intro-graphic">
-    <img
-      src="{{ '/assets/img/accountability.png' | relative_url }}"
-      alt="Accountability hub with three callouts: clearly stated expectations, transparent reporting systems, and shared commitment to safety."
-      loading="lazy" decoding="async" fetchpriority="low">
-  </figure>
-
-  <div class="intro-copy">
+  <div class="intro-title">
     <h1 style="color:var(--logo-orange);"><strong>Integrity in research begins with safety and respect in the field.</strong></h1>
     <h2 style="margin-top: 0.5em; font-weight: normal;">
       <strong>We’re redefining fieldwork protocols to center consent, dignity, and accountability — because harm has no place in science.</strong>
     </h2>
+  </div>
+
+  <figure class="intro-graphic">
+    <img
+      src="{{ '/assets/img/accountability.png' | relative_url }}"
+      alt="Accountability hub with callouts: clearly stated expectations, transparent reporting systems, and shared commitment to safety."
+      loading="lazy" decoding="async" fetchpriority="low">
+  </figure>
+
+  <div class="intro-copy">
     <p>
       This project was built from urgency — to make fieldwork safer for ourselves, our students, and our colleagues.
       It offers accessible, customizable tools to help researchers prevent and report sexual misconduct and other forms of behavioral harm during field research.
