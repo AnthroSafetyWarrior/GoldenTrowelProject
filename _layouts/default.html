@@ -154,55 +154,71 @@
       box-shadow: 0 12px 0 rgba(0,0,0,.12), 0 6px 14px rgba(0,0,0,.12);
     }
 
-    /* Flyouts (hidden by default; we portal them to <body> when shown) */
-    .flyout{
-      display:none;
-      position:absolute; left:50%; top: calc(100% + 10px); transform: translateX(-50%);
-      flex-direction:column; align-items:center; gap:8px;
-      pointer-events:none; opacity:0; transition:opacity .18s ease; z-index:10;
-    }
-    .circle:hover .flyout,
-    .circle.is-open .flyout{ display:flex; opacity:1; pointer-events:auto; }
+  /* ===== Wavy-side flyout items ===== */
+.flyout{
+  display:none;
+  position:absolute; left:50%; top: calc(100% + 10px); transform: translateX(-50%);
+  pointer-events:none; opacity:0; transition:opacity .18s ease; z-index:10;
+}
+.circle:hover .flyout,
+.circle.is-open .flyout{ display:flex; opacity:1; pointer-events:auto; }
 
-    /* When portaled to body */
-    .flyout.is-floating{
-      position:fixed; left:0; top:0; transform: translateX(-50%); z-index:2000;
-      display:flex; opacity:1; pointer-events:auto;
-    }
+/* when portaled to <body> we keep it positioned properly */
+.flyout.is-floating{
+  position:fixed; left:0; top:0; transform: translateX(-50%); z-index:2000;
+  display:flex; opacity:1; pointer-events:auto;
+}
 
-    /* ===== Connected same-width pills (stack) ===== */
-    .flyout .stack{
-      width: clamp(260px, 30vw, 480px);
-      border-radius:999px;                 /* capsule shape for the whole group */
-      background: var(--gold);
-      box-shadow: 0 12px 24px rgba(0,0,0,.22);
-      padding:6px;                          /* outer cushion */
-    }
-    .stack .seg-list{
-      display:flex; flex-direction:column;
-      margin:0; padding:0; list-style:none;
-      overflow:hidden;                      /* clips inner radii so items touch */
-      border-radius:999px;
-      background: var(--gold);
-    }
-    .stack .seg-link{
-      display:block; width:100%; text-align:center; text-decoration:none;
-      font-weight:800;
-      padding:.7em 1.1em;
-      background: var(--gold); color: var(--soil);
-      transition: background .15s ease, color .15s ease, transform .15s ease;
-    }
-    /* thin separators between items */
-    .seg-list .seg-link + .seg-link{
-      border-top:2px solid rgba(0,0,0,.08);
-    }
-    .stack .seg-link:hover,
-    .stack .seg-link:focus-visible{
-      background: var(--logo-orange);
-      color:#fff;
-      transform: translateY(-1px);
-      outline:0;
-    }
+/* container to lock equal width for all links */
+.flyout .wavy-list{
+  width: clamp(260px, 30vw, 480px);
+  display:flex; flex-direction:column; gap:10px;
+}
+
+/* the wavy-side pill */
+.wavy-link{
+  --scallop: 10;                 /* ← size of the side waves in px */
+  --pill-bg: var(--gold);        /* background (updates on hover) */
+
+  position:relative;
+  display:block;
+  width:100%;
+  text-align:center;
+  font-weight:800;
+  color: var(--soil);
+  background: var(--pill-bg);
+  padding: .8em 1.2em;
+  border-radius: 999px;
+  text-decoration:none;
+  filter: drop-shadow(0 10px 16px rgba(0,0,0,.18));
+  transition: transform .15s ease, color .15s ease, background .15s ease, filter .15s ease;
+}
+
+/* create the wavy bumps on the left and right */
+.wavy-link::before,
+.wavy-link::after{
+  content:"";
+  position:absolute; top:0; bottom:0;
+  width: calc(var(--scallop) * 1px);
+  background:
+    radial-gradient(closest-side, var(--pill-bg) 98%, transparent 100%)
+      50% calc(var(--scallop) * 1px) /
+      100% calc(var(--scallop) * 2px)
+      repeat-y;
+}
+.wavy-link::before{ left: calc(-1 * var(--scallop) * 1px); }
+.wavy-link::after { right: calc(-1 * var(--scallop) * 1px); }
+
+/* hover/focus */
+.wavy-link:hover,
+.wavy-link:focus-visible{
+  --pill-bg: var(--logo-orange);
+  color:#fff;
+  transform: translateY(-1px);
+  outline:0;
+  filter: drop-shadow(0 12px 22px rgba(0,0,0,.22));
+}
+
 
     /* (Optional) hub styles kept */
     .hub{ display:grid; gap:1.2rem; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); align-items:start; margin:clamp(12px,2vw,20px) auto; }
@@ -240,72 +256,79 @@
         <path d="M0,100 C160,140 320,40 480,70 C640,100 800,160 960,120 C1120,80 1280,30 1440,70 L1440,160 L0,160 Z" fill="{{ '#baafa8' }}"></path>
       </svg>
 
-      <!-- Gradient band + scrollable circles -->
-      <div class="nav-gradient">
-        <section class="wave-nav" aria-label="Primary navigation">
-          <div class="wave-track">
-            <svg class="wave" preserveAspectRatio="none" aria-hidden="true"></svg>
+<!-- Gradient band + scrollable circles -->
+<div class="nav-gradient">
+  <section class="wave-nav" aria-label="Primary navigation">
+    <div class="wave-track">
+      <svg class="wave" preserveAspectRatio="none" aria-hidden="true"></svg>
 
-            <nav class="circle-nav">
-              <!-- Home -->
-              <div class="circle" data-href="{{ '/' | relative_url }}">
-                <button class="circle-btn" type="button">Home</button>
-                <div class="flyout"></div>
-              </div>
+      <nav class="circle-nav">
+        <!-- Home -->
+        <div class="circle" data-href="{{ '/' | relative_url }}">
+          <button class="circle-btn" type="button">Home</button>
+          <div class="flyout"></div>
+        </div>
 
-              <!-- Preparing -->
-              <div class="circle" data-href="{{ '/preparing/' | relative_url }}">
-                <button class="circle-btn" type="button">Preparing</button>
-                <div class="flyout">
-                  <div class="stack" role="menu" aria-label="Preparing links">
-                    <ul class="seg-list">
-                      <li><a class="seg-link" role="menuitem"
-                             href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing"
-                             target="_blank" rel="noopener">Pre-Fieldwork Safety Checklist</a></li>
-                      <li><a class="seg-link" role="menuitem" href="{{ '/statelaw.html' | relative_url }}">USA Laws by State</a></li>
-                      <li><a class="seg-link" role="menuitem" href="{{ '/internationallaw.html' | relative_url }}">International Laws by Country</a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
+        <!-- Preparing -->
+        <div class="circle" data-href="{{ '/preparing/' | relative_url }}">
+          <button class="circle-btn" type="button">Preparing</button>
+          <div class="flyout">
+            <div class="wavy-list" role="menu" aria-label="Preparing links">
+              <a class="wavy-link" role="menuitem"
+                 href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing"
+                 target="_blank" rel="noopener">Pre-Fieldwork Safety Checklist</a>
 
-              <!-- Reporting -->
-              <div class="circle" data-href="{{ '/reporting/' | relative_url }}">
-                <button class="circle-btn" type="button">Reporting</button>
-                <div class="flyout">
-                  <div class="stack" role="menu" aria-label="Reporting links">
-                    <ul class="seg-list">
-                      <li><a class="seg-link" role="menuitem" href="{{ '/titleIX.html' | relative_url }}">Title IX Reporting by University</a></li>
-                      <li><a class="seg-link" role="menuitem" href="{{ '/fundingethics.html' | relative_url }}">Funding &amp; Professional Associations</a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
+              <a class="wavy-link" role="menuitem"
+                 href="{{ '/statelaw.html' | relative_url }}">USA Laws by State</a>
 
-              <!-- Surveys -->
-              <div class="circle" data-href="{{ '/surveys/' | relative_url }}">
-                <button class="circle-btn" type="button">Surveys</button>
-                <div class="flyout">
-                  <div class="stack" role="menu" aria-label="Surveys links">
-                    <ul class="seg-list">
-                      <li><a class="seg-link" role="menuitem"
-                             href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank" rel="noopener">Fieldwork Misconduct Survey</a></li>
-                      <li><a class="seg-link" role="menuitem"
-                             href="https://forms.gle/9DjrMVNP2oUu1GDD8" target="_blank" rel="noopener">Website Feedback Survey</a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Contact -->
-              <div class="circle" data-href="mailto:anthrosafetywarrior@gmail.com">
-                <button class="circle-btn" type="button">Contact</button>
-                <div class="flyout"></div>
-              </div>
-            </nav>
+              <a class="wavy-link" role="menuitem"
+                 href="{{ '/internationallaw.html' | relative_url }}">International Laws by Country</a>
+            </div>
           </div>
-        </section>
-      </div>
+        </div>
+
+        <!-- Reporting -->
+        <div class="circle" data-href="{{ '/reporting/' | relative_url }}">
+          <button class="circle-btn" type="button">Reporting</button>
+          <div class="flyout">
+            <div class="wavy-list" role="menu" aria-label="Reporting links">
+              <a class="wavy-link" role="menuitem"
+                 href="{{ '/titleIX.html' | relative_url }}">Title IX Reporting by University</a>
+
+              <a class="wavy-link" role="menuitem"
+                 href="{{ '/fundingethics.html' | relative_url }}">Funding &amp; Professional Associations</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Surveys -->
+        <div class="circle" data-href="{{ '/surveys/' | relative_url }}">
+          <button class="circle-btn" type="button">Surveys</button>
+          <div class="flyout">
+            <div class="wavy-list" role="menu" aria-label="Surveys links">
+              <a class="wavy-link" role="menuitem"
+                 href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank" rel="noopener">
+                 Fieldwork Misconduct Survey
+              </a>
+
+              <a class="wavy-link" role="menuitem"
+                 href="https://forms.gle/9DjrMVNP2oUu1GDD8" target="_blank" rel="noopener">
+                 Website Feedback Survey
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact -->
+        <div class="circle" data-href="mailto:anthrosafetywarrior@gmail.com">
+          <button class="circle-btn" type="button">Contact</button>
+          <div class="flyout"></div>
+        </div>
+      </nav>
+    </div>
+  </section>
+</div>
+
     </div>
   </header>
 
