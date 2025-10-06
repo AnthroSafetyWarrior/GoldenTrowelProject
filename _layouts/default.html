@@ -321,7 +321,7 @@ a:hover{ color:var(--logo-orange); }
 figure.infographic{ margin:0; }
 figure.infographic img{
   width:100%; max-width:560px; display:block; margin:0 auto;
-  border-radius:12px; box-shadow:0 8px 18px rgba(0,0,0,.12);
+  border-radius:12px; box-shadow:0 8px 18px rgba(0,0,0,.12);}
 
 /* use a var for the page bg you already use */
 :root{
@@ -369,35 +369,27 @@ figure.infographic figcaption{
 }
 
 /* Intro: title full-width, then a 2-col row (graphic | copy) */
-.section.intro{
-  display:grid;
-  gap: clamp(12px, 2.6vw, 24px);
-}
+.section.intro{ display:grid; gap: clamp(12px, 2.6vw, 24px); }
 
-/* the row holding image + paragraphs */
 .intro-row{
   display:grid;
-  grid-template-columns: minmax(180px, 320px) 1fr;  /* image column then text */
+  grid-template-columns: minmax(180px, 320px) 1fr; /* image left, text right */
   align-items:start;
   column-gap: clamp(16px, 3vw, 28px);
 }
 
-/* image sizing + subtle depth */
 .intro-graphic{ display:flex; justify-content:center; }
 .intro-graphic img{
   width:100%;
-  max-width:320px;           /* ← cap size so it doesn’t overpower */
+  max-width:320px;     /* hard cap so it doesn’t overwhelm */
   height:auto;
   filter: drop-shadow(0 8px 16px rgba(0,0,0,.12))
           drop-shadow(0 2px 5px rgba(0,0,0,.08));
 }
 
-/* tidy up spacing under the hero */
-.intro-title h1{ margin-top:.2em; }
-
 @media (max-width:880px){
   .intro-row{ grid-template-columns:1fr; }
-  .intro-graphic{ order:-1; margin-bottom:.5rem; } /* image above text on phones */
+  .intro-graphic{ order:-1; margin-bottom:.5rem; }
 }
  </style>
 </head>
