@@ -10,12 +10,20 @@
   <style>
     /* ============== Design Tokens ============== */
     :root{
-      --soil:#3B2A1F;
       --offwhite:#FAF7F2;
-      --moss:#6B8D6A;
-      --gold:#fac441;
-      --logo-orange:#8a340a;
-      --accent:#6B8D6A;
+ /* NEW palette (keeps existing vars working) */
+--slate:#444054;            /* dark accent */
+--sage:#56876D;             /* green accent */
+
+/* keep these exactly as-is in your codebase */
+--soil:#3B2A1F;
+--gold:#fac441;
+--logo-orange:#8a340a;
+
+/* retire moss but avoid breaking references */
+--moss: var(--sage);         /* legacy alias */
+--accent: var(--sage);       /* anything using --accent updates to sage */
+
       --ink:#111;
       --maxw:1100px;
 
@@ -80,7 +88,7 @@ a:hover{ color:var(--logo-orange); }
 
  .header-text p{
   margin:.35em 0 0;
-  color: #444054;
+  color: #6b3c11;
   font-weight:700;
   font-size: clamp(1.05rem, 2.6vw, 1.25rem);
  text-shadow: 2px 2px 5px #f9eedb;
@@ -234,6 +242,65 @@ a:hover{ color:var(--logo-orange); }
   box-shadow:0 0 0 3px #fff, 0 0 0 6px rgba(0,0,0,.25);
 }
 
+/* ===== Section system (content width + grid helpers) ===== */
+.section{
+  width:min(100%, var(--maxw));
+  margin-inline:auto;
+  padding:clamp(28px,5vw,56px) clamp(16px,4vw,28px);
+  display:grid; gap:clamp(16px,2.4vw,28px);
+}
+.two-col{ grid-template-columns:1.15fr .85fr; }
+@media (max-width:880px){ .two-col{ grid-template-columns:1fr; } }
+
+/* ===== Curved “band” blocks for dimensional breaks ===== */
+.band{ position:relative; isolation:isolate; }
+.band > .section{ position:relative; z-index:1; }
+
+/* top & bottom curved seams (SVG data URIs so no extra files) */
+.band::before,
+.band::after{
+  content:""; position:absolute; left:0; right:0; height:48px;
+  background-repeat:no-repeat; background-size:100% 100%; pointer-events:none;
+  filter: drop-shadow(0 10px 18px rgba(0,0,0,.12));
+}
+.band::before{
+  top:-1px; background-image:url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 48' preserveAspectRatio='none'>\
+<path fill='%23eae6df' d='M0,16 C180,56 360,-10 540,10 C720,30 900,60 1080,30 C1260,0 1350,10 1440,20 L1440,48 L0,48 Z'/></svg>");
+}
+.band::after{
+  bottom:-1px; background-image:url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 48' preserveAspectRatio='none'>\
+<path fill='%23eae6df' d='M0,28 C200,-8 420,56 640,32 C860,8 1060,40 1240,18 C1340,8 1390,12 1440,16 L1440,48 L0,48 Z'/></svg>");
+}
+
+/* ===== Color variants ===== */
+.band--slate{ background: var(--slate); color:#fff; }
+.band--sage { background: var(--sage);  color:#0e2a1f; }
+.band--kraft{ background: var(--offwhite); color: var(--soil); }
+
+/* Headings inside bands */
+.band--slate h2, .band--slate h3{ color:#fff; }
+.band--sage  h2, .band--sage  h3{ color:#0e2a1f; }
+.band--kraft h2, .band--kraft h3{ color:var(--soil); }
+
+/* simple cards for “Approach” */
+.card{
+  background:#fff; border-radius:16px;
+  border:1px solid color-mix(in srgb, var(--soil) 14%, transparent);
+  padding:clamp(14px,2.2vw,20px);
+  box-shadow:0 2px 10px rgba(0,0,0,.06);
+}
+.card h3{ margin-top:.2em; }
+
+/* stat callout */
+.kpi{
+  font-weight:900; font-size:clamp(2rem, 5vw, 2.6rem);
+  line-height:1; display:inline-block;
+  background: var(--gold); color: var(--soil);
+  border:3px solid var(--gold); border-radius:14px;
+  padding:.35em .5em; box-shadow:0 8px 18px rgba(0,0,0,.12);
+}
 
     /* (Optional) hub styles kept */
     .hub{ display:grid; gap:1.2rem; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); align-items:start; margin:clamp(12px,2vw,20px) auto; }
@@ -248,7 +315,18 @@ a:hover{ color:var(--logo-orange); }
 /* keep your previous sizing on the image */
 .header-content img.site-logo{ width: clamp(180px, 11vw, 220px); border-radius:12px;  }
 
- 
+ /* prevalence section tweaks */
+.side .kpi{ margin-bottom:.6rem; }
+.side p.muted{ margin:.2rem 0 1rem; opacity:.85; font-size:clamp(1rem,2.4vw,1.05rem); }
+figure.infographic{ margin:0; }
+figure.infographic img{
+  width:100%; max-width:560px; display:block; margin:0 auto;
+  border-radius:12px; box-shadow:0 8px 18px rgba(0,0,0,.12);
+}
+figure.infographic figcaption{
+  text-align:center; font-size:.9rem; opacity:.7; margin-top:.4rem;
+}
+
  </style>
 </head>
 

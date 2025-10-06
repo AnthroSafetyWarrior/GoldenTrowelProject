@@ -24,25 +24,80 @@ hero_tint: .60                        # optional (0–1: higher = more maroon ov
   </p>
 </section>
 
-<section class="main-section">
-  <div class="docs-container prevalence">
-    <h2>Prevalence of Fieldwork Harassment and Assault</h2>
+<!-- Prevalence of Fieldwork Harassment and Assault -->
+<section id="prevalence" class="band band--kraft">
+  <div class="section two-col docs-container prevalence">
+    <div>
+      <h2>Prevalence of Fieldwork Harassment and Assault</h2>
 
-    <p class="wrap-long">
-      A 2014 survey sampling &gt;650 anthropologists revealed high frequencies of harassment and assault,
-      and low frequencies of awareness of reporting procedures (Clancy et&nbsp;al., 2014;
-      <a href="https://doi.org/10.1371/journal.pone.0102172" target="_blank" rel="noopener noreferrer">
-        DOI: 10.1371/journal.pone.0102172
-      </a>).
-    </p>
+      <p class="wrap-long">
+        A 2014 survey sampling &gt;650 anthropologists revealed high frequencies of harassment and assault,
+        and low frequencies of awareness of reporting procedures (Clancy et&nbsp;al., 2014;
+        <a href="https://doi.org/10.1371/journal.pone.0102172" target="_blank" rel="noopener noreferrer">
+          DOI: 10.1371/journal.pone.0102172
+        </a>).
+      </p>
 
-    <img
-      src="{{ '/assets/img/project-2025-08-06_01-08_AM.png' | relative_url }}"
-      alt="Infographic summarizing survey results on sexual harassment and assault during fieldwork among anthropologists (Clancy et al., 2014)"
-      loading="lazy" decoding="async" fetchpriority="low"
-      style="display:block; width:90%; margin:1em auto 0; border-radius:12px; box-shadow:none;"
-    />
+      <ul>
+        <li>Hierarchies + dependency on gatekeepers</li>
+        <li>Remote settings with unclear jurisdiction</li>
+        <li>Ambiguous expectations and “off the record” norms</li>
+        <li>Opaque reporting paths; fear of retaliation</li>
+      </ul>
+    </div>
+
+    <aside class="side">
+      <div class="kpi" aria-label="64 percent">64%</div>
+      <p class="muted">of surveyed anthropologists reported sexual harassment during fieldwork (Clancy et&nbsp;al., 2014).</p>
+
+      <figure class="infographic">
+        <img
+          src="{{ '/assets/img/project-2025-08-06_01-08_AM.png' | relative_url }}"
+          alt="Infographic summarizing survey results on sexual harassment and assault during fieldwork among anthropologists (Clancy et al., 2014)"
+          loading="lazy" decoding="async" fetchpriority="low">
+        <figcaption>Source: Clancy et&nbsp;al. 2014.</figcaption>
+      </figure>
+    </aside>
   </div>
+</section>
+<!-- 3. What's at stake (emotional/contrast band) -->
+<section class="band band--slate">
+  <div class="section">
+    <h2>What’s at stake</h2>
+    <p>Unsafe fieldwork harms people and science. It drives students out of the discipline, silences witnesses, and biases what gets studied, published, and funded.</p>
+    <blockquote style="margin:0; font-style:italic; opacity:.95">
+      “I didn’t know who to tell without risking my degree.”
+    </blockquote>
+  </div>
+</section>
+
+<!-- 4. Our approach (solutions in cards) -->
+<section class="band band--sage">
+  <div class="section" style="gap:22px;">
+    <h2 style="margin-bottom:.2em;">Our approach</h2>
+    <div class="section" style="padding:0; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px;">
+      <div class="card">
+        <h3>Prevention</h3>
+        <p>Clear expectations, advisor–advisee agreements, and pre-fieldwork safety planning.</p>
+      </div>
+      <div class="card">
+        <h3>Reporting</h3>
+        <p>Straightforward paths to Title IX, funding bodies, and professional associations—with documentation tools.</p>
+      </div>
+      <div class="card">
+        <h3>Accountability</h3>
+        <p>Transparent follow-ups, climate surveys, and culture change grounded in data.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. CTA back to tools -->
+<section class="section">
+  <h2>Start with practical tools</h2>
+  <p><a class="bubble" href="{{ '/preparing/' | relative_url }}">Pre-Fieldwork Safety Checklist</a></p>
+  <p><a class="bubble" href="{{ '/reporting/'  | relative_url }}">Reporting portals</a></p>
+  <p><a class="bubble" href="{{ '/surveys/'    | relative_url }}">Anonymous surveys</a></p>
 </section>
 
 <section class="main-section">
