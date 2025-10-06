@@ -70,13 +70,18 @@ a:hover{ color:var(--logo-orange); }
       text-shadow:0 2px 10px rgba(0,0,0,.35);
     }
     .header-content img{ width: clamp(150px, 11vw, 190px); border-radius:12px; }
+
 .header-text h1{
   color:#f9eedc;
   margin:.1em 0;
   font-size: clamp(2.2rem, 6.2vw, 3.2rem);
   line-height:1.12;
- text-shadow: -1px -1px var(--soil), 1px -1px var(--soil), -1px 1px var(--soil), 1px 1px var(--soil);
-}
+ text{
+  fill            : none;
+  stroke          : var(--logo-orange);
+  stroke-width    : 1px;
+  stroke-linejoin : round;
+}}
 
  .header-text p{
   margin:.35em 0 0;
