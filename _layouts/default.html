@@ -326,6 +326,16 @@ figure.infographic img{
 figure.infographic figcaption{
   text-align:center; font-size:.9rem; opacity:.7; margin-top:.4rem;
 }
+/* Full-bleed section background (stays inside <main>) */
+.full-bleed{
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+  right: 50%;
+  margin-right: -50vw;
+  width: 100vw;           /* background spans viewport */
+  overflow: visible;      /* keep the curved seams visible */
+}
 
  </style>
 </head>
