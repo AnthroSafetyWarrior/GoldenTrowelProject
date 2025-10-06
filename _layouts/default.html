@@ -170,53 +170,50 @@
 }
 
 /* container to lock equal width for all links */
-.flyout .wavy-list{
-  width: clamp(260px, 30vw, 480px);
-  display:flex; flex-direction:column; gap:10px;
+.flyout .wavy-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;  /* remove spacing between pills */
+  overflow: hidden;
+  border-radius: 40px; /* rounded outer corners only */
+  box-shadow: 0 10px 20px rgba(0,0,0,.18);
 }
 
-/* the wavy-side pill */
-.wavy-link{
-  --scallop: 10;                 /* ← size of the side waves in px */
-  --pill-bg: var(--gold);        /* background (updates on hover) */
-
-  position:relative;
-  display:block;
-  width:100%;
-  text-align:center;
-  font-weight:800;
+.wavy-link {
+  display: block;
+  width: 220px;
+  text-align: center;
+  padding: .7em 1em;
+  font-weight: 700;
+  font-size: .9rem;
   color: var(--soil);
-  background: var(--pill-bg);
-  padding: .8em 1.2em;
-  border-radius: 999px;
-  text-decoration:none;
-  filter: drop-shadow(0 10px 16px rgba(0,0,0,.18));
-  transition: transform .15s ease, color .15s ease, background .15s ease, filter .15s ease;
+  text-decoration: none;
+  background: var(--gold);
+  border: none;
+  transition: background .15s ease, color .15s ease;
 }
 
-/* create the wavy bumps on the left and right */
-.wavy-link::before,
-.wavy-link::after{
-  content:"";
-  position:absolute; top:0; bottom:0;
-  width: calc(var(--scallop) * 1px);
-  background:
-    radial-gradient(closest-side, var(--pill-bg) 98%, transparent 100%)
-      50% calc(var(--scallop) * 1px) /
-      100% calc(var(--scallop) * 2px)
-      repeat-y;
+/* Merge them visually */
+.wavy-link + .wavy-link {
+  border-top: 2px solid rgba(0,0,0,.1); /* subtle division */
 }
-.wavy-link::before{ left: calc(-1 * var(--scallop) * 1px); }
-.wavy-link::after { right: calc(-1 * var(--scallop) * 1px); }
 
-/* hover/focus */
+/* Rounded ends only at top and bottom */
+.wavy-link:first-child {
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
+}
+.wavy-link:last-child {
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+}
+
+/* Hover color */
 .wavy-link:hover,
-.wavy-link:focus-visible{
-  --pill-bg: var(--logo-orange);
-  color:#fff;
-  transform: translateY(-1px);
-  outline:0;
-  filter: drop-shadow(0 12px 22px rgba(0,0,0,.22));
+.wavy-link:focus-visible {
+  background: var(--logo-orange);
+  color: #fff;
 }
 
 
