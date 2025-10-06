@@ -25,7 +25,7 @@
 --accent: var(--sage);       /* anything using --accent updates to sage */
 
       --ink:#111;
-      --maxw:1100px;
+      --maxw: 1240px;
 
       /* Wave + band colors */
       --wave-mid:#c9beb7;
@@ -396,7 +396,26 @@ figure.infographic figcaption{
   .intro-row{ grid-template-columns:1fr; }
   .intro-graphic{ order:-1; margin-bottom:.5rem; }
 }
- </style>
+/* 2) Intro spacing: reduce the gap from the title block to the text row */
+.section.intro{
+  row-gap: clamp(8px, 1.2vw, 16px);   /* was larger */
+}
+
+/* kill the extra top margin on the very first paragraph */
+.intro-copy > p:first-child{ margin-top: 0; }
+
+/* optional: nudge H1/H2 spacing inside the title */
+.intro-title h1{ margin-bottom: .15em; }
+.intro-title h2{ margin-top: .25em; margin-bottom: .15em; }
+
+/* 3) On very wide screens, let the intro columns breathe a bit more */
+@media (min-width: 1200px){
+  .intro-row{
+    grid-template-columns: minmax(320px, 560px) 1fr; /* same image min, a touch more max */
+    column-gap: clamp(28px, 4.6vw, 56px);           /* a little more room between cols */
+  }
+} 
+</style>
 </head>
 
 <body>
