@@ -375,27 +375,24 @@ figure.infographic figcaption{
 /* row holding image + paragraphs */
 .intro-row{
   display:grid;
-  grid-template-columns: minmax(180px, 320px) 1fr; /* image LEFT, text RIGHT */
+  grid-template-columns: minmax(280px, 520px) minmax(0, 1fr); /* bigger left column */
   align-items:start;
-  column-gap: clamp(16px, 3vw, 28px);
+  column-gap: clamp(20px, 4vw, 44px);
 }
 
 /* image sizing + subtle depth */
 .intro-graphic{ display:flex; justify-content:center; }
 .intro-graphic img{
-  width:100%;
-  max-width:320px;   /* hard cap so it doesn’t overpower */
+  width:100%;          /* fill the left column */
+  max-width:none;      /* remove the 320px cap */
   height:auto;
   filter: drop-shadow(0 8px 16px rgba(0,0,0,.12))
           drop-shadow(0 2px 5px rgba(0,0,0,.08));
 }
 
-/* tidy the heading spacing */
-.intro-title h1{ margin-top:.2em; }
-
 @media (max-width:880px){
   .intro-row{ grid-template-columns:1fr; }
-  .intro-graphic{ order:-1; margin-bottom:.5rem; } /* stack on phones */
+  .intro-graphic{ order:-1; margin-bottom:.5rem; }
 }
  </style>
 </head>
