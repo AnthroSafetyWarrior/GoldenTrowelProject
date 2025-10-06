@@ -25,27 +25,26 @@
       --band-grad-top:#baafa8;
       --band-grad-mid:#cfc4bd;
       --band-grad-bottom:#eae6df;
+
+      /* Pull the buttons a bit closer to the crest */
+      --circle-lift: -8px;   /* tweak: -6px … -14px */
     }
-/* Pull the buttons a bit closer to the crest */
-:root { --circle-lift: -8px; }              /* tweak: -6px … -14px */
-.circle-nav { transform: translateY(var(--circle-lift)); }
+    .circle-nav { transform: translateY(var(--circle-lift)); }
 
-/* ---------- Base ---------- */ *, 
-*::before, *::after { box-sizing: border-box; }
-body { font-family: Calibri, sans-serif; background:#eae6df; margin:0; }
-img, svg, video { max-width:100%; height:auto; display:block; }
+    /* ---------- Base ---------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: Calibri, sans-serif; background:#eae6df; margin:0; }
+    img, svg, video { max-width:100%; height:auto; display:block; }
 
-/* ↑ only these three lines changed (more top/bottom space) */
-h1{ font-size:clamp(1.8rem,5.5vw,2.4rem); margin: 1em 0 .6em; }
-h2{ font-size:clamp(1.6rem,4.5vw,1.8rem); margin: .9em 0 .5em; }
-h3{ font-size:clamp(1.4rem,4vw,1.6rem);  margin: .8em 0 .45em; }
+    /* Only heading spacing changed */
+    h1{ font-size:clamp(1.8rem,5.5vw,2.4rem); margin: 1em 0 .6em; }
+    h2{ font-size:clamp(1.6rem,4.5vw,1.8rem); margin: .9em 0 .5em; }
+    h3{ font-size:clamp(1.4rem,4vw,1.6rem);  margin: .8em 0 .45em; }
 
-p  { font-size:clamp(1.2rem,2.8vw,1.4rem); margin:.6em 0; }
-main{ width:min(100%,1100px); margin-inline:auto; padding:clamp(16px,4vw,28px); }
-img,svg,video{ max-width:100%; height:auto; display:block; }
-a{ color:var(--soil); text-decoration-thickness:.08em; text-underline-offset:.18em; }
-a:hover{ color:var(--logo-orange); }
-
+    p  { font-size:clamp(1.2rem,2.8vw,1.4rem); margin:.6em 0; }
+    main{ width:min(100%,1100px); margin-inline:auto; padding:clamp(16px,4vw,28px); }
+    a{ color:var(--soil); text-decoration-thickness:.08em; text-underline-offset:.18em; }
+    a:hover{ color:var(--logo-orange); }
 
     /* ============== Header + Hero ============== */
     header.hero{
@@ -66,7 +65,9 @@ a:hover{ color:var(--logo-orange); }
 
     .header-content{
       display:flex; align-items:center; justify-content:center; gap:clamp(.6rem,2vw,1.2rem);
-      max-width:var(--maxw); margin:0 auto; padding: 0 clamp(16px,2vw,24px) clamp(16px, 6vw, 120px);
+      max-width:var(--maxw); margin:0 auto;
+      /* extra bottom padding to show more hero image before the wave */
+      padding: 0 clamp(16px,2vw,24px) clamp(16px, 6vw, 120px);
       text-shadow:0 2px 10px rgba(0,0,0,.35);
     }
     .header-content img{ width: clamp(150px, 11vw, 190px); border-radius:12px; }
@@ -84,44 +85,38 @@ a:hover{ color:var(--logo-orange); }
 
     /* ============== Crest waves above the band ============== */
     .hero-wave{ position:relative; }
-    .hero-wave svg{ margin-bottom:-6px; } /* tuck tighter to band */
+    .hero-wave svg{ margin-bottom:-8px; } /* tuck tighter to band */
 
     /* Gradient band (wraps the scroll nav) */
     .nav-gradient{
-  margin-top:-18px;
-  padding-top:0;
-  /* just a little real padding; shadows can overflow below */
-  padding-bottom:0;
-  min-height: clamp(110px, 8vw, 120px);
-  position: relative;
-  overflow: visible;
- background: linear-gradient(
-    to bottom,
-    var(--wave-dark) 0%,
-    color-mix(in srgb, var(--wave-dark) 75%, var(--wave-mid)) 22%,
-    var(--wave-mid) 46%,
-    color-mix(in srgb, var(--wave-mid) 65%, #eae6dfff) 72%,
-    color-mix(in srgb, var(--wave-mid) 35%, #eae6dfff) 88%,
-    #eae6dfff 100%   /* ← match body’s background near this area */
-  );
+      margin-top:-18px;
+      padding-top:0;
+      padding-bottom:0;
+      min-height: clamp(110px, 8vw, 120px);
+      position: relative;
+      overflow: visible;
+      background: linear-gradient(
+        to bottom,
+        var(--wave-dark) 0%,
+        color-mix(in srgb, var(--wave-dark) 75%, var(--wave-mid)) 22%,
+        var(--wave-mid) 46%,
+        color-mix(in srgb, var(--wave-mid) 65%, #eae6dfff) 72%,
+        color-mix(in srgb, var(--wave-mid) 35%, #eae6dfff) 88%,
+        #eae6dfff 100%
+      );
     }
 
-
-/* (tiny tuck so the waves hug the band nicely) */
-.hero-wave svg{ margin-bottom:-8px; }
-
     /* ============== Scrollable Wave Nav (horizontal only) ============== */
-   .wave-nav{
-  position:relative; background:transparent;
-  overflow-x:auto;
-  overflow-y:clip;   /* ⬅ prevent any vertical scrollbar in the nav */
-  -webkit-overflow-scrolling:touch;
+    .wave-nav{
+      position:relative; background:transparent;
+      overflow-x:auto;
+      overflow-y:clip;   /* prevent any vertical scrollbar in the nav */
+      -webkit-overflow-scrolling:touch;
 
-  /* Firefox scrollbar style */
-  scrollbar-width: thin;
-  scrollbar-color: rgba(0,0,0,.28) transparent;
-}
-
+      /* Firefox scrollbar style */
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0,0,0,.28) transparent;
+    }
     /* WebKit scrollbar (horizontal) */
     .wave-nav::-webkit-scrollbar{ height:10px; }
     .wave-nav::-webkit-scrollbar-track{ background:transparent; }
@@ -159,7 +154,7 @@ a:hover{ color:var(--logo-orange); }
       box-shadow: 0 12px 0 rgba(0,0,0,.12), 0 6px 14px rgba(0,0,0,.12);
     }
 
-    /* Pills BELOW each circle (hidden so they don't affect nav height) */
+    /* Flyouts (hidden by default; we portal them to <body> when shown) */
     .flyout{
       display:none;
       position:absolute; left:50%; top: calc(100% + 10px); transform: translateX(-50%);
@@ -175,17 +170,66 @@ a:hover{ color:var(--logo-orange); }
       display:flex; opacity:1; pointer-events:auto;
     }
 
-    .pill{
-      position:static;
-      background: var(--gold); color: var(--soil);
-      font-weight:700; font-size:.9rem; white-space:nowrap;
-      padding:.45em .9em; border-radius:999px; text-decoration:none;
-      box-shadow:0 10px 20px rgba(0,0,0,.18);
-      transition:transform .15s ease, background .15s ease, color .15s ease, box-shadow .15s ease;
+    /* ===== Wavy-side dropdown panel (replaces pills) ===== */
+    .flyout .sheet{
+      --scallop: 10px;            /* size of the waves on the sides */
+      --pad: 12px;                /* inner padding */
+      --spread: 10px;             /* how far the scallops stick out */
+      --radius: 14px;             /* top/bottom corner roundness */
+
+      position: relative;
+      background: var(--gold);
+      color: var(--soil);
+      border-radius: var(--radius);
+      min-width: clamp(240px, 28vw, 440px);
+      max-width: min(90vw, 520px);
+      padding: calc(var(--pad) + 2px) clamp(16px, 2.4vw, 24px);
+      box-shadow: 0 10px 24px rgba(0,0,0,.22);
     }
-    .pill:hover, .pill:focus-visible{
-      background: var(--logo-orange); color:#fff; transform:translateY(-1px);
-      box-shadow:0 12px 24px rgba(0,0,0,.22); outline:0;
+    .flyout .sheet::before{
+      content:"";
+      position:absolute;
+      top:0; bottom:0;
+      left: calc(-1 * var(--spread));
+      right: calc(-1 * var(--spread));
+      background: var(--gold);
+      border-radius: var(--radius);
+      z-index:-1;
+
+      /* Wavy mask on the left and right edges only */
+      -webkit-mask:
+        radial-gradient(closest-side, #000 98%, transparent 101%) left   top/var(--scallop) calc(var(--scallop)*2) repeat-y,
+        radial-gradient(closest-side, #000 98%, transparent 101%) right  top/var(--scallop) calc(var(--scallop)*2) repeat-y,
+        linear-gradient(#000 0 0);
+              mask:
+        radial-gradient(closest-side, #000 98%, transparent 101%) left   top/var(--scallop) calc(var(--scallop)*2) repeat-y,
+        radial-gradient(closest-side, #000 98%, transparent 101%) right  top/var(--scallop) calc(var(--scallop)*2) repeat-y,
+        linear-gradient(#000 0 0);
+    }
+    .sheet .sheet-list{
+      display:flex; flex-direction:column; gap:10px;
+      margin:0; padding:0; list-style:none;
+    }
+    .sheet .sheet-link{
+      display:block; text-decoration:none;
+      background: color-mix(in srgb, var(--offwhite) 94%, white);
+      color: var(--soil);
+      font-weight:700;
+      padding:.55em .9em;
+      border-radius:10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,.12) inset;
+      transition: transform .15s ease, background .15s ease, color .15s ease, box-shadow .15s ease;
+    }
+    .sheet .sheet-link:hover,
+    .sheet .sheet-link:focus-visible{
+      background: var(--logo-orange);
+      color:#fff;
+      transform: translateY(-1px);
+      outline:0;
+    }
+    @supports not (mask: linear-gradient(#000 0 0)) {
+      .flyout .sheet::before{ display:none; }
+      .flyout .sheet{ border-radius: 14px; }
     }
 
     /* (Optional) hub styles kept */
@@ -231,37 +275,57 @@ a:hover{ color:var(--logo-orange); }
             <svg class="wave" preserveAspectRatio="none" aria-hidden="true"></svg>
 
             <nav class="circle-nav">
+              <!-- Home -->
               <div class="circle" data-href="{{ '/' | relative_url }}">
                 <button class="circle-btn" type="button">Home</button>
                 <div class="flyout"></div>
               </div>
 
+              <!-- Preparing -->
               <div class="circle" data-href="{{ '/preparing/' | relative_url }}">
                 <button class="circle-btn" type="button">Preparing</button>
                 <div class="flyout">
-                  <a class="pill" href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing" target="_blank" rel="noopener">Pre-Fieldwork Safety Checklist</a>
- <a class="pill" href="{{ '/statelaw.html' | relative_url }}">USA Laws by State</a>
- <a class="pill" href="{{ '/internationallaw.html' | relative_url }}">International Laws by Country</a>
-                
-</div>
+                  <div class="sheet" role="menu" aria-label="Preparing links">
+                    <ul class="sheet-list">
+                      <li><a class="sheet-link" role="menuitem"
+                             href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing"
+                             target="_blank" rel="noopener">Pre-Fieldwork Safety Checklist</a></li>
+                      <li><a class="sheet-link" role="menuitem" href="{{ '/statelaw.html' | relative_url }}">USA Laws by State</a></li>
+                      <li><a class="sheet-link" role="menuitem" href="{{ '/internationallaw.html' | relative_url }}">International Laws by Country</a></li>
+                    </ul>
+                  </div>
+                </div>
               </div>
 
+              <!-- Reporting -->
               <div class="circle" data-href="{{ '/reporting/' | relative_url }}">
                 <button class="circle-btn" type="button">Reporting</button>
                 <div class="flyout">
-              <a class="pill" href="{{ '/titleIX.html' | relative_url }}">Title IX Reporting by University</a>
-                  <a class="pill" href="{{ '/fundingethics.html' | relative_url }}">Funding &amp; Professional Associations</a>
+                  <div class="sheet" role="menu" aria-label="Reporting links">
+                    <ul class="sheet-list">
+                      <li><a class="sheet-link" role="menuitem" href="{{ '/titleIX.html' | relative_url }}">Title IX Reporting by University</a></li>
+                      <li><a class="sheet-link" role="menuitem" href="{{ '/fundingethics.html' | relative_url }}">Funding &amp; Professional Associations</a></li>
+                    </ul>
+                  </div>
                 </div>
               </div>
 
+              <!-- Surveys -->
               <div class="circle" data-href="{{ '/surveys/' | relative_url }}">
                 <button class="circle-btn" type="button">Surveys</button>
                 <div class="flyout">
-                  <a class="pill" href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank" rel="noopener">Fieldwork Misconduct Survey</a>
-                  <a class="pill" href="https://forms.gle/9DjrMVNP2oUu1GDD8" target="_blank" rel="noopener">Website Feedback Survey</a>
+                  <div class="sheet" role="menu" aria-label="Surveys links">
+                    <ul class="sheet-list">
+                      <li><a class="sheet-link" role="menuitem"
+                             href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank" rel="noopener">Fieldwork Misconduct Survey</a></li>
+                      <li><a class="sheet-link" role="menuitem"
+                             href="https://forms.gle/9DjrMVNP2oUu1GDD8" target="_blank" rel="noopener">Website Feedback Survey</a></li>
+                    </ul>
+                  </div>
                 </div>
               </div>
 
+              <!-- Contact -->
               <div class="circle" data-href="mailto:anthrosafetywarrior@gmail.com">
                 <button class="circle-btn" type="button">Contact</button>
                 <div class="flyout"></div>
@@ -285,67 +349,52 @@ a:hover{ color:var(--logo-orange); }
     const circles = track?.querySelectorAll('.circle') || [];
     if (!wrap || !track || !circles.length) return;
 
-    /* ---------- Responsive spacing controls (edit these) ---------- */
-    const GAP_MIN = 120;         // px
-    const GAP_MAX = 220;        // px
-    const GAP_VW  = 0.06;       // 6vw
-
-    const PAD_MIN = 34;         // px
-    const PAD_MAX = 72;         // px
-    const PAD_VW  = 0.08;       // 8vw
-
-    const getCircleSize = () => {
+    function getCircleSize(){
       const any = circles[0];
       return any ? (any.offsetWidth || parseFloat(getComputedStyle(any).getPropertyValue('--size'))) : 96;
-    };
+    }
 
-function setHeight(){
-  const size = getCircleSize();
-  const root  = getComputedStyle(document.documentElement);
-  const lift  = parseFloat(root.getPropertyValue('--circle-lift')) || 0; // negative when lifted
-  const extra = Math.max(0, -lift) + 12; // room for lift + button drop shadow
-  const h = Math.max(110, Math.round(size * 1.12) + extra);
-  wrap.style.height = h + 'px';
-}
+    function setHeight(){
+      const size = getCircleSize();
+      const root  = getComputedStyle(document.documentElement);
+      const lift  = parseFloat(root.getPropertyValue('--circle-lift')) || 0; // negative when lifted
+      const extra = Math.max(0, -lift) + 12; // room for lift + button drop shadow
+      const h = Math.max(110, Math.round(size * 1.12) + extra);
+      wrap.style.height = h + 'px';
+    }
 
+    function draw(){
+      const size   = getCircleSize();
+      const wrapW  = wrap.clientWidth;
+      const count  = circles.length;
 
-   function draw(){
-  const size   = getCircleSize();
-  const wrapW  = wrap.clientWidth;
-  const count  = circles.length;
+      const GAP_MIN = 120;     // min space between buttons
+      const GAP_MAX = 220;     // max space between buttons
+      const PAD_MIN = 24;      // min side padding
 
-  // Your constraints
-  const GAP_MIN = 120;     // min space between buttons
-  const GAP_MAX = 220;    // max space between buttons
-  const PAD_MIN = 24;     // min side padding
+      // Fit-to-width gap, clamped
+      const gapFit = (wrapW - 2*PAD_MIN - count*size) / Math.max(1, (count - 1));
+      const gap    = Math.max(GAP_MIN, Math.min(gapFit, GAP_MAX));
 
-  // 1) Try to fill the available width: compute a gap that would fit the row,
-  //    then clamp it to your min/max so accessibility stays consistent.
-  const gapFit = (wrapW - 2*PAD_MIN - count*size) / Math.max(1, (count - 1));
-  const gap    = Math.max(GAP_MIN, Math.min(gapFit, GAP_MAX));
+      // Center the row
+      const rowWidth = count*size + (count-1)*gap;
+      const pad      = Math.max(PAD_MIN, Math.floor((wrapW - rowWidth) / 2));
 
-  // 2) With the chosen gap, center the row by distributing leftover as side pad.
-  const rowWidth = count*size + (count-1)*gap;
-  const pad      = Math.max(PAD_MIN, Math.floor((wrapW - rowWidth) / 2));
+      // Expand track if needed to allow horizontal scroll
+      const neededWidth = rowWidth + 2*pad;
+      track.style.width = Math.max(wrapW, neededWidth) + 'px';
 
-  // 3) If the viewport is too small, allow horizontal scroll by expanding the track.
-  const neededWidth = rowWidth + 2*pad;
-  const trackWidth  = Math.max(wrapW, neededWidth);
-  track.style.width = trackWidth + 'px';
+      const TOP = Math.max(2, Math.round(size * 0.08));
+      circles.forEach((circleEl, i) => {
+        const left = pad + i*(size + gap);
+        circleEl.style.left = left + 'px';
+        circleEl.style.top  = TOP  + 'px';
 
-  // 4) Position circles
-  const TOP = Math.max(2, Math.round(size * 0.08));
-  circles.forEach((circleEl, i) => {
-    const left = pad + i*(size + gap);
-    circleEl.style.left = left + 'px';
-    circleEl.style.top  = TOP  + 'px';
-
-    const href = circleEl.getAttribute('data-href');
-    const btn  = circleEl.querySelector('.circle-btn');
-    if (btn && href) btn.onclick = () => { location.href = href; };
-  });
-}
-
+        const href = circleEl.getAttribute('data-href');
+        const btn  = circleEl.querySelector('.circle-btn');
+        if (btn && href) btn.onclick = () => { location.href = href; };
+      });
+    }
 
     setHeight(); draw();
     addEventListener('resize', () => { setHeight(); draw(); }, { passive:true });
@@ -403,10 +452,10 @@ function setHeight(){
       btn.addEventListener('focus', show);
       btn.addEventListener('blur',  () => { hideTimer = setTimeout(hide, 150); });
 
-      /* Touch: first tap opens, second tap navigates (if no flyout content, it just navigates) */
+      /* Touch: first tap opens, second tap navigates (if there are submenu links) */
       let armed = false;
       btn.addEventListener('click', (e) => {
-        const hasItems = fly.querySelector('.pill');
+        const hasItems = fly.querySelector('a'); // was '.pill' — now generic for sheet links
         if (!hasItems) return;  // no dropdown -> let it navigate
         if (!armed) {
           e.preventDefault();
@@ -414,6 +463,7 @@ function setHeight(){
           armed = true;
           setTimeout(() => armed = false, 1200);
         }
+        // second tap navigates naturally
       }, { passive:false });
 
       // Close on scroll/resize/outside click

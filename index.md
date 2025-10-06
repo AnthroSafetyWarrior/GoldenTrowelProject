@@ -9,10 +9,10 @@ hero_tint: .60                        # optional (0–1: higher = more maroon ov
 ---
 
 <section class="main-section">
-  <h2 style="color:var(--accent);"><strong>Integrity in research begins with safety and respect in the field.</strong></h2>
-  <h3 style="margin-top: 0.5em; font-weight: normal;">
-    We’re redefining fieldwork protocols to center consent, dignity, and accountability — because harm has no place in science.
-  </h3>
+  <h1 style="color:var(--accent); align=center"><strong>Integrity in research begins with safety and respect in the field.</strong></h1>
+  <h2 style="margin-top: 0.5em; font-weight: normal;">
+    <strong> We’re redefining fieldwork protocols to center consent, dignity, and accountability — because harm has no place in science.</strong>
+  </h2>
   <p>
     This project was built from urgency — to make fieldwork safer for ourselves, our students, and our colleagues.
     It offers accessible, customizable tools to help researchers prevent and report sexual misconduct and other forms of behavioral harm during field research.
