@@ -50,12 +50,6 @@ hero_tint: .60                        # optional (0–1: higher = more maroon ov
         DOI: 10.1371/journal.pone.0102172
       </a>).
     </p>
-    <ul>
-      <li>Hierarchies + dependency on gatekeepers</li>
-      <li>Remote settings with unclear jurisdiction</li>
-      <li>Ambiguous expectations and “off the record” norms</li>
-      <li>Opaque reporting paths; fear of retaliation</li>
-    </ul>
   </div>
 
   <aside class="side">

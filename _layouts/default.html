@@ -361,7 +361,7 @@ figure.infographic img{
 .side p.muted{ margin:.2rem 0 1rem; opacity:.85; font-size:clamp(1rem,2.4vw,1.05rem); }
 figure.infographic{ margin:0; }
 figure.infographic img{
-  width:100%; max-width:560px; display:block; margin:0 auto;
+  width:100%; max-width:5000px; display:block; margin:0 auto;
   border-radius:12px; box-shadow:0 8px 18px rgba(0,0,0,.12);
 }
 figure.infographic figcaption{
@@ -375,21 +375,23 @@ figure.infographic figcaption{
 /* row holding image + paragraphs */
 .intro-row{
   display:grid;
-  grid-template-columns: minmax(280px, 520px) minmax(0, 1fr); /* bigger left column */
-  align-items:start;
+  grid-template-columns: minmax(320px, 520px) minmax(0, 1fr); /* 320–520 left col */
+  align-items:center;                                        /* center vs. text */
   column-gap: clamp(20px, 4vw, 44px);
 }
 
-/* image sizing + subtle depth */
-.intro-graphic{ display:flex; justify-content:center; }
+/* keep the figure centered in its column */
+.intro-graphic{ display:flex; align-items:center; justify-content:center; }
+
+/* size the image responsively within that range */
 .intro-graphic img{
-  width:100%;          /* fill the left column */
-  max-width:none;      /* remove the 320px cap */
+  width: clamp(320px, 34vw, 520px);  /* min 320, max 520 */
   height:auto;
   filter: drop-shadow(0 8px 16px rgba(0,0,0,.12))
           drop-shadow(0 2px 5px rgba(0,0,0,.08));
 }
 
+/* mobile: stack */
 @media (max-width:880px){
   .intro-row{ grid-template-columns:1fr; }
   .intro-graphic{ order:-1; margin-bottom:.5rem; }
