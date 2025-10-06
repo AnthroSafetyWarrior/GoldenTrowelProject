@@ -255,7 +255,10 @@ a:hover{ color:var(--logo-orange); }
 .logo-wrap{
   position:relative;
   display:inline-block;
-  line-height:0;
+  line-height:0;  text-shadow:
+    0 2px 0 var(--soil),
+    0 6px 12px color-mix(in srgb, var(--soil) 40%, transparent),
+    0 12px 22px color-mix(in srgb, var(--soil) 28%, transparent);
 }
 
 /* soft radial glow behind the logo */
@@ -263,18 +266,7 @@ a:hover{ color:var(--logo-orange); }
   content:"";
   position:absolute; inset:-14% -14%; /* slightly larger than image */
   z-index:-1;
-  background:
-    radial-gradient( circle at 50% 50%,
-      color-mix(in srgb, var(--gold-glow) 85%, transparent) 0%,
-      color-mix(in srgb, var(--gold-glow) 55%, transparent) 35%,
-      color-mix(in srgb, var(--gold-glow) 25%, transparent) 60%,
-      transparent 85%
-    );
-  filter: blur(6 px);
-  opacity:.85;
-  pointer-events:none;
-  border-radius:6px;
-}
+ }
 
 /* keep your previous sizing on the image */
 .header-content img.site-logo{ width: clamp(180px, 11vw, 220px); border-radius:12px; }
