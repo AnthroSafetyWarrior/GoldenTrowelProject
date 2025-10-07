@@ -1,119 +1,436 @@
----
-layout: default
-title: Home
-homepage: true
-hero: /assets/img/romania_cave.JPG
-hero_pos: "center 40%"
-hero_opacity: .34
-hero_tint: .60
----
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <script>document.documentElement.classList.replace('no-js','js');</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ page.title | default: site.title | default: "Golden Trowel Project" }}</title>
+  <link rel="canonical" href="{{ page.url | absolute_url }}">
 
-<!-- 1) Intro – plain background -->
-<section class="section intro">
-  <div class="intro-title">
-    <h1><strong>Integrity in research begins with safety and respect in the field.</strong></h1>
-    <h2 style="font-weight:600;">
-      We’re redefining fieldwork protocols to center consent, dignity, and accountability — because harm has no place in science.
-    </h2>
-  </div>
+  {% assign is_home = page.homepage or page.is_homepage or page.home or page.url == '/' %}
 
-  <div class="intro-row">
-    <figure class="intro-graphic">
-      <img
-        src="{{ '/assets/img/accountability.png' | relative_url }}"
-        alt="Accountability hub with callouts: clearly stated expectations, transparent reporting systems, and shared commitment to safety."
-        loading="lazy" decoding="async" fetchpriority="low">
-    </figure>
+  <style>
+    /* ============== Design Tokens ============== */
+    :root{
+      --offwhite:#FAF7F2;
 
-    <div class="intro-copy">
-      <p>
-        This project was built from urgency — to make fieldwork safer for ourselves, our students, and our colleagues.
-        It offers accessible, customizable tools to help researchers prevent and report sexual misconduct and other forms of behavioral harm during field research.
-      </p>
-      <p>
-        We cannot protect our science without protecting the people who do it. Safety begins with accountability:
-        clearly stated expectations, transparent reporting systems, and a shared commitment to safeguarding not just our data, but each other.
-        We are researchers, educators, and students — and we deserve to work in environments built on dignity, consent, and respect.
-      </p>
-    </div>
-  </div>
-</section>
+      /* Core palette */
+      --slate:#444054;
+      --sage:#56876D;
+      --soil:#3B2A1F;
+      --gold:#fac441;
+      --logo-orange:#8a340a;
 
-<!-- 2) Prevalence – ORANGE pill, anchored LEFT (flat left, rounded right) -->
-<section class="pillband pill--orange pill--clip-left">
-  <div class="section split">
-    <div class="text">
-      <h2>Prevalence of Fieldwork Harassment and Assault</h2>
-      <p>
-        A 2014 survey sampling &gt;650 anthropologists revealed high frequencies of harassment and assault,
-        and low frequencies of awareness of reporting procedures (Clancy <em>et&nbsp;al.</em>, 2014;
-        DOI: <a style="color:#fff" href="https://doi.org/10.1371/journal.pone.0102172">10.1371/journal.pone.0102172</a>).
-      </p>
-    </div>
+      /* Legacy aliases */
+      --moss: var(--sage);
+      --accent: var(--sage);
 
-    <figure class="art">
-      <img src="{{ '/assets/img/prevalence-graphic.png' | relative_url }}" alt="Infographic summarizing prevalence findings.">
-    </figure>
-  </div>
-</section>
+      --ink:#111;
+      --maxw:1240px;
 
-<!-- 3) What’s at stake – SOIL pill, anchored RIGHT (flat right, rounded left) -->
-<section class="pillband pill--soil pill--clip-right">
-  <div class="section">
-    <h2>What’s at stake</h2>
-    <p>Unsafe fieldwork harms people and science. It drives students out of the discipline, silences witnesses, and biases what gets studied, published, and funded.</p>
-    <blockquote style="margin:0; font-style:italic; opacity:.95">
-      “I didn’t know who to tell without risking my degree.”
-    </blockquote>
-  </div>
-</section>
+      /* Wave/band */
+      --wave-mid:#c9beb7;
+      --wave-dark:#baafa8;
 
-<!-- 4) Our approach – SLATE pill, anchored LEFT -->
-<section class="pillband pill--slate pill--clip-left">
-  <div class="section" style="gap:22px;">
-    <h2 style="color:#fff; margin-bottom:.2em;">Our approach</h2>
-    <div class="section" style="padding:0; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px;">
-      <div class="card">
-        <h3>Prevention</h3>
-        <p>Clear expectations, advisor–advisee agreements, and pre-fieldwork safety planning.</p>
+      /* Scroll circle lift */
+      --circle-lift:-8px;
+
+      /* Pill section */
+      --pill-radius: 44px;
+      --pill-margin: clamp(16px, 5.2vw, 120px);
+    }
+
+    /* ---------- Base ---------- */
+    *,*::before,*::after{ box-sizing:border-box; }
+    body{ font-family:Calibri,sans-serif; background:#eae6df; color:var(--ink); margin:0; }
+    img,svg,video{ max-width:100%; height:auto; display:block; }
+    h1{ font-size:clamp(1.8rem,5.5vw,2.4rem); margin:1em 0 .6em; }
+    h2{ font-size:clamp(1.6rem,4.5vw,1.8rem); margin:.9em 0 .5em; }
+    h3{ font-size:clamp(1.4rem,4vw,1.6rem);  margin:.8em 0 .45em; }
+    p { font-size:clamp(1.05rem,2.8vw,1.15rem); margin:.6em 0; line-height:1.55; }
+    a{ color:var(--soil); text-decoration-thickness:.08em; text-underline-offset:.18em; }
+    a:hover{ color:var(--logo-orange); }
+    main{ width:min(100%, var(--maxw)); margin-inline:auto; padding:clamp(16px,4vw,28px); }
+
+    /* ============== Header + Hero ============== */
+    header.hero{ position:relative; color:#fff; padding:clamp(.6em,2.4vw,1.2em) 0 0; overflow:visible; }
+    header.hero::before{
+      content:""; position:absolute; inset:0; z-index:-1;
+      background:
+        linear-gradient(rgba(99,55,71,var(--hero-tint,.55)), rgba(99,55,71,var(--hero-tint,.55))),
+        var(--hero-url) no-repeat;
+      background-position: var(--hero-pos, center 40%);
+      background-size: cover;
+      opacity: var(--hero-opacity,1);
+    }
+
+    .header-content{
+      display:flex; align-items:center; justify-content:center; gap:clamp(.6rem,2vw,1.2rem);
+      max-width:var(--maxw); margin:0 auto; padding:0 clamp(16px,2vw,24px) clamp(16px,6vw,120px);
+      text-shadow:0 2px 10px rgba(0,0,0,.35);
+    }
+    .header-content img.site-logo{ width:clamp(180px,11vw,220px); border-radius:12px; }
+    .header-text h1{
+      color:#f9eedc; margin:.1em 0; font-size:clamp(2.2rem,6.2vw,3.2rem);
+      line-height:1.12; -webkit-text-stroke:1.5px var(--logo-orange);
+    }
+    .header-text p{
+      margin:.35em 0 0; color:#6b3c11; font-weight:700; font-size:clamp(1.05rem,2.6vw,1.25rem);
+      text-shadow:2px 2px 5px #f9eedb;
+    }
+
+    /* ============== Crest waves + band ============== */
+    .hero-wave{ position:relative; }
+    .hero-wave svg{
+      display:block; margin-bottom:-8px;
+      filter: drop-shadow(0 14px 22px rgba(0,0,0,.22)) drop-shadow(0 4px 6px rgba(0,0,0,.18));
+    }
+
+    .nav-gradient{
+      margin-top:-18px; padding:0; min-height:clamp(110px,8vw,120px); position:relative; overflow:visible;
+      background: linear-gradient(to bottom,
+        var(--wave-dark) 0%,
+        color-mix(in srgb, var(--wave-dark) 75%, var(--wave-mid)) 22%,
+        var(--wave-mid) 46%,
+        color-mix(in srgb, var(--wave-mid) 65%, #eae6df) 58%,
+        color-mix(in srgb, var(--wave-mid) 35%, #eae6df) 80%,
+        #eae6df 100%);
+    }
+
+    /* ============== Scrollable Wave Nav ============== */
+    .wave-nav{
+      position:relative; background:transparent; overflow-x:auto; overflow-y:clip; -webkit-overflow-scrolling:touch;
+      scrollbar-width:thin; scrollbar-color: rgba(0,0,0,.28) transparent;
+    }
+    .wave-nav::-webkit-scrollbar{ height:10px; }
+    .wave-nav::-webkit-scrollbar-thumb{
+      background:rgba(0,0,0,.25); border-radius:999px; border:2px solid transparent; background-clip:padding-box;
+    }
+    .wave-track{ position:relative; height:100%; min-width:0; }
+    .nav-gradient .wave{ display:none !important; }
+
+    .circle-nav{ position:absolute; inset:0; pointer-events:none; z-index:5; transform:translateY(var(--circle-lift)); }
+    .circle{
+      position:absolute; pointer-events:auto; --size:clamp(96px,9.25vw,112px);
+      width:var(--size); height:var(--size);
+    }
+    .circle-btn{
+      position:absolute; inset:0; border-radius:50%; border:3px solid var(--gold);
+      display:flex; align-items:center; justify-content:center; text-align:center;
+      padding:6px; line-height:1.1; font-weight:800; cursor:pointer;
+      font-size:clamp(.9rem,1.1vw,1rem);
+      background:var(--gold); color:var(--soil);
+      box-shadow:0 10px 0 rgba(0,0,0,.10), 0 2px 8px rgba(0,0,0,.08);
+      transition: transform .15s ease, background .15s ease, color .15s ease,
+                  box-shadow .15s ease, border-color .15s ease;
+      z-index:1;
+    }
+    .circle-btn:hover,.circle-btn:focus-visible{
+      background:#444054; color:#fff; border-color:var(--gold); outline:0;
+      transform:translateY(-2px);
+      box-shadow:0 12px 0 rgba(0,0,0,.12), 0 6px 14px rgba(0,0,0,.12);
+    }
+
+    .flyout{
+      display:none; position:absolute; left:50%; top:calc(100% + 10px); transform:translateX(-50%);
+      flex-direction:column; align-items:center; gap:0; pointer-events:none; opacity:0; transition:opacity .18s ease; z-index:10;
+    }
+    .circle:hover .flyout, .circle.is-open .flyout{ display:flex; opacity:1; pointer-events:auto; }
+    .flyout.is-floating{ position:fixed; left:0; top:0; transform:translateX(-50%); display:flex; opacity:1; pointer-events:auto; z-index:2000; }
+    .flyout .pill{
+      display:block; width:260px; text-align:center; padding:.7em 1.1em; font-weight:700; font-size:.95rem;
+      color:var(--soil); background:var(--gold); border:2px solid var(--gold); border-radius:999px;
+      text-decoration:none; background-clip:padding-box; box-shadow:0 10px 20px rgba(0,0,0,.18);
+      transition:background .15s ease, color .15s ease, transform .15s ease; margin:0;
+    }
+    .flyout .pill + .pill{ margin-top:-2px; }
+    .flyout .pill:hover,.flyout .pill:focus-visible{
+      background:#444054; color:#fff; transform:translateY(-1px); border-color:var(--gold); outline:0;
+      box-shadow:0 0 0 3px #fff,0 0 0 6px rgba(0,0,0,.25);
+    }
+
+    /* ===== Generic section grid helper ===== */
+    .section{
+      width:min(100%, var(--maxw));
+      margin-inline:auto;
+      padding:clamp(28px,5vw,56px) clamp(16px,4vw,28px);
+      display:grid; gap:clamp(16px,2.4vw,28px);
+    }
+
+    /* ===== Pill sections ===== */
+    .pillband{ position:relative; margin-block: clamp(18px, 3.6vw, 38px); isolation:isolate; }
+    .pillband .section{ position:relative; z-index:2; }
+
+    /* The anchored “pill” background */
+    .pillband::before{
+      content:"";
+      position:absolute;
+      top:50%; height:100%;
+      width: calc(100vw - var(--pill-margin));
+      background: var(--pill-color, var(--logo-orange));
+      border-radius: var(--pill-radius);
+      transform: translateY(-50%);
+      z-index:1;
+      box-shadow:0 8px 18px rgba(0,0,0,.10);
+    }
+    /* Flat on the LEFT edge, rounded on the right */
+    .pillband.pill--clip-left::before{
+      left:0; right:auto;
+      border-top-left-radius:0; border-bottom-left-radius:0;
+    }
+    /* Flat on the RIGHT edge, rounded on the left */
+    .pillband.pill--clip-right::before{
+      right:0; left:auto;
+      border-top-right-radius:0; border-bottom-right-radius:0;
+    }
+
+    /* Color variants + matching text color */
+    .pillband.pill--orange{ --pill-color: var(--logo-orange); color:#fff; }
+    .pillband.pill--soil  { --pill-color: var(--soil);        color:#fff; }
+    .pillband.pill--slate { --pill-color: var(--slate);       color:#fff; }
+    .pillband.pill--sage  { --pill-color: var(--sage);        color:#0e2a1f; }
+
+    .pillband .section > p:first-child{ margin-top:0; }
+
+    /* ===== Intro grid (used by index) – NOT a pill ===== */
+    .section.intro{ row-gap: clamp(8px, 1.2vw, 16px); }
+    .intro-title h1{ margin-bottom:.15em; color:var(--logo-orange); }
+    .intro-title h2{ margin-top:.25em; margin-bottom:.15em; font-weight:600; }
+    .intro-row{
+      display:grid;
+      grid-template-columns:minmax(320px,560px) minmax(0,1fr);
+      align-items:center;
+      column-gap:clamp(20px,4.2vw,56px);
+    }
+    .intro-graphic{ display:flex; align-items:center; justify-content:center; }
+    .intro-graphic img{
+      width:clamp(320px,34vw,520px);
+      height:auto;
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,.12)) drop-shadow(0 2px 5px rgba(0,0,0,.08));
+    }
+    @media (max-width:880px){
+      .intro-row{ grid-template-columns:1fr; }
+      .intro-graphic{ order:-1; margin-bottom:.5rem; }
+    }
+
+    /* ===== “Split” grid used in Prevalence ===== */
+    .split{
+      grid-template-columns: repeat(12, 1fr);
+      align-items:center;
+      gap:clamp(18px, 3.2vw, 28px);
+    }
+    .split .text{ grid-column: span 6; }
+    .split .art { grid-column: span 6; }
+    .split .art img{ width:100%; height:auto; border-radius:10px; box-shadow:0 6px 18px rgba(0,0,0,.18); }
+    @media (max-width:880px){
+      .split{ grid-template-columns:1fr; }
+      .split .text,.split .art{ grid-column: 1 / -1; }
+    }
+
+    /* Small helper for “bubble” links if you use them */
+    .bubble{
+      display:inline-block; padding:.45em .85em; border-radius:999px; background:#fff2; color:#fff;
+      border:2px solid currentColor; text-decoration:none; font-weight:700;
+    }
+  </style>
+</head>
+
+<body class="{% if is_home %}home{% endif %}">
+  <!-- Header + hero -->
+  <header class="hero"
+    style="
+      --hero-url: url('{{ page.hero | default: '/assets/img/placeholder-header.jpg' | relative_url }}');
+      --hero-pos: {{ page.hero_pos | default: 'center 40%' }};
+      --hero-opacity: {{ page.hero_opacity | default: 1 }};
+      --hero-tint: {{ page.hero_tint | default: .55 }};
+    ">
+    <div class="header-content">
+      <div class="logo-wrap">
+        <img class="site-logo"
+             src="{{ '/assets/img/IMG_3241.PNG' | absolute_url }}?v={{ site.time | date: '%s' }}"
+             alt="Logo for the Golden Trowel Project."
+             loading="lazy" decoding="async" fetchpriority="low">
       </div>
-      <div class="card">
-        <h3>Reporting</h3>
-        <p>Straightforward paths to Title IX, funding bodies, and professional associations—with documentation tools.</p>
-      </div>
-      <div class="card">
-        <h3>Accountability</h3>
-        <p>Transparent follow-ups, climate surveys, and culture change grounded in data.</p>
+      <div class="header-text">
+        <h1>Recognizing power. Reclaiming safety.</h1>
+        <p>Practical tools. Powerful boundaries. Safer fieldwork.</p>
       </div>
     </div>
 
-    <div>
-      <h3 style="color:#fff;">Start with practical tools</h3>
-      <p><a class="bubble" href="{{ '/preparing/' | relative_url }}">Pre-Fieldwork Safety Checklist</a></p>
-      <p><a class="bubble" href="{{ '/reporting/'  | relative_url }}">Reporting portals</a></p>
-      <p><a class="bubble" href="{{ '/surveys/'    | relative_url }}">Anonymous surveys</a></p>
-    </div>
-  </div>
-</section>
+    <!-- Abstract crest waves -->
+    <div class="hero-wave" aria-hidden="true" role="presentation">
+      <svg viewBox="0 0 1440 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,64 C160,120 320,8 480,48 C640,88 800,168 960,128 C1120,88 1280,16 1440,64 L1440,160 L0,160 Z" fill="{{ '#c9beb7' }}"></path>
+        <path d="M0,100 C160,140 320,40 480,70 C640,100 800,160 960,120 C1120,80 1280,30 1440,70 L1440,160 L0,160 Z" fill="{{ '#baafa8' }}"></path>
+      </svg>
 
-<!-- 5) Resources – plain background -->
-<section class="section">
-  <div class="docs-container safety-plan">
-    <h2>Build Your Fieldwork Safety Plan</h2>
-    <p>Download and customize your safety materials below to protect yourself and your team.</p>
-    <div class="doc-links" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px;">
-      <div class="doc-card card">
-        <h3>Fieldwork Safety Plan</h3>
-        <p>A personal safety plan template for researchers.</p>
-        <a href="https://docs.google.com/document/d/1OkEMW4VhpsccA_VZTTEvgBBq5vs0mCOEDg9Xk6f34Ss/edit?usp=sharing"
-           target="_blank" rel="noopener noreferrer">Open Google Doc</a>
-      </div>
-      <div class="doc-card card">
-        <h3>Collaborator Safety Commitment Agreement</h3>
-        <p>A team-wide agreement on ethical and safe fieldwork protocols.</p>
-        <a href="https://docs.google.com/document/d/18SmymYAFKUz_drbDhcsx8NWaiNG6-SQflWPj0OaZ76c/edit?usp=sharing"
-           target="_blank" rel="noopener noreferrer">Open Google Doc</a>
+      <!-- Gradient band + scrollable circles -->
+      <div class="nav-gradient">
+        <section class="wave-nav" aria-label="Primary navigation">
+          <div class="wave-track">
+            <svg class="wave" preserveAspectRatio="none" aria-hidden="true"></svg>
+
+            <nav class="circle-nav">
+              <div class="circle" data-href="{{ '/' | relative_url }}">
+                <button class="circle-btn" type="button">Home</button>
+                <div class="flyout"></div>
+              </div>
+
+              <div class="circle" data-href="{{ '/preparing.html' | relative_url }}">
+                <button class="circle-btn" type="button">Preparing</button>
+                <div class="flyout">
+                  <a class="pill" href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing" target="_blank" rel="noopener">Pre-Fieldwork Safety Checklist</a>
+                  <a class="pill" href="{{ '/statelaw.html' | relative_url }}">USA Laws by State</a>
+                  <a class="pill" href="{{ '/internationallaw.html' | relative_url }}">International Laws by Country</a>
+                </div>
+              </div>
+
+              <div class="circle" data-href="{{ '/reporting.html' | relative_url }}">
+                <button class="circle-btn" type="button">Reporting</button>
+                <div class="flyout">
+                  <a class="pill" href="{{ '/titleIX.html' | relative_url }}">Title IX Reporting by University</a>
+                  <a class="pill" href="{{ '/fundingethics.html' | relative_url }}">Funding &amp; Professional Associations</a>
+                </div>
+              </div>
+
+              <div class="circle" data-href="{{ '/surveys.html' | relative_url }}">
+                <button class="circle-btn" type="button">Surveys</button>
+                <div class="flyout">
+                  <a class="pill" href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank" rel="noopener">Fieldwork Misconduct Survey</a>
+                  <a class="pill" href="https://forms.gle/9DjrMVNP2oUu1GDD8" target="_blank" rel="noopener">Website Feedback Survey</a>
+                </div>
+              </div>
+
+              <div class="circle" data-href="mailto:anthrosafetywarrior@gmail.com">
+                <button class="circle-btn" type="button">Contact</button>
+                <div class="flyout"></div>
+              </div>
+            </nav>
+          </div>
+        </section>
       </div>
     </div>
-  </div>
-</section>
+  </header>
+
+  <main>
+    {{ content }}
+  </main>
+
+  <!-- Tight layout + portal-on-open so flyouts sit over the page -->
+  <script>
+  (() => {
+    const wrap  = document.querySelector('.wave-nav');
+    const track = wrap?.querySelector('.wave-track');
+    const circles = track?.querySelectorAll('.circle') || [];
+    if (!wrap || !track || !circles.length) return;
+
+    const getCircleSize = () => {
+      const any = circles[0];
+      return any ? (any.offsetWidth || parseFloat(getComputedStyle(any).getPropertyValue('--size'))) : 96;
+    };
+
+    function setHeight(){
+      const size = getCircleSize();
+      const root  = getComputedStyle(document.documentElement);
+      const lift  = parseFloat(root.getPropertyValue('--circle-lift')) || 0;
+      const extra = Math.max(0, -lift) + 12;
+      const h = Math.max(110, Math.round(size * 1.12) + extra);
+      wrap.style.height = h + 'px';
+    }
+
+    function draw(){
+      const size   = getCircleSize();
+      const wrapW  = wrap.clientWidth;
+      const count  = circles.length;
+
+      const GAP_MIN = 120, GAP_MAX = 220, PAD_MIN = 24;
+      const gapFit = (wrapW - 2*PAD_MIN - count*size) / Math.max(1, (count - 1));
+      const gap    = Math.max(GAP_MIN, Math.min(gapFit, GAP_MAX));
+      const rowWidth = count*size + (count-1)*gap;
+      const pad      = Math.max(PAD_MIN, Math.floor((wrapW - rowWidth) / 2));
+      const neededWidth = rowWidth + 2*pad;
+      track.style.width = Math.max(wrapW, neededWidth) + 'px';
+
+      const TOP = Math.max(2, Math.round(size * 0.08));
+      circles.forEach((circleEl, i) => {
+        const left = pad + i*(size + gap);
+        circleEl.style.left = left + 'px';
+        circleEl.style.top  = TOP  + 'px';
+
+        const href = circleEl.getAttribute('data-href');
+        const btn  = circleEl.querySelector('.circle-btn');
+        if (btn && href) btn.onclick = () => { location.href = href; };
+      });
+    }
+
+    setHeight(); draw();
+    addEventListener('resize', () => { setHeight(); draw(); }, { passive:true });
+
+    /* Flyouts portal */
+    circles.forEach(circle => {
+      const btn = circle.querySelector('.circle-btn');
+      const fly = circle.querySelector('.flyout');
+      if (!btn || !fly) return;
+
+      let placeholder = null;
+      let hideTimer = null;
+
+      const toBody = () => {
+        if (fly.parentElement === document.body) return;
+        placeholder = document.createElement('span');
+        placeholder.hidden = true;
+        circle.appendChild(placeholder);
+        document.body.appendChild(fly);
+      };
+      const backHome = () => {
+        if (!placeholder) return;
+        placeholder.replaceWith(fly);
+        placeholder = null;
+      };
+
+      const positionFlyout = () => {
+        const r = btn.getBoundingClientRect();
+        fly.classList.add('is-floating');
+        fly.style.left = Math.round(r.left + r.width/2) + 'px';
+        fly.style.top  = Math.round(r.bottom + 8) + 'px';
+        fly.style.display = 'flex';
+      };
+
+      const show = () => { clearTimeout(hideTimer); toBody(); positionFlyout(); };
+      const hide = () => {
+        fly.classList.remove('is-floating');
+        fly.style.left = fly.style.top = '';
+        fly.style.display = 'none';
+        backHome();
+      };
+
+      btn.addEventListener('pointerenter', show);
+      btn.addEventListener('pointerleave', () => { hideTimer = setTimeout(hide, 120); });
+      fly.addEventListener('pointerenter', () => clearTimeout(hideTimer));
+      fly.addEventListener('pointerleave', () => { hideTimer = setTimeout(hide, 120); });
+
+      btn.addEventListener('focus', show);
+      btn.addEventListener('blur',  () => { hideTimer = setTimeout(hide, 150); });
+
+      let armed = false;
+      btn.addEventListener('click', (e) => {
+        const hasItems = fly.querySelector('.pill');
+        if (!hasItems) return;
+        if (!armed) {
+          e.preventDefault();
+          show();
+          armed = true;
+          setTimeout(() => armed = false, 1200);
+        }
+      }, { passive:false });
+
+      addEventListener('scroll', hide, { passive:true });
+      addEventListener('resize', () => { hide(); positionFlyout(); }, { passive:true });
+      document.addEventListener('click', (ev) => {
+        if (!fly.contains(ev.target) && !btn.contains(ev.target)) hide();
+      }, { passive:true });
+    });
+  })();
+  </script>
+</body>
+</html>

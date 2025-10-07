@@ -8,48 +8,12 @@ hero_opacity: .34
 hero_tint: .60
 ---
 
-<!-- Home-only CSS so we don't affect other pages -->
-<style>
-  /* Intro split + sizing (home only) */
-  .home .section.intro{ row-gap: clamp(8px, 1.2vw, 16px); }
-  .home .intro-title h1{ color: var(--logo-orange); } /* H1 color */
-  .home .intro-row{
-    display:grid;
-    grid-template-columns:minmax(320px,560px) minmax(0,1fr);
-    align-items:center;
-    column-gap:clamp(20px,4.2vw,56px);
-  }
-  .home .intro-graphic{ display:flex; align-items:center; justify-content:center; }
-  .home .intro-graphic img{
-    width:clamp(320px,34vw,520px);
-    height:auto; display:block;
-    filter: drop-shadow(0 8px 16px rgba(0,0,0,.12)) drop-shadow(0 2px 5px rgba(0,0,0,.08));
-  }
-  @media (max-width:880px){
-    .home .intro-row{ grid-template-columns:1fr; }
-    .home .intro-graphic{ order:-1; margin-bottom:.5rem; }
-  }
-
-  /* Prevalence split (home only) */
-  .home .section.split{
-    grid-template-columns: 1.05fr .95fr;
-    align-items:center;
-    column-gap: clamp(20px, 4vw, 56px);
-  }
-  .home .section.split .text{ display:grid; gap:.5rem; }
-  .home .section.split figure{ margin:0; }
-  .home .section.split img{ width:100%; height:auto; display:block; }
-  @media (max-width:880px){
-    .home .section.split{ grid-template-columns:1fr; }
-  }
-</style>
-
-<!-- 1) Intro — plain background, black body text; H1 is logo-orange -->
+<!-- 1) Intro – plain background -->
 <section class="section intro">
   <div class="intro-title">
     <h1><strong>Integrity in research begins with safety and respect in the field.</strong></h1>
-    <h2 style="margin-top:.5em; font-weight:normal;">
-      <strong>We’re redefining fieldwork protocols to center consent, dignity, and accountability — because harm has no place in science.</strong>
+    <h2 style="font-weight:600;">
+      We’re redefining fieldwork protocols to center consent, dignity, and accountability — because harm has no place in science.
     </h2>
   </div>
 
@@ -75,27 +39,26 @@ hero_tint: .60
   </div>
 </section>
 
-<!-- 2) Prevalence — orange pill, side-by-side -->
-<section class="pillband pill--orange">
+<!-- 2) Prevalence – ORANGE pill, anchored LEFT (flat left, rounded right) -->
+<section class="pillband pill--orange pill--clip-left">
   <div class="section split">
     <div class="text">
       <h2>Prevalence of Fieldwork Harassment and Assault</h2>
       <p>
         A 2014 survey sampling &gt;650 anthropologists revealed high frequencies of harassment and assault,
         and low frequencies of awareness of reporting procedures (Clancy <em>et&nbsp;al.</em>, 2014;
-        DOI: <a href="https://doi.org/10.1371/journal.pone.0102172">10.1371/journal.pone.0102172</a>).
+        DOI: <a style="color:#fff" href="https://doi.org/10.1371/journal.pone.0102172">10.1371/journal.pone.0102172</a>).
       </p>
     </div>
 
     <figure class="art">
       <img src="{{ '/assets/img/prevalence-graphic.png' | relative_url }}" alt="Infographic summarizing prevalence findings.">
-      <!-- <figcaption>64% experienced sexual harassment; 21% experienced sexual assault during fieldwork.</figcaption> -->
     </figure>
   </div>
 </section>
 
-<!-- 3) What’s at stake -->
-<section class="pillband pill--sage pill--clip-right">
+<!-- 3) What’s at stake – SOIL pill, anchored RIGHT (flat right, rounded left) -->
+<section class="pillband pill--soil pill--clip-right">
   <div class="section">
     <h2>What’s at stake</h2>
     <p>Unsafe fieldwork harms people and science. It drives students out of the discipline, silences witnesses, and biases what gets studied, published, and funded.</p>
@@ -105,7 +68,7 @@ hero_tint: .60
   </div>
 </section>
 
-<!-- 4) Our approach -->
+<!-- 4) Our approach – SLATE pill, anchored LEFT -->
 <section class="pillband pill--slate pill--clip-left">
   <div class="section" style="gap:22px;">
     <h2 style="color:#fff; margin-bottom:.2em;">Our approach</h2>
@@ -133,7 +96,7 @@ hero_tint: .60
   </div>
 </section>
 
-<!-- Optional: Resources block (standard section, no pill) -->
+<!-- 5) Resources – plain background -->
 <section class="section">
   <div class="docs-container safety-plan">
     <h2>Build Your Fieldwork Safety Plan</h2>
