@@ -39,6 +39,7 @@ hero_tint: .60
   </div>
 </section>
 
+<!--2) PREVALENCE --->
 <section class="pillband pill--orange pill--clip-left">
   <div class="section split split--bias-art">
     <div class="text">
@@ -96,7 +97,9 @@ hero_tint: .60
   </div>
 </section>
 
-<!-- 5) Resources – plain background -->
+<!--5) RESOURCES --->
+<section class="pillband pill--sage pill--clip-right">
+<div class="section" style="gap:22px;">
 <section class="section">
   <div class="docs-container safety-plan">
     <h2>Build Your Fieldwork Safety Plan</h2>
