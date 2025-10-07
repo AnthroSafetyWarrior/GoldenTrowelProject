@@ -258,7 +258,11 @@
 
 /* Stack on small screens */
 @media (max-width:880px){
-  .split{ grid-template-columns:1fr; }
+  .split{
+    grid-template-columns: 1fr;
+    justify-items: start;              /* left-align everything in the grid */
+  }
+  .split .art{ justify-self: start; }
   .split .art{ min-width:0; } /* allow full-width on phones */
   .split .art img{ width: clamp(290px, 32vw, 380px); }
 }
