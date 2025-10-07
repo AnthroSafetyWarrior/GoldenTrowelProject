@@ -35,7 +35,7 @@
       /* Scroll circle lift */
       --circle-lift:-8px;
 
-      /* Pill section defaults (GLOBAL so any page can use .pillband) */
+      /* Pill section */
       --pill-radius: 44px;
       --pill-margin: clamp(16px, 5.2vw, 120px);
     }
@@ -47,7 +47,7 @@
     h1{ font-size:clamp(1.8rem,5.5vw,2.4rem); margin:1em 0 .6em; }
     h2{ font-size:clamp(1.6rem,4.5vw,1.8rem); margin:.9em 0 .5em; }
     h3{ font-size:clamp(1.4rem,4vw,1.6rem);  margin:.8em 0 .45em; }
-    p { font-size:clamp(1.2rem,2.8vw,1.4rem); margin:.6em 0; }
+    p { font-size:clamp(1.05rem,2.8vw,1.15rem); margin:.6em 0; line-height:1.55; }
     a{ color:var(--soil); text-decoration-thickness:.08em; text-underline-offset:.18em; }
     a:hover{ color:var(--logo-orange); }
     main{ width:min(100%, var(--maxw)); margin-inline:auto; padding:clamp(16px,4vw,28px); }
@@ -157,33 +157,31 @@
       display:grid; gap:clamp(16px,2.4vw,28px);
     }
 
-    /* ===== Pill sections (GLOBAL; use .pillband on any page) ===== */
-    .pillband{
-      position:relative;
-      min-height: clamp(220px, 34vw, 360px);
-      margin-block: clamp(18px, 3.6vw, 38px);
-      isolation:isolate;
-    }
+    /* ===== Pill sections ===== */
+    .pillband{ position:relative; margin-block: clamp(18px, 3.6vw, 38px); isolation:isolate; }
     .pillband .section{ position:relative; z-index:2; }
 
+    /* The anchored “pill” background */
     .pillband::before{
       content:"";
       position:absolute;
-      top:50%; transform:translateY(-50%);
-      height:100%;
+      top:50%; height:100%;
       width: calc(100vw - var(--pill-margin));
       background: var(--pill-color, var(--logo-orange));
       border-radius: var(--pill-radius);
+      transform: translateY(-50%);
       z-index:1;
       box-shadow:0 8px 18px rgba(0,0,0,.10);
     }
-    .pillband.pill--clip-right::before{
-      right:0; left:auto;
-      border-top-right-radius:0; border-bottom-right-radius:0;
-    }
+    /* Flat on the LEFT edge, rounded on the right */
     .pillband.pill--clip-left::before{
       left:0; right:auto;
       border-top-left-radius:0; border-bottom-left-radius:0;
+    }
+    /* Flat on the RIGHT edge, rounded on the left */
+    .pillband.pill--clip-right::before{
+      right:0; left:auto;
+      border-top-right-radius:0; border-bottom-right-radius:0;
     }
 
     /* Color variants + matching text color */
@@ -194,10 +192,10 @@
 
     .pillband .section > p:first-child{ margin-top:0; }
 
-    /* ===== Optional intro grid (used by index) ===== */
+    /* ===== Intro grid (used by index) – NOT a pill ===== */
     .section.intro{ row-gap: clamp(8px, 1.2vw, 16px); }
-    .intro-title h1{ margin-bottom:.15em; }
-    .intro-title h2{ margin-top:.25em; margin-bottom:.15em; }
+    .intro-title h1{ margin-bottom:.15em; color:var(--logo-orange); }
+    .intro-title h2{ margin-top:.25em; margin-bottom:.15em; font-weight:600; }
     .intro-row{
       display:grid;
       grid-template-columns:minmax(320px,560px) minmax(0,1fr);
@@ -213,6 +211,26 @@
     @media (max-width:880px){
       .intro-row{ grid-template-columns:1fr; }
       .intro-graphic{ order:-1; margin-bottom:.5rem; }
+    }
+
+    /* ===== “Split” grid used in Prevalence ===== */
+    .split{
+      grid-template-columns: repeat(12, 1fr);
+      align-items:center;
+      gap:clamp(18px, 3.2vw, 28px);
+    }
+    .split .text{ grid-column: span 6; }
+    .split .art { grid-column: span 6; }
+    .split .art img{ width:100%; height:auto; border-radius:10px; box-shadow:0 6px 18px rgba(0,0,0,.18); }
+    @media (max-width:880px){
+      .split{ grid-template-columns:1fr; }
+      .split .text,.split .art{ grid-column: 1 / -1; }
+    }
+
+    /* Small helper for “bubble” links if you use them */
+    .bubble{
+      display:inline-block; padding:.45em .85em; border-radius:999px; background:#fff2; color:#fff;
+      border:2px solid currentColor; text-decoration:none; font-weight:700;
     }
   </style>
 </head>
