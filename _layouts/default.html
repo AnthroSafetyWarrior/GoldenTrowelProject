@@ -249,7 +249,7 @@
 /* Prevalence graphic sizing (same pattern as intro) */
 .split .art{ justify-self:center; min-width:340px; } /* matches the column min */
 .split .art img{
-  width: clamp(320px, 32vw, 520px);  /* tweak these like the intro image */
+  width: clamp(290px, 32vw, 380px);  /* tweak these like the intro image */
   height:auto;
   display:block;
   /* keep this so it never overflow-stretches, but the column min prevents sub-320 */
@@ -260,7 +260,7 @@
 @media (max-width:880px){
   .split{ grid-template-columns:1fr; }
   .split .art{ min-width:0; } /* allow full-width on phones */
-  .split .art img{ width: clamp(300px, 82vw, 520px); }
+  .split .art img{ width: clamp(290px, 32vw, 380px); }
 }
 
 
