@@ -154,6 +154,8 @@
       padding:clamp(28px,5vw,56px) clamp(16px,4vw,28px);
       display:grid; gap:clamp(16px,2.4vw,28px);
     }
+{% comment %} put this once, near the top of the file (before you use it) {% endcomment %}
+{% assign is_home = page.homepage or page.is_homepage or page.home or page.url == '/' %}
 
     /* ==========================================================
        HOME PAGE ONLY (guarded by .home on <body>)
