@@ -39,20 +39,29 @@ hero_tint: .60
   </div>
 </section>
 
-<!-- 2) Prevalence – ORANGE pill, anchored LEFT (flat left, rounded right) -->
 <section class="pillband pill--orange pill--clip-left">
-  <div class="section split">
+  <div class="section split split--bias-art">
     <div class="text">
       <h2>Prevalence of Fieldwork Harassment and Assault</h2>
       <p>
         A 2014 survey sampling &gt;650 anthropologists revealed high frequencies of harassment and assault,
         and low frequencies of awareness of reporting procedures (Clancy <em>et&nbsp;al.</em>, 2014;
-        DOI: <a style="color:#fff" href="https://doi.org/10.1371/journal.pone.0102172">10.1371/journal.pone.0102172</a>).
+        DOI: <a href="https://doi.org/10.1371/journal.pone.0102172">10.1371/journal.pone.0102172</a>).
       </p>
     </div>
 
     <figure class="art">
-      <img src="{{ '/assets/img/prevalencegraphic.png' | relative_url }}" alt="Infographic summarizing prevalence findings.">
+      <img
+        src="{{ '/assets/img/prevalencegraphic@2x.png' | relative_url }}"
+        srcset="
+          {{ '/assets/img/prevalencegraphic.png'      | relative_url }} 900w,
+          {{ '/assets/img/prevalencegraphic@2x.png'   | relative_url }} 1800w,
+          {{ '/assets/img/prevalencegraphic@3x.png'   | relative_url }} 2700w"
+        sizes="(max-width: 880px) 92vw,
+               (min-width: 1400px) 60vw,
+               52vw"
+        alt="Infographic summarizing prevalence findings."
+        loading="lazy" decoding="async" />
     </figure>
   </div>
 </section>
