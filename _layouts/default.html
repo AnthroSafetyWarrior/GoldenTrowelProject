@@ -158,37 +158,47 @@
     }
 
     /* ===== Pill sections ===== */
-    .pillband{ position:relative; margin-block: clamp(18px, 3.6vw, 38px); isolation:isolate; }
-    .pillband .section{ position:relative; z-index:2; }
+/* ===== Pill sections (GLOBAL; use .pillband on any page) ===== */
+.pillband{
+  position:relative;
+  min-height: clamp(220px, 34vw, 360px);
+  margin-block: clamp(18px, 3.6vw, 38px);
+  isolation:isolate;
+}
+.pillband .section{ position:relative; z-index:2; }
 
-    /* The anchored “pill” background */
-    .pillband::before{
-      content:"";
-      position:absolute;
-      top:50%; height:100%;
-      width: calc(100vw - var(--pill-margin));
-      background: var(--pill-color, var(--logo-orange));
-      border-radius: var(--pill-radius);
-      transform: translateY(-50%);
-      z-index:1;
-      box-shadow:0 8px 18px rgba(0,0,0,.10);
-    }
-    /* Flat on the LEFT edge, rounded on the right */
-    .pillband.pill--clip-left::before{
-      left:0; right:auto;
-      border-top-left-radius:0; border-bottom-left-radius:0;
-    }
-    /* Flat on the RIGHT edge, rounded on the left */
-    .pillband.pill--clip-right::before{
-      right:0; left:auto;
-      border-top-right-radius:0; border-bottom-right-radius:0;
-    }
+/* Base pill bg: width is viewport minus a margin so the inside end is visible. */
+.pillband::before{
+  content:"";
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  height:100%;
+  width: calc(100vw - var(--pill-margin));   /* how far the pill extends into the page */
+  background: var(--pill-color, var(--logo-orange));
+  box-shadow:0 8px 18px rgba(0,0,0,.10);
+  z-index:1;
+}
 
-    /* Color variants + matching text color */
-    .pillband.pill--orange{ --pill-color: var(--logo-orange); color:#fff; }
-    .pillband.pill--soil  { --pill-color: var(--soil);        color:#fff; }
-    .pillband.pill--slate { --pill-color: var(--slate);       color:#fff; }
-    .pillband.pill--sage  { --pill-color: var(--sage);        color:#0e2a1f; }
+/* Anchor LEFT (exposed end on the RIGHT) */
+.pillband.pill--clip-left::before{
+  left: calc(50% - 50vw);                     /* pin to the viewport’s left edge */
+  right: auto;
+  border-radius: 0 9999px 9999px 0;           /* square at the edge, round inside end */
+}
+
+/* Anchor RIGHT (exposed end on the LEFT) */
+.pillband.pill--clip-right::before{
+  right: calc(50% - 50vw);                    /* pin to the viewport’s right edge */
+  left: auto;
+  border-radius: 9999px 0 0 9999px;           /* round inside end only */
+}
+
+/* Color variants + matching text color */
+.pillband.pill--orange{ --pill-color: var(--logo-orange); color:#fff; }
+.pillband.pill--soil  { --pill-color: var(--soil);        color:#fff; }
+.pillband.pill--slate { --pill-color: var(--slate);       color:#fff; }
+.pillband.pill--sage  { --pill-color: var(--sage);        color:#0e2a1f; }
 
     .pillband .section > p:first-child{ margin-top:0; }
 
@@ -198,13 +208,13 @@
     .intro-title h2{ margin-top:.25em; margin-bottom:.15em; font-weight:600; }
     .intro-row{
       display:grid;
-      grid-template-columns:minmax(320px,560px) minmax(0,1fr);
+      grid-template-columns:minmax(280px,560px) minmax(0,1fr);
       align-items:center;
       column-gap:clamp(20px,4.2vw,56px);
     }
     .intro-graphic{ display:flex; align-items:center; justify-content:center; }
     .intro-graphic img{
-      width:clamp(320px,34vw,520px);
+      width:clamp(280px,34vw,440px);
       height:auto;
       filter: drop-shadow(0 8px 16px rgba(0,0,0,.12)) drop-shadow(0 2px 5px rgba(0,0,0,.08));
     }
