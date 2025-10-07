@@ -201,6 +201,37 @@
 
     .pillband .section > p:first-child{ margin-top:0; }
 
+/* ========= Scalable pills: safe inset + readable measure ========= */
+
+/* One knob to rule them all */
+.pillband{
+  /* how much space to keep between content and the rounded inside end */
+  --pill-inset: clamp(16px, 6vw, 180px);
+  /* preferred line length inside pills */
+  --measure: clamp(52ch, 80%, 72ch);
+}
+
+/* Push content away from the inside curve, automatically */
+.pillband.pill--clip-right .section{ padding-right: var(--pill-inset); }
+.pillband.pill--clip-left  .section{ padding-left:  var(--pill-inset); }
+
+/* Keep headings/body copy from stretching too wide */
+.pillband .section > :where(h1, h2, h3, p, ul, ol){
+  max-inline-size: var(--measure);
+}
+
+/* Nicer wrapping + no accidental overflow on long words/URLs */
+.pillband .section p{
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+/* Optional: on very wide screens, give a touch more breathing room */
+@media (min-width: 1400px){
+  .pillband{ --pill-inset: clamp(24px, 7vw, 240px); }
+}
+
 /* ===== Intro grid (used by index) – NOT a pill ===== */
 .section.intro{ row-gap: clamp(8px, 1.2vw, 16px); }
 .intro-title h1{ margin-bottom:.15em; color:var(--logo-orange); }
@@ -249,7 +280,7 @@
 /* Prevalence graphic sizing (same pattern as intro) */
 .split .art{ justify-self:center; min-width:340px; } /* matches the column min */
 .split .art img{
-  width: clamp(290px, 32vw, 380px);  /* tweak these like the intro image */
+  width: clamp(290px, 32vw, 330px);  /* tweak these like the intro image */
   height:auto;
   display:block;
   /* keep this so it never overflow-stretches, but the column min prevents sub-320 */
@@ -264,7 +295,7 @@
   }
   .split .art{ justify-self: start; }
   .split .art{ min-width:0; } /* allow full-width on phones */
-  .split .art img{ width: clamp(290px, 32vw, 380px); }
+  .split .art img{ width: clamp(290px, 32vw, 330px); }
 }
 
 
