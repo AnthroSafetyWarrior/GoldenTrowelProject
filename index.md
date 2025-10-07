@@ -61,7 +61,7 @@ hero_tint: .60
 </section>
 
 <!-- 3) What’s at stake -->
-<section class="pillband pill--sage pill--clip-right">
+<section class="pillband pill--soil pill--clip-right">
   <div class="section">
     <h2>What’s at stake</h2>
     <p>Unsafe fieldwork harms people and science. It drives students out of the discipline, silences witnesses, and biases what gets studied, published, and funded.</p>
@@ -99,7 +99,9 @@ hero_tint: .60
   </div>
 </section>
 
-<!-- Optional: Resources block (standard section, no pill) -->
+<!-- FIELDWORK SAFETY PLAN -->
+<section class="pillband pill--sage pill--clip-left">
+  <div class="section" style="gap:22px;">
 <section class="section">
   <div class="docs-container safety-plan">
     <h2>Build Your Fieldwork Safety Plan</h2>

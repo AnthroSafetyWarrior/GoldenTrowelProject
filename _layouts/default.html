@@ -35,7 +35,7 @@
       /* Scroll circle lift */
       --circle-lift:-8px;
 
-      /* Pill section defaults (GLOBAL so any page can use .pillband) */
+      /* Pill section defaults */
       --pill-radius: 44px;
       --pill-margin: clamp(16px, 5.2vw, 120px);
     }
@@ -157,7 +157,7 @@
       display:grid; gap:clamp(16px,2.4vw,28px);
     }
 
-    /* ===== Pill sections (GLOBAL; use .pillband on any page) ===== */
+    /* ===== Pill sections (GLOBAL) ===== */
     .pillband{
       position:relative;
       min-height: clamp(220px, 34vw, 360px);
@@ -182,12 +182,12 @@
     .pillband.pill--clip-right::before{
       right:0; left:auto;
       border-top-right-radius:0; border-bottom-right-radius:0;
-      transform:translateY(-50%);        /* keep vertical centering when clipped */
+      transform:translateY(-50%);
     }
     .pillband.pill--clip-left::before{
       left:0; right:auto;
       border-top-left-radius:0; border-bottom-left-radius:0;
-      transform:translateY(-50%);        /* keep vertical centering when clipped */
+      transform:translateY(-50%);
     }
 
     /* Color variants + matching text color */
@@ -197,6 +197,39 @@
     .pillband.pill--sage  { --pill-color: var(--sage);        color:#0e2a1f; }
 
     .pillband .section > p:first-child{ margin-top:0; }
+
+    /* ===== Home-only helpers (scoped to body.home) ===== */
+    .home .section.intro{ row-gap: clamp(8px, 1.2vw, 16px); }
+    .home .intro-title h1{ color: var(--logo-orange); } /* H1 color on homepage only */
+    .home .intro-row{
+      display:grid;
+      grid-template-columns:minmax(320px,560px) minmax(0,1fr);
+      align-items:center;
+      column-gap:clamp(20px,4.2vw,56px);
+    }
+    .home .intro-graphic{ display:flex; align-items:center; justify-content:center; }
+    .home .intro-graphic img{
+      width:clamp(320px,34vw,520px);
+      height:auto; display:block;
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,.12)) drop-shadow(0 2px 5px rgba(0,0,0,.08));
+    }
+    @media (max-width:880px){
+      .home .intro-row{ grid-template-columns:1fr; }
+      .home .intro-graphic{ order:-1; margin-bottom:.5rem; }
+    }
+
+    /* Prevalence split grid (home only) */
+    .home .section.split{
+      grid-template-columns: 1.05fr .95fr;
+      align-items:center;
+      column-gap: clamp(20px, 4vw, 56px);
+    }
+    .home .section.split .text{ display:grid; gap:.5rem; }
+    .home .section.split figure{ margin:0; }
+    .home .section.split img{ width:100%; height:auto; display:block; }
+    @media (max-width:880px){
+      .home .section.split{ grid-template-columns:1fr; }
+    }
   </style>
 </head>
 
