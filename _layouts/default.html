@@ -218,7 +218,7 @@
 /* Image sizing stays responsive but a hair smaller so the gap can shrink too */
 .intro-graphic{ display:flex; align-items:center; justify-content:center; }
 .intro-graphic img{
-  width:clamp(280px, 32vw, 380px);
+  width:clamp(290px, 32vw, 380px);
   height:auto;  align-self: center; 
   filter: drop-shadow(0 8px 16px rgba(0,0,0,.12)) drop-shadow(0 2px 5px rgba(0,0,0,.08));
 }
@@ -237,45 +237,43 @@
   .intro-row{ grid-template-columns:1fr; }
   .intro-graphic{ order:-1; margin-bottom:.5rem; }
 }
-/* ===== “Split” grid used in Prevalence ===== */
+/* ===== Prevalence split (simple + scalable) ===== */
 .split{
   display:grid;
-  grid-template-columns: repeat(12, 1fr);
-  align-items:center;                /* vertical center alignment of text+art */
-  gap:clamp(18px, 3.2vw, 28px);
+  grid-template-columns: minmax(320px,1fr) minmax(320px,1fr); /* two equal cols */
+  align-items:center;          /* vertical center the two columns */
+  gap: clamp(16px,3vw,40px);
 }
 
-/* Bias more space to the art on larger screens */
-.split.split--bias-art .text{ grid-column: span 5; min-width:0; }
-.split.split--bias-art .art { grid-column: span 7; min-width:0; }
-
-/* On very wide screens, give the graphic even more room */
-@media (min-width: 1400px){
-  .split.split--bias-art .text{ grid-column: span 4; }
-  .split.split--bias-art .art { grid-column: span 8; }
+.split .text{
+  grid-column: 1;
+  max-width: 62ch;             /* keeps paragraphs readable & stops overflow */
+  justify-self:start;
 }
 
-/* Keep text comfortable so it doesn't push the image */
-.split .text{ max-width: 56ch; }
-
-/* Graphic sizing */
 .split .art{
-  justify-self: center;              /* center the figure in its column */
-}
-.split .art img{
-  width: min(100%, 860px);           /* grow, but don't get silly wide */
-  height:auto;
-  border-radius:12px;
-  box-shadow:0 6px 18px rgba(0,0,0,.18);
+  grid-column: 2;
+  justify-self:center;         /* keeps the graphic centered in its column */
 }
 
-/* Stack on mobile, keep image readable */
+.split .art img{
+  display:block;
+  width: clamp(300px, 40vw, 760px);  /* grows with viewport, never tiny or huge */
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,.18);
+}
+
+/* Stack on small screens, keep graphic a sensible size */
 @media (max-width: 880px){
-  .split{ grid-template-columns:1fr; }
-  .split .text, .split .art{ grid-column: 1 / -1; }
-  .split .art img{
-    width: min(92vw, 700px);         /* large on phones but with a sensible cap */
+  .split{
+    grid-template-columns: 1fr;
   }
+  .split .text,
+  .split .art{ grid-column: 1; }
+  .split .art{ justify-self:center; }
+  .split .art img{ width: min(100%, 560px); }
 }
 
 

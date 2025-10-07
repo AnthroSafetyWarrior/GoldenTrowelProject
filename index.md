@@ -50,18 +50,9 @@ hero_tint: .60
       </p>
     </div>
 
-    <figure class="art">
-      <img
-        src="{{ '/assets/img/prevalencegraphic@2x.png' | relative_url }}"
-        srcset="
-          {{ '/assets/img/prevalencegraphic.png'      | relative_url }} 900w,
-          {{ '/assets/img/prevalencegraphic@2x.png'   | relative_url }} 1800w,
-          {{ '/assets/img/prevalencegraphic@3x.png'   | relative_url }} 2700w"
-        sizes="(max-width: 880px) 92vw,
-               (min-width: 1400px) 60vw,
-               52vw"
-        alt="Infographic summarizing prevalence findings."
-        loading="lazy" decoding="async" />
+   <figure class="art">
+      <img src="{{ '/assets/img/prevalence-graphic.png' | relative_url }}"
+           alt="Infographic summarizing findings of Clancy et al., 2014." loading="lazy" decoding="async">
     </figure>
   </div>
 </section>
