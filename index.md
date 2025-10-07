@@ -48,14 +48,10 @@ hero_tint: .60
     </div>
 
     <figure class="art">
-      <picture>
-        <source type="image/svg+xml"
-                srcset="{{ '/assets/img/prevalencegraphic.png' | relative_url }}">
-        <img src="{{ '/assets/img/prevalencegraphic.png' | relative_url }}"
-             alt="Infographic summarizing findings of Clancy et al., 2014."
-             width="1200" height="900"
-             loading="lazy" decoding="async">
-      </picture>
+      <img
+        src="{{ '/assets/img/prevalence-3stats.png' | relative_url }}"
+        alt="Infographic summarizing findings of Clancy et al., 2014."
+        loading="lazy" decoding="async">
     </figure>
   </div>
 </section>

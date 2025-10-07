@@ -237,46 +237,43 @@
   .intro-graphic{ order:-1; margin-bottom:.5rem; }
 }
 /* ===== Prevalence split (simple + scalable) ===== */
+/* two equal columns, centered vertically */
 .split{
   display:grid;
-  grid-template-columns: 1fr 1fr;       /* two equal columns */
+  grid-template-columns: 1fr 1fr;
   align-items:center;
-  gap: clamp(16px, 3vw, 40px);
+  gap: clamp(8px, 3vw, 16px);
 }
 
-.split .text{
-  max-width: 66ch;                      /* keeps paragraphs readable */
-  justify-self:start;
-}
+/* readable text width, normal */
+.split .text{ max-width:66ch; }
 
+/* image fills its column but never grows past a sensible cap */
 .split .art{
-  justify-self:center;                  /* center the graphic in its column */
-  max-width: 720px;                     /* sensible upper bound */
-  width: 100%;
+  justify-self:center;
+  width:100%;
+  max-width: 340px;   /* feel free to change to 640px or 680px */
 }
-
 .split .art img{
+  width:100%;
+  height:auto;        /* <- the key “default” scaler */
   display:block;
-  width: 100%;                          /* fills the figure, scales down nicely */
-  height: auto;
-  border-radius: 10px;
-  box-shadow: 0 6px 18px rgba(0,0,0,.18);
+  border-radius:10px;
 }
 
-/* Stack on small screens */
-@media (max-width: 880px){
-  .split{ grid-template-columns: 1fr; }
-  .split .text,
-  .split .art{ justify-self: center; }
-  .split .art{ max-width: 560px; }      /* slightly smaller cap on phones/tablets */
+/* stack on small screens */
+@media (max-width:880px){
+  .split{ grid-template-columns:1fr; }
+  .split .art{ max-width:340px; }  /* smaller cap on phones/tablets */
 }
+
 
 /* ===== Resources (sage pill) — circular cards ===== */
 .resources-grid{
   display:grid;
   grid-template-columns: repeat(2, minmax(220px,1fr)); /* two across */
   justify-items:center;
-  gap: clamp(16px, 3vw, 28px);
+  gap: clamp(8px, 3vw, 16px);
 }
 
 .resource-card{
