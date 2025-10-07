@@ -202,26 +202,41 @@
 
     .pillband .section > p:first-child{ margin-top:0; }
 
-    /* ===== Intro grid (used by index) – NOT a pill ===== */
-    .section.intro{ row-gap: clamp(8px, 1.2vw, 16px); }
-    .intro-title h1{ margin-bottom:.15em; color:var(--logo-orange); }
-    .intro-title h2{ margin-top:.25em; margin-bottom:.15em; font-weight:600; }
-    .intro-row{
-      display:grid;
-      grid-template-columns:minmax(320px,560px) minmax(0,1fr);
-      align-items:center;
-      column-gap:clamp(10px,4.2vw,30px);
-    }
-    .intro-graphic{ display:flex; align-items:center; justify-content:center; }
-    .intro-graphic img{
-      width:clamp(280px,34vw,440px);
-      height:auto;
-      filter: drop-shadow(0 8px 16px rgba(0,0,0,.12)) drop-shadow(0 2px 5px rgba(0,0,0,.08));
-    }
-    @media (max-width:880px){
-      .intro-row{ grid-template-columns:1fr; }
-      .intro-graphic{ order:-1; margin-bottom:.5rem; }
-    }
+/* ===== Intro grid (used by index) – NOT a pill ===== */
+.section.intro{ row-gap: clamp(8px, 1.2vw, 16px); }
+.intro-title h1{ margin-bottom:.15em; color:var(--logo-orange); }
+.intro-title h2{ margin-top:.25em; margin-bottom:.15em; font-weight:600; }
+
+/* Default two-col layout */
+.intro-row{
+  display:grid;
+  grid-template-columns:minmax(300px,520px) minmax(0,1fr); /* a bit narrower than 320/560 */
+  align-items:start;                                       /* avoids extra vertical “cushion” */
+  column-gap:clamp(8px, 2vw, 18px);                        /* tighter cap than 30px */
+}
+
+/* Image sizing stays responsive but a hair smaller so the gap can shrink too */
+.intro-graphic{ display:flex; align-items:center; justify-content:center; }
+.intro-graphic img{
+  width:clamp(260px, 32vw, 420px);
+  height:auto;
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,.12)) drop-shadow(0 2px 5px rgba(0,0,0,.08));
+}
+
+/* Mid-width helper: once you’re getting close to the 1-col breakpoint,
+   squeeze the gap a bit more and allow the left column to go to 280px. */
+@media (max-width: 1120px){
+  .intro-row{
+    grid-template-columns:minmax(280px,480px) minmax(0,1fr);
+    column-gap:clamp(6px, 1.6vw, 14px);
+  }
+}
+
+/* 1-col stack */
+@media (max-width:880px){
+  .intro-row{ grid-template-columns:1fr; }
+  .intro-graphic{ order:-1; margin-bottom:.5rem; }
+}
 
     /* ===== “Split” grid used in Prevalence ===== */
     .split{
