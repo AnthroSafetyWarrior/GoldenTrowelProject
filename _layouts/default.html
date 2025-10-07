@@ -218,7 +218,7 @@
 /* Image sizing stays responsive but a hair smaller so the gap can shrink too */
 .intro-graphic{ display:flex; align-items:center; justify-content:center; }
 .intro-graphic img{
-  width:clamp(280px, 32vw, 380px);
+  width:clamp(300px, 32vw, 380px);
   height:auto;  align-self: center; 
   filter: drop-shadow(0 8px 16px rgba(0,0,0,.12)) drop-shadow(0 2px 5px rgba(0,0,0,.08));
 }
@@ -237,26 +237,48 @@
   .intro-row{ grid-template-columns:1fr; }
   .intro-graphic{ order:-1; margin-bottom:.5rem; }
 }
+/* ===== “Split” grid used in Prevalence ===== */
+.split{
+  display:grid;
+  grid-template-columns: repeat(12, 1fr);
+  align-items:center;                /* vertical center alignment of text+art */
+  gap:clamp(18px, 3.2vw, 28px);
+}
 
-    /* ===== “Split” grid used in Prevalence ===== */
-    .split{
-      grid-template-columns: repeat(12, 1fr);
-      align-items:center;
-      gap:clamp(18px, 3.2vw, 28px);
-    }
-    .split .text{ grid-column: span 6; }
-    .split .art { grid-column: span 6; }
-    .split .art img{ width:100%; height:auto; border-radius:10px; box-shadow:0 6px 18px rgba(0,0,0,.18); }
-    @media (max-width:880px){
-      .split{ grid-template-columns:1fr; }
-      .split .text,.split .art{ grid-column: 1 / -1; }
-    }
+/* Bias more space to the art on larger screens */
+.split.split--bias-art .text{ grid-column: span 5; min-width:0; }
+.split.split--bias-art .art { grid-column: span 7; min-width:0; }
 
-    /* Small helper for “bubble” links if you use them */
-    .bubble{
-      display:inline-block; padding:.45em .85em; border-radius:999px; background:#fff2; color:#fff;
-      border:2px solid currentColor; text-decoration:none; font-weight:700;
-    }
+/* On very wide screens, give the graphic even more room */
+@media (min-width: 1400px){
+  .split.split--bias-art .text{ grid-column: span 4; }
+  .split.split--bias-art .art { grid-column: span 8; }
+}
+
+/* Keep text comfortable so it doesn't push the image */
+.split .text{ max-width: 56ch; }
+
+/* Graphic sizing */
+.split .art{
+  justify-self: center;              /* center the figure in its column */
+}
+.split .art img{
+  width: min(100%, 860px);           /* grow, but don't get silly wide */
+  height:auto;
+  border-radius:12px;
+  box-shadow:0 6px 18px rgba(0,0,0,.18);
+}
+
+/* Stack on mobile, keep image readable */
+@media (max-width: 880px){
+  .split{ grid-template-columns:1fr; }
+  .split .text, .split .art{ grid-column: 1 / -1; }
+  .split .art img{
+    width: min(92vw, 700px);         /* large on phones but with a sensible cap */
+  }
+}
+
+
   </style>
 </head>
 

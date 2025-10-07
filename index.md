@@ -52,7 +52,7 @@ hero_tint: .60
     </div>
 
     <figure class="art">
-      <img src="{{ '/assets/img/prevalence-graphic.png' | relative_url }}" alt="Infographic summarizing prevalence findings.">
+      <img src="{{ '/assets/img/prevalencegraphic.png' | relative_url }}" alt="Infographic summarizing prevalence findings.">
     </figure>
   </div>
 </section>
