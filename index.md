@@ -42,28 +42,25 @@ hero_tint: .60
 </section>
 
 <!-- 2) prevalence -->
-<section class="pillband pill--soil pill--clip-left">
-  <div class="section">
-    <div>
-      <h2 style="color:#fff;">Prevalence of Fieldwork Harassment and Assault</h2>
-      <p class="wrap-long" style="color:#fff;">
+<section class="pillband pill--soil">
+  <div class="section split">
+    <div class="text">
+      <h2>Prevalence of Fieldwork Harassment and Assault</h2>
+      <p>
         A 2014 survey sampling &gt;650 anthropologists revealed high frequencies of harassment and assault,
-        and low frequencies of awareness of reporting procedures (Clancy et&nbsp;al., 2014;
-        <a href="https://doi.org/10.1371/journal.pone.0102172" target="_blank" rel="noopener noreferrer" style="color:#ffd37a;">
-          DOI: 10.1371/journal.pone.0102172
-        </a>).
+        and low frequencies of awareness of reporting procedures (Clancy <em>et&nbsp;al.</em>, 2014;
+        DOI: <a href="https://doi.org/10.1371/journal.pone.0102172">10.1371/journal.pone.0102172</a>).
       </p>
+      <!-- you can add more supporting sentences here if you like -->
     </div>
 
-    <aside class="side">
-      <figure class="infographic">
-        <img
-          src="{{ '/assets/img/project-2025-08-06_01-08_AM.png' | relative_url }}"
-          alt="Infographic summarizing survey results on sexual harassment and assault during fieldwork among anthropologists (Clancy et al., 2014)"
-          loading="lazy" decoding="async" fetchpriority="low">
-        <figcaption style="color:#f2e9e1;">Source: Clancy et&nbsp;al. 2014.</figcaption>
-      </figure>
-    </aside>
+    <figure class="art">
+      <!-- your figure image here -->
+      <img src="{{ '/assets/img/prevalence-graphic.png' | relative_url }}" alt="Infographic summarizing prevalence findings.">
+      <!-- optional caption
+      <figcaption>64% experienced sexual harassment; 21% experienced sexual assault during fieldwork.</figcaption>
+      -->
+    </figure>
   </div>
 </section>
 
