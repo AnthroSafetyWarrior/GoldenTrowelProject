@@ -152,7 +152,7 @@
     .section{
       width:min(100%, var(--maxw));
       margin-inline:auto;
-      padding:clamp(36px,5vw,56px) clamp(36px,4vw,36px);
+      padding:clamp(36px,5vw,56px) clamp(38px,4vw,36px);
       display:grid; gap:clamp(16px,2.4vw,28px);
     }
 
@@ -271,45 +271,66 @@
   .split .art{ max-width: 560px; }      /* slightly smaller cap on phones/tablets */
 }
 
-/* ===== Resources (sage pill) ===== */
+/* ===== Resources (sage pill) — circular cards ===== */
 .resources-grid{
   display:grid;
-  grid-template-columns: repeat(2, minmax(260px,1fr));
-  gap: clamp(14px, 2.4vw, 22px);
-  align-items: stretch;
+  grid-template-columns: repeat(2, minmax(220px,1fr)); /* two across */
+  justify-items:center;
+  gap: clamp(16px, 3vw, 28px);
 }
 
 .resource-card{
+  --diameter: clamp(220px, 28vw, 360px); /* responsive circle size */
+  width: var(--diameter);
+  aspect-ratio: 1 / 1;                   /* stay perfectly round */
+  border-radius: 50%;
   background:#fff;
   color:var(--ink);
-  border-radius:20px;
-  padding: clamp(14px,2.4vw,18px) clamp(16px,2.8vw,22px);
+  padding: clamp(14px, 2.4vw, 22px);
   box-shadow:0 8px 20px rgba(0,0,0,.12);
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  gap:.6em;
 }
 
-.resource-card h3{ margin:.2em 0 .35em; }
-.resource-card p{ margin:.35em 0 .7em; }
+.resource-card h3{
+  margin:0;
+  font-size: clamp(1.05rem, 1.9vw, 1.25rem);
+  text-wrap: balance;
+}
+
+.resource-card p{
+  margin:0;
+  font-size: clamp(.95rem, 1.6vw, 1.05rem);
+  line-height:1.35;
+  max-width: 24ch;                       /* keep copy tidy inside the circle */
+}
 
 .btn-doc{
   display:inline-block;
   font-weight:700;
   border-radius:999px;
   padding:.5em .9em;
-  background: #fff;
-  color: var(--sage);
+  background:#fff;
+  color:var(--sage);
   border:2px solid var(--sage);
   text-decoration:none;
 }
-.btn-doc:hover,.btn-doc:focus-visible{
+.btn-doc:hover,
+.btn-doc:focus-visible{
   background: color-mix(in srgb, var(--sage) 16%, #fff);
   outline:0;
 }
 
-/* Stack cards on narrow screens */
+/* Stack on narrow screens */
 @media (max-width: 720px){
   .resources-grid{ grid-template-columns:1fr; }
 }
-  
+
 </style>
 </head>
 
