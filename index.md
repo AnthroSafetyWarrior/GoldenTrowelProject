@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Home
-home: true
+homepage: true
 hero: /assets/img/romania_cave.JPG
 hero_pos: "center 40%"
 hero_opacity: .34
