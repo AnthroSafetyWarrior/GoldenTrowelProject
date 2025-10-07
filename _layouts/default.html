@@ -258,7 +258,7 @@
 
 .split .art img{
   display:block;
-  width: clamp(300px, 40vw, 760px);  /* grows with viewport, never tiny or huge */
+  width: clamp(120px, 40vw, 280px);  /* grows with viewport, never tiny or huge */
   max-width: 100%;
   height: auto;
   border-radius: 10px;
@@ -277,7 +277,49 @@
 }
 
 
-  </style>
+/* ===== Resources (sage pill) ===== */
+.resources .pill-header{ max-width:70ch; }
+.resources .lede{ margin:.25em 0 1em; }
+
+.resources-grid{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(260px,1fr));
+  gap: clamp(14px, 2.4vw, 22px);
+  align-items: stretch;
+}
+
+.resource-card{
+  background:#fff;
+  color:var(--ink);
+  border-radius:20px;
+  padding: clamp(14px,2.4vw,18px) clamp(16px,2.8vw,22px);
+  box-shadow:0 8px 20px rgba(0,0,0,.12);
+}
+
+.resource-card h3{ margin:.2em 0 .35em; }
+.resource-card p{ margin:.35em 0 .7em; }
+
+.btn-doc{
+  display:inline-block;
+  font-weight:700;
+  border-radius:999px;
+  padding:.5em .9em;
+  background: #fff;
+  color: var(--sage);
+  border:2px solid var(--sage);
+  text-decoration:none;
+}
+.btn-doc:hover,.btn-doc:focus-visible{
+  background: color-mix(in srgb, var(--sage) 16%, #fff);
+  outline:0;
+}
+
+/* Stack cards on narrow screens */
+@media (max-width: 720px){
+  .resources-grid{ grid-template-columns:1fr; }
+}
+  
+</style>
 </head>
 
 <body class="{% if is_home %}home{% endif %}">

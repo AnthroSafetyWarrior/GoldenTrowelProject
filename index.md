@@ -97,26 +97,35 @@ hero_tint: .60
   </div>
 </section>
 
-<!--5) RESOURCES --->
+<!-- 5) RESOURCES -->
 <section class="pillband pill--sage pill--clip-right">
-<div class="section" style="gap:22px;">
-<section class="section">
-  <div class="docs-container safety-plan">
-    <h2>Build Your Fieldwork Safety Plan</h2>
-    <p>Download and customize your safety materials below to protect yourself and your team.</p>
-    <div class="doc-links" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px;">
-      <div class="doc-card card">
+  <div class="section resources">
+    <header class="pill-header">
+      <h2>Build Your Fieldwork Safety Plan</h2>
+      <p class="lede">Download and customize your safety materials below to protect yourself and your team.</p>
+    </header>
+
+    <div class="resources-grid">
+      <article class="resource-card">
         <h3>Fieldwork Safety Plan</h3>
         <p>A personal safety plan template for researchers.</p>
-        <a href="https://docs.google.com/document/d/1OkEMW4VhpsccA_VZTTEvgBBq5vs0mCOEDg9Xk6f34Ss/edit?usp=sharing"
-           target="_blank" rel="noopener noreferrer">Open Google Doc</a>
-      </div>
-      <div class="doc-card card">
+        <p>
+          <a class="btn-doc"
+             href="https://docs.google.com/document/d/1OkEMW4VhpsccA_VZTTEvgBBq5vs0mCOEDg9Xk6f34Ss/edit?usp=sharing"
+             target="_blank" rel="noopener noreferrer">Open Google Doc</a>
+        </p>
+      </article>
+
+      <article class="resource-card">
         <h3>Collaborator Safety Commitment Agreement</h3>
         <p>A team-wide agreement on ethical and safe fieldwork protocols.</p>
-        <a href="https://docs.google.com/document/d/18SmymYAFKUz_drbDhcsx8NWaiNG6-SQflWPj0OaZ76c/edit?usp=sharing"
-           target="_blank" rel="noopener noreferrer">Open Google Doc</a>
-      </div>
+        <p>
+          <a class="btn-doc"
+             href="https://docs.google.com/document/d/18SmymYAFKUz_drbDhcsx8NWaiNG6-SQflWPj0OaZ76c/edit?usp=sharing"
+             target="_blank" rel="noopener noreferrer">Open Google Doc</a>
+        </p>
+      </article>
     </div>
   </div>
 </section>
+
