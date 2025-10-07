@@ -98,10 +98,8 @@ hero_tint: .60
 <!-- 5) RESOURCES -->
 <section class="pillband pill--sage pill--clip-right">
   <div class="section resources">
-  <div class="section">
       <h2>Build Your Fieldwork Safety Plan</h2>
       <p class="lede">Download and customize your safety materials below to protect yourself and your team.</p>
-    </header>
 
     <div class="resources-grid">
       <article class="resource-card">
