@@ -49,7 +49,7 @@ hero_tint: .60
 
     <figure class="art">
       <img
-        src="{{ '/assets/img/prevalence-3stats.png' | relative_url }}"
+        src="{{ '/assets/img/prevalencegraphic.png' | relative_url }}"
         alt="Infographic summarizing findings of Clancy et al., 2014."
         loading="lazy" decoding="async">
     </figure>
