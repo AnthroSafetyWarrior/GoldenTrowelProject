@@ -41,9 +41,9 @@ hero_tint: .60
   </div>
 </section>
 
-<!-- 2) Prevalence -->
-<section class="pillband pill--soil pill--clip-left" id="prevalence">
-  <div class="section two-col">
+<!-- 2) prevalence -->
+<section class="pillband pill--soil pill--clip-left">
+  <div class="section">
     <div>
       <h2 style="color:#fff;">Prevalence of Fieldwork Harassment and Assault</h2>
       <p class="wrap-long" style="color:#fff;">

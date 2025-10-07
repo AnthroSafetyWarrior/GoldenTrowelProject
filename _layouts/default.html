@@ -8,134 +8,118 @@
   <link rel="canonical" href="{{ page.url | absolute_url }}">
 
   <style>
-    /* ============== Design Tokens (global) ============== */
+    /* ============== Design Tokens ============== */
     :root{
       --offwhite:#FAF7F2;
-      --slate:#444054;
-      --sage:#56876D;
+
+      /* Core palette */
+      --slate:#444054;           /* dark accent */
+      --sage:#56876D;            /* green accent */
       --soil:#3B2A1F;
       --gold:#fac441;
       --logo-orange:#8a340a;
 
+      /* Legacy aliases that might be referenced elsewhere */
       --moss: var(--sage);
       --accent: var(--sage);
 
       --ink:#111;
-      --maxw:1240px;
+      --maxw:1240px;             /* readable width cap */
 
+      /* Wave/band colors */
       --wave-mid:#c9beb7;
       --wave-dark:#baafa8;
+
+      /* Scroll circles vertical lift */
+      --circle-lift:-8px;
     }
 
-    /* Pull the buttons a bit closer to the crest */
-    :root { --circle-lift:-8px; }
-    .circle-nav { transform: translateY(var(--circle-lift)); }
-
-    /* ============== Base (global) ============== */
+    /* ---------- Base ---------- */
     *,*::before,*::after{ box-sizing:border-box; }
-    body{ font-family: Calibri, sans-serif; background:#eae6df; margin:0; }
+    body{ font-family:Calibri,sans-serif; background:#eae6df; color:var(--ink); margin:0; }
     img,svg,video{ max-width:100%; height:auto; display:block; }
-
-    h1{ font-size:clamp(1.8rem,5.5vw,2.4rem); margin:1em 0 .6em; }
-    h2{ font-size:clamp(1.6rem,4.5vw,1.8rem); margin:.9em 0 .5em; }
-    h3{ font-size:clamp(1.4rem,4vw,1.6rem);  margin:.8em 0 .45em; }
-    p{ font-size:clamp(1.2rem,2.8vw,1.4rem); margin:.6em 0; }
-
-    main{ width:min(100%, var(--maxw)); margin-inline:auto; padding:clamp(16px,4vw,28px); }
-
+    h1{ font-size:clamp(1.8rem,5.5vw,2.4rem); margin: 1em 0 .6em; }
+    h2{ font-size:clamp(1.6rem,4.5vw,1.8rem); margin: .9em 0 .5em; }
+    h3{ font-size:clamp(1.4rem,4vw,1.6rem);  margin: .8em 0 .45em; }
+    p { font-size:clamp(1.2rem,2.8vw,1.4rem); margin:.6em 0; }
     a{ color:var(--soil); text-decoration-thickness:.08em; text-underline-offset:.18em; }
     a:hover{ color:var(--logo-orange); }
 
-    /* ============== Header + Hero (global) ============== */
-    header.hero{
-      position:relative; color:#fff;
-      padding:clamp(.6em,2.4vw,1.2em) 0 0;
-      overflow:visible;
-    }
+    main{ width:min(100%, var(--maxw)); margin-inline:auto; padding:clamp(16px,4vw,28px); }
+
+    /* ============== Header + Hero ============== */
+    header.hero{ position:relative; color:#fff; padding: clamp(0.6em, 2.4vw, 1.2em) 0 0; overflow:visible; }
     header.hero::before{
       content:""; position:absolute; inset:0; z-index:-1;
       background:
-        linear-gradient(rgba(99,55,71, var(--hero-tint, .55)),
-                        rgba(99,55,71, var(--hero-tint, .55))),
+        linear-gradient(rgba(99,55,71,var(--hero-tint,.55)),rgba(99,55,71,var(--hero-tint,.55))),
         var(--hero-url) no-repeat;
       background-position: var(--hero-pos, center 40%);
       background-size: cover;
-      opacity: var(--hero-opacity, 1);
+      opacity: var(--hero-opacity,1);
     }
 
     .header-content{
       display:flex; align-items:center; justify-content:center; gap:clamp(.6rem,2vw,1.2rem);
-      max-width:var(--maxw); margin:0 auto;
-      padding:0 clamp(16px,2vw,24px) clamp(16px, 6vw, 120px);
+      max-width:var(--maxw); margin:0 auto; padding:0 clamp(16px,2vw,24px) clamp(16px,6vw,120px);
       text-shadow:0 2px 10px rgba(0,0,0,.35);
     }
-    .header-content img{ width:clamp(150px,11vw,190px); border-radius:12px; }
+    .header-content img.site-logo{ width: clamp(180px, 11vw, 220px); border-radius:12px; }
     .header-text h1{
-      color:#f9eedc; margin:.1em 0;
-      font-size:clamp(2.2rem, 6.2vw, 3.2rem);
+      color:#f9eedc; margin:.1em 0; font-size:clamp(2.2rem,6.2vw,3.2rem);
       line-height:1.12; -webkit-text-stroke:1.5px var(--logo-orange);
     }
     .header-text p{
-      margin:.35em 0 0; color:#6b3c11; font-weight:700;
-      font-size:clamp(1.05rem,2.6vw,1.25rem);
-      text-shadow:2px 2px 5px #f9eedb;
+      margin:.35em 0 0; color:#6b3c11; font-weight:700; font-size:clamp(1.05rem,2.6vw,1.25rem);
+      text-shadow: 2px 2px 5px #f9eedb;
     }
 
-    /* ============== Crest waves + band (global) ============== */
+    /* ============== Crest waves above the band ============== */
     .hero-wave{ position:relative; }
     .hero-wave svg{
       display:block; margin-bottom:-8px;
-      filter: drop-shadow(0 14px 22px rgba(0,0,0,.22))
-              drop-shadow(0 4px 6px rgba(0,0,0,.18));
+      filter: drop-shadow(0 14px 22px rgba(0,0,0,.22)) drop-shadow(0 4px 6px rgba(0,0,0,.18));
     }
 
+    /* ============== Scrollable Wave Nav ============== */
     .nav-gradient{
-      margin-top:-18px; padding:0;
-      min-height:clamp(110px,8vw,120px);
-      position:relative; overflow:visible;
-      background: linear-gradient(
-        to bottom,
+      margin-top:-18px; padding:0; min-height:clamp(110px,8vw,120px); position:relative; overflow:visible;
+      background: linear-gradient(to bottom,
         var(--wave-dark) 0%,
         color-mix(in srgb, var(--wave-dark) 75%, var(--wave-mid)) 22%,
         var(--wave-mid) 46%,
-        color-mix(in srgb, var(--wave-mid) 65%, #eae6dfff) 58%,
-        color-mix(in srgb, var(--wave-mid) 35%, #eae6dfff) 80%,
-        #eae6dfff 100%
-      );
+        color-mix(in srgb, var(--wave-mid) 65%, #eae6df) 58%,
+        color-mix(in srgb, var(--wave-mid) 35%, #eae6df) 80%,
+        #eae6df 100%);
     }
 
-    /* ============== Scrollable Wave Nav (global) ============== */
     .wave-nav{
-      position:relative; background:transparent;
-      overflow-x:auto; overflow-y:clip;
-      -webkit-overflow-scrolling:touch;
-      scrollbar-width:thin; scrollbar-color:rgba(0,0,0,.28) transparent;
+      position:relative; background:transparent; overflow-x:auto; overflow-y:clip; -webkit-overflow-scrolling:touch;
+      scrollbar-width:thin; scrollbar-color: rgba(0,0,0,.28) transparent;
     }
     .wave-nav::-webkit-scrollbar{ height:10px; }
-    .wave-nav::-webkit-scrollbar-track{ background:transparent; }
     .wave-nav::-webkit-scrollbar-thumb{
       background:rgba(0,0,0,.25); border-radius:999px; border:2px solid transparent; background-clip:padding-box;
     }
     .wave-nav:hover::-webkit-scrollbar-thumb{ background:rgba(0,0,0,.40); }
 
     .wave-track{ position:relative; height:100%; min-width:0; }
-    .nav-gradient .wave{ display:none !important; } /* no inner sine */
+    .nav-gradient .wave{ display:none !important; }
 
-    .circle-nav{ position:absolute; inset:0; pointer-events:none; z-index:5; }
+    .circle-nav{ position:absolute; inset:0; pointer-events:none; z-index:5; transform: translateY(var(--circle-lift)); }
     .circle{
-      position:absolute; pointer-events:auto;
-      --size:clamp(96px,9.25vw,112px);
+      position:absolute; pointer-events:auto; --size: clamp(96px, 9.25vw, 112px);
       width:var(--size); height:var(--size);
     }
     .circle-btn{
       position:absolute; inset:0; border-radius:50%; border:3px solid var(--gold);
       display:flex; align-items:center; justify-content:center; text-align:center;
       padding:6px; line-height:1.1; font-weight:800; cursor:pointer;
-      font-size:clamp(.9rem, 1.1vw, 1rem);
+      font-size:clamp(.9rem,1.1vw,1rem);
       background:var(--gold); color:var(--soil);
       box-shadow:0 10px 0 rgba(0,0,0,.10), 0 2px 8px rgba(0,0,0,.08);
-      transition:transform .15s ease, background .15s ease, color .15s ease,
-                 box-shadow .15s ease, border-color .15s ease;
+      transition: transform .15s ease, background .15s ease, color .15s ease,
+                  box-shadow .15s ease, border-color .15s ease;
       z-index:1;
     }
     .circle-btn:hover,.circle-btn:focus-visible{
@@ -144,158 +128,108 @@
       box-shadow:0 12px 0 rgba(0,0,0,.12), 0 6px 14px rgba(0,0,0,.12);
     }
 
-    /* Flyouts (global) */
-    .flyout{ display:none; position:absolute; left:50%; top:calc(100% + 10px); transform:translateX(-50%);
-      flex-direction:column; align-items:center; gap:0; pointer-events:none; opacity:0; transition:opacity .18s ease; z-index:10; }
-    .circle:hover .flyout,.circle.is-open .flyout{ display:flex; opacity:1; pointer-events:auto; }
+    .flyout{
+      display:none; position:absolute; left:50%; top:calc(100% + 10px); transform:translateX(-50%);
+      flex-direction:column; align-items:center; gap:0; pointer-events:none; opacity:0; transition:opacity .18s ease; z-index:10;
+    }
+    .circle:hover .flyout, .circle.is-open .flyout{ display:flex; opacity:1; pointer-events:auto; }
     .flyout.is-floating{ position:fixed; left:0; top:0; transform:translateX(-50%); display:flex; opacity:1; pointer-events:auto; z-index:2000; }
+
     .flyout .pill{
       display:block; width:260px; text-align:center; padding:.7em 1.1em; font-weight:700; font-size:.95rem;
       color:var(--soil); background:var(--gold); border:2px solid var(--gold); border-radius:999px;
-      text-decoration:none; background-clip:padding-box;
+      text-decoration:none; background-clip:padding-box; box-shadow:0 10px 20px rgba(0,0,0,.18);
       transition:background .15s ease, color .15s ease, transform .15s ease; margin:0;
     }
     .flyout .pill + .pill{ margin-top:-2px; }
     .flyout .pill:hover,.flyout .pill:focus-visible{
-      background:#444054; color:#fff; transform:translateY(-1px); border-color:var(--gold);
-      outline:0; box-shadow:0 0 0 3px #fff, 0 0 0 6px rgba(0,0,0,.25);
+      background:#444054; color:#fff; transform:translateY(-1px); border-color:var(--gold); outline:0;
+      box-shadow:0 0 0 3px #fff,0 0 0 6px rgba(0,0,0,.25);
     }
 
-    /* ============== Sections & Cards (global) ============== */
+    /* ===== Generic section grid helper ===== */
     .section{
       width:min(100%, var(--maxw));
       margin-inline:auto;
       padding:clamp(28px,5vw,56px) clamp(16px,4vw,28px);
       display:grid; gap:clamp(16px,2.4vw,28px);
     }
-    .two-col{ grid-template-columns:1.15fr .85fr; }
-    @media (max-width:880px){ .two-col{ grid-template-columns:1fr; } }
 
-    .card{
-      background:#fff; border-radius:16px;
-      border:1px solid color-mix(in srgb, var(--soil) 14%, transparent);
-      padding:clamp(14px,2.2vw,20px);
-      box-shadow:0 2px 10px rgba(0,0,0,.06);
-    }
-    .card h3{ margin-top:.2em; }
-
-    .kpi{
-      font-weight:900; font-size:clamp(2rem, 5vw, 2.6rem);
-      line-height:1; display:inline-block;
-      background:var(--gold); color:var(--soil);
-      border:3px solid var(--gold); border-radius:14px;
-      padding:.35em .5em; box-shadow:0 8px 18px rgba(0,0,0,.12);
-    }
-
-    .hub{ display:grid; gap:1.2rem; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); align-items:start;
-      margin:clamp(12px,2vw,20px) auto; }
-    .hub-group{ background:#eae6dfff; border:1px solid color-mix(in srgb, var(--soil) 18%, transparent);
-      border-radius:16px; padding:.9rem; box-shadow:0 2px 6px rgba(0,0,0,.05); }
-    .bubble{ width:100%; border-radius:999px; padding:.8rem 1rem; font-weight:800; background:var(--offwhite); color:var(--soil);
-      border:2px solid color-mix(in srgb, var(--soil) 25%, transparent); transition:background .18s ease, color .18s ease,
-      transform .18s ease, border-color .18s ease; min-height:44px; }
-    .bubble:hover{ background:var(--logo-orange); color:#fff; transform:translateY(-2px); }
-    .bubble:focus-visible{ outline:3px solid var(--accent); outline-offset:3px; }
-
-    .header-content img.site-logo{ width:clamp(180px,11vw,220px); border-radius:12px; }
-
-    /* ============== Pill Sections (global) ============== */
-    :root{
+    /* ==========================================================
+       HOME PAGE ONLY (guarded by .home on <body>)
+       ========================================================== */
+    {% if page.homepage == true %}
+    body.home :root{
       --pill-radius: 44px;
-      --pill-margin: clamp(16px, 5vw, 120px); /* space on the rounded side */
+      --pill-margin: clamp(16px, 5.2vw, 120px); /* how much space to leave on the “visible” rounded side */
     }
 
-    .pillband{
+    /* Intro (title + image + copy) */
+    .home .section.intro{ row-gap: clamp(8px, 1.2vw, 16px); }
+    .home .intro-title h1{ margin-bottom:.15em; }
+    .home .intro-title h2{ margin-top:.25em; margin-bottom:.15em; }
+
+    .home .intro-row{
+      display:grid;
+      grid-template-columns: minmax(320px, 560px) minmax(0,1fr);
+      align-items:center;
+      column-gap: clamp(20px,4.2vw,56px);
+    }
+    .home .intro-graphic{ display:flex; align-items:center; justify-content:center; }
+    .home .intro-graphic img{
+      width: clamp(320px, 34vw, 520px);
+      height:auto;
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,.12)) drop-shadow(0 2px 5px rgba(0,0,0,.08));
+    }
+    @media (max-width:880px){
+      .home .intro-row{ grid-template-columns:1fr; }
+      .home .intro-graphic{ order:-1; margin-bottom:.5rem; }
+    }
+
+    /* Pill-shaped bands that “clip” on one side of the viewport */
+    .home .pillband{
       position:relative;
-      min-height: clamp(220px, 34vw, 360px);
+      min-height: clamp(220px, 34vw, 360px);        /* pill height */
       margin-block: clamp(18px, 3.6vw, 38px);
-      isolation:isolate;
+      isolation:isolate;                             /* keep ::before behind content */
     }
-    .pillband .section{ position:relative; z-index:2; }
+    .home .pillband .section{ position:relative; z-index:2; }
 
-    .pillband::before{
+    .home .pillband::before{
       content:"";
       position:absolute;
       top:50%; transform:translateY(-50%);
-      height:100%;
-      width: calc(100vw - var(--pill-margin)); /* almost full-bleed */
+      height: 100%;
+      width: calc(100vw - var(--pill-margin));       /* almost full bleed */
       background: var(--pill-color, var(--logo-orange));
       border-radius: var(--pill-radius);
-      box-shadow: 0 8px 18px rgba(0,0,0,.10);
       z-index:1;
+      box-shadow: 0 8px 18px rgba(0,0,0,.10);
     }
-    .pill--clip-right::before{
+    /* Clip to the viewport’s right edge (rounded end visible on the left) */
+    .home .pillband.pill--clip-right::before{
       right:0; left:auto;
-      border-top-right-radius:0; border-bottom-right-radius:0;
+      border-top-right-radius: 0; border-bottom-right-radius:0;
     }
-    .pill--clip-left::before{
+    /* Clip to the viewport’s left edge (rounded end visible on the right) */
+    .home .pillband.pill--clip-left::before{
       left:0; right:auto;
-      border-top-left-radius:0; border-bottom-left-radius:0;
+      border-top-left-radius: 0; border-bottom-left-radius:0;
     }
 
-    .pill--orange{ --pill-color: var(--logo-orange); color:#fff; }
-    .pill--soil  { --pill-color: var(--soil);        color:#fff; }
-    .pill--sage  { --pill-color: var(--sage);        color:#0e2a1f; }
-    .pill--slate { --pill-color: var(--slate);       color:#fff; }
+    /* Color variants + automatic text color */
+    .home .pillband.pill--orange{ --pill-color: var(--logo-orange); color:#fff; }
+    .home .pillband.pill--soil  { --pill-color: var(--soil);        color:#fff; }
+    .home .pillband.pill--slate { --pill-color: var(--slate);       color:#fff; }
+    .home .pillband.pill--sage  { --pill-color: var(--sage);        color:#0e2a1f; }
 
-    /* keep first paragraph tight when used in pill bands */
-    .pillband .section > p:first-child{ margin-top:0; }
-
-    /* On small screens, let the pill span full width and center the radius */
-    @media (max-width: 880px){
-      .pillband{ min-height: unset; }
-      .pillband::before{
-        width:100vw;
-        left:50%; right:auto; transform:translate(-50%,-50%);
-        border-radius: var(--pill-radius);
-      }
-    }
-
-    /* ============== Homepage-only styles ============== */
-    {% if page.home == true or page.homepage == true or page.url == '/' %}
-      /* Infographic figure (used on home) */
-      figure.infographic{ margin:0; }
-      figure.infographic img{
-        width:100%; max-width:560px; margin:0 auto;
-        border-radius:12px; box-shadow:0 8px 18px rgba(0,0,0,.12);
-      }
-      figure.infographic figcaption{
-        text-align:center; font-size:.9rem; opacity:.7; margin-top:.4rem;
-      }
-
-      /* Intro block (image + copy) */
-      .section.intro{ display:grid; row-gap:clamp(8px,1.2vw,16px); }
-      .intro-row{
-        display:grid;
-        grid-template-columns:minmax(320px,520px) minmax(0,1fr);
-        align-items:flex-start;
-        column-gap:clamp(16px,2.6vw,32px);
-      }
-      .intro-graphic{ display:flex; align-items:center; justify-content:center; margin:0; }
-      .intro-graphic img{
-        width:clamp(320px,32vw,520px);
-        height:auto;
-        filter: drop-shadow(0 8px 16px rgba(0,0,0,.12)) drop-shadow(0 2px 5px rgba(0,0,0,.08));
-      }
-      .intro-copy > p:first-child{ margin-top:0; }
-      .intro-title h1{ margin-bottom:.15em; }
-      .intro-title h2{ margin:.25em 0 .15em; }
-
-      @media (min-width:1200px){
-        .intro-row{
-          grid-template-columns:minmax(320px,560px) 1fr;
-          column-gap:clamp(24px,4.2vw,48px);
-        }
-      }
-      @media (max-width:880px){
-        .intro-row{ grid-template-columns:1fr; }
-        .intro-graphic{ order:-1; margin-bottom:.5rem; }
-      }
+    /* Optional: tighten first paragraph spacing inside pill sections */
+    .home .pillband .section > p:first-child{ margin-top:0; }
     {% endif %}
   </style>
 </head>
 
-<body>
+<body class="{% if page.homepage == true %}home{% endif %}">
   <!-- Header + hero -->
   <header class="hero"
     style="
@@ -317,13 +251,14 @@
       </div>
     </div>
 
-    <!-- Crest waves + gradient band -->
+    <!-- Abstract crest waves -->
     <div class="hero-wave" aria-hidden="true" role="presentation">
       <svg viewBox="0 0 1440 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M0,64 C160,120 320,8 480,48 C640,88 800,168 960,128 C1120,88 1280,16 1440,64 L1440,160 L0,160 Z" fill="{{ '#c9beb7' }}"></path>
         <path d="M0,100 C160,140 320,40 480,70 C640,100 800,160 960,120 C1120,80 1280,30 1440,70 L1440,160 L0,160 Z" fill="{{ '#baafa8' }}"></path>
       </svg>
 
+      <!-- Gradient band + scrollable circles -->
       <div class="nav-gradient">
         <section class="wave-nav" aria-label="Primary navigation">
           <div class="wave-track">
@@ -383,16 +318,16 @@
     const circles = track?.querySelectorAll('.circle') || [];
     if (!wrap || !track || !circles.length) return;
 
-    function getCircleSize(){
+    const getCircleSize = () => {
       const any = circles[0];
       return any ? (any.offsetWidth || parseFloat(getComputedStyle(any).getPropertyValue('--size'))) : 96;
-    }
+    };
 
     function setHeight(){
       const size = getCircleSize();
       const root  = getComputedStyle(document.documentElement);
-      const lift  = parseFloat(root.getPropertyValue('--circle-lift')) || 0;
-      const extra = Math.max(0, -lift) + 12;
+      const lift  = parseFloat(root.getPropertyValue('--circle-lift')) || 0; // negative when lifted
+      const extra = Math.max(0, -lift) + 12; // room for drop shadow
       const h = Math.max(110, Math.round(size * 1.12) + extra);
       wrap.style.height = h + 'px';
     }
@@ -403,16 +338,12 @@
       const count  = circles.length;
 
       const GAP_MIN = 120, GAP_MAX = 220, PAD_MIN = 24;
-
       const gapFit = (wrapW - 2*PAD_MIN - count*size) / Math.max(1, (count - 1));
       const gap    = Math.max(GAP_MIN, Math.min(gapFit, GAP_MAX));
-
       const rowWidth = count*size + (count-1)*gap;
       const pad      = Math.max(PAD_MIN, Math.floor((wrapW - rowWidth) / 2));
-
       const neededWidth = rowWidth + 2*pad;
-      const trackWidth  = Math.max(wrapW, neededWidth);
-      track.style.width = trackWidth + 'px';
+      track.style.width = Math.max(wrapW, neededWidth) + 'px';
 
       const TOP = Math.max(2, Math.round(size * 0.08));
       circles.forEach((circleEl, i) => {
@@ -429,7 +360,7 @@
     setHeight(); draw();
     addEventListener('resize', () => { setHeight(); draw(); }, { passive:true });
 
-    /* Portal flyouts so they never affect nav height */
+    /* Flyouts portal */
     circles.forEach(circle => {
       const btn = circle.querySelector('.circle-btn');
       const fly = circle.querySelector('.flyout');
@@ -459,12 +390,7 @@
         fly.style.display = 'flex';
       };
 
-      const show = () => {
-        clearTimeout(hideTimer);
-        toBody();
-        positionFlyout();
-      };
-
+      const show = () => { clearTimeout(hideTimer); toBody(); positionFlyout(); };
       const hide = () => {
         fly.classList.remove('is-floating');
         fly.style.left = fly.style.top = '';
