@@ -201,6 +201,41 @@
 .pillband.pill--sage  { --pill-color: var(--sage);        color:#0e2a1f; }
 
     .pillband .section > p:first-child{ margin-top:0; }
+/* --- Keep copy from climbing off the pill --- */
+.pillband .text{
+  /* keep line length comfortable AND cap width on small screens */
+  max-width: 62ch;            /* ~62 characters per line */
+  margin-inline: 0;           /* default */
+}
+
+/* more room on the exposed rounded edge */
+.pillband.pill--clip-left .section{      /* rounded edge is on the RIGHT */
+  padding-inline: clamp(16px,3vw,28px) clamp(32px,8vw,140px);
+}
+.pillband.pill--clip-right .section{     /* rounded edge is on the LEFT */
+  padding-inline: clamp(32px,8vw,140px) clamp(16px,3vw,28px);
+}
+
+/* keep the split layout breathable */
+.pillband .section{ 
+  gap: clamp(12px, 3vw, 24px);
+}
+
+/* stack + relax padding on narrow screens */
+@media (max-width: 980px){
+  .split{ grid-template-columns: 1fr; }
+  .pillband .text{
+    max-width: 58ch;
+    margin-inline: auto;      /* center the text when stacked */
+  }
+  .pillband.pill--clip-left .section,
+  .pillband.pill--clip-right .section{
+    padding-inline: clamp(18px, 4vw, 28px); /* symmetric when stacked */
+  }
+}
+
+/* (optional) ensure nothing visually spills outside the pill */
+.pillband{ overflow: clip; }  /* use hidden if clip isn't supported */
 
 /* ===== Intro grid (used by index) – NOT a pill ===== */
 .section.intro{ row-gap: clamp(8px, 1.2vw, 16px); }
@@ -211,7 +246,7 @@
 .intro-row{
   display:grid;
   grid-template-columns:minmax(300px,520px) minmax(0,1fr); /* a bit narrower than 320/560 */
-  align-items:start;                                       /* avoids extra vertical “cushion” */
+  align-items:center;                                       /* avoids extra vertical “cushion” */
   column-gap:clamp(8px, 2vw, 18px);                        /* tighter cap than 30px */
 }
 
@@ -219,7 +254,7 @@
 .intro-graphic{ display:flex; align-items:center; justify-content:center; }
 .intro-graphic img{
   width:clamp(280px, 32vw, 380px);
-  height:auto;
+  height:auto;  align-self: center; 
   filter: drop-shadow(0 8px 16px rgba(0,0,0,.12)) drop-shadow(0 2px 5px rgba(0,0,0,.08));
 }
 
