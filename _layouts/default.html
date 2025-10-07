@@ -259,9 +259,9 @@
 /* scalable image with tunable clamp values */
 .split .art img{
   width: clamp(
-    var(--prev-min, 120px),    /* min size on large screens */
+    var(--prev-min, 300px),    /* min size on large screens */
     var(--prev-ideal, 10vw),   /* fluid middle */
-    var(--prev-max, 300px)     /* max size on large screens */
+    var(--prev-max, 480px)     /* max size on large screens */
   );
   height:auto;
   display:block;
@@ -272,9 +272,9 @@
 @media (max-width: 880px){
   .split .art img{
     width: clamp(
-      var(--prev-min-sm, 120px),
-      var(--prev-ideal-sm, 12vw),
-      var(--prev-max-sm, 300px)
+      var(--prev-min-sm, 300px),
+      var(--prev-ideal-sm, 20vw),
+      var(--prev-max-sm, 480px)
     );
   }
 }

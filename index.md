@@ -73,15 +73,15 @@ hero_tint: .60
     <h2 style="color:#fff; margin-bottom:.2em;">Our approach</h2>
     <div class="section" style="padding:0; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px;">
       <div class="card">
-        <h3>Prevention</h3>
+        <h4>Prevention</h4>
         <p>Clear expectations, advisor–advisee agreements, and pre-fieldwork safety planning.</p>
       </div>
       <div class="card">
-        <h3>Reporting</h3>
+        <h4>Reporting</h4>
         <p>Straightforward paths to Title IX, funding bodies, and professional associations—with documentation tools.</p>
       </div>
       <div class="card">
-        <h3>Accountability</h3>
+        <h4>Accountability</h4>
         <p>Transparent follow-ups, climate surveys, and culture change grounded in data.</p>
       </div>
     </div>
