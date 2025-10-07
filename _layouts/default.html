@@ -249,23 +249,36 @@
 .split .text{ max-width:66ch; }
 
 /* image fills its column but never grows past a sensible cap */
+/* image column */
+
 .split .art{
   justify-self:center;
-  width:100%;
-  max-width: 340px;   /* feel free to change to 640px or 680px */
+  max-width: none;             /* remove old 340px cap */
 }
+
+/* scalable image with tunable clamp values */
 .split .art img{
-  width:100%;
-  height:auto;        /* <- the key “default” scaler */
+  width: clamp(
+    var(--prev-min, 120px),    /* min size on large screens */
+    var(--prev-ideal, 10vw),   /* fluid middle */
+    var(--prev-max, 300px)     /* max size on large screens */
+  );
+  height:auto;
   display:block;
   border-radius:10px;
 }
 
-/* stack on small screens */
-@media (max-width:880px){
-  .split{ grid-template-columns:1fr; }
-  .split .art{ max-width:340px; }  /* smaller cap on phones/tablets */
+/* phone/tablet overrides (also tunable) */
+@media (max-width: 880px){
+  .split .art img{
+    width: clamp(
+      var(--prev-min-sm, 120px),
+      var(--prev-ideal-sm, 12vw),
+      var(--prev-max-sm, 300px)
+    );
+  }
 }
+
 
 
 /* ===== Resources (sage pill) — circular cards ===== */
