@@ -8,41 +8,41 @@ hero_opacity: .34
 hero_tint: .60
 ---
 
-<!-- 1) Intro -->
-<section class="pillband pill--orange pill--clip-right">
-  <div class="section intro">
-    <div class="intro-title">
-      <h1 style="color:#fff;"><strong>Integrity in research begins with safety and respect in the field.</strong></h1>
-      <h2 style="margin-top:.5em; font-weight:normal; color:#fff;">
-        <strong>We’re redefining fieldwork protocols to center consent, dignity, and accountability — because harm has no place in science.</strong>
-      </h2>
-    </div>
+<!-- 1) Intro — plain background, black text; H1 in var(--logo-orange) -->
+<section class="section intro">
+  <div class="intro-title">
+    <h1 style="color:var(--logo-orange);">
+      <strong>Integrity in research begins with safety and respect in the field.</strong>
+    </h1>
+    <h2 style="margin-top:.5em; font-weight:normal;">
+      <strong>We’re redefining fieldwork protocols to center consent, dignity, and accountability — because harm has no place in science.</strong>
+    </h2>
+  </div>
 
-    <div class="intro-row">
-      <figure class="intro-graphic">
-        <img
-          src="{{ '/assets/img/accountability.png' | relative_url }}"
-          alt="Accountability hub with callouts: clearly stated expectations, transparent reporting systems, and shared commitment to safety."
-          loading="lazy" decoding="async" fetchpriority="low">
-      </figure>
+  <div class="intro-row">
+    <figure class="intro-graphic">
+      <img
+        src="{{ '/assets/img/accountability.png' | relative_url }}"
+        alt="Accountability hub with callouts: clearly stated expectations, transparent reporting systems, and shared commitment to safety."
+        loading="lazy" decoding="async" fetchpriority="low">
+    </figure>
 
-      <div class="intro-copy">
-        <p>
-          This project was built from urgency — to make fieldwork safer for ourselves, our students, and our colleagues.
-          It offers accessible, customizable tools to help researchers prevent and report sexual misconduct and other forms of behavioral harm during field research.
-        </p>
-        <p>
-          We cannot protect our science without protecting the people who do it. Safety begins with accountability:
-          clearly stated expectations, transparent reporting systems, and a shared commitment to safeguarding not just our data, but each other.
-          We are researchers, educators, and students — and we deserve to work in environments built on dignity, consent, and respect.
-        </p>
-      </div>
+    <div class="intro-copy">
+      <p>
+        This project was built from urgency — to make fieldwork safer for ourselves, our students, and our colleagues.
+        It offers accessible, customizable tools to help researchers prevent and report sexual misconduct and other forms of behavioral harm during field research.
+      </p>
+      <p>
+        We cannot protect our science without protecting the people who do it. Safety begins with accountability:
+        clearly stated expectations, transparent reporting systems, and a shared commitment to safeguarding not just our data, but each other.
+        We are researchers, educators, and students — and we deserve to work in environments built on dignity, consent, and respect.
+      </p>
     </div>
   </div>
 </section>
 
-<!-- 2) prevalence -->
-<section class="pillband pill--soil">
+<!-- 2) Prevalence — orange pill, side-by-side -->
+<section class="pillband pill--orange">
   <div class="section split">
     <div class="text">
       <h2>Prevalence of Fieldwork Harassment and Assault</h2>
@@ -51,15 +51,11 @@ hero_tint: .60
         and low frequencies of awareness of reporting procedures (Clancy <em>et&nbsp;al.</em>, 2014;
         DOI: <a href="https://doi.org/10.1371/journal.pone.0102172">10.1371/journal.pone.0102172</a>).
       </p>
-      <!-- you can add more supporting sentences here if you like -->
     </div>
 
     <figure class="art">
-      <!-- your figure image here -->
       <img src="{{ '/assets/img/prevalence-graphic.png' | relative_url }}" alt="Infographic summarizing prevalence findings.">
-      <!-- optional caption
-      <figcaption>64% experienced sexual harassment; 21% experienced sexual assault during fieldwork.</figcaption>
-      -->
+      <!-- <figcaption>64% experienced sexual harassment; 21% experienced sexual assault during fieldwork.</figcaption> -->
     </figure>
   </div>
 </section>

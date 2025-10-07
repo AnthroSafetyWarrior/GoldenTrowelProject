@@ -166,27 +166,28 @@
     }
     .pillband .section{ position:relative; z-index:2; }
 
-.pillband::before{
-  content:"";
-  position:absolute;
-  /* center vertically AND horizontally */
-  top:50%; left:50%;
-  transform:translate(-50%,-50%);
-  height:100%;
-  width: calc(100vw - var(--pill-margin));
-  background: var(--pill-color, var(--logo-orange));
-  border-radius: var(--pill-radius);
-  z-index:1;
-  box-shadow:0 8px 18px rgba(0,0,0,.10);
-}
-
+    /* Centered pill bg with rounded exposed ends */
+    .pillband::before{
+      content:"";
+      position:absolute;
+      top:50%; left:50%;
+      transform:translate(-50%,-50%);
+      height:100%;
+      width: calc(100vw - var(--pill-margin));
+      background: var(--pill-color, var(--logo-orange));
+      border-radius: var(--pill-radius);
+      z-index:1;
+      box-shadow:0 8px 18px rgba(0,0,0,.10);
+    }
     .pillband.pill--clip-right::before{
       right:0; left:auto;
       border-top-right-radius:0; border-bottom-right-radius:0;
+      transform:translateY(-50%);        /* keep vertical centering when clipped */
     }
     .pillband.pill--clip-left::before{
       left:0; right:auto;
       border-top-left-radius:0; border-bottom-left-radius:0;
+      transform:translateY(-50%);        /* keep vertical centering when clipped */
     }
 
     /* Color variants + matching text color */
@@ -196,43 +197,6 @@
     .pillband.pill--sage  { --pill-color: var(--sage);        color:#0e2a1f; }
 
     .pillband .section > p:first-child{ margin-top:0; }
-
-    /* ===== Optional intro grid (used by index) ===== */
-    .section.intro{ row-gap: clamp(8px, 1.2vw, 16px); }
-    .intro-title h1{ margin-bottom:.15em; }
-    .intro-title h2{ margin-top:.25em; margin-bottom:.15em; }
-    .intro-row{
-      display:grid;
-      grid-template-columns:minmax(320px,560px) minmax(0,1fr);
-      align-items:center;
-      column-gap:clamp(20px,4.2vw,56px);
-    }
-    .intro-graphic{ display:flex; align-items:center; justify-content:center; }
-    .intro-graphic img{
-      width:clamp(320px,34vw,520px);
-      height:auto;
-      filter: drop-shadow(0 8px 16px rgba(0,0,0,.12)) drop-shadow(0 2px 5px rgba(0,0,0,.08));
-    }
-    @media (max-width:880px){
-      .intro-row{ grid-template-columns:1fr; }
-      .intro-graphic{ order:-1; margin-bottom:.5rem; }
-    }
-/* two-column helper for section content inside a pillband (or anywhere) */
-.section.split{
-  grid-template-columns: 1.05fr .95fr;
-  align-items: center;
-  column-gap: clamp(20px, 4vw, 56px);
-}
-.section.split .text{ display:grid; gap:.5rem; }
-.section.split figure{ margin:0; }
-.section.split img{ width:100%; height:auto; display:block; }
-
-@media (max-width: 880px){
-  .section.split{ grid-template-columns:1fr; }
-  .section.split .text{ order:1; }
-  .section.split .art { order:2; }
-}
-
   </style>
 </head>
 
