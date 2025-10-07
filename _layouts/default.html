@@ -146,14 +146,13 @@
     .flyout .pill + .pill{ margin-top:-2px; }
     .flyout .pill:hover,.flyout .pill:focus-visible{
       background:#444054; color:#fff; transform:translateY(-1px); border-color:var(--gold); outline:0;
-      box-shadow:0 0 0 3px #fff,0 0 0 6px rgba(0,0,0,.25);
     }
 
     /* ===== Generic section grid helper ===== */
     .section{
       width:min(100%, var(--maxw));
       margin-inline:auto;
-      padding:clamp(28px,5vw,56px) clamp(16px,4vw,28px);
+      padding:clamp(36px,5vw,56px) clamp(16px,4vw,28px);
       display:grid; gap:clamp(16px,2.4vw,28px);
     }
 
@@ -218,7 +217,7 @@
 /* Image sizing stays responsive but a hair smaller so the gap can shrink too */
 .intro-graphic{ display:flex; align-items:center; justify-content:center; }
 .intro-graphic img{
-  width:clamp(290px, 32vw, 380px);
+  width:clamp(300px, 32vw, 380px);
   height:auto;  align-self: center; 
   filter: drop-shadow(0 8px 16px rgba(0,0,0,.12)) drop-shadow(0 2px 5px rgba(0,0,0,.08));
 }
@@ -240,42 +239,37 @@
 /* ===== Prevalence split (simple + scalable) ===== */
 .split{
   display:grid;
-  grid-template-columns: minmax(320px,1fr) minmax(320px,1fr); /* two equal cols */
-  align-items:center;          /* vertical center the two columns */
-  gap: clamp(16px,3vw,40px);
+  grid-template-columns: 1fr 1fr;       /* two equal columns */
+  align-items:center;
+  gap: clamp(16px, 3vw, 40px);
 }
 
 .split .text{
-  grid-column: 1;
-  max-width: 62ch;             /* keeps paragraphs readable & stops overflow */
+  max-width: 66ch;                      /* keeps paragraphs readable */
   justify-self:start;
 }
 
 .split .art{
-  grid-column: 2;
-  justify-self:center;         /* keeps the graphic centered in its column */
+  justify-self:center;                  /* center the graphic in its column */
+  max-width: 720px;                     /* sensible upper bound */
+  width: 100%;
 }
 
 .split .art img{
   display:block;
-  width: clamp(120px, 40vw, 280px);  /* grows with viewport, never tiny or huge */
-  max-width: 100%;
+  width: 100%;                          /* fills the figure, scales down nicely */
   height: auto;
   border-radius: 10px;
   box-shadow: 0 6px 18px rgba(0,0,0,.18);
 }
 
-/* Stack on small screens, keep graphic a sensible size */
+/* Stack on small screens */
 @media (max-width: 880px){
-  .split{
-    grid-template-columns: 1fr;
-  }
+  .split{ grid-template-columns: 1fr; }
   .split .text,
-  .split .art{ grid-column: 1; }
-  .split .art{ justify-self:center; }
-  .split .art img{ width: min(100%, 560px); }
+  .split .art{ justify-self: center; }
+  .split .art{ max-width: 560px; }      /* slightly smaller cap on phones/tablets */
 }
-
 
 /* ===== Resources (sage pill) ===== */
 .resources .pill-header{ max-width:70ch; }
