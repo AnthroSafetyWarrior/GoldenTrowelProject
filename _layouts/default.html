@@ -21,10 +21,7 @@
       --gold:#fac441;
       --logo-orange:#8a340a;
 
-      /* Legacy aliases */
-      --moss: var(--sage);
-      --accent: var(--sage);
-
+      /* aliases */
       --ink:#111;
       --maxw:1240px;
 
@@ -35,7 +32,7 @@
       /* Scroll circle lift */
       --circle-lift:-8px;
 
-      /* Pill section defaults */
+      /* Pills */
       --pill-radius: 44px;
       --pill-margin: clamp(16px, 5.2vw, 120px);
     }
@@ -46,7 +43,7 @@
     img,svg,video{ max-width:100%; height:auto; display:block; }
     h1{ font-size:clamp(1.8rem,5.5vw,2.4rem); margin:1em 0 .6em; }
     h2{ font-size:clamp(1.6rem,4.5vw,1.8rem); margin:.9em 0 .5em; }
-    h3{ font-size:clamp(1.4rem,4vw,1.6rem);  margin:.8em 0 .45em; }
+    h3{ font-size:clamp(1.4rem,4vw,1.6rem); margin:.8em 0 .45em; }
     p { font-size:clamp(1.2rem,2.8vw,1.4rem); margin:.6em 0; }
     a{ color:var(--soil); text-decoration-thickness:.08em; text-underline-offset:.18em; }
     a:hover{ color:var(--logo-orange); }
@@ -85,7 +82,6 @@
       display:block; margin-bottom:-8px;
       filter: drop-shadow(0 14px 22px rgba(0,0,0,.22)) drop-shadow(0 4px 6px rgba(0,0,0,.18));
     }
-
     .nav-gradient{
       margin-top:-18px; padding:0; min-height:clamp(110px,8vw,120px); position:relative; overflow:visible;
       background: linear-gradient(to bottom,
@@ -149,7 +145,7 @@
       box-shadow:0 0 0 3px #fff,0 0 0 6px rgba(0,0,0,.25);
     }
 
-    /* ===== Generic section grid helper ===== */
+    /* ===== Generic section helper ===== */
     .section{
       width:min(100%, var(--maxw));
       margin-inline:auto;
@@ -157,7 +153,7 @@
       display:grid; gap:clamp(16px,2.4vw,28px);
     }
 
-    /* ===== Pill sections (GLOBAL) ===== */
+    /* ===== Pill sections (GLOBAL; add .pillband around a section) ===== */
     .pillband{
       position:relative;
       min-height: clamp(220px, 34vw, 360px);
@@ -166,12 +162,12 @@
     }
     .pillband .section{ position:relative; z-index:2; }
 
-    /* Centered pill bg with rounded exposed ends */
+    /* Background band */
     .pillband::before{
       content:"";
       position:absolute;
-      top:50%; left:50%;
-      transform:translate(-50%,-50%);
+      top:50%;
+      transform:translateY(-50%);
       height:100%;
       width: calc(100vw - var(--pill-margin));
       background: var(--pill-color, var(--logo-orange));
@@ -179,15 +175,33 @@
       z-index:1;
       box-shadow:0 8px 18px rgba(0,0,0,.10);
     }
-    .pillband.pill--clip-right::before{
-      right:0; left:auto;
-      border-top-right-radius:0; border-bottom-right-radius:0;
+    /* Anchor to an edge and leave the exposed end rounded */
+    .pillband.pill--clip-right::before{ right:0; left:auto; border-top-right-radius:0; border-bottom-right-radius:0; }
+    .pillband.pill--clip-left::before { left:0;  right:auto; border-top-left-radius:0;  border-bottom-left-radius:0; }
+
+    /* Decorative “fun shapes” inside pills */
+    .pillband::after{
+      content:"";
+      position:absolute;
+      top:50%;
       transform:translateY(-50%);
+      height:calc(100% - 22px);
+      width:min(46%, 560px);
+      pointer-events:none;
+      z-index:1; /* over bg, under content */
+      opacity:.18;
+      filter:blur(.5px);
+      background:
+        radial-gradient(140px 140px at 22% 28%, color-mix(in srgb, var(--pill-color) 22%, #fff) 0 62%, transparent 63%),
+        radial-gradient(210px 210px at 78% 64%, color-mix(in srgb, var(--pill-color) 14%, #000) 0 58%, transparent 59%),
+        conic-gradient(from .6turn at 84% 20%, color-mix(in srgb, var(--pill-color) 24%, #fff) 0 30%, transparent 31% 100%);
     }
-    .pillband.pill--clip-left::before{
-      left:0; right:auto;
-      border-top-left-radius:0; border-bottom-left-radius:0;
-      transform:translateY(-50%);
+    /* Place shapes away from the clipped edge for balance */
+    .pillband.pill--clip-right::after{ left:clamp(24px,5vw,64px); right:auto; }
+    .pillband.pill--clip-left::after { right:clamp(24px,5vw,64px); left:auto; }
+    /* Centered pill variant */
+    .pillband:not(.pill--clip-left):not(.pill--clip-right)::after{
+      left:50%; transform:translate(-50%,-50%);
     }
 
     /* Color variants + matching text color */
@@ -195,12 +209,11 @@
     .pillband.pill--soil  { --pill-color: var(--soil);        color:#fff; }
     .pillband.pill--slate { --pill-color: var(--slate);       color:#fff; }
     .pillband.pill--sage  { --pill-color: var(--sage);        color:#0e2a1f; }
-
     .pillband .section > p:first-child{ margin-top:0; }
 
-    /* ===== Home-only helpers (scoped to body.home) ===== */
+    /* ===== Home-only helpers (intro + prevalence split) ===== */
     .home .section.intro{ row-gap: clamp(8px, 1.2vw, 16px); }
-    .home .intro-title h1{ color: var(--logo-orange); } /* H1 color on homepage only */
+    .home .intro-title h1{ color: var(--logo-orange); } /* H1 on home only */
     .home .intro-row{
       display:grid;
       grid-template-columns:minmax(320px,560px) minmax(0,1fr);
@@ -210,7 +223,7 @@
     .home .intro-graphic{ display:flex; align-items:center; justify-content:center; }
     .home .intro-graphic img{
       width:clamp(320px,34vw,520px);
-      height:auto; display:block;
+      height:auto;
       filter: drop-shadow(0 8px 16px rgba(0,0,0,.12)) drop-shadow(0 2px 5px rgba(0,0,0,.08));
     }
     @media (max-width:880px){
@@ -255,14 +268,13 @@
       </div>
     </div>
 
-    <!-- Abstract crest waves -->
+    <!-- Waves + nav -->
     <div class="hero-wave" aria-hidden="true" role="presentation">
       <svg viewBox="0 0 1440 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M0,64 C160,120 320,8 480,48 C640,88 800,168 960,128 C1120,88 1280,16 1440,64 L1440,160 L0,160 Z" fill="{{ '#c9beb7' }}"></path>
         <path d="M0,100 C160,140 320,40 480,70 C640,100 800,160 960,120 C1120,80 1280,30 1440,70 L1440,160 L0,160 Z" fill="{{ '#baafa8' }}"></path>
       </svg>
 
-      <!-- Gradient band + scrollable circles -->
       <div class="nav-gradient">
         <section class="wave-nav" aria-label="Primary navigation">
           <div class="wave-track">
@@ -314,7 +326,7 @@
     {{ content }}
   </main>
 
-  <!-- Tight layout + portal-on-open so flyouts sit over the page -->
+  <!-- Nav behavior -->
   <script>
   (() => {
     const wrap  = document.querySelector('.wave-nav');
