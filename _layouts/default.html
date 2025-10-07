@@ -238,30 +238,29 @@
 }
 /* ===== Prevalence split (simple + scalable) ===== */
 /* two equal columns, centered vertically */
+/* Keep each column from getting too skinny */
 .split{
   display:grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(340px,1fr) minmax(340px,1fr); /* set your min here */
   align-items:center;
-  gap: clamp(8px, 3vw, 16px);
+  gap: clamp(12px, 3vw, 24px);
 }
 
-/* readable text width, normal */
-.split .text{ max-width:66ch; }
-
-/* image fills its column but never grows past a sensible cap */
-/* image column */
-
-/* Prevalence graphic — mirror the intro image behavior */
-.split .art{
-  justify-self:center;
-  min-width:0; /* lets it shrink inside the grid */
-}
-
+/* Prevalence graphic sizing (same pattern as intro) */
+.split .art{ justify-self:center; min-width:340px; } /* matches the column min */
 .split .art img{
-  width: clamp(380px, 32vw, 480px);  /* same style as .intro-graphic img */
-  height: auto;
-  display: block;
-  align-self: center;
+  width: clamp(320px, 32vw, 520px);  /* tweak these like the intro image */
+  height:auto;
+  display:block;
+  /* keep this so it never overflow-stretches, but the column min prevents sub-320 */
+  max-width:100%;
+}
+
+/* Stack on small screens */
+@media (max-width:880px){
+  .split{ grid-template-columns:1fr; }
+  .split .art{ min-width:0; } /* allow full-width on phones */
+  .split .art img{ width: clamp(300px, 82vw, 520px); }
 }
 
 
