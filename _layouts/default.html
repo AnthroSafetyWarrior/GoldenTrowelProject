@@ -442,6 +442,45 @@
 .pillhead.pill--slate { --pill-color: var(--slate);       --pill-text:#fff; }
 .pillhead.pill--sage  { --pill-color: var(--sage);        --pill-text:#0e2a1f; }
 
+/* ===== Balanced two-column split (both sides scalable) ===== */
+.split{
+  /* knobs */
+  --left-min: 280px;              /* min width for text column  */
+  --right-min: 260px;             /* min width for art column   */
+  --gap: clamp(10px, 3vw, 24px);  /* space between columns      */
+  --text-measure: 66ch;           /* max readable line length   */
+  --img-min: 220px;               /* image width clamp (min)    */
+  --img-ideal: 32vw;              /* image width clamp (fluid)  */
+  --img-max: 340px;               /* image width clamp (max)    */
+
+  display: grid;
+  grid-template-columns:
+    minmax(var(--left-min), 1fr)
+    minmax(var(--right-min), 1fr);  /* <- both columns flex 1fr  */
+  gap: var(--gap);
+  align-items: start;                /* text grows downward; no vertical centering */
+}
+
+.split .text{
+  max-inline-size: var(--text-measure); /* keeps paragraphs readable */
+}
+
+.split .art{
+  justify-self: center;     /* or 'end' if you want it hugged to the right */
+  /* let the column be as wide as it needs; don't cap the container */
+}
+
+.split .art img{
+  width: clamp(var(--img-min), var(--img-ideal), var(--img-max));
+  height: auto;
+  display: block;
+}
+
+/* stay side-by-side to a narrower width; stack only when needed */
+@media (max-width: 720px){
+  .split{ grid-template-columns: 1fr; }
+  .split .art{ justify-self: start; }
+}
 
 </style>
 </head>
