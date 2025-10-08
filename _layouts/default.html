@@ -253,18 +253,18 @@
     /* ===== Prevalence split (simple + scalable) ===== */
     .split{
       display:grid;
-      grid-template-columns: minmax(340px,1fr) minmax(340px,1fr);
+      grid-template-columns: minmax(220px,1fr) minmax(220px,1fr);
       align-items:center;
       gap: clamp(8px, 3vw, 16px);
     }
 
     /* Text column width guard */
-    .split .text{ max-width:66ch; }
+    .split .text{ max-width:40ch; }
 
     /* Prevalence graphic – same sizing pattern as the intro image */
     .split .art{ justify-self:center; min-width:340px; }
     .split .art img{
-      width:clamp(300px, 32vw, 380px);
+      width:clamp(290px, 32vw, 320px);
       height:auto;
       display:block;
     }
@@ -276,7 +276,7 @@
         justify-items: start;            /* left-align everything in the grid */
       }
       .split .art{ justify-self:start; min-width:0; }
-      .split .art img{ width:clamp(300px, 32vw, 380px); }
+      .split .art img{ width:clamp(290px, 32vw, 320px); }
     }
 
     /* ===== Resources (sage pill) — circular cards ===== */
