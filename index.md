@@ -1,3 +1,44 @@
+---
+layout: default
+title: Home
+homepage: true
+hero: /assets/img/romania_cave.JPG
+hero_pos: "center 40%"
+hero_opacity: .34
+hero_tint: .60
+---
+
+<!-- 1) Intro – plain background -->
+<section class="section intro">
+  <div class="intro-title">
+    <h1><strong>Integrity in research begins with safety and respect in the field.</strong></h1>
+    <h2 style="font-weight:600;">
+      We’re redefining fieldwork protocols to center consent, dignity, and accountability — because harm has no place in science.
+    </h2>
+  </div>
+
+  <div class="intro-row">
+    <figure class="intro-graphic">
+      <img
+        src="{{ '/assets/img/accountability.png' | relative_url }}"
+        alt="Accountability hub with callouts: clearly stated expectations, transparent reporting systems, and shared commitment to safety."
+        loading="lazy" decoding="async" fetchpriority="low">
+    </figure>
+
+    <div class="intro-copy">
+      <p>
+        This project was built from urgency — to make fieldwork safer for ourselves, our students, and our colleagues.
+        It offers accessible, customizable tools to help researchers prevent and report sexual misconduct and other forms of behavioral harm during field research.
+      </p>
+      <p>
+        We cannot protect our science without protecting the people who do it. Safety begins with accountability:
+        clearly stated expectations, transparent reporting systems, and a shared commitment to safeguarding not just our data, but each other.
+        We are researchers, educators, and students — and we deserve to work in environments built on dignity, consent, and respect.
+      </p>
+    </div>
+  </div>
+</section>
+
 <!-- 2) PREVALENCE — use the shared split -->
 <section class="pillband pill--orange pill--clip-left">
   <div class="section pill-split">
