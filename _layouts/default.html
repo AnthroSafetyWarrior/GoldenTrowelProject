@@ -173,10 +173,20 @@
   top:50%;
   transform:translateY(-50%);
   height:100%;
-  width: calc(100vw - var(--pill-margin));   /* how far the pill extends into the page */
+  /* REPLACED: */
+  width: clamp(var(--pill-minw, 640px),
+               calc(100vw - var(--pill-margin)),
+               var(--pill-maxw, 1120px));
   background: var(--pill-color, var(--logo-orange));
   box-shadow:0 8px 18px rgba(0,0,0,.10);
   z-index:1;
+}
+/* knobs */
+.pillband{ --pill-minw: 640px; --pill-maxw: 1120px; }
+
+/* override just width (same specificity, later wins) */
+.pillband::before{
+  width: clamp(var(--pill-minw), calc(100vw - var(--pill-margin)), var(--pill-maxw));
 }
 
 /* Anchor LEFT (exposed end on the RIGHT) */
