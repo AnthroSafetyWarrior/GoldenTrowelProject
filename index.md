@@ -12,6 +12,7 @@ hero_tint: .60
 <section class="section intro">
   <div class="intro-title">
     <h1><strong>Integrity in research begins with safety and respect in the field.</strong></h1>
+<br>
     <h2 style="font-weight:600;">
       We’re redefining fieldwork protocols to center consent, dignity, and accountability — because harm has no place in science.
     </h2>
@@ -41,7 +42,7 @@ hero_tint: .60
 
 <!-- 2) PREVALENCE — shared split -->
 <section class="section">
-  <h2 class="pillhead pill--slate">Prevalence of Fieldwork Harassment and Assault</h2>
+  <h2 class="pillhead pill--logo-orange">Prevalence of Fieldwork Harassment and Assault</h2>
   <div class="section split">
     <div class="text">
        <p>A 2014 survey sampling &gt;650 anthropologists revealed high frequencies of harassment and assault, and low frequencies of awareness of reporting procedures (Clancy <em>et&nbsp;al.</em>, 2014; DOI: <a href="https://doi.org/10.1371/journal.pone.0102172">10.1371/journal.pone.0102172</a>).</p>

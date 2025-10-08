@@ -404,28 +404,61 @@
 @media (max-width: 880px){
   main{ padding-inline: clamp(18px, 6vw, 32px); }
 }
-/* --- Heading-only pill style --- */
+/* --- Heading-only pill that clips to the viewport edge --- */
+/* How to tweak:
+   --pillhead-pad-y : vertical thickness around the text
+   --pillhead-pad-x : left/right breathing room for the text
+   --pill-margin    : already in :root; how far the pill extends into the page
+*/
 .pillhead{
-  display:inline-block;
-  padding:.35em .85em;
-  border-radius:999px;
-  line-height:1.1;
-  font-weight:800;
-  background: var(--pill-color, var(--logo-orange));
+  /* knobs */
+  --pillhead-pad-y: clamp(.70em, 1.4vw, 1.15em);
+  --pillhead-pad-x: clamp(1.00em, 2.4vw, 1.40em);
+
+  position: relative;
+  display: block;
+  isolation: isolate;                 /* keeps ::before behind the text only */
+  font-weight: 800;
   color: var(--pill-text, #fff);
-  box-shadow:0 6px 12px rgba(0,0,0,.10);
-  margin-bottom:.35em;
-  text-wrap:balance;
+  text-wrap: balance;
+
+  /* “thickness” of the heading pill comes from padding */
+  padding: var(--pillhead-pad-y) var(--pillhead-pad-x);
+  margin: clamp(14px, 2.3vw, 20px) 0 clamp(18px, 2.8vw, 26px);
 }
 
-/* color variants to match your full pills */
+/* the pill shape bar that reaches the viewport edge */
+.pillhead::before{
+  content:"";
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  height:100%;                                /* matches padded H2 height */
+  width: calc(100vw - var(--pill-margin));    /* same reach as full pills */
+  background: var(--pill-color, var(--logo-orange));
+  box-shadow:0 8px 16px rgba(0,0,0,.12);
+  z-index:0;                                  /* text sits above by default */
+}
+
+/* Clip variants — choose one per heading */
+.pillhead.pill--clip-left::before{
+  left:  calc(50% - 50vw);                    /* pin to left edge of viewport */
+  right: auto;
+  border-radius: 0 9999px 9999px 0;           /* square at edge, round inside */
+}
+.pillhead.pill--clip-right::before{
+  right: calc(50% - 50vw);                    /* pin to right edge of viewport */
+  left:  auto;
+  border-radius: 9999px 0 0 9999px;
+}
+
+/* Color variants (match your full pills) */
 .pillhead.pill--orange{ --pill-color: var(--logo-orange); --pill-text:#fff; }
 .pillhead.pill--soil  { --pill-color: var(--soil);        --pill-text:#fff; }
 .pillhead.pill--slate { --pill-color: var(--slate);       --pill-text:#fff; }
 .pillhead.pill--sage  { --pill-color: var(--sage);        --pill-text:#0e2a1f; }
 
-/* spacing + readable width matches your pills */
-.section .lede{ font-weight:600; }
+/* Keep body copy width consistent below heading pills */
 .section > :where(h2, p, ul, ol){ max-inline-size: var(--measure, 66ch); }
   
 </style>
