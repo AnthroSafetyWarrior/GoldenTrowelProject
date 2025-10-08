@@ -250,34 +250,70 @@
       .intro-graphic{ order:-1; margin-bottom:.5rem; }
     }
 
-    /* ===== Prevalence split (simple + scalable) ===== */
-    .split{
-      display:grid;
-      grid-template-columns: minmax(220px,1fr) minmax(220px,1fr);
-      align-items:center;
-      gap: clamp(8px, 3vw, 16px);
-    }
+  /* ===== Two-column SPLIT (intro-style) =====
+   Put this once in default.css; it’ll style any <div class="section split">.
+   TUNABLE KNOBS (you can override per pill with inline styles or a helper class):
+   --col-left-min / --col-left-max  → text column min/max width (like .intro-row)
+   --gap                             → space between columns
+   --img-min / --img-ideal / --img-max → image width clamp
+   --text-measure                    → readable line length for the copy
+*/
+.split{
+  /* defaults that mirror your intro */
+  --col-left-min: 300px;
+  --col-left-max: 520px;
+  --gap: clamp(8px, 2vw, 18px);
 
-    /* Text column width guard */
-    .split .text{ max-width:40ch; }
+  /* image sizing (change --img-max to 300px if you want a smaller cap) */
+  --img-min: 280px;
+  --img-ideal: 28vw;
+  --img-max: 320px;
 
-    /* Prevalence graphic – same sizing pattern as the intro image */
-    .split .art{ justify-self:center; min-width:200px; }
-    .split .art img{
-      width:clamp(290px, 32vw, 320px);
-      height:auto;
-      display:block;
-    }
+  /* text measure */
+  --text-measure: 60ch;
 
-    /* Stack on small screens + left-align the image */
-    @media (max-width:880px){
-      .split{
-        grid-template-columns: 1fr;
-        justify-items: start;            /* left-align everything in the grid */
-      }
-      .split .art{ justify-self:start; min-width:0; }
-      .split .art img{ width:clamp(290px, 32vw, 320px); }
-    }
+  display: grid;
+  grid-template-columns: minmax(var(--col-left-min), var(--col-left-max)) minmax(0, 1fr);
+  align-items: center;
+  column-gap: var(--gap);
+}
+
+/* keep copy tidy */
+.split .text{
+  max-inline-size: var(--text-measure);
+}
+
+/* keep the art column from visually ballooning */
+.split .art{
+  justify-self: center;
+  max-inline-size: var(--img-max);     /* container won’t exceed the image cap */
+}
+
+/* image uses the clamp—never exceeds --img-max */
+.split .art img{
+  width: clamp(var(--img-min), var(--img-ideal), var(--img-max));
+  height: auto;
+  display: block;
+}
+
+/* tablet: match your intro behavior */
+@media (max-width: 1120px){
+  .split{
+    --col-left-min: 280px;
+    --col-left-max: 480px;
+    --gap: clamp(6px, 1.6vw, 14px);
+  }
+}
+
+/* phone: stack, left align the art (same as intro) */
+@media (max-width: 880px){
+  .split{
+    grid-template-columns: 1fr;
+    justify-items: start;
+  }
+  .split .art{ justify-self: start; }
+}
+
 
     /* ===== Resources (sage pill) — circular cards ===== */
     .resources-grid{
