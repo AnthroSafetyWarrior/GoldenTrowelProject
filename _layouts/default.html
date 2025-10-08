@@ -21,27 +21,24 @@
       --gold:#fac441;
       --logo-orange:#8a340a;
 
+      /* Legacy aliases */
+      --moss: var(--sage);
+      --accent: var(--sage);
+
       --ink:#111;
       --maxw:1240px;
 
-      /* Waves */
+      /* Wave/band */
       --wave-mid:#c9beb7;
       --wave-dark:#baafa8;
 
-      /* Circle row */
+      /* Scroll circle lift */
       --circle-lift:-8px;
 
-      /* Pill extent to keep rounded end visible */
+      /* Pill section */
+      --pill-radius: 44px;
+      /* slightly larger default margin so the rounded end never chops content */
       --pill-margin: clamp(24px, 6vw, 140px);
-
-      /* ===== Uniform pill system (edit these to taste) ===== */
-      --pill-pad-block: clamp(32px, 4.6vw, 56px);   /* top & bottom inside a pill */
-      --pill-pad-inline: clamp(22px, 4.8vw, 48px);  /* left & right base padding */
-      --pill-curve-inset: clamp(40px, 9vw, 240px);  /* extra padding on the curved side */
-      --pill-measure: clamp(48ch, 92%, 68ch);       /* readable line length */
-      --pill-gap: clamp(12px, 2vw, 22px);           /* vertical gap between items */
-      --pill-h2-size: clamp(1.6rem, 4.5vw, 1.8rem); /* uniform pill heading size */
-      --pill-h2-mb: clamp(.4rem, 1.2vw, .6rem);     /* uniform pill heading bottom space */
     }
 
     /* ---------- Base ---------- */
@@ -152,7 +149,7 @@
       background:#444054; color:#fff; transform:translateY(-1px); border-color:var(--gold); outline:0;
     }
 
-    /* ===== Generic section helper ===== */
+    /* ===== Generic section grid helper ===== */
     .section{
       width:min(100%, var(--maxw));
       margin-inline:auto;
@@ -160,100 +157,224 @@
       display:grid; gap:clamp(18px,2.4vw,28px);
     }
 
-    /* ===== Uniform Pill Sections ===== */
-    .pillband{ position:relative; margin-block: clamp(18px, 3.6vw, 38px); isolation:isolate; }
-    .pillband .section{
-      position:relative; z-index:2;
-      display:grid; gap: var(--pill-gap);
-      padding: var(--pill-pad-block) var(--pill-pad-inline);
-    }
-    /* identical pill headers */
-    .pillband h2{
-      font-size: var(--pill-h2-size);
-      line-height: 1.2;
-      margin: 0 0 var(--pill-h2-mb);
-      font-weight: 800;
-      color: inherit;
-    }
-    /* readable copy width */
-    .pillband :where(p, ul, ol, blockquote){ max-inline-size: var(--pill-measure); }
-    .pillband p{ text-wrap: pretty; overflow-wrap:anywhere; hyphens:auto; }
+    /* ===== Pill sections ===== */
+    .pillband{
+      position:relative;
+      min-height: clamp(220px, 34vw, 360px);
+      margin-block: clamp(18px, 3.6vw, 38px);
+      isolation:isolate;
 
-    /* extra inset on the curved side */
-    .pillband.pill--clip-right .section{ padding-right: calc(var(--pill-pad-inline) + var(--pill-curve-inset)); }
-    .pillband.pill--clip-left  .section{ padding-left:  calc(var(--pill-pad-inline) + var(--pill-curve-inset)); }
+      /* NEW: safe, global knobs */
+      --pill-inset: clamp(16px, 5.5vw, 200px);
+      --measure: clamp(50ch, 82%, 72ch);
+    }
+    .pillband .section{ position:relative; z-index:2; }
 
-    /* pill background */
+    /* Base pill bg: full-bleed background (no artificial min/max width clamps) */
     .pillband::before{
-      content:""; position:absolute; top:50%; transform:translateY(-50%);
-      height:100%; width: calc(100vw - var(--pill-margin));
+      content:"";
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      height:100%;
+      width: calc(100vw - var(--pill-margin));  /* <- back to original, responsive and safe */
       background: var(--pill-color, var(--logo-orange));
-      box-shadow:0 8px 18px rgba(0,0,0,.10); z-index:1;
+      box-shadow:0 8px 18px rgba(0,0,0,.10);
+      z-index:1;
     }
-    .pillband.pill--clip-left::before { left: calc(50% - 50vw);  border-radius: 0 9999px 9999px 0; }
-    .pillband.pill--clip-right::before{ right: calc(50% - 50vw); border-radius: 9999px 0 0 9999px; }
 
-    /* color variants */
+    /* Anchor LEFT (exposed end on the RIGHT) */
+    .pillband.pill--clip-left::before{
+      left: calc(50% - 50vw);
+      right: auto;
+      border-radius: 0 9999px 9999px 0;
+    }
+
+    /* Anchor RIGHT (exposed end on the LEFT) */
+    .pillband.pill--clip-right::before{
+      right: calc(50% - 50vw);
+      left: auto;
+      border-radius: 9999px 0 0 9999px;
+    }
+
+    /* Color variants + matching text color */
     .pillband.pill--orange{ --pill-color: var(--logo-orange); color:#fff; }
     .pillband.pill--soil  { --pill-color: var(--soil);        color:#fff; }
     .pillband.pill--slate { --pill-color: var(--slate);       color:#fff; }
     .pillband.pill--sage  { --pill-color: var(--sage);        color:#0e2a1f; }
 
-    /* ===== Intro (kept as-is) ===== */
+    .pillband .section > p:first-child{ margin-top:0; }
+
+    /* NEW: keep content nicely away from the curve + readable line length */
+    .pillband.pill--clip-right .section{ padding-right: var(--pill-inset); }
+    .pillband.pill--clip-left  .section{ padding-left:  var(--pill-inset); }
+    .pillband .section > :where(h1,h2,h3,p,ul,ol){ max-inline-size: var(--measure); }
+    .pillband .section p{ text-wrap: pretty; overflow-wrap:anywhere; hyphens:auto; }
+
+    /* Optional: a touch more padding on ultra-wide */
+    @media (min-width: 1400px){
+      .pillband{ --pill-inset: clamp(24px, 7vw, 240px); }
+    }
+
+    /* ===== Intro grid (used by index) – NOT a pill ===== */
     .section.intro{ row-gap: clamp(8px, 1.2vw, 16px); }
     .intro-title h1{ margin-bottom:.15em; color:var(--logo-orange); }
     .intro-title h2{ margin-top:.25em; margin-bottom:.15em; font-weight:600; }
+
+    /* Default two-col layout */
     .intro-row{
-      display:grid; grid-template-columns:minmax(300px,520px) minmax(0,1fr);
-      align-items:center; column-gap:clamp(8px, 2vw, 18px);
+      display:grid;
+      grid-template-columns:minmax(300px,520px) minmax(0,1fr);
+      align-items:center;
+      column-gap:clamp(8px, 2vw, 18px);
     }
+
+    /* Image sizing stays responsive but a hair smaller so the gap can shrink too */
     .intro-graphic{ display:flex; align-items:center; justify-content:center; }
-    .intro-graphic img{ width:clamp(300px, 32vw, 380px); height:auto; filter: drop-shadow(0 8px 16px rgba(0,0,0,.12)) drop-shadow(0 2px 5px rgba(0,0,0,.08)); }
-    @media (max-width:1120px){
-      .intro-row{ grid-template-columns:minmax(280px,480px) minmax(0,1fr); column-gap:clamp(6px, 1.6vw, 14px); }
+    .intro-graphic img{
+      width:clamp(300px, 32vw, 380px);
+      height:auto;  align-self: center;
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,.12)) drop-shadow(0 2px 5px rgba(0,0,0,.08));
     }
+
+    @media (max-width: 1120px){
+      .intro-row{
+        grid-template-columns:minmax(280px,480px) minmax(0,1fr);
+        column-gap:clamp(6px, 1.6vw, 14px);
+      }
+    }
+
+    /* 1-col stack */
     @media (max-width:880px){
       .intro-row{ grid-template-columns:1fr; }
       .intro-graphic{ order:-1; margin-bottom:.5rem; }
     }
 
-    /* ===== Split layout (home specials; image sizes untouched) ===== */
+    /* ===== Prevalence split (simple + scalable) ===== */
     .split{
-      display:grid; grid-template-columns:minmax(340px,1fr) minmax(340px,1fr);
-      align-items:center; gap: clamp(8px, 3vw, 16px);
-    }
-    .split .text{ max-width:66ch; }
-    .split .art{ justify-self:center; min-width:340px; }
-    .split .art img{ width:clamp(300px, 32vw, 380px); height:auto; display:block; }
-    @media (max-width:880px){
-      .split{ grid-template-columns:1fr; justify-items:start; }
-      .split .art{ justify-self:start; min-width:0; }
+      display:grid;
+      grid-template-columns: minmax(340px,1fr) minmax(340px,1fr);
+      align-items:center;
+      gap: clamp(8px, 3vw, 16px);
     }
 
-    /* ===== Resources (home special) ===== */
-    .resources-grid{
-      display:grid; grid-template-columns: repeat(2, minmax(220px,1fr));
-      justify-items:center; gap: clamp(8px, 3vw, 16px);
+    /* Text column width guard */
+    .split .text{ max-width:66ch; }
+
+    /* Prevalence graphic – same sizing pattern as the intro image */
+    .split .art{ justify-self:center; min-width:340px; }
+    .split .art img{
+      width:clamp(300px, 32vw, 380px);
+      height:auto;
+      display:block;
     }
+
+    /* Stack on small screens + left-align the image */
+    @media (max-width:880px){
+      .split{
+        grid-template-columns: 1fr;
+        justify-items: start;            /* left-align everything in the grid */
+      }
+      .split .art{ justify-self:start; min-width:0; }
+      .split .art img{ width:clamp(300px, 32vw, 380px); }
+    }
+
+    /* ===== Resources (sage pill) — circular cards ===== */
+    .resources-grid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(220px,1fr));
+      justify-items:center;
+      gap: clamp(8px, 3vw, 16px);
+    }
+
     .resource-card{
       --diameter: clamp(220px, 28vw, 360px);
-      width: var(--diameter); aspect-ratio: 1 / 1; border-radius: 50%;
-      background:var(--soil); color:#fff; padding: clamp(14px, 2.4vw, 22px);
+      width: var(--diameter);
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      background:var(--soil);
+      color: #fff;
+      padding: clamp(14px, 2.4vw, 22px);
       box-shadow:0 8px 20px rgba(0,0,0,.12);
-      display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:.6em;
-    }
-    .resource-card h3{ margin:0; font-size: clamp(1.05rem, 1.9vw, 1.25rem); text-wrap: balance; }
-    .resource-card p{ margin:0; font-size: clamp(.95rem, 1.6vw, 1.05rem); line-height:1.35; max-width: 24ch; }
-    .btn-doc{ display:inline-block; font-weight:700; border-radius:999px; padding:.5em .9em; background:#fff; color:var(--sage); border:2px solid var(--sage); text-decoration:none; }
-    .btn-doc:hover, .btn-doc:focus-visible{ background: color-mix(in srgb, var(--sage) 16%, #fff); outline:0; }
-    @media (max-width:720px){ .resources-grid{ grid-template-columns:1fr; } }
 
-    /* Small-screen niceties */
-    @media (max-width:880px){
-      :root{ --pill-curve-inset: clamp(28px, 12vw, 220px); --pill-measure: clamp(44ch, 92%, 60ch); }
-      .pillband .section{ padding-inline: clamp(18px, 6vw, 32px); }
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      gap:.6em;
     }
-  </style>
+
+    .resource-card h3{
+      margin:0;
+      font-size: clamp(1.05rem, 1.9vw, 1.25rem);
+      text-wrap: balance;
+    }
+
+    .resource-card p{
+      margin:0;
+      font-size: clamp(.95rem, 1.6vw, 1.05rem);
+      line-height:1.35;
+      max-width: 24ch;
+    }
+
+    .btn-doc{
+      display:inline-block;
+      font-weight:700;
+      border-radius:999px;
+      padding:.5em .9em;
+      background:#fff;
+      color:var(--sage);
+      border:2px solid var(--sage);
+      text-decoration:none;
+    }
+    .btn-doc:hover,
+    .btn-doc:focus-visible{
+      background: color-mix(in srgb, var(--sage) 16%, #fff);
+      outline:0;
+    }
+
+    @media (max-width: 720px){
+      .resources-grid{ grid-template-columns:1fr; }
+    }
+/* --- tighter text edges on smaller screens --- */
+
+/* always keep a little base padding on both sides inside pills */
+.pillband .section{
+  padding-inline: clamp(18px, 5vw, 48px);
+}
+
+/* medium screens: nudge content away from the rounded edge
+   and shorten the readable measure a hair */
+@media (max-width: 1100px){
+  .pillband{ --measure: clamp(48ch, 88%, 66ch); }
+
+  .pillband.pill--clip-right .section{
+    padding-right: max(var(--pill-inset), clamp(24px, 9vw, 220px));
+  }
+  .pillband.pill--clip-left .section{
+    padding-left:  max(var(--pill-inset), clamp(24px, 9vw, 220px));
+  }
+}
+
+/* small screens: give even more side room and shorten measure again */
+@media (max-width: 800px){
+  .pillband{ --measure: clamp(30ch, 90%, 60ch); }
+
+  .pillband.pill--clip-right .section{
+    padding-right: max(var(--pill-inset), clamp(28px, 12vw, 240px));
+  }
+  .pillband.pill--clip-left .section{
+    padding-left:  max(var(--pill-inset), clamp(28px, 12vw, 240px));
+  }
+}
+
+/* optional: tighten the whole page’s side padding a bit on phones */
+@media (max-width: 880px){
+  main{ padding-inline: clamp(18px, 6vw, 32px); }
+}
+  
+</style>
 </head>
 
 <body class="{% if is_home %}home{% endif %}">
@@ -337,7 +458,7 @@
     {{ content }}
   </main>
 
-  <!-- Circles + flyouts JS -->
+  <!-- Tight layout + portal-on-open so flyouts sit over the page -->
   <script>
   (() => {
     const wrap  = document.querySelector('.wave-nav');
