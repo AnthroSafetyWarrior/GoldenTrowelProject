@@ -337,7 +337,44 @@
     @media (max-width: 720px){
       .resources-grid{ grid-template-columns:1fr; }
     }
-  </style>
+/* --- tighter text edges on smaller screens --- */
+
+/* always keep a little base padding on both sides inside pills */
+.pillband .section{
+  padding-inline: clamp(18px, 5vw, 48px);
+}
+
+/* medium screens: nudge content away from the rounded edge
+   and shorten the readable measure a hair */
+@media (max-width: 1100px){
+  .pillband{ --measure: clamp(48ch, 88%, 66ch); }
+
+  .pillband.pill--clip-right .section{
+    padding-right: max(var(--pill-inset), clamp(24px, 9vw, 220px));
+  }
+  .pillband.pill--clip-left .section{
+    padding-left:  max(var(--pill-inset), clamp(24px, 9vw, 220px));
+  }
+}
+
+/* small screens: give even more side room and shorten measure again */
+@media (max-width: 800px){
+  .pillband{ --measure: clamp(44ch, 90%, 60ch); }
+
+  .pillband.pill--clip-right .section{
+    padding-right: max(var(--pill-inset), clamp(28px, 12vw, 240px));
+  }
+  .pillband.pill--clip-left .section{
+    padding-left:  max(var(--pill-inset), clamp(28px, 12vw, 240px));
+  }
+}
+
+/* optional: tighten the whole page’s side padding a bit on phones */
+@media (max-width: 880px){
+  main{ padding-inline: clamp(18px, 6vw, 32px); }
+}
+  
+</style>
 </head>
 
 <body class="{% if is_home %}home{% endif %}">
