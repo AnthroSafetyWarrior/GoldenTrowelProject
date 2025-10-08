@@ -407,9 +407,10 @@
 
 /* Heading-only pill that clips to one viewport edge */
 .pillhead{
-  /* tweak these to change thickness/room */
-  --pillhead-pad-y: clamp(.9em, 1.8vw, 1.35em);   /* vertical “thickness” */
-  --pillhead-pad-x: clamp(1.2em, 2.6vw, 1.6em);   /* text L/R padding */
+  --pillhead-pad-y: clamp(1.05em, 2.1vw, 1.55em);  /* thicker vertically */
+  --pillhead-pad-x: clamp(1.1em, 2.2vw, 1.5em);   /* more/less side room */
+}
+
 
   position: relative;
   display: inline-block;          /* don’t reserve a full row */

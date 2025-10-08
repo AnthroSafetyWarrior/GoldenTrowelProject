@@ -42,7 +42,7 @@ hero_tint: .60
 
 <!-- 2) PREVALENCE — shared split -->
 <section class="section">
-<h2 class="pillhead pill--orange pill--clip-left">
+<h2 class="pillhead.pill--orange pill--clip-left">
   Prevalence of Fieldwork Harassment and Assault
 </h2>
 
