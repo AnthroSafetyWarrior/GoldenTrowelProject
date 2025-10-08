@@ -407,53 +407,41 @@
 
 /* Heading-only pill that clips to one viewport edge */
 .pillhead{
-  --pillhead-pad-y: clamp(1.05em, 2.1vw, 1.55em);  /* thicker vertically */
-  --pillhead-pad-x: clamp(1.1em, 2.2vw, 1.5em);   /* more/less side room */
-}
+  /* thickness + side padding */
+  --pillhead-pad-y: clamp(1.05em, 2.1vw, 1.55em);
+  --pillhead-pad-x: clamp(1.1em, 2.2vw, 1.5em);
 
-
-  position: relative;
-  display: inline-block;          /* don’t reserve a full row */
-  isolation: isolate;             /* keep ::before behind the text */
+  position: relative;      /* anchor for ::before */
+  z-index: 0;              /* create stacking context */
+  display: inline-block;
   font-weight: 800;
   color: var(--pill-text, #fff);
   padding: var(--pillhead-pad-y) var(--pillhead-pad-x);
-  margin: clamp(10px,1.5vw,14px) 0 clamp(16px,2.2vw,22px); /* spacing around the H2 */
+  margin: clamp(10px,1.5vw,14px) 0 clamp(16px,2.2vw,22px);
   line-height: 1.1;
   text-wrap: balance;
 }
-
-/* the bar that reaches the viewport edge */
 .pillhead::before{
   content:"";
   position:absolute;
-  z-index:0;                      /* text sits above */
   top:50%;
   transform:translateY(-50%);
   height:100%;
-  width: calc(100vw - var(--pill-margin)); /* same reach as full pills */
+  width: calc(100vw - var(--pill-margin)); /* reach like the full pills */
   background: var(--pill-color, var(--logo-orange));
   box-shadow:0 8px 16px rgba(0,0,0,.12);
+  z-index:-1; /* ensure the bar sits behind the text */
 }
+/* clip direction */
+.pillhead.pill--clip-left::before{  left:  calc(50% - 50vw);  border-radius:0 9999px 9999px 0; }
+.pillhead.pill--clip-right::before{ right: calc(50% - 50vw);  border-radius:9999px 0 0 9999px; }
 
-/* clip variants – pick one */
-.pillhead.pill--clip-left::before{
-  left:  calc(50% - 50vw);
-  border-radius: 0 9999px 9999px 0;
-}
-.pillhead.pill--clip-right::before{
-  right: calc(50% - 50vw);
-  border-radius: 9999px 0 0 9999px;
-}
-
-/* color variants to match your full pills */
+/* color variants */
 .pillhead.pill--orange{ --pill-color: var(--logo-orange); --pill-text:#fff; }
 .pillhead.pill--soil  { --pill-color: var(--soil);        --pill-text:#fff; }
 .pillhead.pill--slate { --pill-color: var(--slate);       --pill-text:#fff; }
 .pillhead.pill--sage  { --pill-color: var(--sage);        --pill-text:#0e2a1f; }
 
-/* keep body copy width consistent beneath */
-.section > :where(h2, p, ul, ol){ max-inline-size: var(--measure, 66ch); }
 
 </style>
 </head>
@@ -462,7 +450,7 @@
   <!-- Header + hero -->
   <header class="hero"
     style="
-      --hero-url: url('{{ page.hero | default: '/assets/img/placeholder-header.jpg' | relative_url }}');
+      --hero-url: url('{{ page.hero | default: '/assets/img/placeholder-header.jpg'  relative_url }}');
       --hero-pos: {{ page.hero_pos | default: 'center 40%' }};
       --hero-opacity: {{ page.hero_opacity | default: 1 }};
       --hero-tint: {{ page.hero_tint | default: .55 }};
