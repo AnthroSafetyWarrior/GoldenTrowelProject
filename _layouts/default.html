@@ -157,64 +157,90 @@
       display:grid; gap:clamp(18px,2.4vw,28px);
     }
 
-    /* ===== Pill sections ===== */
-    .pillband{
-      position:relative;
-      min-height: clamp(220px, 34vw, 360px);
-      margin-block: clamp(18px, 3.6vw, 38px);
-      isolation:isolate;
+   /* ===== Pill system (uniform across pages) ===== */
+.pillband{
+  position:relative;
+  margin-block: clamp(18px, 3.6vw, 38px);
+  min-height: clamp(220px, 34vw, 360px);
+  isolation:isolate;
 
-      /* NEW: safe, global knobs */
-      --pill-inset: clamp(16px, 5.5vw, 200px);
-      --measure: clamp(50ch, 82%, 72ch);
-    }
-    .pillband .section{ position:relative; z-index:2; }
+  /* knobs you can tweak once for the whole site */
+  --pill-pad-inline: clamp(20px, 4.5vw, 48px);      /* base L/R padding */
+  --pill-curve-inset: clamp(18px, 9vw, 240px);      /* extra on the curved side */
+  --pill-gap: clamp(12px, 2vw, 22px);               /* vertical spacing between blocks */
+  --pill-measure: clamp(48ch, 92%, 68ch);           /* readable line length */
+}
+.pillband .section{
+  /* unify the inner container across all pills */
+  position:relative; z-index:2;
+  display:grid; gap: var(--pill-gap);
+  max-width: var(--maxw); margin-inline:auto;
+  padding: clamp(36px,5vw,56px) var(--pill-pad-inline);
+}
+/* push content away from the rounded inside edge the same way everywhere */
+.pillband.pill--clip-right .section{ padding-right: max(var(--pill-pad-inline), var(--pill-curve-inset)); }
+.pillband.pill--clip-left  .section{ padding-left:  max(var(--pill-pad-inline), var(--pill-curve-inset)); }
 
-    /* Base pill bg: full-bleed background (no artificial min/max width clamps) */
-    .pillband::before{
-      content:"";
-      position:absolute;
-      top:50%;
-      transform:translateY(-50%);
-      height:100%;
-      width: calc(100vw - var(--pill-margin));  /* <- back to original, responsive and safe */
-      background: var(--pill-color, var(--logo-orange));
-      box-shadow:0 8px 18px rgba(0,0,0,.10);
-      z-index:1;
-    }
+/* full-bleed rounded background stays consistent */
+.pillband::before{
+  content:"";
+  position:absolute; inset:0 auto 0 auto; top:50%; transform:translateY(-50%);
+  height:100%; width: calc(100vw - var(--pill-margin));
+  background: var(--pill-color, var(--logo-orange));
+  box-shadow:0 8px 18px rgba(0,0,0,.10);
+  z-index:1;
+}
+.pillband.pill--clip-left::before{ left: calc(50% - 50vw); border-radius: 0 9999px 9999px 0; }
+.pillband.pill--clip-right::before{ right: calc(50% - 50vw); border-radius: 9999px 0 0 9999px; }
 
-    /* Anchor LEFT (exposed end on the RIGHT) */
-    .pillband.pill--clip-left::before{
-      left: calc(50% - 50vw);
-      right: auto;
-      border-radius: 0 9999px 9999px 0;
-    }
+/* color variants */
+.pillband.pill--orange{ --pill-color: var(--logo-orange); color:#fff; }
+.pillband.pill--soil  { --pill-color: var(--soil);        color:#fff; }
+.pillband.pill--slate { --pill-color: var(--slate);       color:#fff; }
+.pillband.pill--sage  { --pill-color: var(--sage);        color:#0e2a1f; }
 
-    /* Anchor RIGHT (exposed end on the LEFT) */
-    .pillband.pill--clip-right::before{
-      right: calc(50% - 50vw);
-      left: auto;
-      border-radius: 9999px 0 0 9999px;
-    }
+/* typography + measure inside pills (uniform) */
+.pillband h2{
+  margin:0 0 clamp(.4rem, 1.2vw, .6rem);
+  font-size:clamp(1.6rem,4.5vw,1.8rem);
+  line-height:1.2; font-weight:800;
+}
+.pillband :where(p, ul, ol, blockquote){ max-inline-size: var(--pill-measure); }
+.pillband p{ text-wrap: pretty; overflow-wrap:anywhere; hyphens:auto; }
+.pillband blockquote{ margin: .25rem 0 0; font-style: italic; opacity:.95; }
 
-    /* Color variants + matching text color */
-    .pillband.pill--orange{ --pill-color: var(--logo-orange); color:#fff; }
-    .pillband.pill--soil  { --pill-color: var(--soil);        color:#fff; }
-    .pillband.pill--slate { --pill-color: var(--slate);       color:#fff; }
-    .pillband.pill--sage  { --pill-color: var(--sage);        color:#0e2a1f; }
+/* a pill-friendly split (two columns) you can reuse */
+.pill-split{
+  display:grid; gap: var(--pill-gap);
+  grid-template-columns: minmax(320px,1fr) minmax(320px,1fr);
+  align-items:center;
+}
+.pill-split .text{ max-width:66ch; }
+.pill-split .art{ justify-self:center; }
+.pill-split .art img{ width:clamp(300px,32vw,380px); height:auto; display:block; }
 
-    .pillband .section > p:first-child{ margin-top:0; }
+/* stack + left-align image on phones */
+@media (max-width:880px){
+  .pill-split{ grid-template-columns:1fr; justify-items:start; }
+  .pillband .section{ padding-inline: clamp(18px, 6vw, 32px); } /* slightly tighter page sides */
+}
 
-    /* NEW: keep content nicely away from the curve + readable line length */
-    .pillband.pill--clip-right .section{ padding-right: var(--pill-inset); }
-    .pillband.pill--clip-left  .section{ padding-left:  var(--pill-inset); }
-    .pillband .section > :where(h1,h2,h3,p,ul,ol){ max-inline-size: var(--measure); }
-    .pillband .section p{ text-wrap: pretty; overflow-wrap:anywhere; hyphens:auto; }
+/* a grid utility for “Our approach” style cards */
+.pill-grid{
+  display:grid; gap: var(--pill-gap);
+  grid-template-columns: repeat(3, minmax(220px,1fr));
+}
+@media (max-width:960px){ .pill-grid{ grid-template-columns: repeat(2, minmax(220px,1fr)); } }
+@media (max-width:640px){ .pill-grid{ grid-template-columns: 1fr; } }
 
-    /* Optional: a touch more padding on ultra-wide */
-    @media (min-width: 1400px){
-      .pillband{ --pill-inset: clamp(24px, 7vw, 240px); }
-    }
+/* optional card polish that only applies inside pills */
+.pillband .card{
+  background: color-mix(in srgb, #000 12%, transparent);
+  border-radius: 16px;
+  padding: clamp(12px, 1.6vw, 18px);
+  box-shadow: 0 6px 14px rgba(0,0,0,.12);
+}
+.pillband .card h4{ margin:.1rem 0 .35rem; font-size: clamp(1rem, 1.8vw, 1.1rem); }
 
     /* ===== Intro grid (used by index) – NOT a pill ===== */
     .section.intro{ row-gap: clamp(8px, 1.2vw, 16px); }
@@ -373,37 +399,6 @@
     @media (max-width: 720px){
       .resources-grid{ grid-template-columns:1fr; }
     }
-/* --- tighter text edges on smaller screens --- */
-
-/* always keep a little base padding on both sides inside pills */
-.pillband .section{
-  padding-inline: clamp(18px, 5vw, 48px);
-}
-
-/* medium screens: nudge content away from the rounded edge
-   and shorten the readable measure a hair */
-@media (max-width: 1100px){
-  .pillband{ --measure: clamp(48ch, 88%, 66ch); }
-
-  .pillband.pill--clip-right .section{
-    padding-right: max(var(--pill-inset), clamp(24px, 9vw, 220px));
-  }
-  .pillband.pill--clip-left .section{
-    padding-left:  max(var(--pill-inset), clamp(24px, 9vw, 220px));
-  }
-}
-
-/* small screens: give even more side room and shorten measure again */
-@media (max-width: 800px){
-  .pillband{ --measure: clamp(30ch, 90%, 60ch); }
-
-  .pillband.pill--clip-right .section{
-    padding-right: max(var(--pill-inset), clamp(28px, 12vw, 240px));
-  }
-  .pillband.pill--clip-left .section{
-    padding-left:  max(var(--pill-inset), clamp(28px, 12vw, 240px));
-  }
-}
 
 /* optional: tighten the whole page’s side padding a bit on phones */
 @media (max-width: 880px){
