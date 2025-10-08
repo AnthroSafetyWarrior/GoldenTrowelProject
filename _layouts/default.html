@@ -404,6 +404,29 @@
 @media (max-width: 880px){
   main{ padding-inline: clamp(18px, 6vw, 32px); }
 }
+/* --- Heading-only pill style --- */
+.pillhead{
+  display:inline-block;
+  padding:.35em .85em;
+  border-radius:999px;
+  line-height:1.1;
+  font-weight:800;
+  background: var(--pill-color, var(--logo-orange));
+  color: var(--pill-text, #fff);
+  box-shadow:0 6px 12px rgba(0,0,0,.10);
+  margin-bottom:.35em;
+  text-wrap:balance;
+}
+
+/* color variants to match your full pills */
+.pillhead.pill--orange{ --pill-color: var(--logo-orange); --pill-text:#fff; }
+.pillhead.pill--soil  { --pill-color: var(--soil);        --pill-text:#fff; }
+.pillhead.pill--slate { --pill-color: var(--slate);       --pill-text:#fff; }
+.pillhead.pill--sage  { --pill-color: var(--sage);        --pill-text:#0e2a1f; }
+
+/* spacing + readable width matches your pills */
+.section .lede{ font-weight:600; }
+.section > :where(h2, p, ul, ol){ max-inline-size: var(--measure, 66ch); }
   
 </style>
 </head>
