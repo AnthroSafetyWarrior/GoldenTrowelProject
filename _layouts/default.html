@@ -409,8 +409,8 @@ align-items: center;
 /* Heading-only pill that clips to one viewport edge */
 .pillhead{
   /* thickness + side padding */
-  --pillhead-pad-y: clamp(2em, 2.1vw, 2em);
-  --pillhead-pad-x: clamp(1em, 2.2vw, 1.5em);
+  --pillhead-pad-y: clamp(1.8em, 2.1vw, 2em);
+  --pillhead-pad-x: clamp(1.1em, 2.2vw, 1.5em);
 
   position: relative;      /* anchor for ::before */
   z-index: 0;              /* create stacking context */
@@ -462,10 +462,16 @@ align-items: center;
   align-items: start;                /* text grows downward; no vertical centering */
 }
 
-.split .text{
-  max-inline-size: var(--text-measure); /* keeps paragraphs readable */
+.split{
+  /* keep this so the art stays top-aligned */
+  align-items: start;
 }
 
+.split .text{
+  max-inline-size: var(--text-measure);
+  align-self: center;    /* NEW: vertical centering for the text block */
+  justify-self: start;   /* optional: keep text left-aligned (you had center) */
+}
 .split .art{
   justify-self: center;     /* or 'end' if you want it hugged to the right */
   /* let the column be as wide as it needs; don't cap the container */
