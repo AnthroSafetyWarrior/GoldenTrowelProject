@@ -39,15 +39,18 @@ hero_tint: .60
   </div>
 </section>
 
-<!-- 2) PREVALENCE — use the shared split -->
+<!-- 2) PREVALENCE — shared split -->
 <section class="pillband pill--orange pill--clip-left">
-  <div class="section pill-split">
+  <div class="section split">
     <div class="text">
       <h2>Prevalence of Fieldwork Harassment and Assault</h2>
       <p>A 2014 survey sampling &gt;650 anthropologists revealed high frequencies of harassment and assault, and low frequencies of awareness of reporting procedures (Clancy <em>et&nbsp;al.</em>, 2014; DOI: <a href="https://doi.org/10.1371/journal.pone.0102172">10.1371/journal.pone.0102172</a>).</p>
     </div>
     <figure class="art">
-      <img src="{{ '/assets/img/prevalencegraphic.png' | relative_url }}" alt="Infographic summarizing findings of Clancy et al., 2014." loading="lazy" decoding="async">
+      <img
+        src="{{ '/assets/img/prevalencegraphic.png' | relative_url }}"
+        alt="Infographic summarizing findings of Clancy et al., 2014."
+        loading="lazy" decoding="async">
     </figure>
   </div>
 </section>
@@ -90,11 +93,32 @@ hero_tint: .60
   </div>
 </section>
 
-<!-- 5) RESOURCES — unchanged, benefits from the same gutters/measure -->
+<!-- 5) RESOURCES — circular cards -->
 <section class="pillband pill--sage pill--clip-right">
   <div class="section resources">
     <h2>Build Your Fieldwork Safety Plan</h2>
     <p class="lede">Download and customize your safety materials below to protect yourself and your team.</p>
-    <div class="resources-grid"> … </div>
+
+    <div class="resources-grid">
+      <article class="resource-card">
+        <h3>Fieldwork Safety Plan</h3>
+        <p>A personal safety plan template for researchers.</p>
+        <p>
+          <a class="btn-doc"
+             href="https://docs.google.com/document/d/1OkEMW4VhpsccA_VZTTEvgBBq5vs0mCOEDg9Xk6f34Ss/edit?usp=sharing"
+             target="_blank" rel="noopener noreferrer">Open Google Doc</a>
+        </p>
+      </article>
+
+      <article class="resource-card">
+        <h3>Collaborator Safety Commitment Agreement</h3>
+        <p>A team-wide agreement on ethical and safe fieldwork protocols.</p>
+        <p>
+          <a class="btn-doc"
+             href="https://docs.google.com/document/d/18SmymYAFKUz_drbDhcsx8NWaiNG6-SQflWPj0OaZ76c/edit?usp=sharing"
+             target="_blank" rel="noopener noreferrer">Open Google Doc</a>
+        </p>
+      </article>
+    </div>
   </div>
 </section>
