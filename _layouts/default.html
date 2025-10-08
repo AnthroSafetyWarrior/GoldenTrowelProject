@@ -404,62 +404,56 @@
 @media (max-width: 880px){
   main{ padding-inline: clamp(18px, 6vw, 32px); }
 }
-/* --- Heading-only pill that clips to the viewport edge --- */
-/* How to tweak:
-   --pillhead-pad-y : vertical thickness around the text
-   --pillhead-pad-x : left/right breathing room for the text
-   --pill-margin    : already in :root; how far the pill extends into the page
-*/
+
+/* Heading-only pill that clips to one viewport edge */
 .pillhead{
-  /* knobs */
-  --pillhead-pad-x: clamp(1.00em, 2.4vw, 1.40em);
+  /* tweak these to change thickness/room */
+  --pillhead-pad-y: clamp(.9em, 1.8vw, 1.35em);   /* vertical “thickness” */
+  --pillhead-pad-x: clamp(1.2em, 2.6vw, 1.6em);   /* text L/R padding */
 
   position: relative;
-  display: block;
-  isolation: isolate;                 /* keeps ::before behind the text only */
+  display: inline-block;          /* don’t reserve a full row */
+  isolation: isolate;             /* keep ::before behind the text */
   font-weight: 800;
   color: var(--pill-text, #fff);
-  text-wrap: balance;
-
-  /* “thickness” of the heading pill comes from padding */
   padding: var(--pillhead-pad-y) var(--pillhead-pad-x);
-  margin: clamp(14px, 2.3vw, 20px) 0 clamp(18px, 2.8vw, 26px);
+  margin: clamp(10px,1.5vw,14px) 0 clamp(16px,2.2vw,22px); /* spacing around the H2 */
+  line-height: 1.1;
+  text-wrap: balance;
 }
 
-/* the pill shape bar that reaches the viewport edge */
+/* the bar that reaches the viewport edge */
 .pillhead::before{
   content:"";
   position:absolute;
+  z-index:0;                      /* text sits above */
   top:50%;
   transform:translateY(-50%);
-  height:100%;                                /* matches padded H2 height */
-  width: calc(100vw - var(--pill-margin));    /* same reach as full pills */
+  height:100%;
+  width: calc(100vw - var(--pill-margin)); /* same reach as full pills */
   background: var(--pill-color, var(--logo-orange));
   box-shadow:0 8px 16px rgba(0,0,0,.12);
-  z-index:0;                                  /* text sits above by default */
 }
 
-/* Clip variants — choose one per heading */
+/* clip variants – pick one */
 .pillhead.pill--clip-left::before{
-  left:  calc(50% - 50vw);                    /* pin to left edge of viewport */
-  right: auto;
-  border-radius: 0 9999px 9999px 0;           /* square at edge, round inside */
+  left:  calc(50% - 50vw);
+  border-radius: 0 9999px 9999px 0;
 }
 .pillhead.pill--clip-right::before{
-  right: calc(50% - 50vw);                    /* pin to right edge of viewport */
-  left:  auto;
+  right: calc(50% - 50vw);
   border-radius: 9999px 0 0 9999px;
 }
 
-/* Color variants (match your full pills) */
+/* color variants to match your full pills */
 .pillhead.pill--orange{ --pill-color: var(--logo-orange); --pill-text:#fff; }
 .pillhead.pill--soil  { --pill-color: var(--soil);        --pill-text:#fff; }
 .pillhead.pill--slate { --pill-color: var(--slate);       --pill-text:#fff; }
 .pillhead.pill--sage  { --pill-color: var(--sage);        --pill-text:#0e2a1f; }
 
-/* Keep body copy width consistent below heading pills */
+/* keep body copy width consistent beneath */
 .section > :where(h2, p, ul, ol){ max-inline-size: var(--measure, 66ch); }
-  
+
 </style>
 </head>
 
