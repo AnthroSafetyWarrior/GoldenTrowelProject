@@ -45,14 +45,10 @@
   --pill-pad-x: clamp(1.1em, 2.2vw, 1.5em);
 }
 :root{
-  /* page side gutters */
-  --page-pad-inline: clamp(24px, 4vw, 38px);
-
-  /* shared pill padding (header + content) */
-  --pill-pad-x: clamp(20px, 2.5vw, 30px);  /* L/R */
-  --pill-pad-y: clamp(20px, 2.5vw, 30px);  /* top/bottom */
+  /* you can tweak these until it feels perfect */
+  --pill-pad-x: clamp(24px, 4vw, 44px);  /* left/right */
+  --pill-pad-y: clamp(28px, 5vw, 56px);  /* top/bottom */
 }
-
 
 /* ---------- Base ---------- */
 *,*::before,*::after{ box-sizing:border-box; }
@@ -302,33 +298,41 @@ header.hero::before{
 /* ===== Content Pill (aligned with pillhead) ===== */
 .pill{
   padding: var(--pill-pad-y) var(--pill-pad-x);
-  margin-block: clamp(24px, 4vw, 48px);
-  position: relative;
-  isolation: isolate;
-  background: var(--soil);
-  color: #fff;
+  margin-block: clamp(28px, 4.5vw, 56px);
   border-radius: 9999px;
   box-shadow: 0 8px 24px rgba(0,0,0,.12);
+  background: var(--soil);
+  color:#fff;
+  position: relative;
+  isolation: isolate;
+  overflow: visible;
 }
 
-.pill::before {
+/* stop margin collapse so the padding shows up as real space */
+.pill > :first-child{ margin-top: 0; }
+.pill > :last-child { margin-bottom: 0; }
+
+/* generous curve-side padding so content never hugs the rounded edge */
+.pill.pill--clip-right{ padding-right: max(var(--pill-pad-x), clamp(24px, 9vw, 260px)); }
+.pill.pill--clip-left { padding-left:  max(var(--pill-pad-x), clamp(24px, 9vw, 260px)); }
+
+/* keep the full-bleed rounded band under the pill */
+.pill::before{
   content:"";
   position:absolute;
   top:50%;
   transform:translateY(-50%);
   height:100%;
-  width:calc(100vw - var(--pill-margin));
-  background:var(--soil);
-  border-radius:9999px 0 0 9999px;
+  width: calc(100vw - var(--pill-margin));
+  background: var(--soil);
   z-index:-1;
-  box-shadow:0 8px 18px rgba(0,0,0,.1);
+  box-shadow: 0 8px 18px rgba(0,0,0,.1);
 }
-
 .pill.pill--clip-right::before{ right: calc(50% - 50vw); border-radius: 9999px 0 0 9999px; }
-.pill.pill--clip-left::before {  left: calc(50% - 50vw); border-radius: 0 9999px 9999px 0; }
-/* curve-side inset so text never hugs the rounded edge */
-.pill.pill--clip-right{ padding-right: max(var(--_pad-x), clamp(18px, 9vw, 240px)); }
-.pill.pill--clip-left { padding-left:  max(var(--_pad-x), clamp(18px, 9vw, 240px)); }
+.pill.pill--clip-left::before { left:  calc(50% - 50vw); border-radius: 0 9999px 9999px 0; }
+
+/* optional: a touch more breathing room when split is inside a pill */
+.pill .split{ column-gap: clamp(14px, 3vw, 28px); }
 
 /* tidy inner spacing */
 .pill .pill__title{ margin:0 0 .6rem; font-weight:800; line-height:1.2; }
