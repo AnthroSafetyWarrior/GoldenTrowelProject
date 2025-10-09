@@ -487,42 +487,61 @@ align-items: center;
   .split{ grid-template-columns: 1fr; }
   .split .art{ justify-self: start; }
 }
-/* Pill container */
-.pill {
-  background: var(--soil);          /* #3B2A1F */
-  color: var(--offwhite);           /* #FAF7F2 */
-  border-radius: 999px;             /* pill edges */
+/* --- Content pill: full-bleed clipped variants --- */
+.pill{
+  position: relative;
+  isolation: isolate;
+  border-radius: 9999px;
   padding: clamp(16px, 2.5vw, 28px);
+  /* Let the pseudo-element paint the background so we can clip to the edge */
+  background: transparent;
+  color: var(--offwhite);
   box-shadow: 0 8px 24px rgb(0 0 0 / .12);
+  /* knobs for the curved side padding */
+  --pill-pad-inline: clamp(20px, 4.5vw, 48px);
+  --pill-curve-inset: clamp(18px, 9vw, 240px); /* extra padding on the curved side */
 }
 
-/* Optional clipped tail on right */
-.pill--clip-right { 
-  /* keep your existing clip-path if you have one; placeholder: */
-  /* clip-path: path("..."); */
+/* color tokens for content pills */
+.pill.pill--soil  { --pill-color: var(--soil); }
+.pill.pill--slate { --pill-color: var(--slate); }
+.pill.pill--sage  { --pill-color: var(--sage); color:#0e2a1f; }
+.pill.pill--orange{ --pill-color: var(--logo-orange); }
+
+/* The full-bleed background that clips to the viewport edge */
+.pill.pill--clip-right::before,
+.pill.pill--clip-left::before{
+  content:"";
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  height:100%;
+  width: calc(100vw - var(--pill-margin));     /* same reach as pillbands */
+  background: var(--pill-color, var(--soil));
+  z-index:-1;
+  box-shadow: 0 8px 18px rgba(0,0,0,.10);
 }
 
-/* Inner content */
-.pill__title {
-  margin: 0 0 .35rem 0;
-  font-weight: 700;
-  line-height: 1.2;
+/* Clip direction + big rounded end */
+.pill.pill--clip-right::before{
+  right: calc(50% - 50vw);
+  border-radius: 9999px 0 0 9999px;
+}
+.pill.pill--clip-left::before{
+  left:  calc(50% - 50vw);
+  border-radius: 0 9999px 9999px 0;
 }
 
-.pill__lede { 
-  margin: 0 0 .5rem 0;
-  max-width: 66ch;
-}
+/* Keep content away from the curved inside edge */
+.pill.pill--clip-right{ padding-right: max(var(--pill-pad-inline), var(--pill-curve-inset)); }
+.pill.pill--clip-left { padding-left:  max(var(--pill-pad-inline), var(--pill-curve-inset)); }
 
-.pill__list {
-  margin: 0;
-  padding-left: 1.1em;   /* keeps proper bullets inside pill */
-  max-width: 66ch;
-}
-
-/* Bonus: readable links on dark background */
-.pill a { color: var(--gold); text-underline-offset: 2px; }
-.pill a:hover { text-decoration-thickness: 2px; }
+/* Inner content spacing (unchanged) */
+.pill__title{ margin:0 0 .35rem; font-weight:700; line-height:1.2; }
+.pill__lede { margin:0 0 .5rem; max-width:66ch; }
+.pill__list { margin:0; padding-left:1.1em; max-width:66ch; }
+.pill a{ color:var(--gold); text-underline-offset:2px; }
+.pill a:hover{ text-decoration-thickness:2px; }
 
 </style>
 </head>
