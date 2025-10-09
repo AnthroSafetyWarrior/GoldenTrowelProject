@@ -243,35 +243,35 @@ header.hero::before{
   .intro-graphic{ order:-1; margin-bottom:.5rem; }
 }
 
-/* ===== Two-column SPLIT (shared) ===== */
+/* GLOBAL split (keeps your tighter layout but protects graphics) */
 .split{
   --left-min: 240px;
   --left-max: 520px;
-  --gap: clamp(8px, 2vw, 10px);
-  --img-min: 320px;
+  --right-min: 320px;                 /* NEW: min width for the art column */
+  --gap: clamp(6px, 1.2vw, 12px);
+
+  --img-min: 320px;                   /* keep or raise if needed */
   --img-ideal: 28vw;
   --img-max: 520px;
+
   --text-measure: 56ch;
 
-  display:grid;
-  grid-template-columns:minmax(var(--left-min), var(--left-max)) minmax(0,1fr);
-  align-items:center;
+  display: grid;
+  grid-template-columns:
+    minmax(var(--left-min), var(--left-max))
+    minmax(var(--right-min), 1fr);    /* was minmax(0,1fr) */
+  align-items: center;
   column-gap: var(--gap);
 }
-.split .text{ max-inline-size: var(--text-measure); }
-.split .art{ justify-self:center; max-inline-size: var(--img-max); }
-.split .art img{ width: clamp(var(--img-min), var(--img-ideal), var(--img-max)); height:auto; display:block; }
-@media (max-width:1040px){
-  .split{ --left-min: 230px; --left-max: 480px; --gap: clamp(6px, 1vw, 10px); }
-}
-@media (max-width:880px){
-  .split{ grid-template-columns:1fr; justify-items:start; }
-  .split .art{ justify-self:start; }
-}
+.split .art{ justify-self: center; max-inline-size: var(--img-max); }
+.split .art img{ width: clamp(var(--img-min), var(--img-ideal), var(--img-max)); height: auto; display: block; }
 
-/* optional: tighten whole page side padding on phones */
-@media (max-width:880px){
-  main{ padding-inline: clamp(18px, 6vw, 32px); }
+@media (max-width:1040px){
+  .split{ --left-min: 230px; --left-max: 480px; --right-min: 300px; }
+}
+@media (max-width:760px){
+  .split{ grid-template-columns: 1fr; justify-items: start; }
+  .split .art{ justify-self: start; }
 }
 
 /* ===== Heading-only pill (pillhead) ===== */
