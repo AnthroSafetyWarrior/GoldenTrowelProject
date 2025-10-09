@@ -40,6 +40,11 @@
       /* slightly larger default margin so the rounded end never chops content */
       --pill-margin: clamp(24px, 6vw, 140px);
     }
+:root{
+  /* …existing tokens… */
+  --pill-pad-y: clamp(1.8em, 2.1vw, 2em);
+  --pill-pad-x: clamp(1.1em, 2.2vw, 1.5em);
+}
 
     /* ---------- Base ---------- */
     *,*::before,*::after{ box-sizing:border-box; }
@@ -406,41 +411,58 @@ align-items: center;
 }
 
 /* Heading-only pill that clips to one viewport edge */
+/* Heading-only pill */
 .pillhead{
-  /* thickness + side padding */
-  --pillhead-pad-y: clamp(1.8em, 2.1vw, 2em);
-  --pillhead-pad-x: clamp(1.1em, 2.2vw, 1.5em);
-
-  position: relative;      /* anchor for ::before */
-  z-index: 0;              /* create stacking context */
-  display: inline-block;
-  font-weight: 800;
-  color: var(--pill-text, #fff);
-  padding: var(--pillhead-pad-y) var(--pillhead-pad-x);
-  margin: clamp(10px,1.5vw,14px) 0 clamp(16px,2.2vw,22px);
-  line-height: 1.1;
-  text-wrap: balance;
+  /* remove old --pillhead-* vars */
+  padding: var(--pill-pad-y) var(--pill-pad-x);
 }
-.pillhead::before{
+
+/* Content pill */
+.pill{
+  position: relative;
+  isolation: isolate;
+  border-radius: 9999px;
+  /* single source of truth for interior padding */
+  padding: var(--pill-pad-y) var(--pill-pad-x);
+  background: transparent;              /* background comes from ::before */
+  color: var(--offwhite);
+  box-shadow: 0 8px 24px rgb(0 0 0 / .12);
+
+  /* curve spacing knobs */
+  --pill-pad-inline: clamp(20px, 4.5vw, 48px);
+  --pill-curve-inset: clamp(18px, 9vw, 240px);
+}
+
+/* keep content clear of the curved side */
+.pill.pill--clip-right{ padding-right: max(var(--pill-pad-x), var(--pill-curve-inset)); }
+.pill.pill--clip-left { padding-left:  max(var(--pill-pad-x), var(--pill-curve-inset)); }
+
+/* full-bleed background for clipped version */
+.pill.pill--clip-right::before,
+.pill.pill--clip-left::before{
   content:"";
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
+  position:absolute; top:50%; transform:translateY(-50%);
   height:100%;
-  width: calc(100vw - var(--pill-margin)); /* reach like the full pills */
-  background: var(--pill-color, var(--logo-orange));
-  box-shadow:0 8px 16px rgba(0,0,0,.12);
-  z-index:-1; /* ensure the bar sits behind the text */
+  width: calc(100vw - var(--pill-margin));
+  background: var(--pill-color, var(--soil));
+  z-index:-1;
+  box-shadow: 0 8px 18px rgba(0,0,0,.10);
 }
-/* clip direction */
-.pillhead.pill--clip-left::before{  left:  calc(50% - 50vw);  border-radius:0 9999px 9999px 0; }
-.pillhead.pill--clip-right::before{ right: calc(50% - 50vw);  border-radius:9999px 0 0 9999px; }
+.pill.pill--clip-right::before{ right: calc(50% - 50vw); border-radius: 9999px 0 0 9999px; }
+.pill.pill--clip-left::before { left:  calc(50% - 50vw); border-radius: 0 9999px 9999px 0; }
 
-/* color variants */
-.pillhead.pill--orange{ --pill-color: var(--logo-orange); --pill-text:#fff; }
-.pillhead.pill--soil  { --pill-color: var(--soil);        --pill-text:#fff; }
-.pillhead.pill--slate { --pill-color: var(--slate);       --pill-text:#fff; }
-.pillhead.pill--sage  { --pill-color: var(--sage);        --pill-text:#0e2a1f; }
+/* color tokens for content pills */
+.pill.pill--soil  { --pill-color: var(--soil); }
+.pill.pill--slate { --pill-color: var(--slate); }
+.pill.pill--sage  { --pill-color: var(--sage); color:#0e2a1f; }
+.pill.pill--orange{ --pill-color: var(--logo-orange); }
+
+/* list spacing so bullets don’t crowd the curve */
+.pill__title{ margin:0 0 .35rem; font-weight:700; line-height:1.2; }
+.pill__lede { margin:0 0 .5rem; max-width:66ch; }
+.pill__list { margin:0; padding-left: 1.2em; list-style-position: outside; max-width:66ch; }
+.pill a{ color:var(--gold); text-underline-offset:2px; }
+.pill a:hover{ text-decoration-thickness:2px; }
 
 /* ===== Balanced two-column split (both sides scalable) ===== */
 .split{
@@ -497,8 +519,8 @@ align-items: center;
   background: transparent;
   color: var(--offwhite);
   box-shadow: 0 8px 24px rgb(0 0 0 / .12);
-  /* knobs for the curved side padding */padding: var(--pillhead-pad-y) var(--pillhead-pad-x);
-
+  /* knobs for the curved side padding */
+padding: var(--pillhead-pad-y) var(--pillhead-pad-x);
   --pill-pad-inline: clamp(20px, 4.5vw, 48px);
   --pill-curve-inset: clamp(18px, 9vw, 240px); /* extra padding on the curved side */
 }
