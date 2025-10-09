@@ -292,7 +292,7 @@
 align-items: center;
 
   /* image sizing (change --img-max to 300px if you want a smaller cap) */
-  --img-min: 280px;
+  --img-min: 300;
   --img-ideal: 28vw;
   --img-max: 320px;
 
@@ -345,19 +345,19 @@ align-items: center;
     /* ===== Resources (sage pill) — circular cards ===== */
     .resources-grid{
       display:grid;
-      grid-template-columns: repeat(2, minmax(220px,1fr));
+      grid-template-columns: repeat(2, minmax(200px,1fr));
       justify-items:center;
       gap: clamp(8px, 3vw, 16px);
     }
 
     .resource-card{
-      --diameter: clamp(220px, 28vw, 360px);
+      --diameter: clamp(200px, 28vw, 360px);
       width: var(--diameter);
       aspect-ratio: 1 / 1;
       border-radius: 50%;
       background:var(--soil);
       color: #fff;
-      padding: clamp(14px, 2.4vw, 22px);
+      padding: clamp(6px, 2.4vw, 16px);
       box-shadow:0 8px 20px rgba(0,0,0,.12);
 
       display:flex;
@@ -488,6 +488,42 @@ align-items: center;
   .split{ grid-template-columns: 1fr; }
   .split .art{ justify-self: start; }
 }
+/* Pill container */
+.pill {
+  background: var(--soil);          /* #3B2A1F */
+  color: var(--offwhite);           /* #FAF7F2 */
+  border-radius: 999px;             /* pill edges */
+  padding: clamp(16px, 2.5vw, 28px);
+  box-shadow: 0 8px 24px rgb(0 0 0 / .12);
+}
+
+/* Optional clipped tail on right */
+.pill--clip-right { 
+  /* keep your existing clip-path if you have one; placeholder: */
+  /* clip-path: path("..."); */
+}
+
+/* Inner content */
+.pill__title {
+  margin: 0 0 .35rem 0;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.pill__lede { 
+  margin: 0 0 .5rem 0;
+  max-width: 66ch;
+}
+
+.pill__list {
+  margin: 0;
+  padding-left: 1.1em;   /* keeps proper bullets inside pill */
+  max-width: 66ch;
+}
+
+/* Bonus: readable links on dark background */
+.pill a { color: var(--gold); text-underline-offset: 2px; }
+.pill a:hover { text-decoration-thickness: 2px; }
 
 </style>
 </head>
