@@ -48,7 +48,7 @@ hero_tint: .60
     <div class="text">
        <p>A 2014 survey sampling &gt;650 anthropologists revealed high frequencies of harassment and assault, and low frequencies of awareness of reporting procedures (Clancy <em>et&nbsp;al.</em>, 2014; DOI: <a href="https://doi.org/10.1371/journal.pone.0102172">10.1371/journal.pone.0102172</a>).</p>
     </div>
-    <figure class="art" style="width:clamp(350px,32vw,420px)">
+    <figure class="art">
       <img
         src="{{ '/assets/img/prevalencegraphic.png' | relative_url }}"
         alt="Infographic summarizing findings of Clancy et al., 2014."
