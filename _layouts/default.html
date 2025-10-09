@@ -492,57 +492,82 @@ align-items: center;
   .split .art{ justify-self: start; }
 }
 
-/* === Content Pill (aligned with pillhead and evenly padded) === */
-.pill{
+/* === Content Pill (true alignment + padding fix) === */
+.pill {
   position: relative;
+  display: block;
   isolation: isolate;
-  display:block;
   background: var(--soil);
-  color:#fff;
-  border-radius:9999px;
+  color: #fff;
+  border-radius: 9999px;
 
-  /* use the same scale as pillhead (fallback to root) */
+  /* Pull pill outward to line up with the pillhead */
+  margin-inline: calc(var(--page-pad-inline) * -1);
+  width: calc(100% + (var(--page-pad-inline) * 2));
+
+  /* Add top/bottom breathing room */
+  margin-block: clamp(24px, 4vw, 48px);
+
+  /* Internal padding */
   --_pad-y: var(--pillhead-pad-y, var(--pill-pad-y));
   --_pad-x: var(--pillhead-pad-x, var(--pill-pad-x));
+  padding: calc(var(--_pad-y) * 1.2) var(--_pad-x);
 
-  /* generous vertical padding */
-  padding: calc(var(--_pad-y) * 1.25) var(--_pad-x);
-
-  /* align left edge with pillhead: cancel the section’s side padding */
-  margin-left: calc(var(--page-pad-inline) * -1);
-  width: calc(100% + var(--page-pad-inline));
-
-  /* breathing room above/below the brown shape itself */
-  margin-block: clamp(10px, 1.8vw, 22px);
-
-  box-shadow: 0 8px 24px rgb(0 0 0 / .12);
+  box-shadow: 0 8px 24px rgba(0,0,0,.12);
+  overflow: visible; /* ensure the ::before curve isn’t clipped */
 }
 
-/* extra inset on the curved side so text never touches the radius */
-.pill.pill--clip-right{ padding-right: max(var(--_pad-x), clamp(18px, 9vw, 240px)); }
-.pill.pill--clip-left { padding-left:  max(var(--_pad-x), clamp(18px, 9vw, 240px)); }
-
-/* full-bleed rounded background band */
-.pill::before{
-  content:"";
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  height:100%;
+/* Full-width curved background */
+.pill::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 100%;
   width: calc(100vw - var(--pill-margin));
   background: var(--soil);
-  box-shadow: 0 8px 18px rgba(0,0,0,.10);
-  z-index:-1;
+  z-index: -1;
+  border-radius: 9999px 0 0 9999px;
+  box-shadow: 0 8px 18px rgba(0,0,0,.1);
 }
-.pill.pill--clip-right::before{ right: calc(50% - 50vw); border-radius: 9999px 0 0 9999px; }
-.pill.pill--clip-left::before { left:  calc(50% - 50vw); border-radius: 0 9999px 9999px 0; }
 
-/* tidy inner rhythm */
-.pill .pill__title{ margin:0 0 .6rem; font-weight:800; line-height:1.2; }
-.pill > p{ margin:0 0 .8rem; max-inline-size:66ch; }
-.pill ul{ list-style:disc outside; padding-left:1.6rem; margin:.6rem 0 0; max-inline-size:66ch; }
-.pill li{ margin:.3rem 0; }
+/* Curve direction options */
+.pill.pill--clip-right::before {
+  right: calc(50% - 50vw);
+  border-radius: 9999px 0 0 9999px;
+}
+.pill.pill--clip-left::before {
+  left: calc(50% - 50vw);
+  border-radius: 0 9999px 9999px 0;
+}
 
+/* Curve-side padding */
+.pill.pill--clip-right {
+  padding-right: max(var(--_pad-x), clamp(18px, 9vw, 240px));
+}
+.pill.pill--clip-left {
+  padding-left: max(var(--_pad-x), clamp(18px, 9vw, 240px));
+}
+
+/* Text layout */
+.pill .pill__title {
+  margin: 0 0 0.6rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+.pill > p {
+  margin: 0 0 0.8rem;
+  max-inline-size: 66ch;
+}
+.pill ul {
+  list-style: disc outside;
+  margin: 0.6rem 0 0;
+  padding-left: 1.6rem;
+  max-inline-size: 66ch;
+}
+.pill li {
+  margin: 0.3rem 0;
+}
 </style>
 </head>
 
