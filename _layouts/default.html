@@ -487,13 +487,48 @@ align-items: center;
   .split{ grid-template-columns: 1fr; }
   .split .art{ justify-self: start; }
 }
-.card.card--soft{
-  background: var(--offwhite);
-  color: var(--ink);
-  border-radius: 18px;
-  padding: clamp(14px, 2vw, 22px);
-  box-shadow: 0 6px 18px rgb(0 0 0 / .08);
+
+/* === Content pill (inside a .section) === */
+.pill {
+  position: relative;
+  isolation: isolate;             /* so ::before can sit behind content only */
+  border-radius: 9999px;
+  background: transparent;        /* background comes from ::before */
+  color: #fff;
+  padding: clamp(16px, 2.5vw, 28px);
+  box-shadow: 0 8px 24px rgb(0 0 0 / .12);
+  --pill-curve-inset: clamp(18px, 9vw, 240px); /* extra space on curved side */
 }
+
+/* color token for this pill */
+.pill.pill--soil { --pill-color: var(--soil); }
+
+/* full-bleed background shape */
+.pill.pill--clip-right::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 100%;
+  width: calc(100vw - var(--pill-margin)); /* same reach logic as pillbands */
+  right: calc(50% - 50vw);                  /* push to the viewport’s right */
+  border-radius: 9999px 0 0 9999px;
+  background: var(--pill-color, var(--soil));
+  box-shadow: 0 8px 18px rgba(0,0,0,.10);
+  z-index: -1;
+}
+
+/* keep text clear of the curve */
+.pill.pill--clip-right {
+  padding-right: max(clamp(20px, 4.5vw, 48px), var(--pill-curve-inset));
+}
+
+/* tidy inner spacing */
+.pill .pill__title { margin: 0 0 .35rem; font-weight: 700; line-height: 1.2; }
+.pill > p { margin: 0 0 .5rem; max-width: 66ch; }
+.pill > ul { margin: 0; padding-left: 1.2em; max-width: 66ch; }
+.pill a { color: var(--gold); text-underline-offset: 2px; }
+.pill a:hover { text-decoration-thickness: 2px; }
 
 </style>
 </head>

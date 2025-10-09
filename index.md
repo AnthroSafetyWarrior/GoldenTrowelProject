@@ -61,12 +61,12 @@ hero_tint: .60
 <section class="section">
   <div class="pill pill--soil pill--clip-right">
     <h2 class="pill__title">Preparing for fieldwork includes proactive safety planning.</h2>
-    <p>On this site, you’ll find…</p>
+    <p>This website provides essential resources and education for researchers to prevent and report harmful behavior. These preparation materials include:</p>
     <ul>
-      <li>identify local and institutional safety resources…</li>
-      <li>review legal frameworks…</li>
-      <li>access boundary-setting statements…</li>
-      <li>use a customizable safety-planning template…</li>
+      <li>Local and institutional safety resources relevant to research sites,</li>
+      <li>Connection to local legal frameworks (e.g., recording policies, misconduct laws) that affect your options in real time,</li>
+      <li>Suggested boundary-setting statements calibrated to field contexts,</li>
+      <li>A customizable safety-planning template to organize critical information ahead of time and create an action plan.</li>
     </ul>
   </div>
   <p>
