@@ -57,13 +57,22 @@ hero_tint: .60
   </div>
 </section>
 
-<!-- 3) WHAT'S AT STAKE — plain content inside a pill -->
-<section class="pillband pill--soil pill--clip-right">
-  <div class="section">
-    <h2>What’s at stake</h2>
-    <p>Unsafe fieldwork harms people and science. It drives students out of the discipline, silences witnesses, and biases what gets studied, published, and funded.</p>
-    <blockquote>“I didn’t know who to tell without risking my degree.”</blockquote>
-  </div>
+
+  <h2 class="pillhead pill--soil pill--clip-right">
+    Preparing for fieldwork includes proactive safety planning.
+  </h2>
+  <p>
+    A growing body of research suggests that training in boundary-setting and self-defense is not just reactive — it can <strong>shift how we respond under threat</strong>. For example, empowerment self-defense (ESD) programs have demonstrated increased assertiveness, reduced fear in risky environments, and stronger self-protective decision-making <a href="https://doi.org/10.1177/08862605221082734">(Beaujolais, 2023; </a>)<a href="https://doi.org/10.33043/SSWJ.2.1.63-76">Follo, 2022).</a> Other efforts in trauma prevention and rape-resistance place such training within evidence-based prevention strategies <a href="https://doi.org/10.1080/10926771.2022.2046224">(Basile, 2022).</a> These suggest that when we practice setting boundaries and preparing responses in advance, we may be less likely to default to appeasement or freeze patterns in moments of threat.
+  </p>
+  <p>
+    On this site, you’ll find deeply practical resources to help you translate that theory into safety in the field. You will be able to:
+  </p>
+  <ul>
+    <li>identify local and institutional safety resources relevant to your research site,</li>
+    <li>review legal frameworks (e.g. recording policies, misconduct laws) that affect your options in real time,</li>
+    <li>access suggested boundary-setting statements calibrated to field contexts,</li>
+    <li>use a customizable safety-planning template to organize critical information ahead of time.</li>
+  </ul>
 </section>
 
 <!-- 4) OUR APPROACH — consistent grid utility -->
