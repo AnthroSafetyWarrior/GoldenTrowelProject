@@ -488,47 +488,39 @@ align-items: center;
   .split .art{ justify-self: start; }
 }
 
-/* === Content pill (inside a .section) === */
+/* Match pillhead spacing inside the brown content pill */
 .pill {
-  position: relative;
-  isolation: isolate;             /* so ::before can sit behind content only */
-  border-radius: 9999px;
-  background: transparent;        /* background comes from ::before */
-  color: #fff;
-  padding: clamp(16px, 2.5vw, 28px);
-  box-shadow: 0 8px 24px rgb(0 0 0 / .12);
-  --pill-curve-inset: clamp(18px, 9vw, 240px); /* extra space on curved side */
+  /* same vertical + horizontal padding vibe as your pillhead */
+  padding: var(--pill-pad-y, clamp(1.8em, 2.1vw, 2em))
+           var(--pill-pad-x, clamp(1.1em, 2.2vw, 1.5em));
 }
 
-/* color token for this pill */
-.pill.pill--soil { --pill-color: var(--soil); }
+/* keep the nice right-hand curve space, but don't crush your base padding */
+.pill.pill--clip-right{
+  padding-right: max(
+    var(--pill-pad-x, clamp(1.1em, 2.2vw, 1.5em)),
+    clamp(18px, 9vw, 240px) /* extra inset on the curved side */
+  );
+}
 
-/* full-bleed background shape */
-.pill.pill--clip-right::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  height: 100%;
-  width: calc(100vw - var(--pill-margin)); /* same reach logic as pillbands */
-  right: calc(50% - 50vw);                  /* push to the viewport’s right */
+/* the clipped background (unchanged) */
+.pill.pill--clip-right::before{
+  content:"";
+  position:absolute;
+  top:50%; transform:translateY(-50%);
+  height:100%;
+  width: calc(100vw - var(--pill-margin));
+  right: calc(50% - 50vw);
   border-radius: 9999px 0 0 9999px;
-  background: var(--pill-color, var(--soil));
+  background: var(--soil);
   box-shadow: 0 8px 18px rgba(0,0,0,.10);
-  z-index: -1;
-}
-
-/* keep text clear of the curve */
-.pill.pill--clip-right {
-  padding-right: max(clamp(20px, 4.5vw, 48px), var(--pill-curve-inset));
+  z-index:-1;
 }
 
 /* tidy inner spacing */
-.pill .pill__title { margin: 0 0 .35rem; font-weight: 700; line-height: 1.2; }
-.pill > p { margin: 0 0 .5rem; max-width: 66ch; }
-.pill > ul { margin: 0; padding-left: 1.2em; max-width: 66ch; }
-.pill a { color: var(--gold); text-underline-offset: 2px; }
-.pill a:hover { text-decoration-thickness: 2px; }
+.pill .pill__title{ margin:0 0 .35rem; font-weight:700; line-height:1.2; }
+.pill > p{ margin:0 0 .5rem; max-width:66ch; }
+.pill > ul{ margin:0; padding-left:1.2em; max-width:66ch; }
 
 </style>
 </head>
