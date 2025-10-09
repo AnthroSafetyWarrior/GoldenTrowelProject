@@ -45,8 +45,14 @@
   --pill-pad-x: clamp(1.1em, 2.2vw, 1.5em);
 }
 :root{
+  /* page side gutters */
   --page-pad-inline: clamp(24px, 4vw, 38px);
+
+  /* shared pill padding (header + content) */
+  --pill-pad-x: clamp(16px, 2.5vw, 28px);  /* L/R */
+  --pill-pad-y: clamp(16px, 2.5vw, 28px);  /* top/bottom */
 }
+
 
 /* ---------- Base ---------- */
 *,*::before,*::after{ box-sizing:border-box; }
@@ -277,7 +283,7 @@ header.hero::before{
   --pillhead-pad-y: clamp(1.8em, 2.1vw, 2em);
   --pillhead-pad-x: clamp(1.1em, 2.2vw, 1.5em);
   position:relative; z-index:0; display:inline-block; font-weight:800; color: var(--pill-text, #fff);
-  padding: var(--pillhead-pad-y) var(--pillhead-pad-x);
+  padding: var(--pill-pad-y) var(--pill-pad-x);
   margin: clamp(10px,1.5vw,14px) 0 clamp(16px,2.2vw,22px);
   line-height:1.1; text-wrap: balance;
 }
@@ -294,15 +300,15 @@ header.hero::before{
 .pillhead.pill--sage  { --pill-color: var(--sage);        --pill-text:#0e2a1f; }
 
 /* ===== Content Pill (aligned with pillhead) ===== */
-.pill {
-  position:relative;
-  isolation:isolate;
-  background:var(--soil);
-  color:#fff;
-  border-radius:9999px;
-  padding:calc(var(--pill-pad-y)*1.25) var(--pill-pad-x);
-  margin-block:clamp(24px,4vw,48px);
-  box-shadow:0 8px 24px rgba(0,0,0,.12);
+.pill{
+  padding: var(--pill-pad-y) var(--pill-pad-x);
+  margin-block: clamp(24px, 4vw, 48px);
+  position: relative;
+  isolation: isolate;
+  background: var(--soil);
+  color: #fff;
+  border-radius: 9999px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.12);
 }
 
 .pill::before {
