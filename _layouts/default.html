@@ -246,8 +246,8 @@ header.hero::before{
 /* GLOBAL split (keeps your tighter layout but protects graphics) */
 .split{
   --left-min: 240px;
-  --left-max: 520px;
-  --right-min: 320px;                 /* NEW: min width for the art column */
+  --left-max: 400px;
+  --right-min: 400px;                 /* NEW: min width for the art column */
   --gap: clamp(6px, 1.2vw, 12px);
 
   --img-min: 320px;                   /* keep or raise if needed */
@@ -374,6 +374,31 @@ header.hero::before{
 .section > .pill.pill--clip-left{
   /* add the nudge on left-clip pills too (in case you reuse the pattern) */
   padding-left: calc(max(var(--pill-pad-x), clamp(24px, 9vw, 260px)) + var(--pill-align-nudge));
+}
+
+/* NAV FLYOUT: reset so they don't inherit the content-pill chrome */
+.flyout .pill{
+  all: unset;                        /* wipe inherited styles clean */
+  display: block;
+  width: 260px;
+  text-align: center;
+  padding: .7em 1.1em;
+  font-weight: 700;
+  font-size: .95rem;
+  color: var(--soil);
+  background: var(--gold);
+  border: 2px solid var(--gold);
+  border-radius: 999px;
+  text-decoration: none;
+  background-clip: padding-box;
+  cursor: pointer;
+}
+.flyout .pill::before{ content: none !important; } /* kill the full-bleed band */
+.flyout .pill + .pill{ margin-top:-2px; }
+.flyout .pill:hover,
+.flyout .pill:focus-visible{
+  background:#444054; color:#fff; transform:translateY(-1px);
+  border-color:var(--gold); outline:0;
 }
 
 </style>
