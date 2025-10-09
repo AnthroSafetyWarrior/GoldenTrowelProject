@@ -534,6 +534,22 @@ align-items: center;
 .pill > p{ margin:0 0 .5rem; max-width:66ch; }
 .pill > ul{ margin:0; padding-left:1.2em; max-width:66ch; }
 
+/* Make the brown content pill use the same padding scale as the orange pillhead */
+.pill{
+  /* borrow the pillhead paddings when present; fall back to your root vars */
+  --_pad-y: var(--pillhead-pad-y, var(--pill-pad-y));
+  --_pad-x: var(--pillhead-pad-x, var(--pill-pad-x));
+  padding: var(--_pad-y) var(--_pad-x);
+}
+
+/* Bullet indentation + spacing inside pills */
+.pill ul{
+  list-style: disc outside;      /* ensure bullets sit outside the text block */
+  padding-left: 1.25em;          /* indent the list */
+  margin: .4em 0 0;              /* small top breathing room */
+}
+.pill li{ margin: .25em 0; }     /* even spacing between items */
+
 </style>
 </head>
 
