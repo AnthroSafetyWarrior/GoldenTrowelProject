@@ -360,6 +360,22 @@ header.hero::before{
 }
 .btn-doc:hover,.btn-doc:focus-visible{ background: color-mix(in srgb, var(--sage) 16%, #fff); outline:0; }
 @media (max-width:720px){ .resources-grid{ grid-template-columns:1fr; } }
+/* --- micro-alignment to match the orange pillhead --- */
+.section > .pill{
+  /* positive value nudges the pill content to the right */
+  --pill-align-nudge: 12px;         /* try 10–14px until it visually snaps */
+  padding-left: calc(var(--pill-pad-x) + var(--pill-align-nudge));
+}
+
+/* keep curved-edge inset logic in sync when the pill clips right */
+.section > .pill.pill--clip-right{
+  padding-right: max(var(--pill-pad-x), clamp(24px, 9vw, 260px));
+}
+.section > .pill.pill--clip-left{
+  /* add the nudge on left-clip pills too (in case you reuse the pattern) */
+  padding-left: calc(max(var(--pill-pad-x), clamp(24px, 9vw, 260px)) + var(--pill-align-nudge));
+}
+
 </style>
 
 </head>
