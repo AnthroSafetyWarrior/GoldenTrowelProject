@@ -40,6 +40,10 @@
       /* slightly larger default margin so the rounded end never chops content */
       --pill-margin: clamp(24px, 6vw, 140px);
     }
+:root{
+  --pill-pad-y: clamp(1.8em, 2.1vw, 2em);
+  --pill-pad-x: clamp(1.1em, 2.2vw, 1.5em);
+}
 
     /* ---------- Base ---------- */
     *,*::before,*::after{ box-sizing:border-box; }
@@ -416,7 +420,7 @@ align-items: center;
   display: inline-block;
   font-weight: 800;
   color: var(--pill-text, #fff);
-  padding: var(--pillhead-pad-y) var(--pillhead-pad-x);
+    padding: var(--pill-pad-y) var(--pill-pad-x);
   margin: clamp(10px,1.5vw,14px) 0 clamp(16px,2.2vw,22px);
   line-height: 1.1;
   text-wrap: balance;
@@ -489,11 +493,17 @@ align-items: center;
 }
 
 /* Match pillhead spacing inside the brown content pill */
-.pill {
-  /* same vertical + horizontal padding vibe as your pillhead */
-  padding: var(--pill-pad-y, clamp(1.8em, 2.1vw, 2em))
-           var(--pill-pad-x, clamp(1.1em, 2.2vw, 1.5em));
 }
+.pill{
+  background: var(--soil);
+  color:#fff;
+  border-radius:9999px;
+  padding: var(--pill-pad-y) var(--pill-pad-x);  /* matches pillhead feel */
+  box-shadow:0 8px 24px rgb(0 0 0 / .12);
+}
+.pill .pill__title{ margin:0 0 .35rem; font-weight:800; line-height:1.2; }
+.pill > p{ margin:0 0 .5rem; max-width:66ch; }
+.pill > ul{ margin:0; padding-left:1.2em; max-width:66ch; }
 
 /* keep the nice right-hand curve space, but don't crush your base padding */
 .pill.pill--clip-right{
