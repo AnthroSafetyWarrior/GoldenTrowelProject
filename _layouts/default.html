@@ -493,62 +493,56 @@ align-items: center;
 }
 
 /* Match pillhead spacing inside the brown content pill */
-/* Match pillhead spacing inside the brown content pill */
+/* === Content Pill (matches pillhead spacing) === */
 .pill{
-  position: relative;          /* needed for ::before to position */
-  isolation: isolate;          /* keeps shadow/bleed tidy */
+  position: relative;           /* anchor ::before */
+  isolation: isolate;           /* keep shadows tidy */
+  display: block;
   background: var(--soil);
-  color:#fff;
-  border-radius:9999px;
-  padding: var(--pill-pad-y) var(--pill-pad-x);  /* matches pillhead feel */
-  box-shadow:0 8px 24px rgb(0 0 0 / .12);
+  color: #fff;
+  border-radius: 9999px;
+  /* same scale as pillhead (falls back to root if pillhead vars don’t exist) */
+  --_pad-y: var(--pillhead-pad-y, var(--pill-pad-y));
+  --_pad-x: var(--pillhead-pad-x, var(--pill-pad-x));
+  padding: var(--_pad-y) var(--_pad-x);
+  box-shadow: 0 8px 24px rgb(0 0 0 / .12);
 }
 
-.pill .pill__title{ margin:0 0 .35rem; font-weight:800; line-height:1.2; }
-.pill > p{ margin:0 0 .5rem; max-width:66ch; }
-.pill > ul{ margin:0; padding-left:1.2em; max-width:66ch; }
-
+/* extra space on the curved side so text never touches the inside radius */
 .pill.pill--clip-right{
-  padding-right: max(
-    var(--pill-pad-x, clamp(1.1em, 2.2vw, 1.5em)),
-    clamp(18px, 9vw, 240px)        /* extra inset on the curved side */
-  );
+  padding-right: max(var(--_pad-x), clamp(18px, 9vw, 240px));
+}
+.pill.pill--clip-left{
+  padding-left:  max(var(--_pad-x), clamp(18px, 9vw, 240px));
 }
 
-/* clipped background reaching to the right edge */
-.pill.pill--clip-right::before{
+/* full-bleed rounded background band */
+.pill.pill--clip-right::before,
+.pill.pill--clip-left::before{
   content:"";
   position:absolute;
   top:50%; transform:translateY(-50%);
   height:100%;
   width: calc(100vw - var(--pill-margin));
-  right: calc(50% - 50vw);
-  border-radius: 9999px 0 0 9999px;
   background: var(--soil);
   box-shadow: 0 8px 18px rgba(0,0,0,.10);
   z-index:-1;
 }
+.pill.pill--clip-right::before{ right: calc(50% - 50vw); border-radius: 9999px 0 0 9999px; }
+.pill.pill--clip-left::before{  left:  calc(50% - 50vw); border-radius: 0 9999px 9999px 0; }
 
-/* tidy inner spacing */
-.pill .pill__title{ margin:0 0 .35rem; font-weight:700; line-height:1.2; }
-.pill > p{ margin:0 0 .5rem; max-width:66ch; }
-.pill > ul{ margin:0; padding-left:1.2em; max-width:66ch; }
+/* tidy inner spacing (single source of truth) */
+.pill .pill__title{ margin:0 0 .45rem; font-weight:800; line-height:1.2; }
+.pill > p{ margin:0 0 .65rem; max-inline-size:66ch; }
 
-/* Make the brown content pill use the same padding scale as the orange pillhead */
-.pill{
-  /* borrow the pillhead paddings when present; fall back to your root vars */
-  --_pad-y: var(--pillhead-pad-y, var(--pill-pad-y));
-  --_pad-x: var(--pillhead-pad-x, var(--pill-pad-x));
-  padding: var(--_pad-y) var(--_pad-x);
-}
-
-/* Bullet indentation + spacing inside pills */
+/* consistent bullets (indented + hanging) */
 .pill ul{
-  list-style: disc outside;      /* ensure bullets sit outside the text block */
-  padding-left: 1.25em;          /* indent the list */
-  margin: .4em 0 0;              /* small top breathing room */
+  list-style: disc outside;
+  margin: .45rem 0 0;       /* small top breathing room */
+  padding-left: 1.6rem;     /* indent matches your look elsewhere */
+  max-inline-size: 66ch;
 }
-.pill li{ margin: .25em 0; }     /* even spacing between items */
+.pill li{ margin: .28rem 0; }
 
 </style>
 </head>
