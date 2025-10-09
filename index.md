@@ -75,6 +75,7 @@ hero_tint: .60
         loading="lazy" decoding="async">
     </figure>
   </div>
+</div>
      <p>
     A growing body of research suggests that training in boundary-setting and self-defense is not just reactive — it can <strong>shift how we respond under threat</strong>. For example, empowerment self-defense (ESD) programs have demonstrated increased assertiveness, reduced fear in risky environments, and stronger self-protective decision-making <a href="https://doi.org/10.1177/08862605221082734">(Beaujolais, 2023; </a><a href="https://doi.org/10.33043/SSWJ.2.1.63-76">Follo, 2022).</a> Other efforts in trauma prevention and rape-resistance place such training within evidence-based prevention strategies <a href="https://doi.org/10.1080/10926771.2022.2046224">(Basile, 2022).</a> These suggest that when we practice setting boundaries and preparing responses in advance, we may be less likely to default to appeasement or freeze patterns in moments of threat.
   </p>
