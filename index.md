@@ -61,17 +61,19 @@ hero_tint: .60
 <section class="section">
   <div class="pill pill--soil pill--clip-right">
     <h2 class="pill__title">Preparing for fieldwork includes proactive safety planning.</h2>
-    <p class="pill__lede">
-      This website provides essential resources and education for researchers to prevent and report harmful behavior. These preparation materials include: 
-    </p>
-    <ul class="pill__list">
-      <li>Local and institutional safety resources relevant to research sites,</li>
-      <li>Connect you with local legal frameworks (e.g., recording policies, misconduct laws) that affect your options in real time,</li>
-      <li>Suggested boundary-setting statements calibrated to field contexts,</li>
-      <li>A customizable safety-planning template to organize critical information ahead of time and create a action plan.</li>
+<section class="section">
+  <h2 class="pillhead pill--soil pill--clip-right">
+    Preparing for fieldwork includes proactive safety planning.
+  </h2>
+  <div class="card card--soft">
+    <p>On this site, you’ll find…</p>
+    <ul>
+      <li>identify local and institutional safety resources…</li>
+      <li>review legal frameworks…</li>
+      <li>access boundary-setting statements…</li>
+      <li>use a customizable safety-planning template…</li>
     </ul>
   </div>
-
   <p>
     A growing body of research suggests that training in boundary-setting and self-defense is not just reactive — it can <strong>shift how we respond under threat</strong>. For example, empowerment self-defense (ESD) programs have demonstrated increased assertiveness, reduced fear in risky environments, and stronger self-protective decision-making <a href="https://doi.org/10.1177/08862605221082734">(Beaujolais, 2023; </a><a href="https://doi.org/10.33043/SSWJ.2.1.63-76">Follo, 2022).</a> Other efforts in trauma prevention and rape-resistance place such training within evidence-based prevention strategies <a href="https://doi.org/10.1080/10926771.2022.2046224">(Basile, 2022).</a> These suggest that when we practice setting boundaries and preparing responses in advance, we may be less likely to default to appeasement or freeze patterns in moments of threat.
   </p>
