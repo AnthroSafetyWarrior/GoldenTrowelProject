@@ -48,7 +48,7 @@ hero_tint: .60
     <div class="text">
        <p>A 2014 survey sampling &gt;650 anthropologists revealed high frequencies of harassment and assault, and low frequencies of awareness of reporting procedures (Clancy <em>et&nbsp;al.</em>, 2014; DOI: <a href="https://doi.org/10.1371/journal.pone.0102172">10.1371/journal.pone.0102172</a>).</p>
     </div>
-    <figure class="art">
+    <figure class="art" style="width:clamp(350px,32vw,420px)">
       <img
         src="{{ '/assets/img/prevalencegraphic.png' | relative_url }}"
         alt="Infographic summarizing findings of Clancy et al., 2014."
@@ -63,7 +63,7 @@ hero_tint: .60
     <h2 class="pill__title">Preparing for fieldwork includes proactive safety planning.</h2>
 <div class="split">
     <div class="text">
-       <h3>This website provides essential resources and education for researchers to prevent and report harmful behavior. These preparation materials include:</h3>
+       <p>This website provides essential resources and education for researchers to prevent and report harmful behavior. These preparation materials include:</p>
     </div>
     <figure class="art">
       <img
