@@ -245,13 +245,13 @@ header.hero::before{
 
 /* ===== Two-column SPLIT (shared) ===== */
 .split{
-  --left-min: 300px;
+  --left-min: 240px;
   --left-max: 520px;
-  --gap: clamp(8px, 2vw, 18px);
-  --img-min: 300px;
+  --gap: clamp(8px, 2vw, 10px);
+  --img-min: 320px;
   --img-ideal: 28vw;
-  --img-max: 320px;
-  --text-measure: 60ch;
+  --img-max: 520px;
+  --text-measure: 56ch;
 
   display:grid;
   grid-template-columns:minmax(var(--left-min), var(--left-max)) minmax(0,1fr);
@@ -261,8 +261,8 @@ header.hero::before{
 .split .text{ max-inline-size: var(--text-measure); }
 .split .art{ justify-self:center; max-inline-size: var(--img-max); }
 .split .art img{ width: clamp(var(--img-min), var(--img-ideal), var(--img-max)); height:auto; display:block; }
-@media (max-width:1120px){
-  .split{ --left-min: 280px; --left-max: 480px; --gap: clamp(6px, 1.6vw, 14px); }
+@media (max-width:1040px){
+  .split{ --left-min: 230px; --left-max: 480px; --gap: clamp(6px, 1vw, 10px); }
 }
 @media (max-width:880px){
   .split{ grid-template-columns:1fr; justify-items:start; }
