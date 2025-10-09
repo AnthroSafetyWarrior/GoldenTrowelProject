@@ -57,7 +57,7 @@ hero_tint: .60
   </div>
 </section>
 
-<!-- 3) PREPARING — shared split --><section class="section">
+<!-- 3) PREPARING — shared split -->
 <section class="section">
   <div class="pill pill--soil pill--clip-right">
     <h2 class="pill__title">Preparing for fieldwork includes proactive safety planning.</h2>
