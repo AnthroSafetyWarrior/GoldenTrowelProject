@@ -493,27 +493,29 @@ align-items: center;
 }
 
 /* Match pillhead spacing inside the brown content pill */
-}
+/* Match pillhead spacing inside the brown content pill */
 .pill{
+  position: relative;          /* needed for ::before to position */
+  isolation: isolate;          /* keeps shadow/bleed tidy */
   background: var(--soil);
   color:#fff;
   border-radius:9999px;
   padding: var(--pill-pad-y) var(--pill-pad-x);  /* matches pillhead feel */
   box-shadow:0 8px 24px rgb(0 0 0 / .12);
 }
+
 .pill .pill__title{ margin:0 0 .35rem; font-weight:800; line-height:1.2; }
 .pill > p{ margin:0 0 .5rem; max-width:66ch; }
 .pill > ul{ margin:0; padding-left:1.2em; max-width:66ch; }
 
-/* keep the nice right-hand curve space, but don't crush your base padding */
 .pill.pill--clip-right{
   padding-right: max(
     var(--pill-pad-x, clamp(1.1em, 2.2vw, 1.5em)),
-    clamp(18px, 9vw, 240px) /* extra inset on the curved side */
+    clamp(18px, 9vw, 240px)        /* extra inset on the curved side */
   );
 }
 
-/* the clipped background (unchanged) */
+/* clipped background reaching to the right edge */
 .pill.pill--clip-right::before{
   content:"";
   position:absolute;

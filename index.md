@@ -65,8 +65,8 @@ hero_tint: .60
     <ul>
       <li>Local and institutional safety resources relevant to research sites,</li>
       <li>Connection to local legal frameworks (e.g., recording policies, misconduct laws) that affect your options in real time,</li>
-      <li>Suggested boundary-setting statements calibrated to field contexts,</li>
-      <li>A customizable safety-planning template to organize critical information ahead of time and create an action plan.</li>
+      <li>boundary-setting statements</li>
+      <li>A customizable safety-planning template and action plan.</li>
     </ul>
   </div>
   <p>
