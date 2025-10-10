@@ -102,7 +102,6 @@ hero_tint: .60
           loading="lazy" decoding="async">
       </figure>
     </div>
-  </div>
   <div class="text"> 
   <p>
     A growing body of research suggests that training in boundary-setting and self-defense is
