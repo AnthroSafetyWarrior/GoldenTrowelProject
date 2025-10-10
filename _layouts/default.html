@@ -254,20 +254,30 @@ header.hero::before{
   --img-ideal: 28vw;
   --img-max: 440px;
 
-  --text-measure: 56ch;
+  --text-measure: 54ch;
 
   display: grid;
   grid-template-columns:
-    minmax(var(--left-min), var(--left-max))
-    minmax(var(--right-min), 1fr);    /* was minmax(0,1fr) */
+   minmax(var(--left-min), 1fr)
+    minmax(var(--img-min), auto);
   align-items: center;
   column-gap: var(--gap);
 }
 .split .art{ justify-self: center; max-inline-size: var(--img-max); }
 .split .art img{ width: clamp(var(--img-min), var(--img-ideal), var(--img-max)); height: auto; display: block; }
 
-@media (max-width:1040px){
-  .split{ --left-min: 230px; --left-max: 480px; --right-min: 300px; }
+.split .text{
+  hyphens: auto;
+  overflow-wrap: anywhere; /* safe fallback if hyphenation isn’t available */
+}
+
+@media (max-width: 1040px){
+  .split{
+    --left-min: 230px;
+    --left-max: 460px;
+    --text-measure: 50ch;   /* allow more “squish” */
+    --gap: clamp(6px, 1.2vw, 12px);
+  }
 }
 @media (max-width:760px){
   .split{ grid-template-columns: 1fr; justify-items: start; }
