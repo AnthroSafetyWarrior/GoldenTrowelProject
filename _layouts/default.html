@@ -403,104 +403,63 @@ header.hero::before{
   background:#444054; color:#fff; transform:translateY(-1px);
   border-color:var(--gold); outline:0;
 }
-/* ====== ULTRA SMUSH (stack with .smush) ================================ */
-/* Usage: <main class="smush ultra-smush"> … </main>                      */
 
-/* 0) Slightly reduce the background ribbon’s vertical footprint */
-.ultra-smush .pillband{ min-height: clamp(180px, 26vw, 300px); }
-.ultra-smush .section{ padding-block: clamp(14px, 2.8vw, 24px); }
-.ultra-smush .pillband .section{ padding-inline: clamp(14px, 3.6vw, 22px); }
+/* ================== Auto-Smush for any clipped pills/bands ================== */
+/* Works site-wide; no body/main class needed. Put this AFTER your base .pill rules. */
 
-/* 1) Pillhead (title ribbon) */
-.ultra-smush .pillhead{
-  --pillhead-pad-x: clamp(0.75em, 1.3vw, 1.05em);
-  --pillhead-pad-y: clamp(.85em, 1.2vw, 1.1em);
-  margin: clamp(4px, .6vw, 8px) 0 clamp(8px, 1vw, 12px);
+/* Tighten the ribbon section when the band is clipped */
+.pillband.pill--clip-left .section,
+.pillband.pill--clip-right .section{
+  padding-block: clamp(16px, 2.6vw, 28px);
 }
 
-/* 2) Content pill core padding + margins */
-.ultra-smush .pill{
-  --pill-pad-x: clamp(18px, 2.6vw, 26px);
-  --pill-pad-y: clamp(18px, 3.2vw, 28px);
-  --pill-top-extra: clamp(4px, .8vw, 8px);
-  /* keep curve inset the same for safety */
-  margin-block: clamp(12px, 2.4vw, 24px);
+/* Slightly smaller band height for clipped bands */
+.pillband.pill--clip-left,
+.pillband.pill--clip-right{
+  min-height: clamp(180px, 26vw, 300px);
 }
 
-/* 2a) Inside the pill: text rhythm */
-.ultra-smush .pill .pill__title{ margin-bottom:.35rem; }
-.ultra-smush .pill > p{ margin-bottom:.45rem; }
-.ultra-smush .pill ul{ margin-top:.35rem; padding-left:1.25rem; }
-.ultra-smush .pill li{ margin:.18rem 0; }
-.ultra-smush .pill .split{ column-gap: clamp(10px, 2vw, 18px); }
+/* Tighten headings inside the band */
+.pillband.pill--clip-left h2,
+.pillband.pill--clip-right h2{
+  margin-bottom: clamp(.25rem, .8vw, .45rem);
+}
 
-/* 3) Pillband headings slightly tighter */
-.ultra-smush .pillband h2{ margin-bottom: clamp(.2rem, .6vw, .35rem); }
+/* Core: denser pills ONLY when they’re clipped (left or right) */
+.pill.pill--clip-left,
+.pill.pill--clip-right{
+  /* override the base spacing via your CSS variables */
+  --pill-pad-x:    clamp(22px, 3vw, 30px);
+  --pill-pad-y:    clamp(28px, 3.6vw, 40px);
+  --pill-top-extra: clamp(8px, 1.2vw, 12px);
 
-/* 4) Phone: keep it dense but safe */
+  margin-block: clamp(16px, 3vw, 32px);
+}
+
+/* Copy rhythm inside clipped pills */
+.pill.pill--clip-left  .pill__title,
+.pill.pill--clip-right .pill__title{ margin-bottom:.45rem; }
+
+.pill.pill--clip-left  > p,
+.pill.pill--clip-right > p{ margin-bottom:.55rem; }
+
+.pill.pill--clip-left  ul,
+.pill.pill--clip-right ul{ margin-top:.4rem; padding-left:1.4rem; }
+
+.pill.pill--clip-left  li,
+.pill.pill--clip-right li{ margin:.22rem 0; }
+
+.pill.pill--clip-left  .split,
+.pill.pill--clip-right .split{ column-gap: clamp(12px, 2.4vw, 24px); }
+
+/* Phone: a hair tighter but safe */
 @media (max-width:640px){
-  .ultra-smush .pill{
-    --pill-pad-x: clamp(16px, 5vw, 22px);
-    --pill-pad-y: clamp(16px, 5.5vw, 24px);
-    --pill-top-extra: clamp(2px, .8vw, 6px);
+  .pill.pill--clip-left,
+  .pill.pill--clip-right{
+    --pill-pad-x: clamp(18px, 5vw, 24px);
+    --pill-pad-y: clamp(20px, 5.5vw, 28px);
+    --pill-top-extra: clamp(6px, 1.6vw, 10px);
   }
-  .ultra-smush .pillband .section{ padding-inline: clamp(12px, 5vw, 18px); }
-}
-/* Extra squeeze ONLY when smush is active */
-.smush .pillband { min-height: clamp(160px, 24vw, 280px); }
-.smush .pillband .section { padding-block: clamp(16px, 2.6vw, 28px); }
-.smush .pillband h2 { margin-bottom: clamp(.2rem, .6vw, .4rem); }
-
-.ultra-smush .pillband { min-height: clamp(140px, 20vw, 240px); }
-.ultra-smush .pillband .section { padding-block: clamp(12px, 2vw, 22px); }
-/* ===== GLOBAL SMUSH – final overrides ===== */
-
-/* Pillband (the big brown ribbon) */
-body.smush .pillband        { min-height: clamp(180px, 26vw, 300px); }
-body.smush .section         { padding-block: clamp(20px, 3.5vw, 36px); }
-body.smush .pillband .section{ padding-inline: clamp(18px, 4.5vw, 28px); }
-body.smush .pillband h2     { margin-bottom: clamp(.25rem, .8vw, .45rem); }
-
-/* Content pill core padding + margins (uses your CSS vars) */
-body.smush .pill{
-  --pill-pad-x: clamp(24px, 3.2vw, 32px);
-  --pill-pad-y: clamp(28px, 3.8vw, 40px);
-  --pill-top-extra: clamp(8px, 1.2vw, 14px);
-  margin-block: clamp(18px, 3.2vw, 34px);
-}
-
-/* Lists & copy inside pills */
-body.smush .pill .pill__title{ margin-bottom:.45rem; }
-body.smush .pill > p         { margin-bottom:.55rem; }
-body.smush .pill ul          { margin-top:.4rem; padding-left:1.4rem; }
-body.smush .pill li          { margin:.22rem 0; }
-body.smush .pill .split      { column-gap: clamp(14px, 3vw, 28px); }
-
-/* ULTRA layer on top of smush */
-body.ultra-smush .pillband        { min-height: clamp(160px, 22vw, 260px); }
-body.ultra-smush .section         { padding-block: clamp(14px, 2.8vw, 24px); }
-body.ultra-smush .pillband .section{ padding-inline: clamp(14px, 3.6vw, 22px); }
-
-body.ultra-smush .pill{
-  --pill-pad-x: clamp(18px, 2.6vw, 26px);
-  --pill-pad-y: clamp(18px, 3.2vw, 28px);
-  --pill-top-extra: clamp(4px, .8vw, 8px);
-  margin-block: clamp(12px, 2.4vw, 24px);
-}
-body.ultra-smush .pill .pill__title{ margin-bottom:.35rem; }
-body.ultra-smush .pill > p         { margin-bottom:.45rem; }
-body.ultra-smush .pill ul          { margin-top:.35rem; padding-left:1.25rem; }
-body.ultra-smush .pill li          { margin:.18rem 0; }
-body.ultra-smush .pill .split      { column-gap: clamp(10px, 2vw, 18px); }
-
-/* Phone tweaks */
-@media (max-width:640px){
-  body.ultra-smush .pill{
-    --pill-pad-x: clamp(16px, 5vw, 22px);
-    --pill-pad-y: clamp(16px, 5.5vw, 24px);
-    --pill-top-extra: clamp(2px, .8vw, 6px);
-  }
-  body.ultra-smush .pillband .section{ padding-inline: clamp(12px, 5vw, 18px); }
 }
 
 </style>
