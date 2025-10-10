@@ -465,6 +465,7 @@ header.hero::before{
     --pill-pad-x:     clamp(18px, 5vw, 24px);
     --pill-pad-y:     clamp(36px, 5.5vw, 38px);
     --pill-top-extra: clamp(6px, 1.6vw, 10px);
+    align-items:center;
   }
 }
 
@@ -508,6 +509,19 @@ header.hero::before{
   border-color: var(--gold);
   outline: 0;
 }
+
+/* --- tighter spacing between h2 and .split --- */
+.pillband .section {
+  /* gently close vertical rhythm between heading and next block */
+  gap: clamp(8px, 1.6vw, 16px);
+}
+
+/* optional: if you only want it for pill-split sections */
+.pillband .pill-split {
+  /* smaller vertical gap between h2 and the split grid */
+  row-gap: clamp(6px, 1.2vw, 14px);
+}
+
 
 </style>
 
