@@ -40,6 +40,23 @@ hero_tint: .60
   </div>
 </section>
 
+<!-- 2) PREVALENCE — shared split -->
+<section class="section">
+<h2 class="pillhead pill--orange pill--clip-left">Prevalence of Fieldwork Harassment and Assault
+</h2>
+  <div class="split">
+    <div class="text">
+       <p>A 2014 survey sampling &gt;650 anthropologists revealed high frequencies of harassment and assault, and low frequencies of awareness of reporting procedures (Clancy <em>et&nbsp;al.</em>, 2014; DOI: <a href="https://doi.org/10.1371/journal.pone.0102172">10.1371/journal.pone.0102172</a>).</p>
+    </div>
+    <figure class="art">
+      <img
+        src="{{ '/assets/img/prevalencegraphic.png' | relative_url }}"
+        alt="Infographic summarizing findings of Clancy et al., 2014."
+        loading="lazy" decoding="async">
+    </figure>
+  </div>
+</section>
+
 <!-- 3) PREPARING — pillband -->
 <section class="pillband pill--soil pill--clip-right">
   <div class="section">
@@ -80,7 +97,6 @@ hero_tint: .60
     we may be less likely to default to appeasement or freeze patterns in moments of threat.
   </p>
 </section>
-
 
 <!-- 4) OUR APPROACH — consistent grid utility -->
 <section class="pillband pill--slate pill--clip-left">
