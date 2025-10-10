@@ -384,6 +384,55 @@ header.hero::before{
 /* optional: tighten page padding on phones */
 @media (max-width:880px){ main{ padding-inline: clamp(18px, 6vw, 32px); } }
 
+/* ========== Preparing band (brown) tuning ========== */
+/* Give this band its own spacing + sizing knobs */
+.pillband.pill--soil{
+  /* wider gap between columns in this band */
+  --split-gap: clamp(28px, 5vw, 96px);
+
+  /* normalize column minimums so text + art feel balanced */
+  --left-min: 420px;      /* text column */
+  --img-min:  420px;      /* art column */
+  --img-ideal: 32vw;      /* target size at medium widths */
+  --img-max:  520px;      /* hard cap so it doesn't dwarf text */
+}
+
+/* Make the split grid consume those band-specific variables */
+.pillband.pill--soil .pill-split{
+  column-gap: var(--split-gap);
+  grid-template-columns:
+    minmax(var(--left-min), 1fr)
+    minmax(var(--img-min),  auto);
+}
+
+/* Keep the art visually consistent across sections */
+.pillband.pill--soil .pill-split .art{
+  justify-self: center;
+  max-inline-size: var(--img-max);
+}
+.pillband.pill--soil .pill-split .art img{
+  width: clamp(var(--img-min), var(--img-ideal), var(--img-max));
+  height: auto;
+  display: block;
+}
+
+/* Medium and down: relax the mins so it stacks sooner and stays comfy */
+@media (max-width: 1040px){
+  .pillband.pill--soil{
+    --left-min: 360px;
+    --img-min:  360px;
+    --split-gap: clamp(18px, 3.4vw, 36px);
+  }
+}
+@media (max-width: 760px){
+  .pillband.pill--soil{
+    --left-min: 1px;  /* let it stack */
+    --img-min:  1px;
+    --split-gap: clamp(12px, 3vw, 20px);
+  }
+}
+
+/* ===== NAV ===== */
 /* NAV FLYOUT: styles only for the tiny round buttons */
 .pill--nav{
   all: unset;
