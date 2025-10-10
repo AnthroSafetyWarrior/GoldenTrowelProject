@@ -713,6 +713,38 @@ header.hero::before{
       }, { passive:true });
     });
   })();
+
+/* Remove the inner oval entirely */
+.pill{
+  background: transparent !important; /* no second fill */
+  border-radius: 0 !important;        /* let the band own the curve */
+  box-shadow: none !important;        /* shadow lives on the band */
+}
+
+/* The band renders the whole shape cleanly */
+.pill::before{
+  top: 0;
+  bottom: 0;
+  transform: none;
+  width: calc(100vw - var(--pill-margin));
+  background: var(--soil);
+  box-shadow: 0 10px 22px rgba(0,0,0,.14); /* single shadow = no “rings” */
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Keep the correct rounded side per variant */
+.pill.pill--clip-right::before{ 
+  right: calc(50% - 50vw);
+  left: auto;
+  border-radius: 9999px 0 0 9999px;
+}
+.pill.pill--clip-left::before{
+  left:  calc(50% - 50vw);
+  right: auto;
+  border-radius: 0 9999px 9999px 0;
+}
+
   </script>
 </body>
 </html>
