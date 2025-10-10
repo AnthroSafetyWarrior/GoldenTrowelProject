@@ -28,7 +28,7 @@
   --ink:#111;
   --maxw:1240px;
 
-  /* Global page side padding (single source of truth) */
+  /* Global page side padding */
   --page-pad-inline: clamp(24px, 4vw, 38px);
 
   /* Wave/band */
@@ -38,13 +38,12 @@
   /* Scroll circle lift */
   --circle-lift:-4px;
 
-  /* Pills */
+  /* Pills (single source of truth) */
   --pill-radius: 50px;
   --pill-margin: clamp(24px, 6vw, 140px);
-  --pill-pad-y: clamp(1.8em, 2.1vw, 2em);
-  --pill-pad-x: clamp(1em, 2.2vw, 1.5em);
+  --pill-pad-x: clamp(32px, 4vw, 40px);
+  --pill-pad-y: clamp(40px, 5vw, 56px);
 }
-
 
 /* ---------- Base ---------- */
 *,*::before,*::after{ box-sizing:border-box; }
@@ -57,37 +56,15 @@ p { font-size:clamp(1.05rem,2.8vw,1.15rem); margin:.6em 0; line-height:1.55; }
 a{ color:var(--soil); text-decoration-thickness:.08em; text-underline-offset:.18em; }
 a:hover{ color:var(--logo-orange); }
 main{ width:min(100%, var(--maxw)); margin-inline:auto; padding:clamp(16px,4vw,28px); }
-/* --- Global copy rhythm (paragraphs + lists) --- */
-p,
-ul,
-ol{
-  font-size: clamp(1.05rem, 2.8vw, 1.15rem); /* match your <p> size */
-  line-height: 1.55;
-  margin-block: 0.2em;                      /* even spacing above/below */
-}
 
-ul,
-ol{
-  padding-left: 1.6rem;                      /* consistent indent */
-  list-style-position: outside;
-}
-
-li{ margin-block: 0.35em; }                  /* space between items */
-
-/* Smooth joins so p→ul and ul→p don’t look gappy */
-p + ul,
-p + ol{ margin-top: 0.6em; }
-ul + p,
-ol + p{ margin-top: 0.9em; }
-
-/* Optional: normalize figures in text flow */
-figure{ margin: 0.9em 0; }
-
-/* Slightly tighter on small screens */
-@media (max-width: 640px){
-  p, ul, ol{ margin-block: 0.7em; }
-  li{ margin-block: 0.3em; }
-}
+/* Global copy rhythm */
+p, ul, ol{ font-size: clamp(1.05rem, 2.8vw, 1.15rem); line-height:1.55; margin-block: 0.2em; }
+ul, ol{ padding-left:1.6rem; list-style-position:outside; }
+li{ margin-block:.35em; }
+p + ul, p + ol{ margin-top:.6em; }
+ul + p, ol + p{ margin-top:.9em; }
+figure{ margin:.9em 0; }
+@media (max-width:640px){ p, ul, ol{ margin-block:.7em; } li{ margin-block:.3em; } }
 
 /* ============== Header + Hero ============== */
 header.hero{ position:relative; color:#fff; padding:clamp(.6em,2.4vw,1.2em) 0 0; overflow:visible; }
@@ -179,7 +156,7 @@ header.hero::before{
   display:grid; gap:clamp(18px,2.4vw,28px);
 }
 
-/* ===== Pill system (uniform across pages) ===== */
+/* ===== Pillband (background ribbon) ===== */
 .pillband{
   position:relative;
   margin-block: clamp(18px, 3.6vw, 38px);
@@ -219,13 +196,13 @@ header.hero::before{
 .pillband.pill--slate { --pill-color: var(--slate);       color:#fff; }
 .pillband.pill--sage  { --pill-color: var(--sage);        color:#0e2a1f; }
 
-/* type rhythm inside pillband */
+/* type inside pillband */
 .pillband h2{ margin:0 0 clamp(.4rem, 1.2vw, .6rem); font-size:clamp(1.6rem,4.5vw,1.8rem); line-height:1.2; font-weight:800; }
 .pillband :where(p, ul, ol, blockquote){ max-inline-size: var(--pill-measure); }
 .pillband p{ text-wrap: pretty; overflow-wrap:anywhere; hyphens:auto; }
-.pillband blockquote{ margin: .25rem 0 0; font-style: italic; opacity:.95; }
+.pillband blockquote{ margin:.25rem 0 0; font-style:italic; opacity:.95; }
 
-/* two-column helper that plays nice in pills */
+/* two-column helper */
 .pill-split{
   display:grid; gap: var(--pill-gap);
   grid-template-columns: minmax(320px,1fr) minmax(320px,1fr);
@@ -239,7 +216,7 @@ header.hero::before{
   .pillband .section{ padding-inline: clamp(18px, 6vw, 32px); }
 }
 
-/* optional card polish inside pills */
+/* optional card polish */
 .pillband .card{
   background: color-mix(in srgb, #000 12%, transparent);
   border-radius: 16px;
@@ -269,16 +246,13 @@ header.hero::before{
 .pillhead.pill--slate { --pill-color: var(--slate);       --pill-text:#fff; }
 .pillhead.pill--sage  { --pill-color: var(--sage);        --pill-text:#0e2a1f; }
 
-/* ===== Content Pill (aligned with pillhead) ===== */
+/* ===== Content Pill ===== */
 .pill{
-  /* single source of truth for top cushion */
-  --pill-top-extra: clamp(16px, 2.6vw, 28px);
-  /* default curve protection (both sides can reuse) */
-  --curve-inset: clamp(24px, 9vw, 260px);
+  --pill-top-extra: clamp(16px, 2.6vw, 28px);     /* extra top cushion */
+  --curve-inset: clamp(32px, 10vw, 280px);        /* side protection near curve */
 
-  /* base box */
   position: relative;
-  z-index: 0;              /* don’t create a new stacking context */
+  z-index: 0;
   isolation: auto;
   border-radius: 9999px;
   box-shadow: 0 8px 24px rgba(0,0,0,.12);
@@ -286,17 +260,15 @@ header.hero::before{
   color:#fff;
   margin-block: clamp(28px, 4.5vw, 56px);
 
-  /* padding: top gets extra cushion */
   padding-block-start: calc(var(--pill-pad-y) + var(--pill-top-extra));
   padding-block-end:   var(--pill-pad-y);
   padding-inline:      var(--pill-pad-x);
 }
-
-/* stop margin collapse so the padding acts as true space */
+/* first/last margin collapse guard */
 .pill > :first-child{ margin-top: 0; }
 .pill > :last-child { margin-bottom: 0; }
 
-/* curve-side protection (no duplicates) */
+/* curve-side protection */
 .pill.pill--clip-right{ padding-right: max(var(--pill-pad-x), var(--curve-inset)); }
 .pill.pill--clip-left { padding-left:  max(var(--pill-pad-x), var(--curve-inset)); }
 
@@ -313,18 +285,17 @@ header.hero::before{
 .pill.pill--clip-right::before{ right: calc(50% - 50vw); left:auto; border-radius: 9999px 0 0 9999px; }
 .pill.pill--clip-left::before { left:  calc(50% - 50vw); right:auto; border-radius: 0 9999px 9999px 0; }
 
-/* comfortable spacing for content inside pills */
+/* comfortable content spacing inside pill */
 .pill .pill__title{ margin:0 0 .6rem; font-weight:800; line-height:1.2; }
 .pill > p{ margin:0 0 .8rem; max-inline-size:66ch; }
 .pill ul{ list-style: disc outside; padding-left:1.6rem; margin:.6rem 0 0; max-inline-size:66ch; }
 .pill li{ margin:.3rem 0; }
 .pill .split{ column-gap: clamp(14px, 3vw, 28px); }
 
-/* small screens: add a touch more curve protection if needed */
-@media (max-width: 640px){
-  .pill{ --curve-inset: clamp(32px, 12vw, 200px); }
+/* small screens: a touch more curve protection */
+@media (max-width:640px){
+  .pill{ --curve-inset: clamp(40px, 12vw, 220px); }
 }
-
 
 /* ===== Intro (non-pill) ===== */
 .section.intro{ row-gap: clamp(8px, 1.2vw, 16px); }
@@ -343,271 +314,97 @@ header.hero::before{
   filter: drop-shadow(0 8px 16px rgba(0,0,0,.12)) drop-shadow(0 2px 5px rgba(0,0,0,.08));
 }
 @media (max-width:1120px){
-  .intro-row{
-    grid-template-columns:minmax(240px,480px) minmax(0,1fr);
-    column-gap:clamp(6px, 1.6vw, 14px);
-  }
+  .intro-row{ grid-template-columns:minmax(240px,480px) minmax(0,1fr); column-gap:clamp(6px, 1.6vw, 14px); }
 }
 @media (max-width:880px){
   .intro-row{ grid-template-columns:1fr; }
   .intro-graphic{ order:-1; margin-bottom:.5rem; }
 }
 
-/* GLOBAL split (keeps your tighter layout but protects graphics) */
+/* GLOBAL split */
 .split{
   --left-min: 240px;
   --left-max: 400px;
-  --right-min: 400px;                 /* NEW: min width for the art column */
+  --right-min: 400px;
   --gap: clamp(6px, 1.2vw, 12px);
 
-  --img-min: 340px;                   /* keep or raise if needed */
+  --img-min: 340px;
   --img-ideal: 28vw;
   --img-max: 440px;
 
   --text-measure: 54ch;
 
   display: grid;
-  grid-template-columns:
-   minmax(var(--left-min), 1fr)
-    minmax(var(--img-min), auto);
+  grid-template-columns: minmax(var(--left-min),1fr) minmax(var(--img-min),auto);
   align-items: center;
   column-gap: var(--gap);
 }
 .split .art{ justify-self: center; max-inline-size: var(--img-max); }
 .split .art img{ width: clamp(var(--img-min), var(--img-ideal), var(--img-max)); height: auto; display: block; }
-
-.split .text{
-  hyphens: auto;
-  overflow-wrap: anywhere; /* safe fallback if hyphenation isn’t available */
-}
-
-@media (max-width: 1040px){
-  .split{
-    --left-min: 230px;
-    --left-max: 460px;
-    --text-measure: 50ch;   /* allow more “squish” */
-    --gap: clamp(6px, 1.2vw, 12px);
-  }
+.split .text{ hyphens:auto; overflow-wrap:anywhere; }
+@media (max-width:1040px){
+  .split{ --left-min:230px; --left-max:460px; --text-measure:50ch; --gap: clamp(6px,1.2vw,12px); }
 }
 @media (max-width:760px){
-  .split{ grid-template-columns: 1fr; justify-items: start; }
-  .split .art{ justify-self: start; }
+  .split{ grid-template-columns:1fr; justify-items:start; }
+  .split .art{ justify-self:start; }
 }
 
-
- /* ===== Resources (sage pill) — circular cards ===== */
-    .resources-grid{
-      display:grid;
-      grid-template-columns: repeat(2, minmax(200px,1fr));
-      justify-items:center;
-      gap: clamp(8px, 3vw, 16px);
-    }
-
-    .resource-card{
-      --diameter: clamp(200px, 28vw, 360px);
-      width: var(--diameter);
-      aspect-ratio: 1 / 1;
-      border-radius: 50%;
-      background:var(--soil);
-      color: #fff;
-      padding: clamp(6px, 2.4vw, 16px);
-      box-shadow:0 8px 20px rgba(0,0,0,.12);
-
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      gap:.6em;
-    }
-
-    .resource-card h3{
-      margin:0;
-      font-size: clamp(1.05rem, 1.9vw, 1.25rem);
-      text-wrap: balance;
-    }
-
-    .resource-card p{
-      margin:0;
-      font-size: clamp(.95rem, 1.6vw, 1.05rem);
-      line-height:1.35;
-      max-width: 24ch;
-    }
-
-    .btn-doc{
-      display:inline-block;
-      font-weight:700;
-      border-radius:999px;
-      padding:.5em .9em;
-      background:#fff;
-      color:var(--sage);
-      border:2px solid var(--sage);
-      text-decoration:none;
-    }
-    .btn-doc:hover,
-    .btn-doc:focus-visible{
-      background: color-mix(in srgb, var(--sage) 16%, #fff);
-      outline:0;
-    }
-
-    @media (max-width: 720px){
-      .resources-grid{ grid-template-columns:1fr; }
-    }
-
-/* optional: tighten the whole page’s side padding a bit on phones */
-@media (max-width: 880px){
-  main{ padding-inline: clamp(18px, 6vw, 32px); }
+/* ===== Resources (sage pill) — circular cards ===== */
+.resources-grid{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(200px,1fr));
+  justify-items:center;
+  gap: clamp(8px, 3vw, 16px);
 }
-
-/* ===== Heading-only pill (pillhead) ===== */
-.pillhead{
-  --pillhead-pad-y: clamp(1.8em, 2.1vw, 2em);
-  --pillhead-pad-x: clamp(1.1em, 2.2vw, 1.5em);
-  position:relative; z-index:0; display:inline-block; font-weight:800; color: var(--pill-text, #fff);
- padding: var(--pillhead-pad-y) var(--pillhead-pad-x);
-  margin: clamp(10px,1.5vw,14px) 0 clamp(16px,2.2vw,22px);
-  line-height:1.1; text-wrap: balance;
-}
-.pillhead::before{
-  content:""; position:absolute; top:50%; transform:translateY(-50%); height:100%;
-  width: calc(100vw - var(--pill-margin)); background: var(--pill-color, var(--logo-orange));
-  box-shadow:0 8px 16px rgba(0,0,0,.12); z-index:-1;
-}
-.pillhead.pill--clip-left::before{ left:  calc(50% - 50vw);  border-radius:0 9999px 9999px 0; }
-.pillhead.pill--clip-right::before{ right: calc(50% - 50vw); border-radius:9999px 0 0 9999px; }
-.pillhead.pill--orange{ --pill-color: var(--logo-orange); --pill-text:#fff; }
-.pillhead.pill--soil  { --pill-color: var(--soil);        --pill-text:#fff; }
-.pillhead.pill--slate { --pill-color: var(--slate);       --pill-text:#fff; }
-.pillhead.pill--sage  { --pill-color: var(--sage);        --pill-text:#0e2a1f; }
-
-
-/* ===== Content Pill (aligned with pillhead) ===== */
-.pill{
-  /* extra top-only cushion so the title doesn't kiss the curve */
-  --pill-top-extra: clamp(12px, 2vw, 22px);
-
-  /* keep your sides/bottom, add extra to the top only */
-  padding-block-start: calc(var(--pill-pad-y) + var(--pill-top-extra));
-  padding-block-end: var(--pill-pad-y);
-  padding-inline: var(--pill-pad-x);
-
-  margin-block: clamp(28px, 4.5vw, 56px);
-  border-radius: 9999px;
-  box-shadow: 0 8px 24px rgba(0,0,0,.12);
-  background: var(--soil);
+.resource-card{
+  --diameter: clamp(200px, 28vw, 360px);
+  width: var(--diameter);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background:var(--soil);
   color:#fff;
-  position: relative;
-  isolation: isolate;
-  overflow: visible;
+  padding: clamp(6px, 2.4vw, 16px);
+  box-shadow:0 8px 20px rgba(0,0,0,.12);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:.6em;
 }
-
-/* stop margin collapse so the padding shows up as real space */
-.pill > :first-child{ margin-top: 0; }
-.pill > :last-child { margin-bottom: 0; }
-
-/* generous curve-side padding so content never hugs the rounded edge */
-.pill.pill--clip-right{ padding-right: max(var(--pill-pad-x), clamp(24px, 9vw, 260px)); }
-.pill.pill--clip-left { padding-left:  max(var(--pill-pad-x), clamp(24px, 9vw, 260px)); }
-
-/* keep the full-bleed rounded band under the pill (anchored to top/bottom) */
-.pill::before{
-  content:"";
-  position:absolute;
-  top: 0;
-  right: calc(50% - 50vw);
-  bottom: 0;
-  left: auto; /* overridden by clip-left below */
-  transform: none;
-  width: calc(100vw - var(--pill-margin));
-  background: var(--soil);
-  z-index:-1;
-  box-shadow: 0 8px 18px rgba(0,0,0,.1);
+.resource-card h3{ margin:0; font-size: clamp(1.05rem, 1.9vw, 1.25rem); text-wrap: balance; }
+.resource-card p{ margin:0; font-size: clamp(.95rem, 1.6vw, 1.05rem); line-height:1.35; max-width: 24ch; }
+.btn-doc{
+  display:inline-block; font-weight:700; border-radius:999px; padding:.5em .9em;
+  background:#fff; color:var(--sage); border:2px solid var(--sage); text-decoration:none;
 }
+.btn-doc:hover,.btn-doc:focus-visible{ background: color-mix(in srgb, var(--sage) 16%, #fff); outline:0; }
+@media (max-width:720px){ .resources-grid{ grid-template-columns:1fr; } }
 
-/* side-specific band rounding/anchoring */
-.pill.pill--clip-right::before{
-  right: calc(50% - 50vw);
-  left: auto;
-  border-radius: 9999px 0 0 9999px;
-}
-.pill.pill--clip-left::before{
-  left:  calc(50% - 50vw);
-  right: auto;
-  border-radius: 0 9999px 9999px 0;
-}
+/* optional: tighten page padding on phones */
+@media (max-width:880px){ main{ padding-inline: clamp(18px, 6vw, 32px); } }
 
-/* optional: a touch more breathing room when split is inside a pill */
-.pill .split{ column-gap: clamp(14px, 3vw, 28px); }
-
-/* tidy inner spacing */
-.pill .pill__title{ margin:0 0 .6rem; font-weight:800; line-height:1.2; }
-.pill > p{ margin:0 0 .8rem; max-inline-size:66ch; }
-.pill ul{ list-style: disc outside; padding-left:1.6rem; margin:.6rem 0 0; max-inline-size:66ch; }
-.pill li{ margin:.3rem 0; }
-
-/* (optional) a bit more top cushion on small screens */
-@media (max-width: 640px){
-  .pill{ --pill-top-extra: clamp(16px, 4vw, 28px); }
-}
-
-/* --- micro-alignment to match the orange pillhead --- */
-.section > .pill{
-  --pill-align-nudge: 12px; /* adjust as you like */
-  padding-inline-start: calc(var(--pill-pad-x) + var(--pill-align-nudge));
-}
-
-/* Clip-side rules that still respect your vars */
-.pill.pill--clip-right{
-  padding-inline-end: max(var(--pill-pad-x), clamp(24px, 9vw, 190px));
-}
-.pill.pill--clip-left{
-  padding-inline-start: max(calc(var(--pill-pad-x) + var(--pill-align-nudge)),
-                            clamp(24px, 9vw, 260px));
-}
-
-/* Give right-clip pills extra left breathing room without changing layout */
-.pill { --clip-left-inset: 0px; } /* default for others */
-
-
-/* NAV FLYOUT: reset so they don't inherit the content-pill chrome */
+/* ===== NAV FLYOUT reset: keep simple pill buttons ===== */
 .flyout .pill{
-  all: unset;                        /* wipe inherited styles clean */
-  display: block;
-  width: 260px;
-  text-align: center;
-  padding: .7em 1.1em;
-  font-weight: 700;
-  font-size: .95rem;
-  color: var(--soil);
-  background: var(--gold);
-  border: 2px solid var(--gold);
-  border-radius: 999px;
-  text-decoration: none;
-  background-clip: padding-box;
-  cursor: pointer;
+  all: unset;
+  display:block;
+  width:260px;
+  text-align:center;
+  padding:.7em 1.1em;
+  font-weight:700;
+  font-size:.95rem;
+  color:var(--soil);
+  background:var(--gold);
+  border:2px solid var(--gold);
+  border-radius:999px;
+  text-decoration:none;
+  background-clip:padding-box;
+  cursor:pointer;
 }
-.flyout .pill::before{ content: none !important; } /* kill the full-bleed band */
+.flyout .pill::before{ content:none !important; }
 .flyout .pill + .pill{ margin-top:-2px; }
-.flyout .pill:hover,
-.flyout .pill:focus-visible{
+.flyout .pill:hover,.flyout .pill:focus-visible{
   background:#444054; color:#fff; transform:translateY(-1px);
   border-color:var(--gold); outline:0;
 }
-/* keep the pill in the normal stacking order */
-.pill{
-  position: relative;
-  z-index: 0;            /* ensure following content can paint above */
-  isolation: auto;       /* was isolate; don't create a new stacking context */
-}
-
-/* keep the full-bleed band *inside* the pill vertically and behind it */
-.pill::before{
-  top: 0;                /* was top:50% with translateY(-50%) */
-  transform: none;       /* no vertical centering */
-  z-index: -1;           /* sit behind the pill’s content */
-  pointer-events: none;  /* never block clicks */
-}
 </style>
+
 
 </head>
 
