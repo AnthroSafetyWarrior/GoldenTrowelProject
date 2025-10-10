@@ -405,39 +405,41 @@ header.hero::before{
 }
 
 
-/* --- Safer spacing for clipped bands --- */
+/* === Safer spacing for clipped bands & pills =========================== */
 
-/* Keep the denser setting only for LEFT */
+/* LEFT-CLIPPED band: slightly denser vertical padding */
 .pillband.pill--clip-left .section{
   padding-block: clamp(16px, 2.6vw, 28px);
 }
 
-/* Restore comfy headroom for RIGHT (fixes the cut-off look) */
+/* RIGHT-CLIPPED band: comfy headroom + extra left breathing room */
 .pillband.pill--clip-right .section{
-  /* default band padding + a touch more on top */
+  /* vertical space (top a bit roomier) */
   padding-block: clamp(28px, 4.8vw, 52px);
   padding-top:   clamp(36px, 5.6vw, 64px);
+
+  /* push content away from the left curve */
+  padding-left: max(
+    var(--pill-pad-inline),
+    calc(var(--pill-curve-inset) + clamp(10px, 1.6vw, 28px))
+  );
 }
 
-/* Optional: tiny heading guard so the title never kisses the curve */
-.pillband.pill--clip-right h2{
-  margin-top: .2rem;  /* small positive top margin */
-}
+/* tiny guard so the heading never kisses the curve */
+.pillband.pill--clip-right h2{ margin-top: .2rem; }
 
-/* If you also reduced band height globally, don't squeeze right side too far */
+/* don’t squeeze the right-clipped band too short */
 .pillband.pill--clip-right{
   min-height: clamp(220px, 30vw, 360px);
 }
 
-/* Core: denser pills ONLY when they’re clipped (left or right) */
+/* Tighter pill spacing ONLY when a pill is clipped */
 .pill.pill--clip-left,
 .pill.pill--clip-right{
-  /* override the base spacing via your CSS variables */
-  --pill-pad-x:    clamp(22px, 3vw, 30px);
-  --pill-pad-y:    clamp(28px, 3.6vw, 40px);
+  --pill-pad-x:     clamp(22px, 3vw, 30px);
+  --pill-pad-y:     clamp(28px, 3.6vw, 40px);
   --pill-top-extra: clamp(8px, 1.2vw, 12px);
-
-  margin-block: clamp(16px, 3vw, 32px);
+  margin-block:     clamp(16px, 3vw, 32px);
 }
 
 /* Copy rhythm inside clipped pills */
@@ -460,11 +462,12 @@ header.hero::before{
 @media (max-width:640px){
   .pill.pill--clip-left,
   .pill.pill--clip-right{
-    --pill-pad-x: clamp(18px, 5vw, 24px);
-    --pill-pad-y: clamp(26px, 5.5vw, 28px);
+    --pill-pad-x:     clamp(18px, 5vw, 24px);
+    --pill-pad-y:     clamp(26px, 5.5vw, 28px);
     --pill-top-extra: clamp(6px, 1.6vw, 10px);
   }
 }
+
 
 /* === NAV FLYOUT FIX ===================================================== */
 /* Fully isolate .pill--nav so it ignores .pill geometry rules */
