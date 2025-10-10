@@ -61,6 +61,37 @@ p { font-size:clamp(1.05rem,2.8vw,1.15rem); margin:.6em 0; line-height:1.55; }
 a{ color:var(--soil); text-decoration-thickness:.08em; text-underline-offset:.18em; }
 a:hover{ color:var(--logo-orange); }
 main{ width:min(100%, var(--maxw)); margin-inline:auto; padding:clamp(16px,4vw,28px); }
+/* --- Global copy rhythm (paragraphs + lists) --- */
+p,
+ul,
+ol{
+  font-size: clamp(1.05rem, 2.8vw, 1.15rem); /* match your <p> size */
+  line-height: 1.55;
+  margin-block: 0.75em;                      /* even spacing above/below */
+}
+
+ul,
+ol{
+  padding-left: 1.6rem;                      /* consistent indent */
+  list-style-position: outside;
+}
+
+li{ margin-block: 0.35em; }                  /* space between items */
+
+/* Smooth joins so p→ul and ul→p don’t look gappy */
+p + ul,
+p + ol{ margin-top: 0.6em; }
+ul + p,
+ol + p{ margin-top: 0.9em; }
+
+/* Optional: normalize figures in text flow */
+figure{ margin: 0.9em 0; }
+
+/* Slightly tighter on small screens */
+@media (max-width: 640px){
+  p, ul, ol{ margin-block: 0.7em; }
+  li{ margin-block: 0.3em; }
+}
 
 /* ============== Header + Hero ============== */
 header.hero{ position:relative; color:#fff; padding:clamp(.6em,2.4vw,1.2em) 0 0; overflow:visible; }
@@ -424,39 +455,6 @@ header.hero::before{
   z-index: -1;           /* sit behind the pill’s content */
   pointer-events: none;  /* never block clicks */
 }
-/* Uniform body copy + list rhythm (outside the pill) */
-.section :where(p, ul){ font-size: inherit; line-height: 1.55; }
-
-/* Paragraph spacing */
-.section p{
-  margin-block: 0.75em;              /* top & bottom */
-}
-
-/* List spacing + indentation */
-.section ul{
-  margin-block: 0.6em 1.0em;         /* tighter above, a touch below */
-  padding-left: 1.6rem;              /* bullet indent */
-  font-size: inherit;
-  line-height: 1.55;
-}
-
-/* Space between items */
-.section li{
-  margin-block: 0.35em;
-  font-size: inherit;                /* keep same size as paragraphs */
-}
-
-/* Smooth the transitions specifically where p meets ul (and back) */
-.section p + ul{ margin-top: 0.7em; }
-.section ul + p{ margin-top: 0.9em; }
-
-/* Optional: slightly tighter on phones */
-@media (max-width: 640px){
-  .section p{ margin-block: 0.7em; }
-  .section ul{ margin-block: 0.5em 0.9em; }
-  .section li{ margin-block: 0.3em; }
-}
-
 </style>
 
 </head>
