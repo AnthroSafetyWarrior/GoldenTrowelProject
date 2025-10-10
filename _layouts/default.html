@@ -44,11 +44,7 @@
   --pill-pad-y: clamp(1.8em, 2.1vw, 2em);
   --pill-pad-x: clamp(1em, 2.2vw, 1.5em);
 }
-:root{
-  /* you can tweak these until it feels perfect */
-  --pill-pad-x: clamp(32px, 4vw, 40px);  /* left/right */
-  --pill-pad-y: clamp(40px, 5vw, 56px);  /* top/bottom */
-}
+
 
 /* ---------- Base ---------- */
 *,*::before,*::after{ box-sizing:border-box; }
@@ -201,40 +197,35 @@ header.hero::before{
   max-width: var(--maxw); margin-inline:auto;
   padding: clamp(36px,5vw,56px) var(--pill-pad-inline);
 }
+/* protect the curve side */
+.pillband.pill--clip-right .section{ padding-left:  max(var(--pill-pad-inline), var(--pill-curve-inset)); }
+.pillband.pill--clip-left  .section{ padding-right: max(var(--pill-pad-inline), var(--pill-curve-inset)); }
 
-/* after (correct) */
-.pillband.pill--clip-right .section{
-  /* curve on LEFT → protect the LEFT */
-  padding-left: max(var(--pill-pad-inline), var(--pill-curve-inset));
-}
-.pillband.pill--clip-left .section{
-  /* curve on RIGHT → protect the RIGHT */
-  padding-right: max(var(--pill-pad-inline), var(--pill-curve-inset));
-}
-
-
+/* background band */
 .pillband::before{
   content:"";
-  position:absolute; inset:0 auto 0 auto; top:50%; transform:translateY(-50%);
+  position:absolute; inset:0 auto; top:50%; transform:translateY(-50%);
   height:100%; width: calc(100vw - var(--pill-margin));
   background: var(--pill-color, var(--logo-orange));
   box-shadow:0 8px 18px rgba(0,0,0,.10);
   z-index:1;
 }
-.pillband.pill--clip-left::before{ left: calc(50% - 50vw); border-radius: 0 9999px 9999px 0; }
+.pillband.pill--clip-left::before{  left:  calc(50% - 50vw); border-radius: 0 9999px 9999px 0; }
 .pillband.pill--clip-right::before{ right: calc(50% - 50vw); border-radius: 9999px 0 0 9999px; }
+
 /* color variants */
 .pillband.pill--orange{ --pill-color: var(--logo-orange); color:#fff; }
 .pillband.pill--soil  { --pill-color: var(--soil);        color:#fff; }
 .pillband.pill--slate { --pill-color: var(--slate);       color:#fff; }
 .pillband.pill--sage  { --pill-color: var(--sage);        color:#0e2a1f; }
-/* type */
+
+/* type rhythm inside pillband */
 .pillband h2{ margin:0 0 clamp(.4rem, 1.2vw, .6rem); font-size:clamp(1.6rem,4.5vw,1.8rem); line-height:1.2; font-weight:800; }
 .pillband :where(p, ul, ol, blockquote){ max-inline-size: var(--pill-measure); }
 .pillband p{ text-wrap: pretty; overflow-wrap:anywhere; hyphens:auto; }
 .pillband blockquote{ margin: .25rem 0 0; font-style: italic; opacity:.95; }
 
-/* a pill-friendly split (two columns) */
+/* two-column helper that plays nice in pills */
 .pill-split{
   display:grid; gap: var(--pill-gap);
   grid-template-columns: minmax(320px,1fr) minmax(320px,1fr);
@@ -256,6 +247,84 @@ header.hero::before{
   box-shadow: 0 6px 14px rgba(0,0,0,.12);
 }
 .pillband .card h4{ margin:.1rem 0 .35rem; font-size: clamp(1rem, 1.8vw, 1.1rem); }
+
+/* ===== Heading-only pill (pillhead) ===== */
+.pillhead{
+  --pillhead-pad-y: clamp(1.8em, 2.1vw, 2em);
+  --pillhead-pad-x: clamp(1.1em, 2.2vw, 1.5em);
+  position:relative; z-index:0; display:inline-block; font-weight:800; color: var(--pill-text, #fff);
+  padding: var(--pillhead-pad-y) var(--pillhead-pad-x);
+  margin: clamp(10px,1.5vw,14px) 0 clamp(16px,2.2vw,22px);
+  line-height:1.1; text-wrap: balance;
+}
+.pillhead::before{
+  content:""; position:absolute; top:50%; transform:translateY(-50%); height:100%;
+  width: calc(100vw - var(--pill-margin)); background: var(--pill-color, var(--logo-orange));
+  box-shadow:0 8px 16px rgba(0,0,0,.12); z-index:-1;
+}
+.pillhead.pill--clip-left::before{  left:  calc(50% - 50vw); border-radius:0 9999px 9999px 0; }
+.pillhead.pill--clip-right::before{ right: calc(50% - 50vw); border-radius:9999px 0 0 9999px; }
+.pillhead.pill--orange{ --pill-color: var(--logo-orange); --pill-text:#fff; }
+.pillhead.pill--soil  { --pill-color: var(--soil);        --pill-text:#fff; }
+.pillhead.pill--slate { --pill-color: var(--slate);       --pill-text:#fff; }
+.pillhead.pill--sage  { --pill-color: var(--sage);        --pill-text:#0e2a1f; }
+
+/* ===== Content Pill (aligned with pillhead) ===== */
+.pill{
+  /* single source of truth for top cushion */
+  --pill-top-extra: clamp(16px, 2.6vw, 28px);
+  /* default curve protection (both sides can reuse) */
+  --curve-inset: clamp(24px, 9vw, 260px);
+
+  /* base box */
+  position: relative;
+  z-index: 0;              /* don’t create a new stacking context */
+  isolation: auto;
+  border-radius: 9999px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.12);
+  background: var(--soil);
+  color:#fff;
+  margin-block: clamp(28px, 4.5vw, 56px);
+
+  /* padding: top gets extra cushion */
+  padding-block-start: calc(var(--pill-pad-y) + var(--pill-top-extra));
+  padding-block-end:   var(--pill-pad-y);
+  padding-inline:      var(--pill-pad-x);
+}
+
+/* stop margin collapse so the padding acts as true space */
+.pill > :first-child{ margin-top: 0; }
+.pill > :last-child { margin-bottom: 0; }
+
+/* curve-side protection (no duplicates) */
+.pill.pill--clip-right{ padding-right: max(var(--pill-pad-x), var(--curve-inset)); }
+.pill.pill--clip-left { padding-left:  max(var(--pill-pad-x), var(--curve-inset)); }
+
+/* full-bleed rounded band behind the pill */
+.pill::before{
+  content:"";
+  position:absolute;
+  top:0; bottom:0;
+  width: calc(100vw - var(--pill-margin));
+  background: var(--soil);
+  z-index:-1;
+  box-shadow: 0 8px 18px rgba(0,0,0,.1);
+}
+.pill.pill--clip-right::before{ right: calc(50% - 50vw); left:auto; border-radius: 9999px 0 0 9999px; }
+.pill.pill--clip-left::before { left:  calc(50% - 50vw); right:auto; border-radius: 0 9999px 9999px 0; }
+
+/* comfortable spacing for content inside pills */
+.pill .pill__title{ margin:0 0 .6rem; font-weight:800; line-height:1.2; }
+.pill > p{ margin:0 0 .8rem; max-inline-size:66ch; }
+.pill ul{ list-style: disc outside; padding-left:1.6rem; margin:.6rem 0 0; max-inline-size:66ch; }
+.pill li{ margin:.3rem 0; }
+.pill .split{ column-gap: clamp(14px, 3vw, 28px); }
+
+/* small screens: add a touch more curve protection if needed */
+@media (max-width: 640px){
+  .pill{ --curve-inset: clamp(32px, 12vw, 200px); }
+}
+
 
 /* ===== Intro (non-pill) ===== */
 .section.intro{ row-gap: clamp(8px, 1.2vw, 16px); }
