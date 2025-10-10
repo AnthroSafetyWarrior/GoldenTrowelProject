@@ -154,26 +154,6 @@ hero_tint: .60
     <h2>Build Your Fieldwork Safety Plan</h2>
     <p class="lede">Download and customize your safety materials below to protect yourself and your team.</p>
 
-    <div class="resources-grid">
-      <article class="resource-card">
-        <h3>Fieldwork Safety Plan</h3>
-        <p>A personal safety plan template for researchers.</p>
-        <p>
-          <a class="btn-doc"
-             href="https://docs.google.com/document/d/1OkEMW4VhpsccA_VZTTEvgBBq5vs0mCOEDg9Xk6f34Ss/edit?usp=sharing"
-             target="_blank" rel="noopener noreferrer">Open Google Doc</a>
-        </p>
-      </article>
-
-      <article class="resource-card">
-        <h3>Collaborator Safety Commitment Agreement</h3>
-        <p>A team-wide agreement on ethical and safe fieldwork protocols.</p>
-        <p>
-          <a class="btn-doc"
-             href="https://docs.google.com/document/d/18SmymYAFKUz_drbDhcsx8NWaiNG6-SQflWPj0OaZ76c/edit?usp=sharing"
-             target="_blank" rel="noopener noreferrer">Open Google Doc</a>
-        </p>
-      </article>
-    </div>
+    
   </div>
 </section>

@@ -367,7 +367,7 @@ header.hero::before{
   border:6px solid var(--slate);
   outline-offset: -6px;
   padding: clamp(6px, 1.2vw, 16px);
-  box-shadow:2px 2px 5px rgba(250, 247,242);
+  box-shadow:2px 2px 7px rgba(250, 247,242);
   display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:.6em;
 }
 .resource-card h3{ margin:0; font-size: clamp(1.15rem, 1.9vw, 1.25rem); text-wrap: balance; }
@@ -416,26 +416,30 @@ header.hero::before{
   padding-block: clamp(16px, 2.6vw, 28px);
 }
 
-/* Small → default: very clamped, just enough curve-safe space */
+/* === Right-clipped pillband spacing (clean + responsive) === */
+
+/* Default & small screens — tight but safe */
 .pillband.pill--clip-right .section{
   padding-block: clamp(28px, 4.8vw, 52px);
   padding-top:   clamp(44px, 5.6vw, 64px);
-  /* small-screen left padding = page padding OR curve inset + a little */
+  /* Left side: use normal padding or a small curve buffer */
   padding-left: max(
     var(--pill-pad-inline),
     calc(var(--pill-curve-inset) + 36px)
   );
 }
 
-/* tiny guard so the heading never kisses the curve */
-.pillband.pill--clip-right h2{ margin-top: .2rem; }
+/* Keep title off the curve */
+.pillband.pill--clip-right h2{
+  margin-top: .2rem;
+}
 
-/* don’t squeeze the right-clipped band too short */
+/* Maintain comfortable height */
 .pillband.pill--clip-right{
   min-height: clamp(220px, 30vw, 360px);
 }
 
-/* Tighter pill spacing ONLY when a pill is clipped */
+/* Tighter internal spacing for clipped pills */
 .pill.pill--clip-left,
 .pill.pill--clip-right{
   --pill-pad-x:     clamp(22px, 3vw, 30px);
@@ -444,22 +448,26 @@ header.hero::before{
   margin-block:     clamp(16px, 3vw, 32px);
 }
 
-* Wide screens: align the content with the main container (orange band) */
+/* Desktop — reduce the curve inset so left padding isn’t excessive */
 @media (min-width: 1200px){
+  .pillband.pill--clip-right{
+    --pill-curve-inset: clamp(16px, 2.5vw, 96px);
+  }
   .pillband.pill--clip-right .section{
-    /* amount of “free” gutter outside your max container */
-    --container-gutter: calc((100vw - var(--maxw)) / 2);
-    /* add curve-safe inset + the outer gutter so text lines up with orange band */
-    padding-left: calc(var(--pill-curve-inset) + var(--container-gutter));
+    padding-left: max(
+      var(--pill-pad-inline),
+      calc(var(--pill-curve-inset) + 20px)
+    );
   }
 }
 
-/* Optional: ultra-wide—cap the shove so it never feels too far in */
+/* Ultra-wide — cap curve inset tighter still */
 @media (min-width: 1600px){
-  .pillband.pill--clip-right .section{
-    padding-left: calc(var(--pill-curve-inset) + 200px); /* tweak this cap if needed */
+  .pillband.pill--clip-right{
+    --pill-curve-inset: clamp(12px, 2vw, 72px);
   }
 }
+
 
 /* === NAV FLYOUT FIX ===================================================== */
 /* Fully isolate .pill--nav so it ignores .pill geometry rules */
