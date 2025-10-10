@@ -29,7 +29,7 @@
   --maxw:1240px;
 
   /* Global page side padding (single source of truth) */
-  --page-pad-inline: clamp(26px, 4vw, 38px);
+  --page-pad-inline: clamp(24px, 4vw, 38px);
 
   /* Wave/band */
   --wave-mid:#c9beb7;
@@ -41,7 +41,7 @@
   /* Pills */
   --pill-radius: 50px;
   --pill-margin: clamp(24px, 6vw, 140px);
-  --pill-pad-y: clamp(2em, 2.1vw, 2.2em);
+  --pill-pad-y: clamp(1.8em, 2.1vw, 2em);
   --pill-pad-x: clamp(1em, 2.2vw, 1.5em);
 }
 :root{
@@ -401,20 +401,20 @@ header.hero::before{
 }
 .btn-doc:hover,.btn-doc:focus-visible{ background: color-mix(in srgb, var(--sage) 16%, #fff); outline:0; }
 @media (max-width:720px){ .resources-grid{ grid-template-columns:1fr; } }
+
 /* --- micro-alignment to match the orange pillhead --- */
 .section > .pill{
-  /* positive value nudges the pill content to the right */
-  --pill-align-nudge: 12px;         /* try 10–14px until it visually snaps */
-  padding-left: calc(var(--pill-pad-x) + var(--pill-align-nudge));
+  --pill-align-nudge: 12px; /* adjust as you like */
+  padding-inline-start: calc(var(--pill-pad-x) + var(--pill-align-nudge));
 }
 
-/* keep curved-edge inset logic in sync when the pill clips right */
-.section > .pill.pill--clip-right{
-  padding-right: max(var(--pill-pad-x), clamp(24px, 9vw, 260px));
+/* Clip-side rules that still respect your vars */
+.pill.pill--clip-right{
+  padding-inline-end: max(var(--pill-pad-x), clamp(24px, 9vw, 260px));
 }
-.section > .pill.pill--clip-left{
-  /* add the nudge on left-clip pills too (in case you reuse the pattern) */
-  padding-left: calc(max(var(--pill-pad-x), clamp(24px, 9vw, 260px)) + var(--pill-align-nudge));
+.pill.pill--clip-left{
+  padding-inline-start: max(calc(var(--pill-pad-x) + var(--pill-align-nudge)),
+                            clamp(24px, 9vw, 260px));
 }
 
 /* NAV FLYOUT: reset so they don't inherit the content-pill chrome */
