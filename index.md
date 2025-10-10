@@ -59,16 +59,39 @@ hero_tint: .60
 
 <!-- 3) PREPARING — pillband -->
 <section class="pillband pill--soil pill--clip-right">
-  <div class="section">
+  <div class="section resources">
     <h2>Preparing for fieldwork includes proactive safety planning.</h2>
+<div class="resources-grid">
+      <article class="resource-card">
+        <h3>Fieldwork Safety Plan</h3>
+        <p>A personal safety plan template for researchers.</p>
+        <p>
+          <a class="btn-doc"
+  href="https://docs.google.com/document/d/1OkEMW4VhpsccA_VZTTEvgBBq5vs0mCOEDg9Xk6f34Ss/edit?usp=sharing"
+             target="_blank" rel="noopener noreferrer">Open Google Doc</a>
+        </p>
+      </article>
 
+      <article class="resource-card">
+        <h3>Collaborator Safety Commitment Agreement</h3>
+        <p>A team-wide agreement on ethical and safe fieldwork protocols.</p>
+        <p>
+          <a class="btn-doc"
+             href="https://docs.google.com/document/d/18SmymYAFKUz_drbDhcsx8NWaiNG6-SQflWPj0OaZ76c/edit?usp=sharing"
+             target="_blank" rel="noopener noreferrer">Open Google Doc</a>
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section">
     <div class="split">
       <div class="text">
         <p>
           This website provides essential resources and education for researchers to
           prevent and report harmful behavior. These preparation materials include:
         </p>
-      </div>
       <figure class="art">
         <img
           src="{{ '/assets/img/prep.png' | relative_url }}"
@@ -80,10 +103,7 @@ hero_tint: .60
       </figure>
     </div>
   </div>
-</section>
-
-<!-- move the narrative copy OUTSIDE the pillband -->
-<section class="section">
+  <div class="text"> 
   <p>
     A growing body of research suggests that training in boundary-setting and self-defense is
     not just reactive — it can <strong>shift how we respond under threat</strong>. For example,
@@ -96,6 +116,8 @@ hero_tint: .60
     These suggest that when we practice setting boundaries and preparing responses in advance,
     we may be less likely to default to appeasement or freeze patterns in moments of threat.
   </p>
+</div>
+</div>
 </section>
 
 <!-- 4) OUR APPROACH — consistent grid utility -->
