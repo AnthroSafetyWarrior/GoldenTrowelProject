@@ -385,6 +385,26 @@ header.hero::before{
 .pillhead.pill--slate { --pill-color: var(--slate);       --pill-text:#fff; }
 .pillhead.pill--sage  { --pill-color: var(--sage);        --pill-text:#0e2a1f; }
 
+
+/* --- tiny extra nudge so nothing peeks past the curve --- */
+.pill.pill--clip-right{
+  /* push content a bit further off the curved edge */
+  --curve-inset: clamp(44px, 10vw, 180px);        /* was 36px,8vw,140px */
+  padding-inline-start: calc(var(--pill-pad-x) + var(--curve-inset));
+  padding-inline-end:   max(var(--pill-pad-x), clamp(24px, 9vw, 190px));
+}
+
+/* slightly more breathing room above the H2 */
+.pill{
+  --pill-top-extra: clamp(16px, 2.6vw, 28px);     /* was 12px,2vw,22px */
+  padding-block-start: calc(var(--pill-pad-y) + var(--pill-top-extra));
+}
+
+/* phone safety margin: one more click on the inset */
+@media (max-width: 640px){
+  .pill.pill--clip-right{ --curve-inset: clamp(56px, 14vw, 200px); }
+}
+
 /* NAV FLYOUT: reset so they don't inherit the content-pill chrome */
 .flyout .pill{
   all: unset;                        /* wipe inherited styles clean */
