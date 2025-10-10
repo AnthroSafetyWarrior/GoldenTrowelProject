@@ -47,7 +47,7 @@
 :root{
   /* you can tweak these until it feels perfect */
   --pill-pad-x: clamp(30px, 4vw, 44px);  /* left/right */
-  --pill-pad-y: clamp(32px, 5vw, 56px);  /* top/bottom */
+  --pill-pad-y: clamp(36px, 5vw, 56px);  /* top/bottom */
 }
 
 /* ---------- Base ---------- */
@@ -423,6 +423,38 @@ header.hero::before{
   transform: none;       /* no vertical centering */
   z-index: -1;           /* sit behind the pill’s content */
   pointer-events: none;  /* never block clicks */
+}
+/* Uniform body copy + list rhythm (outside the pill) */
+.section :where(p, ul){ font-size: inherit; line-height: 1.55; }
+
+/* Paragraph spacing */
+.section p{
+  margin-block: 0.75em;              /* top & bottom */
+}
+
+/* List spacing + indentation */
+.section ul{
+  margin-block: 0.6em 1.0em;         /* tighter above, a touch below */
+  padding-left: 1.6rem;              /* bullet indent */
+  font-size: inherit;
+  line-height: 1.55;
+}
+
+/* Space between items */
+.section li{
+  margin-block: 0.35em;
+  font-size: inherit;                /* keep same size as paragraphs */
+}
+
+/* Smooth the transitions specifically where p meets ul (and back) */
+.section p + ul{ margin-top: 0.7em; }
+.section ul + p{ margin-top: 0.9em; }
+
+/* Optional: slightly tighter on phones */
+@media (max-width: 640px){
+  .section p{ margin-block: 0.7em; }
+  .section ul{ margin-block: 0.5em 0.9em; }
+  .section li{ margin-block: 0.3em; }
 }
 
 </style>
