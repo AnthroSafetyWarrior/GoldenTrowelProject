@@ -336,9 +336,17 @@ header.hero::before{
 .pillhead.pill--slate { --pill-color: var(--slate);       --pill-text:#fff; }
 .pillhead.pill--sage  { --pill-color: var(--sage);        --pill-text:#0e2a1f; }
 
+
 /* ===== Content Pill (aligned with pillhead) ===== */
 .pill{
-  padding: var(--pill-pad-y) var(--pill-pad-x);
+  /* extra top-only cushion so the title doesn't kiss the curve */
+  --pill-top-extra: clamp(12px, 2vw, 22px);
+
+  /* keep your sides/bottom, add extra to the top only */
+  padding-block-start: calc(var(--pill-pad-y) + var(--pill-top-extra));
+  padding-block-end: var(--pill-pad-y);
+  padding-inline: var(--pill-pad-x);
+
   margin-block: clamp(28px, 4.5vw, 56px);
   border-radius: 9999px;
   box-shadow: 0 8px 24px rgba(0,0,0,.12);
@@ -350,27 +358,39 @@ header.hero::before{
 }
 
 /* stop margin collapse so the padding shows up as real space */
-.pill > :first-child{ margin-top: 12px; }
+.pill > :first-child{ margin-top: 0; }
 .pill > :last-child { margin-bottom: 0; }
 
 /* generous curve-side padding so content never hugs the rounded edge */
 .pill.pill--clip-right{ padding-right: max(var(--pill-pad-x), clamp(24px, 9vw, 260px)); }
 .pill.pill--clip-left { padding-left:  max(var(--pill-pad-x), clamp(24px, 9vw, 260px)); }
 
-/* keep the full-bleed rounded band under the pill */
+/* keep the full-bleed rounded band under the pill (anchored to top/bottom) */
 .pill::before{
   content:"";
   position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  height:100%;
+  top: 0;
+  right: calc(50% - 50vw);
+  bottom: 0;
+  left: auto; /* overridden by clip-left below */
+  transform: none;
   width: calc(100vw - var(--pill-margin));
   background: var(--soil);
   z-index:-1;
   box-shadow: 0 8px 18px rgba(0,0,0,.1);
 }
-.pill.pill--clip-right::before{ right: calc(50% - 50vw); border-radius: 9999px 0 0 9999px; }
-.pill.pill--clip-left::before { left:  calc(50% - 50vw); border-radius: 0 9999px 9999px 0; }
+
+/* side-specific band rounding/anchoring */
+.pill.pill--clip-right::before{
+  right: calc(50% - 50vw);
+  left: auto;
+  border-radius: 9999px 0 0 9999px;
+}
+.pill.pill--clip-left::before{
+  left:  calc(50% - 50vw);
+  right: auto;
+  border-radius: 0 9999px 9999px 0;
+}
 
 /* optional: a touch more breathing room when split is inside a pill */
 .pill .split{ column-gap: clamp(14px, 3vw, 28px); }
@@ -381,26 +401,10 @@ header.hero::before{
 .pill ul{ list-style: disc outside; padding-left:1.6rem; margin:.6rem 0 0; max-inline-size:66ch; }
 .pill li{ margin:.3rem 0; }
 
-/* ===== Resources (sage pill) — circular cards ===== */
-.resources-grid{
-  display:grid; grid-template-columns: repeat(2, minmax(200px,1fr));
-  justify-items:center; gap: clamp(8px, 3vw, 16px);
+/* (optional) a bit more top cushion on small screens */
+@media (max-width: 640px){
+  .pill{ --pill-top-extra: clamp(16px, 4vw, 28px); }
 }
-.resource-card{
-  --diameter: clamp(200px, 28vw, 360px);
-  width: var(--diameter); aspect-ratio: 1 / 1; border-radius: 50%;
-  background:var(--soil); color: #fff; padding: clamp(6px, 2.4vw, 16px);
-  box-shadow:0 8px 20px rgba(0,0,0,.12);
-  display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:.6em;
-}
-.resource-card h3{ margin:0; font-size: clamp(1.05rem, 1.9vw, 1.25rem); text-wrap: balance; }
-.resource-card p{ margin:0; font-size: clamp(.95rem, 1.6vw, 1.05rem); line-height:1.35; max-width: 24ch; }
-.btn-doc{
-  display:inline-block; font-weight:700; border-radius:999px; padding:.5em .9em; background:#fff; color:var(--sage);
-  border:2px solid var(--sage); text-decoration:none;
-}
-.btn-doc:hover,.btn-doc:focus-visible{ background: color-mix(in srgb, var(--sage) 16%, #fff); outline:0; }
-@media (max-width:720px){ .resources-grid{ grid-template-columns:1fr; } }
 
 /* --- micro-alignment to match the orange pillhead --- */
 .section > .pill{
