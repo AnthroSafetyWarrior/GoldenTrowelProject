@@ -59,13 +59,19 @@ hero_tint: .60
 
 <!-- 3) PREPARING — shared split -->
 <section class="section">
-  <div class="pill pill--soil pill--clip-right">
-    <h2 class="pill__title">Preparing for fieldwork includes proactive safety planning.</h2>
-<div class="split">
-    <div class="text">
-       <p>This website provides essential resources and education for researchers to prevent and report harmful behavior. These preparation materials include:</p>
-    </div>
-    <figure class="art">
+  <article class="pill pill--soil pill--clip-right" aria-labelledby="prep-title">
+    <h2 class="pill__title" id="prep-title">
+      Preparing for fieldwork includes proactive safety planning.
+    </h2>
+
+    <div class="split">
+      <div class="text">
+        <p>
+          This website provides essential resources and education for researchers to
+          prevent and report harmful behavior. These preparation materials include:
+        </p>
+      </div>
+<figure class="art">
       <img
         src="{{ '/assets/img/prep.png' | relative_url }}"
         alt="1. Identify local emergency and institutional contacts — police, hospitals, embassies, and campus safety offices.
@@ -75,12 +81,13 @@ hero_tint: .60
         loading="lazy" decoding="async">
     </figure>
   </div>
-</div>
+</article>
      <p>
-    A growing body of research suggests that training in boundary-setting and self-defense is not just reactive — it can <strong>shift how we respond under threat</strong>. For example, <ul>
+    A growing body of research suggests that training in boundary-setting and self-defense is not just reactive — it can <strong>shift how we respond under threat</strong>. For example,</p> 
+<ul>
 <li>empowerment self-defense (ESD) programs have demonstrated increased assertiveness, reduced fear in risky environments, and stronger self-protective decision-making <a href="https://doi.org/10.1177/08862605221082734">(Beaujolais, 2023; </a><a href="https://doi.org/10.33043/SSWJ.2.1.63-76">Follo, 2022).</a></li>
-<li>Other efforts in trauma prevention and rape-resistance place such training within evidence-based prevention strategies <a href="https://doi.org/10.1080/10926771.2022.2046224">(Basile, 2022).</a></li></ol>
-These suggest that when we practice setting boundaries and preparing responses in advance, we may be less likely to default to appeasement or freeze patterns in moments of threat.
+<li>Other efforts in trauma prevention and rape-resistance place such training within evidence-based prevention strategies <a href="https://doi.org/10.1080/10926771.2022.2046224">(Basile, 2022).</a></li></ul>
+<p>These suggest that when we practice setting boundaries and preparing responses in advance, we may be less likely to default to appeasement or freeze patterns in moments of threat.
   </p>
 </section>
 

@@ -410,6 +410,38 @@ header.hero::before{
   background:#444054; color:#fff; transform:translateY(-1px);
   border-color:var(--gold); outline:0;
 }
+/* --- Prevent double-rounded overlap/banding on iOS --- */
+.pill{
+  background: transparent;       /* no second rounded fill */
+  box-shadow: none;              /* shadow only on ::before */
+  /* keep padding, color, etc. as-is */
+}
+
+/* default round when not clipped */
+.pill::before{
+  /* was already positioned—keep your width/position rules */
+  border-radius: 9999px;
+  background: var(--soil);
+  box-shadow: 0 8px 18px rgba(0,0,0,.10);
+  -webkit-transform: translateZ(0);  /* reduce iOS banding */
+  backface-visibility: hidden;
+}
+
+/* curve directions (unchanged, but now the only rounded layer) */
+.pill.pill--clip-right::before{ right: calc(50% - 50vw); border-radius: 9999px 0 0 9999px; }
+.pill.pill--clip-left::before {  left: calc(50% - 50vw); border-radius: 0 9999px 9999px 0; }
+
+/* phones: add more curve-side inset so text never touches the arc */
+@media (max-width: 720px){
+  .pill.pill--clip-right{
+    padding-right: max(var(--pill-pad-x), clamp(28px, 16vw, 340px));
+  }
+  .pill.pill--clip-left{
+    padding-left:  max(var(--pill-pad-x), clamp(28px, 16vw, 340px));
+  }
+  /* slightly softer shadow on tiny screens to avoid visible rings */
+  .pill::before{ box-shadow: 0 6px 14px rgba(0,0,0,.10); }
+}
 
 </style>
 
