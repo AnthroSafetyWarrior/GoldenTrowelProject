@@ -365,32 +365,36 @@ header.hero::before{
 .pill.pill--clip-right{ padding-right: max(var(--pill-pad-x), clamp(24px, 9vw, 260px)); }
 .pill.pill--clip-left { padding-left:  max(var(--pill-pad-x), clamp(24px, 9vw, 260px)); }
 
-/* keep the full-bleed rounded band under the pill (anchored to top/bottom) */
+/* Let the band do ALL the visual work */
+.pill{
+  background: transparent !important; /* remove inner pill fill */
+  border-radius: 0 !important;        /* no inner curve */
+  box-shadow: none !important;        /* shadow lives on the band */
+}
+
+/* Band = single clean shape */
 .pill::before{
   content:"";
   position:absolute;
-  top: 0;
-  right: calc(50% - 50vw);
-  bottom: 0;
-  left: auto; /* overridden by clip-left below */
-  transform: none;
+  top:0; bottom:0;
   width: calc(100vw - var(--pill-margin));
   background: var(--soil);
-  z-index:-1;
-  box-shadow: 0 8px 18px rgba(0,0,0,.1);
+  box-shadow: 0 10px 22px rgba(0,0,0,.14);
+  z-index:-1; pointer-events:none;
 }
 
-/* side-specific band rounding/anchoring */
-.pill.pill--clip-right::before{
-  right: calc(50% - 50vw);
-  left: auto;
-  border-radius: 9999px 0 0 9999px;
+/* Correct side anchoring */
+.pill.pill--clip-right::before{ right: calc(50% - 50vw); left:auto;  border-radius:9999px 0 0 9999px; }
+.pill.pill--clip-left::before{  left:  calc(50% - 50vw); right:auto; border-radius:0 9999px 9999px 0; }
+
+/* If a pillhead precedes the pill, remove the pillhead band so we don’t double-stack */
+@supports selector(.pillhead:has(+ .pill)){
+  .pillhead:has(+ .pill)::before{ content:none !important; box-shadow:none !important; }
+  .pillhead:has(+ .pill){ margin-bottom:0; }
+  .pillhead:has(+ .pill) + .pill{ margin-top:0; }
 }
-.pill.pill--clip-left::before{
-  left:  calc(50% - 50vw);
-  right: auto;
-  border-radius: 0 9999px 9999px 0;
-}
+/* Fallback: at least kill the pillhead shadow */
+.pillhead::before{ box-shadow:none !important; }
 
 /* optional: a touch more breathing room when split is inside a pill */
 .pill .split{ column-gap: clamp(14px, 3vw, 28px); }
@@ -481,55 +485,6 @@ header.hero::before{
   background:#444054; color:#fff; transform:translateY(-1px);
   border-color:var(--gold); outline:0;
 }
-/* keep the pill in the normal stacking order */
-.pill{
-  position: relative;
-  z-index: 0;            /* ensure following content can paint above */
-  isolation: auto;       /* was isolate; don't create a new stacking context */
-}
-
-/* keep the full-bleed band *inside* the pill vertically and behind it */
-.pill::before{
-  top: 0;                /* was top:50% with translateY(-50%) */
-  transform: none;       /* no vertical centering */
-  z-index: -1;           /* sit behind the pill’s content */
-  pointer-events: none;  /* never block clicks */
-}
-
-/* Clean curve on small screens: move shadow from the card to the band */
-.pill{
-  box-shadow: none;                 /* stop the inner oval from casting outside */
-}
-
-.pill::before{
-  /* put the depth on the full-bleed band instead, which clips perfectly */
-  box-shadow: 0 10px 22px rgba(0,0,0,.14);
-}
-
-/* (optional) give phones a hair more inset so nothing kisses the edge */
-@media (max-width: 640px){
-  .pill.pill--clip-right{
-    --curve-inset: clamp(60px, 15vw, 210px);
-  }
-}
-/* Use a single band: if a content pill follows, kill the heading band */
-@supports selector(.pillhead:has(+ .pill)) {
-  .pillhead:has(+ .pill.pill--clip-right)::before,
-  .pillhead:has(+ .pill.pill--clip-left)::before{
-    content: none !important;     /* no second oval */
-    box-shadow: none !important;  /* no second shadow */
-  }
-
-  /* tighten the seam so they look like one piece */
-  .pillhead:has(+ .pill){ margin-bottom: 0; }
-  .pillhead:has(+ .pill) + .pill{ margin-top: 0; }
-}
-
-/* Fallback for browsers without :has(): remove the heading shadow,
-   and prevent shadow stacking on consecutive pills */
-.pillhead::before{ box-shadow: none !important; }
-.pill + .pill::before{ box-shadow: none !important; }
-
 </style>
 
 </head>
