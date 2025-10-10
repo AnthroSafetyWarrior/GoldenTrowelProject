@@ -453,6 +453,55 @@ header.hero::before{
 
 .ultra-smush .pillband { min-height: clamp(140px, 20vw, 240px); }
 .ultra-smush .pillband .section { padding-block: clamp(12px, 2vw, 22px); }
+/* ===== GLOBAL SMUSH – final overrides ===== */
+
+/* Pillband (the big brown ribbon) */
+body.smush .pillband        { min-height: clamp(180px, 26vw, 300px); }
+body.smush .section         { padding-block: clamp(20px, 3.5vw, 36px); }
+body.smush .pillband .section{ padding-inline: clamp(18px, 4.5vw, 28px); }
+body.smush .pillband h2     { margin-bottom: clamp(.25rem, .8vw, .45rem); }
+
+/* Content pill core padding + margins (uses your CSS vars) */
+body.smush .pill{
+  --pill-pad-x: clamp(24px, 3.2vw, 32px);
+  --pill-pad-y: clamp(28px, 3.8vw, 40px);
+  --pill-top-extra: clamp(8px, 1.2vw, 14px);
+  margin-block: clamp(18px, 3.2vw, 34px);
+}
+
+/* Lists & copy inside pills */
+body.smush .pill .pill__title{ margin-bottom:.45rem; }
+body.smush .pill > p         { margin-bottom:.55rem; }
+body.smush .pill ul          { margin-top:.4rem; padding-left:1.4rem; }
+body.smush .pill li          { margin:.22rem 0; }
+body.smush .pill .split      { column-gap: clamp(14px, 3vw, 28px); }
+
+/* ULTRA layer on top of smush */
+body.ultra-smush .pillband        { min-height: clamp(160px, 22vw, 260px); }
+body.ultra-smush .section         { padding-block: clamp(14px, 2.8vw, 24px); }
+body.ultra-smush .pillband .section{ padding-inline: clamp(14px, 3.6vw, 22px); }
+
+body.ultra-smush .pill{
+  --pill-pad-x: clamp(18px, 2.6vw, 26px);
+  --pill-pad-y: clamp(18px, 3.2vw, 28px);
+  --pill-top-extra: clamp(4px, .8vw, 8px);
+  margin-block: clamp(12px, 2.4vw, 24px);
+}
+body.ultra-smush .pill .pill__title{ margin-bottom:.35rem; }
+body.ultra-smush .pill > p         { margin-bottom:.45rem; }
+body.ultra-smush .pill ul          { margin-top:.35rem; padding-left:1.25rem; }
+body.ultra-smush .pill li          { margin:.18rem 0; }
+body.ultra-smush .pill .split      { column-gap: clamp(10px, 2vw, 18px); }
+
+/* Phone tweaks */
+@media (max-width:640px){
+  body.ultra-smush .pill{
+    --pill-pad-x: clamp(16px, 5vw, 22px);
+    --pill-pad-y: clamp(16px, 5.5vw, 24px);
+    --pill-top-extra: clamp(2px, .8vw, 6px);
+  }
+  body.ultra-smush .pillband .section{ padding-inline: clamp(12px, 5vw, 18px); }
+}
 
 </style>
 
