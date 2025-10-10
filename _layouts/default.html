@@ -463,6 +463,46 @@ header.hero::before{
   }
 }
 
+/* === NAV FLYOUT FIX ===================================================== */
+/* Fully isolate .pill--nav so it ignores .pill geometry rules */
+
+.pill--nav {
+  all: unset;
+  display: block;
+  width: 260px;
+  text-align: center;
+  padding: .7em 1.1em;
+  font-weight: 700;
+  font-size: .95rem;
+  color: var(--soil);
+  background: var(--gold);
+  border: 2px solid var(--gold);
+  border-radius: 999px;
+  text-decoration: none;
+  background-clip: padding-box;
+  cursor: pointer;
+  position: static !important;  /* override .pill position:relative */
+  box-shadow: none !important;
+  isolation: auto;
+}
+
+.pill--nav::before {
+  content: none !important;   /* stop the full-bleed ::before band */
+}
+
+.pill--nav + .pill--nav {
+  margin-top: -2px;
+}
+
+.pill--nav:hover,
+.pill--nav:focus-visible {
+  background: #444054;
+  color: #fff;
+  transform: translateY(-1px);
+  border-color: var(--gold);
+  outline: 0;
+}
+
 </style>
 
 
