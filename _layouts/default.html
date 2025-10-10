@@ -201,8 +201,18 @@ header.hero::before{
   max-width: var(--maxw); margin-inline:auto;
   padding: clamp(36px,5vw,56px) var(--pill-pad-inline);
 }
-.pillband.pill--clip-right .section{ padding-right: max(var(--pill-pad-inline), var(--pill-curve-inset)); }
-.pillband.pill--clip-left  .section{ padding-left:  max(var(--pill-pad-inline), var(--pill-curve-inset)); }
+
+/* after (correct) */
+.pillband.pill--clip-right .section{
+  /* curve on LEFT → protect the LEFT */
+  padding-left: max(var(--pill-pad-inline), var(--pill-curve-inset));
+}
+.pillband.pill--clip-left .section{
+  /* curve on RIGHT → protect the RIGHT */
+  padding-right: max(var(--pill-pad-inline), var(--pill-curve-inset));
+}
+
+
 .pillband::before{
   content:"";
   position:absolute; inset:0 auto 0 auto; top:50%; transform:translateY(-50%);
