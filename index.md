@@ -79,8 +79,6 @@ hero_tint: .60
     </figure>
   </div>
 </div>
-</section>
-<section class="section">
      <p>
     A growing body of research suggests that training in boundary-setting and self-defense is not just reactive — it can <strong>shift how we respond under threat</strong>. For example,</p> 
 <ul>
@@ -88,32 +86,6 @@ hero_tint: .60
 <li>Other efforts in trauma prevention and rape-resistance place such training within evidence-based prevention strategies <a href="https://doi.org/10.1080/10926771.2022.2046224">(Basile, 2022).</a></li></ul>
 <p>These suggest that when we practice setting boundaries and preparing responses in advance, we may be less likely to default to appeasement or freeze patterns in moments of threat.
   </p>
-</section>
-
-<!-- 5) SAFETY PLAN — circular cards -->
-<section class="pillband pill--slate pill--clip-left">
-  <div class="section resources">
-    <h2>Build Your Fieldwork Safety Plan</h2>
-    <p class="lede">Download and customize your safety materials below to protect yourself and your team.</p>
-    <div class="resources-grid">
-      <article class="resource-card">
-        <h3>Fieldwork Safety Plan</h3>
-        <p>A personal safety plan template for researchers.</p>
-        <p>
-          <a class="btn-doc"       href="https://docs.google.com/document/d/1OkEMW4VhpsccA_VZTTEvgBBq5vs0mCOEDg9Xk6f34Ss/edit?usp=sharing" target="_blank" rel="noopener noreferrer">Open Google Doc</a>
-        </p>
-      </article>
-      <article class="resource-card">
-        <h3>Collaborator Safety Commitment Agreement</h3>
-        <p>A team-wide agreement on ethical and safe fieldwork protocols.</p>
-        <p>
-          <a class="btn-doc"
-             href="https://docs.google.com/document/d/18SmymYAFKUz_drbDhcsx8NWaiNG6-SQflWPj0OaZ76c/edit?usp=sharing"
-             target="_blank" rel="noopener noreferrer">Open Google Doc</a>
-        </p>
-      </article>
-    </div>
-  </div>
 </section>
 
 <!-- 4) OUR APPROACH — consistent grid utility -->
@@ -145,3 +117,32 @@ hero_tint: .60
   </div>
 </section>
 
+<!-- 5) RESOURCES — circular cards -->
+<section class="pillband pill--sage pill--clip-right">
+  <div class="section resources">
+    <h2>Build Your Fieldwork Safety Plan</h2>
+    <p class="lede">Download and customize your safety materials below to protect yourself and your team.</p>
+
+    <div class="resources-grid">
+      <article class="resource-card">
+        <h3>Fieldwork Safety Plan</h3>
+        <p>A personal safety plan template for researchers.</p>
+        <p>
+          <a class="btn-doc"
+             href="https://docs.google.com/document/d/1OkEMW4VhpsccA_VZTTEvgBBq5vs0mCOEDg9Xk6f34Ss/edit?usp=sharing"
+             target="_blank" rel="noopener noreferrer">Open Google Doc</a>
+        </p>
+      </article>
+
+      <article class="resource-card">
+        <h3>Collaborator Safety Commitment Agreement</h3>
+        <p>A team-wide agreement on ethical and safe fieldwork protocols.</p>
+        <p>
+          <a class="btn-doc"
+             href="https://docs.google.com/document/d/18SmymYAFKUz_drbDhcsx8NWaiNG6-SQflWPj0OaZ76c/edit?usp=sharing"
+             target="_blank" rel="noopener noreferrer">Open Google Doc</a>
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
