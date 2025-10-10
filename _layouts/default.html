@@ -405,25 +405,28 @@ header.hero::before{
 }
 
 
-/* ================== Auto-Smush for any clipped pills/bands ================== */
-/* Works site-wide; no body/main class needed. Put this AFTER your base .pill rules. */
+/* --- Safer spacing for clipped bands --- */
 
-/* Tighten the ribbon section when the band is clipped */
-.pillband.pill--clip-left .section,
-.pillband.pill--clip-right .section{
+/* Keep the denser setting only for LEFT */
+.pillband.pill--clip-left .section{
   padding-block: clamp(16px, 2.6vw, 28px);
 }
 
-/* Slightly smaller band height for clipped bands */
-.pillband.pill--clip-left,
-.pillband.pill--clip-right{
-  min-height: clamp(180px, 26vw, 300px);
+/* Restore comfy headroom for RIGHT (fixes the cut-off look) */
+.pillband.pill--clip-right .section{
+  /* default band padding + a touch more on top */
+  padding-block: clamp(28px, 4.8vw, 52px);
+  padding-top:   clamp(36px, 5.6vw, 64px);
 }
 
-/* Tighten headings inside the band */
-.pillband.pill--clip-left h2,
+/* Optional: tiny heading guard so the title never kisses the curve */
 .pillband.pill--clip-right h2{
-  margin-bottom: clamp(.25rem, .8vw, .45rem);
+  margin-top: .2rem;  /* small positive top margin */
+}
+
+/* If you also reduced band height globally, don't squeeze right side too far */
+.pillband.pill--clip-right{
+  min-height: clamp(220px, 30vw, 360px);
 }
 
 /* Core: denser pills ONLY when they’re clipped (left or right) */
