@@ -197,7 +197,7 @@ header.hero::before{
 .pillband.pill--sage  { --pill-color: var(--sage);        color:#0e2a1f; }
 
 /* type inside pillband */
-.pillband h2{ margin:0 0 clamp(.4rem, 1.2vw, .6rem); font-size:clamp(1.6rem,4.5vw,1.8rem); line-height:1.2; font-weight:800; }
+.pillband h2{ margin:0 0 clamp(.4rem, 1.2vw, .6rem); font-size:clamp(1.6rem,4.5vw,1.8rem); line-height:1.2; font-weight:800; max-inline-size:66ch;}
 .pillband :where(p, ul, ol, blockquote){ max-inline-size: var(--pill-measure); }
 .pillband p{ text-wrap: pretty; overflow-wrap:anywhere; hyphens:auto; }
 .pillband blockquote{ margin:.25rem 0 0; font-style:italic; opacity:.95; }
