@@ -512,6 +512,23 @@ header.hero::before{
     --curve-inset: clamp(60px, 15vw, 210px);
   }
 }
+/* Use a single band: if a content pill follows, kill the heading band */
+@supports selector(.pillhead:has(+ .pill)) {
+  .pillhead:has(+ .pill.pill--clip-right)::before,
+  .pillhead:has(+ .pill.pill--clip-left)::before{
+    content: none !important;     /* no second oval */
+    box-shadow: none !important;  /* no second shadow */
+  }
+
+  /* tighten the seam so they look like one piece */
+  .pillhead:has(+ .pill){ margin-bottom: 0; }
+  .pillhead:has(+ .pill) + .pill{ margin-top: 0; }
+}
+
+/* Fallback for browsers without :has(): remove the heading shadow,
+   and prevent shadow stacking on consecutive pills */
+.pillhead::before{ box-shadow: none !important; }
+.pill + .pill::before{ box-shadow: none !important; }
 
 </style>
 
