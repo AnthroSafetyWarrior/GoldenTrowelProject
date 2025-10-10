@@ -326,10 +326,10 @@ header.hero::before{
 .split{
   --left-min: 360px;
   --left-max: 400px;
-  --right-min: 400px;
-  --gap: clamp(12px, 1.2vw, 16px);
+  --right-min: 360px;
+  --gap: clamp(26px, 2vw, 48px);
 
-  --img-min: 340px;
+  --img-min: 380px;
   --img-ideal: 28vw;
   --img-max: 440px;
 
@@ -444,22 +444,6 @@ header.hero::before{
   --pill-top-extra: clamp(8px, 1.2vw, 12px);
   margin-block:     clamp(16px, 3vw, 32px);
 }
-
-/* Copy rhythm inside clipped pills */
-.pill.pill--clip-left  .pill__title,
-.pill.pill--clip-right .pill__title{ margin-bottom:.45rem; }
-
-.pill.pill--clip-left  > p,
-.pill.pill--clip-right > p{ margin-bottom:.55rem; }
-
-.pill.pill--clip-left  ul,
-.pill.pill--clip-right ul{ margin-top:.4rem; padding-left:1.4rem; }
-
-.pill.pill--clip-left  li,
-.pill.pill--clip-right li{ margin:.22rem 0; }
-
-.pill.pill--clip-left  .split,
-.pill.pill--clip-right .split{ column-gap: clamp(12px, 2.4vw, 24px); }
 
 * Wide screens: align the content with the main container (orange band) */
 @media (min-width: 1200px){
