@@ -437,36 +437,23 @@ header.hero::before{
   padding-inline-end: max(var(--pill-pad-x), clamp(24px, 9vw, 190px));
 }
 
-/* --- Content-pill tuning --- */
-
-/* 1) Shift content inward on RIGHT-CLIP pills, but keep text left-aligned */
+/* --- tiny extra nudge so nothing peeks past the curve --- */
 .pill.pill--clip-right{
-  /* how far to push content off the curved edge */
-  --curve-inset: clamp(36px, 8vw, 140px);
-
-  /* keep your existing padding plus the curve inset on the left side ONLY */
+  /* push content a bit further off the curved edge */
+  --curve-inset: clamp(44px, 10vw, 180px);        /* was 36px,8vw,140px */
   padding-inline-start: calc(var(--pill-pad-x) + var(--curve-inset));
-
-  /* keep your existing right-side rule */
-  padding-inline-end: max(var(--pill-pad-x), clamp(24px, 9vw, 190px));
+  padding-inline-end:   max(var(--pill-pad-x), clamp(24px, 9vw, 190px));
 }
 
-/* give the title a bit more breathing room from the top curve */
+/* slightly more breathing room above the H2 */
 .pill{
-  --pill-top-extra: clamp(12px, 2vw, 22px);
+  --pill-top-extra: clamp(16px, 2.6vw, 28px);     /* was 12px,2vw,22px */
   padding-block-start: calc(var(--pill-pad-y) + var(--pill-top-extra));
-  padding-block-end: var(--pill-pad-y);
 }
 
-/* 2) Remove the band shadow to avoid the “bulbous/double” outline */
-.pill::before{
-  box-shadow: none;            /* <-- was casting a second shadow */
-}
-
-/* Small screens: push a little more to be extra safe */
+/* phone safety margin: one more click on the inset */
 @media (max-width: 640px){
-  .pill{ --pill-top-extra: clamp(16px, 4vw, 28px); }
-  .pill.pill--clip-right{ --curve-inset: clamp(48px, 12vw, 170px); }
+  .pill.pill--clip-right{ --curve-inset: clamp(56px, 14vw, 200px); }
 }
 
 
