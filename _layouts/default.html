@@ -38,16 +38,11 @@
   /* Scroll circle lift */
   --circle-lift:-8px;
 
-  /* Pills */
+  /* “Pill” layout variables used by pillband/pillhead */
   --pill-radius: 50px;
   --pill-margin: clamp(24px, 6vw, 140px);
-  --pill-pad-y: clamp(1.8em, 2.1vw, 2em);
-  --pill-pad-x: clamp(1em, 2.2vw, 1.5em);
-}
-:root{
-  /* you can tweak these until it feels perfect */
-  --pill-pad-x: clamp(32px, 4vw, 40px);  /* left/right */
-  --pill-pad-y: clamp(40px, 5vw, 56px);  /* top/bottom */
+  --pill-pad-y: clamp(40px, 5vw, 56px);
+  --pill-pad-x: clamp(32px, 4vw, 40px);
 }
 
 /* ---------- Base ---------- */
@@ -61,36 +56,18 @@ p { font-size:clamp(1.05rem,2.8vw,1.15rem); margin:.6em 0; line-height:1.55; }
 a{ color:var(--soil); text-decoration-thickness:.08em; text-underline-offset:.18em; }
 a:hover{ color:var(--logo-orange); }
 main{ width:min(100%, var(--maxw)); margin-inline:auto; padding:clamp(16px,4vw,28px); }
+
 /* --- Global copy rhythm (paragraphs + lists) --- */
-p,
-ul,
-ol{
-  font-size: clamp(1.05rem, 2.8vw, 1.15rem); /* match your <p> size */
-  line-height: 1.55;
-  margin-block: 0.2em;                      /* even spacing above/below */
-}
+p, ul, ol{ font-size:clamp(1.05rem,2.8vw,1.15rem); line-height:1.55; margin-block:.2em; }
+ul, ol{ padding-left:1.6rem; list-style-position:outside; }
+li{ margin-block:.35em; }
+p + ul, p + ol{ margin-top:.6em; }
+ul + p, ol + p{ margin-top:.9em; }
+figure{ margin:.9em 0; }
 
-ul,
-ol{
-  padding-left: 1.6rem;                      /* consistent indent */
-  list-style-position: outside;
-}
-
-li{ margin-block: 0.35em; }                  /* space between items */
-
-/* Smooth joins so p→ul and ul→p don’t look gappy */
-p + ul,
-p + ol{ margin-top: 0.6em; }
-ul + p,
-ol + p{ margin-top: 0.9em; }
-
-/* Optional: normalize figures in text flow */
-figure{ margin: 0.9em 0; }
-
-/* Slightly tighter on small screens */
-@media (max-width: 640px){
-  p, ul, ol{ margin-block: 0.7em; }
-  li{ margin-block: 0.3em; }
+@media (max-width:640px){
+  p, ul, ol{ margin-block:.7em; }
+  li{ margin-block:.3em; }
 }
 
 /* ============== Header + Hero ============== */
@@ -167,13 +144,30 @@ header.hero::before{
   flex-direction:column; align-items:center; gap:0; pointer-events:none; opacity:0; transition:opacity .18s ease; z-index:10; }
 .circle:hover .flyout, .circle.is-open .flyout{ display:flex; opacity:1; pointer-events:auto; }
 .flyout.is-floating{ position:fixed; left:0; top:0; transform:translateX(-50%); display:flex; opacity:1; pointer-events:auto; z-index:2000; }
+
+/* Nav flyout “pills” (buttons) — safely scoped */
 .flyout .pill{
-  display:block; width:260px; text-align:center; padding:.7em 1.1em; font-weight:700; font-size:.95rem;
-  color:var(--soil); background:var(--gold); border:2px solid var(--gold); border-radius:999px;
-  text-decoration:none; background-clip:padding-box; transition:background .15s ease, color .15s ease, transform .15s ease; margin:0;
+  all: unset;
+  display:block;
+  width:260px;
+  text-align:center;
+  padding:.7em 1.1em;
+  font-weight:700;
+  font-size:.95rem;
+  color:var(--soil);
+  background:var(--gold);
+  border:2px solid var(--gold);
+  border-radius:999px;
+  text-decoration:none;
+  background-clip:padding-box;
+  cursor:pointer;
 }
 .flyout .pill + .pill{ margin-top:-2px; }
-.flyout .pill:hover,.flyout .pill:focus-visible{ background:#444054; color:#fff; transform:translateY(-1px); border-color:var(--gold); outline:0; }
+.flyout .pill:hover,
+.flyout .pill:focus-visible{
+  background:#444054; color:#fff; transform:translateY(-1px);
+  border-color:var(--gold); outline:0;
+}
 
 /* ===== Generic section grid helper ===== */
 .section{
@@ -183,7 +177,7 @@ header.hero::before{
   display:grid; gap:clamp(18px,2.4vw,28px);
 }
 
-/* ===== Pill system (uniform across pages) ===== */
+/* ===== Pill system (band-only, shared across pages) ===== */
 .pillband{
   position:relative;
   margin-block: clamp(18px, 3.6vw, 38px);
@@ -222,7 +216,7 @@ header.hero::before{
 .pillband h2{ margin:0 0 clamp(.4rem, 1.2vw, .6rem); font-size:clamp(1.6rem,4.5vw,1.8rem); line-height:1.2; font-weight:800; }
 .pillband :where(p, ul, ol, blockquote){ max-inline-size: var(--pill-measure); }
 .pillband p{ text-wrap: pretty; overflow-wrap:anywhere; hyphens:auto; }
-.pillband blockquote{ margin: .25rem 0 0; font-style: italic; opacity:.95; }
+.pillband blockquote{ margin:.25rem 0 0; font-style:italic; opacity:.95; }
 
 /* a pill-friendly split (two columns) */
 .pill-split{
@@ -278,41 +272,32 @@ header.hero::before{
 .split{
   --left-min: 240px;
   --left-max: 400px;
-  --right-min: 400px;                 /* NEW: min width for the art column */
+  --right-min: 400px;
   --gap: clamp(6px, 1.2vw, 12px);
 
-  --img-min: 340px;                   /* keep or raise if needed */
+  --img-min: 340px;
   --img-ideal: 28vw;
   --img-max: 440px;
 
   --text-measure: 54ch;
 
-  display: grid;
-  grid-template-columns:
-   minmax(var(--left-min), 1fr)
-    minmax(var(--img-min), auto);
-  align-items: center;
-  column-gap: var(--gap);
+  display:grid;
+  grid-template-columns: minmax(var(--left-min),1fr) minmax(var(--img-min),auto);
+  align-items:center;
+  column-gap:var(--gap);
 }
-.split .art{ justify-self: center; max-inline-size: var(--img-max); }
-.split .art img{ width: clamp(var(--img-min), var(--img-ideal), var(--img-max)); height: auto; display: block; }
+.split .art{ justify-self:center; max-inline-size: var(--img-max); }
+.split .art img{ width: clamp(var(--img-min), var(--img-ideal), var(--img-max)); height:auto; display:block; }
+.split .text{ hyphens:auto; overflow-wrap:anywhere; }
 
-.split .text{
-  hyphens: auto;
-  overflow-wrap: anywhere; /* safe fallback if hyphenation isn’t available */
-}
-
-@media (max-width: 1040px){
+@media (max-width:1040px){
   .split{
-    --left-min: 230px;
-    --left-max: 460px;
-    --text-measure: 50ch;   /* allow more “squish” */
-    --gap: clamp(6px, 1.2vw, 12px);
+    --left-min:230px; --left-max:460px; --text-measure:50ch; --gap:clamp(6px,1.2vw,12px);
   }
 }
 @media (max-width:760px){
-  .split{ grid-template-columns: 1fr; justify-items: start; }
-  .split .art{ justify-self: start; }
+  .split{ grid-template-columns:1fr; justify-items:start; }
+  .split .art{ justify-self:start; }
 }
 
 /* ===== Heading-only pill (pillhead) ===== */
@@ -335,185 +320,8 @@ header.hero::before{
 .pillhead.pill--soil  { --pill-color: var(--soil);        --pill-text:#fff; }
 .pillhead.pill--slate { --pill-color: var(--slate);       --pill-text:#fff; }
 .pillhead.pill--sage  { --pill-color: var(--sage);        --pill-text:#0e2a1f; }
-
-
-/* ===== Content Pill (aligned with pillhead) ===== */
-.pill{
-  /* extra top-only cushion so the title doesn't kiss the curve */
-  --pill-top-extra: clamp(12px, 2vw, 22px);
-
-  /* keep your sides/bottom, add extra to the top only */
-  padding-block-start: calc(var(--pill-pad-y) + var(--pill-top-extra));
-  padding-block-end: var(--pill-pad-y);
-  padding-inline: var(--pill-pad-x);
-
-  margin-block: clamp(28px, 4.5vw, 56px);
-  border-radius: 9999px;
-  box-shadow: 0 8px 24px rgba(0,0,0,.12);
-  background: var(--soil);
-  color:#fff;
-  position: relative;
-  isolation: isolate;
-  overflow: visible;
-}
-
-/* stop margin collapse so the padding shows up as real space */
-.pill > :first-child{ margin-top: 0; }
-.pill > :last-child { margin-bottom: 0; }
-
-/* generous curve-side padding so content never hugs the rounded edge */
-.pill.pill--clip-right{ padding-right: max(var(--pill-pad-x), clamp(24px, 9vw, 260px)); }
-.pill.pill--clip-left { padding-left:  max(var(--pill-pad-x), clamp(24px, 9vw, 260px)); }
-
-/* keep the full-bleed rounded band under the pill (anchored to top/bottom) */
-.pill::before{
-  content:"";
-  position:absolute;
-  top: 0;
-  right: calc(50% - 50vw);
-  bottom: 0;
-  left: auto; /* overridden by clip-left below */
-  transform: none;
-  width: calc(100vw - var(--pill-margin));
-  background: var(--soil);
-  z-index:-1;
-  box-shadow: 0 8px 18px rgba(0,0,0,.1);
-}
-
-/* side-specific band rounding/anchoring */
-.pill.pill--clip-right::before{
-  right: calc(50% - 50vw);
-  left: auto;
-  border-radius: 9999px 0 0 9999px;
-}
-.pill.pill--clip-left::before{
-  left:  calc(50% - 50vw);
-  right: auto;
-  border-radius: 0 9999px 9999px 0;
-}
-
-/* optional: a touch more breathing room when split is inside a pill */
-.pill .split{ column-gap: clamp(14px, 3vw, 28px); }
-
-/* tidy inner spacing */
-.pill .pill__title{ margin:0 0 .6rem; font-weight:800; line-height:1.2; }
-.pill > p{ margin:0 0 .8rem; max-inline-size:66ch; }
-.pill ul{ list-style: disc outside; padding-left:1.6rem; margin:.6rem 0 0; max-inline-size:66ch; }
-.pill li{ margin:.3rem 0; }
-
-/* (optional) a bit more top cushion on small screens */
-@media (max-width: 640px){
-  .pill{ --pill-top-extra: clamp(16px, 4vw, 28px); }
-}
-
-/* --- micro-alignment to match the orange pillhead --- */
-.section > .pill{
-  --pill-align-nudge: 12px; /* adjust as you like */
-  padding-inline-start: calc(var(--pill-pad-x) + var(--pill-align-nudge));
-}
-
-/* Clip-side rules that still respect your vars */
-.pill.pill--clip-right{
-  padding-inline-end: max(var(--pill-pad-x), clamp(24px, 9vw, 190px));
-}
-.pill.pill--clip-left{
-  padding-inline-start: max(calc(var(--pill-pad-x) + var(--pill-align-nudge)),
-                            clamp(24px, 9vw, 260px));
-}
-
-/* Give right-clip pills extra left breathing room without changing layout */
-.pill { --clip-left-inset: 0px; } /* default for others */
-
-.section > .pill {
-  /* base nudge you already like */
-  --pill-align-nudge: 12px;
-  padding-inline-start: calc(var(--pill-pad-x) + var(--pill-align-nudge) + var(--clip-left-inset));
-}
-
-/* Only right-clip pills get more left padding to avoid the curve bleed */
-.pill.pill--clip-right {
-  --clip-left-inset: clamp(12px, 3.5vw, 72px); /* tweak this range to taste */
-  /* keep your existing right-side protection */
-  padding-inline-end: max(var(--pill-pad-x), clamp(24px, 9vw, 190px));
-}
-
-/* --- tiny extra nudge so nothing peeks past the curve --- */
-.pill.pill--clip-right{
-  /* push content a bit further off the curved edge */
-  --curve-inset: clamp(44px, 10vw, 180px);        /* was 36px,8vw,140px */
-  padding-inline-start: calc(var(--pill-pad-x) + var(--curve-inset));
-  padding-inline-end:   max(var(--pill-pad-x), clamp(24px, 9vw, 190px));
-}
-
-/* slightly more breathing room above the H2 */
-.pill{
-  --pill-top-extra: clamp(16px, 2.6vw, 28px);     /* was 12px,2vw,22px */
-  padding-block-start: calc(var(--pill-pad-y) + var(--pill-top-extra));
-}
-
-/* phone safety margin: one more click on the inset */
-@media (max-width: 640px){
-  .pill.pill--clip-right{ --curve-inset: clamp(56px, 14vw, 200px); }
-}
-
-
-/* NAV FLYOUT: reset so they don't inherit the content-pill chrome */
-.flyout .pill{
-  all: unset;                        /* wipe inherited styles clean */
-  display: block;
-  width: 260px;
-  text-align: center;
-  padding: .7em 1.1em;
-  font-weight: 700;
-  font-size: .95rem;
-  color: var(--soil);
-  background: var(--gold);
-  border: 2px solid var(--gold);
-  border-radius: 999px;
-  text-decoration: none;
-  background-clip: padding-box;
-  cursor: pointer;
-}
-.flyout .pill::before{ content: none !important; } /* kill the full-bleed band */
-.flyout .pill + .pill{ margin-top:-2px; }
-.flyout .pill:hover,
-.flyout .pill:focus-visible{
-  background:#444054; color:#fff; transform:translateY(-1px);
-  border-color:var(--gold); outline:0;
-}
-/* keep the pill in the normal stacking order */
-.pill{
-  position: relative;
-  z-index: 0;            /* ensure following content can paint above */
-  isolation: auto;       /* was isolate; don't create a new stacking context */
-}
-
-/* keep the full-bleed band *inside* the pill vertically and behind it */
-.pill::before{
-  top: 0;                /* was top:50% with translateY(-50%) */
-  transform: none;       /* no vertical centering */
-  z-index: -1;           /* sit behind the pill’s content */
-  pointer-events: none;  /* never block clicks */
-}
-
-/* Clean curve on small screens: move shadow from the card to the band */
-.pill{
-  box-shadow: none;                 /* stop the inner oval from casting outside */
-}
-
-.pill::before{
-  /* put the depth on the full-bleed band instead, which clips perfectly */
-  box-shadow: 0 10px 22px rgba(0,0,0,.14);
-}
-
-/* (optional) give phones a hair more inset so nothing kisses the edge */
-@media (max-width: 640px){
-  .pill.pill--clip-right{
-    --curve-inset: clamp(60px, 15vw, 210px);
-  }
-}
-
 </style>
+
 
 </head>
 
