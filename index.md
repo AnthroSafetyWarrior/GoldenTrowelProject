@@ -58,12 +58,9 @@ hero_tint: .60
 </section>
 
 <!-- 3) PREPARING — shared split -->
-<section class="section">
-  <article class="pill pill--soil pill--clip-right" aria-labelledby="prep-title">
-    <h2 class="pill__title" id="prep-title">
-      Preparing for fieldwork includes proactive safety planning.
-    </h2>
-
+<section class="pillband pill--soil pill--clip-right">
+  <div class="section">
+    <h2>Preparing for fieldwork includes proactive safety planning.</h2>
     <div class="split">
       <div class="text">
         <p>
@@ -81,7 +78,7 @@ hero_tint: .60
         loading="lazy" decoding="async">
     </figure>
   </div>
-</article>
+</div>
      <p>
     A growing body of research suggests that training in boundary-setting and self-defense is not just reactive — it can <strong>shift how we respond under threat</strong>. For example,</p> 
 <ul>
