@@ -421,6 +421,24 @@ header.hero::before{
                             clamp(24px, 9vw, 260px));
 }
 
+/* Give right-clip pills extra left breathing room without changing layout */
+.pill { --clip-left-inset: 0px; } /* default for others */
+
+.section > .pill {
+  /* base nudge you already like */
+  --pill-align-nudge: 12px;
+  padding-inline-start: calc(var(--pill-pad-x) + var(--pill-align-nudge) + var(--clip-left-inset));
+}
+
+/* Only right-clip pills get more left padding to avoid the curve bleed */
+.pill.pill--clip-right {
+  --clip-left-inset: clamp(12px, 3.5vw, 72px); /* tweak this range to taste */
+  /* keep your existing right-side protection */
+  padding-inline-end: max(var(--pill-pad-x), clamp(24px, 9vw, 190px));
+}
+
+
+
 /* NAV FLYOUT: reset so they don't inherit the content-pill chrome */
 .flyout .pill{
   all: unset;                        /* wipe inherited styles clean */
