@@ -380,8 +380,8 @@ header.hero::before{
 /* optional: tighten page padding on phones */
 @media (max-width:880px){ main{ padding-inline: clamp(18px, 6vw, 32px); } }
 
-/* ===== NAV FLYOUT reset: keep simple pill buttons ===== */
-.flyout .pill{
+/* NAV FLYOUT: styles only for the tiny round buttons */
+.pill--nav{
   all: unset;
   display:block;
   width:260px;
@@ -389,20 +389,21 @@ header.hero::before{
   padding:.7em 1.1em;
   font-weight:700;
   font-size:.95rem;
-  color:var(--soil);
-  background:var(--gold);
-  border:2px solid var(--gold);
-  border-radius:999px;
+  color: var(--soil);
+  background: var(--gold);
+  border: 2px solid var(--gold);
+  border-radius: 999px;
   text-decoration:none;
   background-clip:padding-box;
   cursor:pointer;
 }
-.flyout .pill::before{ content:none !important; }
-.flyout .pill + .pill{ margin-top:-2px; }
-.flyout .pill:hover,.flyout .pill:focus-visible{
+.pill--nav + .pill--nav{ margin-top:-2px; }
+.pill--nav:hover,
+.pill--nav:focus-visible{
   background:#444054; color:#fff; transform:translateY(-1px);
   border-color:var(--gold); outline:0;
 }
+
 
 /* ================== Auto-Smush for any clipped pills/bands ================== */
 /* Works site-wide; no body/main class needed. Put this AFTER your base .pill rules. */
@@ -511,25 +512,25 @@ header.hero::before{
               <div class="circle" data-href="{{ '/preparing.html' | relative_url }}">
                 <button class="circle-btn" type="button">Preparing</button>
                 <div class="flyout">
-                  <a class="pill" href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing" target="_blank" rel="noopener">Pre-Fieldwork Safety Checklist</a>
-                  <a class="pill" href="{{ '/statelaw.html' | relative_url }}">USA Laws by State</a>
-                  <a class="pill" href="{{ '/internationallaw.html' | relative_url }}">International Laws by Country</a>
+                  <a class="pill pill--nav" href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing" target="_blank" rel="noopener">Pre-Fieldwork Safety Checklist</a>
+                  <a class="pill pill--nav" href="{{ '/statelaw.html' | relative_url }}">USA Laws by State</a>
+                  <a class="pill pill--nav" href="{{ '/internationallaw.html' | relative_url }}">International Laws by Country</a>
                 </div>
               </div>
 
               <div class="circle" data-href="{{ '/reporting.html' | relative_url }}">
                 <button class="circle-btn" type="button">Reporting</button>
                 <div class="flyout">
-                  <a class="pill" href="{{ '/titleIX.html' | relative_url }}">Title IX Reporting by University</a>
-                  <a class="pill" href="{{ '/fundingethics.html' | relative_url }}">Funding &amp; Professional Associations</a>
+                  <a class="pill pill--nav" href="{{ '/titleIX.html' | relative_url }}">Title IX Reporting by University</a>
+                  <a class="pill pill--nav" href="{{ '/fundingethics.html' | relative_url }}">Funding &amp; Professional Associations</a>
                 </div>
               </div>
 
               <div class="circle" data-href="{{ '/surveys.html' | relative_url }}">
                 <button class="circle-btn" type="button">Surveys</button>
                 <div class="flyout">
-                  <a class="pill" href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank" rel="noopener">Fieldwork Misconduct Survey</a>
-                  <a class="pill" href="https://forms.gle/9DjrMVNP2oUu1GDD8" target="_blank" rel="noopener">Website Feedback Survey</a>
+                  <a class="pill pill--nav" href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank" rel="noopener">Fieldwork Misconduct Survey</a>
+                  <a class="pill pill--nav" href="https://forms.gle/9DjrMVNP2oUu1GDD8" target="_blank" rel="noopener">Website Feedback Survey</a>
                 </div>
               </div>
 
