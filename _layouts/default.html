@@ -495,6 +495,24 @@ header.hero::before{
   z-index: -1;           /* sit behind the pill’s content */
   pointer-events: none;  /* never block clicks */
 }
+
+/* Clean curve on small screens: move shadow from the card to the band */
+.pill{
+  box-shadow: none;                 /* stop the inner oval from casting outside */
+}
+
+.pill::before{
+  /* put the depth on the full-bleed band instead, which clips perfectly */
+  box-shadow: 0 10px 22px rgba(0,0,0,.14);
+}
+
+/* (optional) give phones a hair more inset so nothing kisses the edge */
+@media (max-width: 640px){
+  .pill.pill--clip-right{
+    --curve-inset: clamp(60px, 15vw, 210px);
+  }
+}
+
 </style>
 
 </head>
