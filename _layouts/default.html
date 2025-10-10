@@ -120,7 +120,7 @@ header.hero::before{
 .nav-gradient .wave{ display:none !important; }
 
 .circle-nav{ position:absolute; inset:0; pointer-events:none; z-index:5; transform:translateY(var(--circle-lift)); }
-.circle{ position:absolute; pointer-events:auto; --size:clamp(96px,9.25vw,112px); width:var(--size); height:var(--size); }
+.circle{ position:absolute; pointer-events:auto; --size:clamp(86px,9.25vw,112px); width:var(--size); height:var(--size); }
 .circle-btn{
   position:absolute; inset:0; border-radius:50%; border:3px solid var(--gold);
   display:flex; align-items:center; justify-content:center; text-align:center;
@@ -403,6 +403,46 @@ header.hero::before{
   background:#444054; color:#fff; transform:translateY(-1px);
   border-color:var(--gold); outline:0;
 }
+/* ====== SMUSH MODE (opt-in) ============================================= */
+/* Add class="smush" to <main> (or any ancestor) to tighten spacing safely  */
+
+/* 1) Pillband container & two-col helper */
+.smush .section{ padding-block: clamp(20px, 3.5vw, 36px); }
+.smush .pillband .section{ padding-inline: clamp(18px, 4.5vw, 28px); }
+.smush .pill-split{ gap: clamp(8px, 1.6vw, 14px); }
+
+/* 2) Pillhead spacing (title ribbon) */
+.smush .pillhead{
+  /* keep same look, just trim breathing room */
+  margin: clamp(6px, 1vw, 10px) 0 clamp(10px, 1.4vw, 14px);
+  --pillhead-pad-x: clamp(0.9em, 1.6vw, 1.2em);
+  --pillhead-pad-y: clamp(1.1em, 1.6vw, 1.4em);
+}
+
+/* 3) Content pill density */
+.smush .pill{
+  /* denser inner padding but preserve curve protection */
+  --pill-pad-x: clamp(24px, 3.2vw, 32px);
+  --pill-pad-y: clamp(28px, 3.8vw, 40px);
+  --pill-top-extra: clamp(8px, 1.2vw, 14px);
+
+  margin-block: clamp(18px, 3.2vw, 34px);
+}
+
+/* 3a) Lists & copy inside pills */
+.smush .pill .pill__title{ margin-bottom: .45rem; }
+.smush .pill > p{ margin-bottom: .55rem; }
+.smush .pill ul{ margin-top: .4rem; padding-left: 1.4rem; }
+.smush .pill li{ margin: .22rem 0; }
+
+/* 4) Slightly tighter pillband text rhythm */
+.smush .pillband h2{ margin-bottom: clamp(.25rem, .8vw, .45rem); }
+
+/* 5) Phone tweak: shave a bit more top padding */
+@media (max-width: 640px){
+  .smush .pill{ --pill-pad-y: clamp(22px, 5.2vw, 32px); --pill-top-extra: clamp(6px, 1.6vw, 12px); }
+}
+
 </style>
 
 
