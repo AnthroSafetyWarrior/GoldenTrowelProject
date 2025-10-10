@@ -40,27 +40,11 @@ hero_tint: .60
   </div>
 </section>
 
-<!-- 2) PREVALENCE — shared split -->
-<section class="section">
-<h2 class="pillhead pill--orange pill--clip-left">Prevalence of Fieldwork Harassment and Assault
-</h2>
-  <div class="split">
-    <div class="text">
-       <p>A 2014 survey sampling &gt;650 anthropologists revealed high frequencies of harassment and assault, and low frequencies of awareness of reporting procedures (Clancy <em>et&nbsp;al.</em>, 2014; DOI: <a href="https://doi.org/10.1371/journal.pone.0102172">10.1371/journal.pone.0102172</a>).</p>
-    </div>
-    <figure class="art">
-      <img
-        src="{{ '/assets/img/prevalencegraphic.png' | relative_url }}"
-        alt="Infographic summarizing findings of Clancy et al., 2014."
-        loading="lazy" decoding="async">
-    </figure>
-  </div>
-</section>
-
-<!-- 3) PREPARING — shared split -->
+<!-- 3) PREPARING — pillband -->
 <section class="pillband pill--soil pill--clip-right">
   <div class="section">
     <h2>Preparing for fieldwork includes proactive safety planning.</h2>
+
     <div class="split">
       <div class="text">
         <p>
@@ -68,27 +52,35 @@ hero_tint: .60
           prevent and report harmful behavior. These preparation materials include:
         </p>
       </div>
-<figure class="art">
-      <img
-        src="{{ '/assets/img/prep.png' | relative_url }}"
-        alt="1. Identify local emergency and institutional contacts — police, hospitals, embassies, and campus safety offices.
+      <figure class="art">
+        <img
+          src="{{ '/assets/img/prep.png' | relative_url }}"
+          alt="1. Identify local emergency and institutional contacts — police, hospitals, embassies, and campus safety offices.
 2. Review key local laws and policies (e.g., recording, misconduct) with links to verify details.
 3. Learn clear, respectful ways to communicate boundaries that protect your safety and professionalism.
 4. Use a customizable safety-planning template to map contacts, risks, and action steps."
-        loading="lazy" decoding="async">
-    </figure>
+          loading="lazy" decoding="async">
+      </figure>
+    </div>
   </div>
-</div>
-  <div class="section">  
-   <p>
-    A growing body of research suggests that training in boundary-setting and self-defense is not just reactive — it can <strong>shift how we respond under threat</strong>. For example,</p> 
-<ul>
-<li>empowerment self-defense (ESD) programs have demonstrated increased assertiveness, reduced fear in risky environments, and stronger self-protective decision-making <a href="https://doi.org/10.1177/08862605221082734">(Beaujolais, 2023; </a><a href="https://doi.org/10.33043/SSWJ.2.1.63-76">Follo, 2022).</a></li>
-<li>Other efforts in trauma prevention and rape-resistance place such training within evidence-based prevention strategies <a href="https://doi.org/10.1080/10926771.2022.2046224">(Basile, 2022).</a></li></ul>
-<p>These suggest that when we practice setting boundaries and preparing responses in advance, we may be less likely to default to appeasement or freeze patterns in moments of threat.
-  </p>
-</div>
 </section>
+
+<!-- move the narrative copy OUTSIDE the pillband -->
+<section class="section">
+  <p>
+    A growing body of research suggests that training in boundary-setting and self-defense is
+    not just reactive — it can <strong>shift how we respond under threat</strong>. For example,
+  </p>
+  <ul>
+    <li>empowerment self-defense (ESD) programs have demonstrated increased assertiveness, reduced fear in risky environments, and stronger self-protective decision-making <a href="https://doi.org/10.1177/08862605221082734">(Beaujolais, 2023; </a><a href="https://doi.org/10.33043/SSWJ.2.1.63-76">Follo, 2022).</a></li>
+    <li>Other efforts in trauma prevention and rape-resistance place such training within evidence-based prevention strategies <a href="https://doi.org/10.1080/10926771.2022.2046224">(Basile, 2022).</a></li>
+  </ul>
+  <p>
+    These suggest that when we practice setting boundaries and preparing responses in advance,
+    we may be less likely to default to appeasement or freeze patterns in moments of threat.
+  </p>
+</section>
+
 
 <!-- 4) OUR APPROACH — consistent grid utility -->
 <section class="pillband pill--slate pill--clip-left">
