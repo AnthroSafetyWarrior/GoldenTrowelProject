@@ -147,7 +147,6 @@ hero_tint: .60
       </p>
     </article>
 
-<div class="card-wrap"> 
 <article class="card card--glass">
       <h3><a href="{{ '/reporting.html' | relative_url }}">Reporting</a></h3>
       <p>Find clear, verified paths to report misconduct through your institution, funding agencies, embassies, or local authorities—with documentation tools designed to preserve your evidence and amplify your voice.
@@ -160,7 +159,6 @@ hero_tint: .60
       <p> <a href="pill pill--nav" href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank" rel="noopener">Fieldwork Misconduct Survey</a></p>
  </article>
   </div>
-</div>
 </section>
 
 

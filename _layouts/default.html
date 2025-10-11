@@ -377,7 +377,7 @@ header.hero::before{
 .pill-grid{
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(12px, 2.4vw, 24px);
+  gap: clamp(12px, 2.4vw, 24px); overflow: visible;
   align-items: stretch; /* optional; default is stretch */
 }
 
@@ -394,9 +394,6 @@ header.hero::before{
   box-shadow:0 6px 14px rgba(68, 64, 84, .15); /* 4th value = alpha */
   color:var(--ink);
 }
-.card-wrap{ filter: drop-shadow(0 6px 14px rgba(68,64,84,.15)); }
-.card{ box-shadow:none; } /* shadow now lives on the wrapper */
-
 
 /* put these OUTSIDE the .card block */
 .card a{
