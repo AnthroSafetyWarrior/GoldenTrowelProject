@@ -123,12 +123,11 @@ hero_tint: .60
 
 <!-- 4) REPORTING — consistent grid utility -->
 <section class="pillband pill--slate pill--clip-left">
-  <div class="section resources">
     <h2>Reporting sexual misconduct in the field is possible whether you conduct research domestically or internationally.</h2>
-    <p class="lede"><strong>Whether you wish to file a report or not, there are resources available to support you.</p>
-</div>
+    <p class="lede"><strong>Whether you wish to file a report or not, there are resources available to support you.</strong></p>
 </section> 
   <div class="section">
+  <div class="section resources">
     <div class="pill-grid">
     <article class="card">
       <h3><a href="{{ '/support.html' | relative_url }}">Supporting You</a></h3>
@@ -152,6 +151,7 @@ hero_tint: .60
       </p>
       <p>The <a href="https://docs.google.com/spreadsheets/d/1bF3FxtmMhAtRn2lyBDhansQ7YlDt4Gsm58aSHon6y0o/edit?usp=sharing" target="_blank" rel="noopener">Emergency Procedure Checklist</a> outlines step-by-step actions for responding in the moment—who to contact, how to document, and how to ensure inter-institutional accountability.</p>
     </article>
+  </div>
   </div>
  </div>
 
