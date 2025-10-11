@@ -376,12 +376,11 @@ header.hero::before{
 /* Outside-the-pill grid */
 .pill-grid{
   display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr, 1fr, 1fr));
   gap: clamp(12px, 2.4vw, 24px);
   align-items: stretch;
 }
 
-/* Base card */
 /* Base card */
 .card{
   border-radius:16px;
@@ -393,7 +392,7 @@ header.hero::before{
 
 /* put these OUTSIDE the .card block */
 .card a{
-  color:var(--sage);
+  color:var(--slate);
   text-decoration-thickness:.08em;
   text-underline-offset:.18em;
 }
@@ -656,7 +655,7 @@ header.hero::before{
 }
 
 /* Slate band: restore proper vertical padding */
-.pillband.pill--slate.pill--clip-left .section{
+.pillband.pill--sage.pill--clip-right .section{
   /* choose one style: EITHER balanced … */
   padding-block: clamp(36px, 5vw, 56px);
   /* …OR slightly top-heavier (uncomment these two lines and remove the line above)
@@ -664,11 +663,6 @@ header.hero::before{
   padding-bottom: clamp(28px, 4.8vw, 52px);
   */
   padding-right: max(var(--pill-pad-inline), var(--pill-curve-inset));
-}
-
-/* (optional) if the band feels tall overall, trim its min-height a bit */
-.pillband.pill--slate.pill--clip-left{
-  min-height: clamp(200px, 28vw, 340px);
 }
 
 </style>
@@ -720,7 +714,7 @@ header.hero::before{
               <div class="circle" data-href="{{ '/preparing.html' | relative_url }}">
                 <button class="circle-btn" type="button">Preparing</button>
                 <div class="flyout">
-                  <a class="pill pill--nav" href="https://docs.google.com/spreadsheets/d/1bF3FxtmMhAtRn2lyBDhansQ7YlDt4Gsm58aSHon6y0o/edit?usp=sharing" target="_blank" rel="noopener">Emergency Procedure Checklist</a>
+<a class="pill pill--nav" href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing" target="_blank" rel="noopener">Pre-Fieldwork Safety Checklist</a>
                   <a class="pill pill--nav" href="{{ '/statelaw.html' | relative_url }}">USA Laws by State</a>
                   <a class="pill pill--nav" href="{{ '/internationallaw.html' | relative_url }}">International Laws by Country</a>
                 </div>
@@ -729,16 +723,13 @@ header.hero::before{
               <div class="circle" data-href="{{ '/Support.html' | relative_url }}">
                 <button class="circle-btn" type="button">Support</button>
                 <div class="flyout">
-                  <a class="pill pill--nav" href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank" rel="noopener">Fieldwork Misconduct Survey</a>
-                  <a class="pill pill--nav" href="https://forms.gle/9DjrMVNP2oUu1GDD8" target="_blank" rel="noopener">Website Feedback Survey</a>
-                </div>
+                  </div>
               </div>
 
               <div class="circle" data-href="{{ '/reporting.html' | relative_url }}">
                 <button class="circle-btn" type="button">Reporting</button>
                 <div class="flyout">
-<a class="pill pill--nav" href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing" target="_blank" rel="noopener">Pre-Fieldwork Safety Checklist</a>
-
+                  <a class="pill pill--nav" href="https://docs.google.com/spreadsheets/d/1bF3FxtmMhAtRn2lyBDhansQ7YlDt4Gsm58aSHon6y0o/edit?usp=sharing" target="_blank" rel="noopener">Emergency Procedure Checklist</a>
                   <a class="pill pill--nav" href="{{ '/titleIX.html' | relative_url }}">Title IX Reporting by University</a>
                   <a class="pill pill--nav" href="{{ '/fundingethics.html' | relative_url }}">Funding &amp; Professional Associations</a>
                   <a class="pill pill--nav" href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank" rel="noopener">Fieldwork Misconduct Survey</a>
