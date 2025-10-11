@@ -376,7 +376,7 @@ header.hero::before{
 /* Outside-the-pill grid */
 .pill-grid{
   display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr, 1fr, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 3, 1fr));
   gap: clamp(12px, 2.4vw, 24px);
   align-items: stretch;
 }
@@ -655,7 +655,7 @@ header.hero::before{
 }
 
 /* Slate band: restore proper vertical padding */
-.pillband.pill--sage.pill--clip-right .section{
+.pillband.pill--sage.pill--clip-left .section{
   /* choose one style: EITHER balanced … */
   padding-block: clamp(36px, 5vw, 56px);
   /* …OR slightly top-heavier (uncomment these two lines and remove the line above)

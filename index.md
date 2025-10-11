@@ -42,7 +42,7 @@ hero_tint: .60
 
 <!-- 2) PREVALENCE — shared split -->
 <section class="section">
-<h2 class="pillhead pill--orange pill--clip-left">Prevalence of Fieldwork Harassment and Assault
+<h2 class="pillhead pill--orange pill--clip-right">Prevalence of Fieldwork Harassment and Assault
 </h2>
   <div class="split">
     <div class="text">
@@ -59,7 +59,7 @@ hero_tint: .60
 </section>
 
 <!-- 3) PREPARING — pillband -->
-<section class="pillband pill--soil pill--clip-right">
+<section class="pillband pill--soil pill--clip-left">
   <div class="section resources">
     <h2>Preparing for fieldwork includes proactive safety planning.</h2>
 <div class="resources-grid">
@@ -124,7 +124,7 @@ hero_tint: .60
 
 <!-- 4) SUPPORT — consistent grid utility -->
 <section class="section">
-<h2 class="pillhead pill--slate pill--clip-left">Survivor Support</h2>
+<h2 class="pillhead pill--slate pill--clip-right">Survivor Support</h2>
 <div class="section">
        <h3><a href="{{ '/support.html' | relative_url }}">Supporting You</a></h3>
       <p>Access survivor-centered resources focused on emotional support, recovery, and community care. This section will highlight mental-health hotlines, trauma-informed care networks, and guidance on seeking help after an incident—because your safety and well-being come first.</p>
@@ -132,7 +132,7 @@ hero_tint: .60
 </section>
 
 <!-- 5) REPORTING — consistent grid utility -->
-<section class="pillband pill--sage pill--clip-right">
+<section class="pillband pill--sage pill--clip-left">
  <div class="section">
     <h2>Reporting sexual misconduct in the field is possible whether you conduct research domestically or internationally.</h2>
     <p class="lede"><strong>Whether you wish to file a report or not, there are resources available to support you.</strong></p>
