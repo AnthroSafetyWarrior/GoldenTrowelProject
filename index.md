@@ -123,10 +123,11 @@ hero_tint: .60
 
 <!-- 4) REPORTING — consistent grid utility -->
 <section class="pillband pill--slate pill--clip-left">
+  <div class="section">
     <h2>Reporting sexual misconduct in the field is possible whether you conduct research domestically or internationally.</h2>
     <p class="lede"><strong>Whether you wish to file a report or not, there are resources available to support you.</strong></p>
+</div>
 </section> 
-  <div class="section">
   <div class="section resources">
     <div class="pill-grid">
     <article class="card">
@@ -153,7 +154,7 @@ hero_tint: .60
     </article>
   </div>
   </div>
- </div>
+  </div>
 
 
 <!-- 5) RESOURCES — circular cards -->
