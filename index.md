@@ -89,8 +89,8 @@ hero_tint: .60
     <div class="split split--prep">
       <div class="text">
         <p>
-          This website provides essential resources and education for researchers to
-          prevent and report harmful behavior. These preparation materials include:
+          <strong>This website provides essential resources and education for researchers to
+          prevent and report harmful behavior. This website will help you:</strong>
         </p>
       <figure class="art">
         <img
