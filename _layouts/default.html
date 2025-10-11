@@ -394,6 +394,9 @@ header.hero::before{
   box-shadow:0 6px 14px rgba(68, 64, 84, .15); /* 4th value = alpha */
   color:var(--ink);
 }
+.card-wrap{ filter: drop-shadow(0 6px 14px rgba(68,64,84,.15)); }
+.card{ box-shadow:none; } /* shadow now lives on the wrapper */
+
 
 /* put these OUTSIDE the .card block */
 .card a{
