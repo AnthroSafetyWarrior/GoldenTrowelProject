@@ -123,17 +123,12 @@ hero_tint: .60
 
 
 <!-- 4) SUPPORT — consistent grid utility -->
-<section class="pillband pill--slate pill--clip-left">
- <div class="section">
-    <h2>Survivor Support</h2>
-</div>
-</section> 
-
+<section class="section">
+<h2 class="pillhead pill--slate pill--clip-left">Survivor Support</h2>
 <div class="section">
        <h3><a href="{{ '/support.html' | relative_url }}">Supporting You</a></h3>
-      <p>
-        Access survivor-centered resources focused on emotional support, recovery, and community care. This section will highlight mental-health hotlines, trauma-informed care networks, and guidance on seeking help after an incident—because your safety and well-being come first.
-      </p>
+      <p>Access survivor-centered resources focused on emotional support, recovery, and community care. This section will highlight mental-health hotlines, trauma-informed care networks, and guidance on seeking help after an incident—because your safety and well-being come first.</p>
+</div>
 </section>
 
 <!-- 5) REPORTING — consistent grid utility -->
@@ -160,11 +155,9 @@ hero_tint: .60
     </article>
 
  <article class="card card--glass">
-      <h3>Anonymous Survey</a></h3>
-      <p> <a href="pill pill--nav" href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank" rel="noopener">Fieldwork Misconduct Survey</a>
-
-      </p>
-
+      <h3>Anonymous Survey</h3>
+      <p> <a href="pill pill--nav" href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank" rel="noopener">Fieldwork Misconduct Survey</a></p>
+ </article>
   </div>
 </section>
 
