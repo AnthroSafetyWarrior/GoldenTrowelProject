@@ -128,9 +128,10 @@ hero_tint: .60
     <p class="lede"><strong>Whether you wish to file a report or not, there are resources available to support you.</strong></p>
 </div>
 </section> 
-  <div class="section resources">
-    <div class="pill-grid">
-    <article class="card">
+  
+<section class="section">
+  <div class="pillcards">
+    <article class="pillcard">
       <h3><a href="{{ '/support.html' | relative_url }}">Supporting You</a></h3>
       <p>
         Access survivor-centered resources focused on emotional support, recovery, and community care.
@@ -138,12 +139,12 @@ hero_tint: .60
         on seeking help after an incident—because your safety and well-being come first.
       </p>
     </article>
-      <article class="card">
+    <article class="pillcard">
       <h3>Prevention</h3>
       <p>The <a href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing" target="_blank" rel="noopener">Pre-Fieldwork Safety Checklist</a> helps you plan proactively—identifying risks, setting clear expectations, and documenting safety measures before entering the field. It also includes options for capturing proof of misconduct to support reporting without fear of dismissal.
       </p>
     </article>
-    <article class="card">
+    <article class="pillcard">
       <h3><a href="{{ '/reporting.html' | relative_url }}">Reporting</a></h3>
       <p>
         Find clear, verified paths to report misconduct through your institution, funding agencies,
@@ -153,8 +154,7 @@ hero_tint: .60
       <p>The <a href="https://docs.google.com/spreadsheets/d/1bF3FxtmMhAtRn2lyBDhansQ7YlDt4Gsm58aSHon6y0o/edit?usp=sharing" target="_blank" rel="noopener">Emergency Procedure Checklist</a> outlines step-by-step actions for responding in the moment—who to contact, how to document, and how to ensure inter-institutional accountability.</p>
     </article>
   </div>
-  </div>
-  </div>
+</section>
 
 
 <!-- 5) RESOURCES — circular cards -->

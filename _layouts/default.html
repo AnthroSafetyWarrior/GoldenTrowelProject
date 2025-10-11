@@ -350,7 +350,7 @@ header.hero::before{
   .split .art{ justify-self:start; }
 }
 
-/* ===== Resources (sage pill) — circular cards ===== */
+/* ===== Resources (slate pill) — circular cards ===== */
 .resources-grid{
   display:grid;
   grid-template-columns: repeat(2, minmax(200px,1fr));
@@ -384,6 +384,52 @@ header.hero::before{
 /* optional: tighten page padding on phones */
 @media (max-width:880px){ main{ padding-inline: clamp(18px, 6vw, 32px); } }
 
+/* ===== Pill cards (outside the mother pill) ===== */
+.pillcards{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: clamp(12px, 2.4vw, 24px);
+  align-items: stretch;
+  justify-items: center;
+}
+
+.pillcard{
+  width: 100%;
+  max-width: 560px;                 /* keeps them from getting too wide */
+  background: var(--gold);
+  color: #000;
+  border: 6px solid var(--slate);
+  border-radius: 9999px;            /* <-- pill shape */
+  padding: clamp(14px, 2.2vw, 22px) clamp(18px, 2.6vw, 28px);
+  box-shadow: 2px 2px 7px rgba(0,0,0,.06);
+  display: flex; flex-direction: column; gap: .6em;
+  text-align: left;
+}
+
+/* content polish */
+.pillcard h3{ margin: 0; font-size: clamp(1.05rem, 2.2vw, 1.25rem); }
+.pillcard p{ margin: 0; line-height: 1.35; }
+
+/* optional variants */
+.pillcard--sage { background: var(--sage); color:#0e2a1f; border-color: var(--soil); }
+.pillcard--slate{ background: var(--slate); color:#fff;   border-color: var(--gold); }
+
+/* button (reuses your style) */
+.pillcard .btn-doc{
+  align-self: start;
+  border-radius: 9999px;
+  padding: .55em .95em;
+  background: var(--slate);
+  color:#fff;
+  text-decoration: none;
+}
+.pillcard .btn-doc:hover,
+.pillcard .btn-doc:focus-visible{ background: var(--logo-orange); color:#fff; }
+
+/* stack on phones */
+@media (max-width: 720px){
+  .pillcards{ grid-template-columns: 1fr; }
+}
 
 /* ===== PREPARIING soil pill) — circular cards ===== */
 /* Preparing split (only this section) */
