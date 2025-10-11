@@ -123,15 +123,15 @@ hero_tint: .60
 
 <!-- 4) REPORTING — consistent grid utility -->
 <section class="pillband pill--slate pill--clip-left">
-  <div class="section">
+ <div class="section">
     <h2>Reporting sexual misconduct in the field is possible whether you conduct research domestically or internationally.</h2>
     <p class="lede"><strong>Whether you wish to file a report or not, there are resources available to support you.</strong></p>
 </div>
 </section> 
   
 <section class="section">
-  <div class="pillcards">
-    <article class="pillcard">
+ <div class="pill-grid"> 
+<article class="card">
       <h3><a href="{{ '/support.html' | relative_url }}">Supporting You</a></h3>
       <p>
         Access survivor-centered resources focused on emotional support, recovery, and community care.
@@ -139,12 +139,14 @@ hero_tint: .60
         on seeking help after an incident—because your safety and well-being come first.
       </p>
     </article>
-    <article class="pillcard">
+  
+<article class="card">
       <h3>Prevention</h3>
       <p>The <a href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing" target="_blank" rel="noopener">Pre-Fieldwork Safety Checklist</a> helps you plan proactively—identifying risks, setting clear expectations, and documenting safety measures before entering the field. It also includes options for capturing proof of misconduct to support reporting without fear of dismissal.
       </p>
     </article>
-    <article class="pillcard">
+
+<article class="card">
       <h3><a href="{{ '/reporting.html' | relative_url }}">Reporting</a></h3>
       <p>
         Find clear, verified paths to report misconduct through your institution, funding agencies,
