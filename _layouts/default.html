@@ -646,6 +646,22 @@ header.hero::before{
   .pillband.pill--clip-right h2{ margin-top: .1rem; }
 }
 
+/* Slate band: restore proper vertical padding */
+.pillband.pill--slate.pill--clip-left .section{
+  /* choose one style: EITHER balanced … */
+  padding-block: clamp(36px, 5vw, 56px);
+  /* …OR slightly top-heavier (uncomment these two lines and remove the line above)
+  padding-top:    clamp(44px, 5.6vw, 64px);
+  padding-bottom: clamp(28px, 4.8vw, 52px);
+  */
+  padding-right: max(var(--pill-pad-inline), var(--pill-curve-inset));
+}
+
+/* (optional) if the band feels tall overall, trim its min-height a bit */
+.pillband.pill--slate.pill--clip-left{
+  min-height: clamp(200px, 28vw, 340px);
+}
+
 </style>
 
 
