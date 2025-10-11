@@ -51,7 +51,8 @@ hero_tint: .60
     <figure class="art">
       <img
         src="{{ '/assets/img/prevalencegraphic.png' | relative_url }}"
-        alt="Infographic summarizing findings of Clancy et al., 2014."
+        alt="Infographic summarizing findings of Clancy et al., 2014.
+64% of participants experienced sexual harassment during fieldwork, 21% of participants experienced sexual assault during fieldwork, 20% were aware of reporting mechanisms prior to the survey."
         loading="lazy" decoding="async">
     </figure>
   </div>
@@ -97,8 +98,9 @@ hero_tint: .60
           src="{{ '/assets/img/prep.png' | relative_url }}"
           alt="1. Identify local emergency and institutional contacts — police, hospitals, embassies, and campus safety offices.
 2. Review key local laws and policies (e.g., recording, misconduct) with links to verify details.
-3. Learn clear, respectful ways to communicate boundaries that protect your safety and professionalism.
-4. Use a customizable safety-planning template to map contacts, risks, and action steps."
+3. Learn clear, respectful ways to communicate boundaries that protect your safety and professionalism in research settings.
+4. Customize a fieldwork safety-plan & complete step-by-step checklists to map contacts, risks, and action steps.
+5. Commit to safe fieldwork practices with your collaborators by customizing  and signing the collaborator safety agreement."
           loading="lazy" decoding="async">
       </figure>
     </div>
@@ -119,34 +121,41 @@ hero_tint: .60
 </div>
 </section>
 
-<!-- 4) OUR APPROACH — consistent grid utility -->
+<!-- 4) REPORTING — consistent grid utility -->
 <section class="pillband pill--slate pill--clip-left">
+  <div class="section resources">
+    <h2>Reporting sexual misconduct in the field is possible whether you conduct research domestically or internationally.</h2>
+    <p class="lede"><strong>Whether you wish to file a report or not, there are resources available to support you.</class>
+</div>
+</section> 
   <div class="section">
-    <h2>Our approach</h2>
-
     <div class="pill-grid">
-      <article class="card">
-        <h4>Prevention</h4>
-        <p>Clear expectations, advisor–advisee agreements, and pre-fieldwork safety planning.</p>
-      </article>
-      <article class="card">
-        <h4>Reporting</h4>
-        <p>Straightforward paths to Title IX, funding bodies, and professional associations—with documentation tools.</p>
-      </article>
-      <article class="card">
-        <h4>Accountability</h4>
-        <p>Transparent follow-ups, climate surveys, and culture change grounded in data.</p>
-      </article>
-    </div>
-
-    <div>
-      <h3>Start with practical tools</h3>
-      <p><a class="bubble" href="{{ '/preparing/' | relative_url }}">Pre-Fieldwork Safety Checklist</a></p>
-      <p><a class="bubble" href="{{ '/reporting/'  | relative_url }}">Reporting portals</a></p>
-      <p><a class="bubble" href="{{ '/surveys/'    | relative_url }}">Anonymous surveys</a></p>
-    </div>
+    <article class="card">
+      <h3><a href="{{ '/support.html' | relative_url }}">Supporting You</a></h3>
+      <p>
+        Access survivor-centered resources focused on emotional support, recovery, and community care.
+        This section will highlight mental-health hotlines, trauma-informed care networks, and guidance
+        on seeking help after an incident—because your safety and well-being come first.
+      </p>
+    </article>
+      <article class="card"> 
+   <article class="card">
+      <h3>Prevention</h3>
+      <p>The <a href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing" target="_blank" rel="noopener">Pre-Fieldwork Safety Checklist</a> helps you plan proactively—identifying risks, setting clear expectations, and documenting safety measures before entering the field. It also includes options for capturing proof of misconduct to support reporting without fear of dismissal.
+      </p>
+    </article>
+    <article class="card">
+      <h3><a href="{{ '/reporting.html' | relative_url }}">Reporting</a></h3>
+      <p>
+        Find clear, verified paths to report misconduct through your institution, funding agencies,
+        embassies, or local authorities—with documentation tools designed to preserve your evidence and
+        amplify your voice.
+      </p>
+      <p>The <a href="https://docs.google.com/spreadsheets/d/1bF3FxtmMhAtRn2lyBDhansQ7YlDt4Gsm58aSHon6y0o/edit?usp=sharing" target="_blank" rel="noopener">Emergency Procedure Checklist</a> outlines step-by-step actions for responding in the moment—who to contact, how to document, and how to ensure inter-institutional accountability.</p>
+    </article>
   </div>
-</section>
+ </div>
+
 
 <!-- 5) RESOURCES — circular cards -->
 <section class="pillband pill--sage pill--clip-right">
@@ -154,6 +163,11 @@ hero_tint: .60
     <h2>Build Your Fieldwork Safety Plan</h2>
     <p class="lede">Download and customize your safety materials below to protect yourself and your team.</p>
 
-    
+        <div>
+      <h3>Start with practical tools</h3>
+      <p><a class="bubble" href="{{ '/preparing/' | relative_url }}">Pre-Fieldwork Safety Checklist</a></p>
+      <p><a class="bubble" href="{{ '/reporting/'  | relative_url }}">Reporting portals</a></p>
+      <p><a class="bubble" href="{{ '/surveys/'    | relative_url }}">Anonymous surveys</a></p>
+    </div>
   </div>
 </section>
