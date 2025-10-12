@@ -679,7 +679,8 @@ header.hero::before{
   <!-- Header + hero -->
   <header class="hero"
     style="
-      --hero-url: url('{{ page.hero | default: '/assets/img/placeholder-header.jpg'  relative_url }}');
+--hero-url: url('{{ page.hero | default: '/assets/img/placeholder-header.jpg' | relative_url }}');
+
       --hero-pos: {{ page.hero_pos | default: 'center 40%' }};
       --hero-opacity: {{ page.hero_opacity | default: 1 }};
       --hero-tint: {{ page.hero_tint | default: .55 }};
@@ -725,7 +726,7 @@ header.hero::before{
                 </div>
               </div>
 
-              <div class="circle" data-href="{{ '/Support.html' | relative_url }}">
+              <div class="circle" data-href="{{ '/support.html' | relative_url }}">
                 <button class="circle-btn" type="button">Support</button>
                 <div class="flyout">
                   </div>
