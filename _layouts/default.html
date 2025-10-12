@@ -78,10 +78,23 @@ header.hero::before{
   background-size: cover;
   opacity: var(--hero-opacity,1);
 }
+/* Center logo + text vertically within the photo area */
 .header-content{
-  display:flex; align-items:center; justify-content:center; gap:clamp(.6rem,2vw,1.2rem);
-  max-width:var(--maxw); margin:0 auto; padding:0 var(--page-pad-inline) clamp(16px,6vw,120px);
-  text-shadow:0 2px 10px rgba(0,0,0,.35);
+  display: flex;
+  align-items: center;           /* vertical align within this block */
+  justify-content: center;       /* center horizontally */
+  gap: clamp(.6rem, 2vw, 1.2rem);
+
+  max-width: var(--maxw);
+  margin: 0 auto;
+
+  /* give the hero a real “stage” to center inside */
+  min-height: clamp(280px, 46vh, 560px);
+
+  /* small, even padding instead of a big bottom-only pad */
+  padding: clamp(12px, 2vh, 24px) var(--page-pad-inline);
+  
+  text-shadow: 0 2px 10px rgba(0,0,0,.35);
 }
 .header-content img.site-logo{ width:clamp(180px,11vw,220px); border-radius:12px; }
 .header-text h1{
