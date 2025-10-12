@@ -149,9 +149,10 @@ hero_tint: .60
 
 <article class="card card--glass">
       <h3><a href="{{ '/reporting.html' | relative_url }}">Reporting</a></h3>
-      <p>Find clear, verified paths to report misconduct through your institution, funding agencies, embassies, or local authorities—with documentation tools designed to preserve your evidence and amplify your voice.
+      <p>Find clear, verified paths to report misconduct through your institution, funding agencies, embassies, and local authorities—with documentation tools designed to preserve your evidence and amplify your voice.
       </p>
-      <p>The <a href="https://docs.google.com/spreadsheets/d/1bF3FxtmMhAtRn2lyBDhansQ7YlDt4Gsm58aSHon6y0o/edit?usp=sharing" target="_blank" rel="noopener">Emergency Procedure Checklist</a> outlines step-by-step actions for responding in the moment—who to contact, how to document, and how to ensure inter-institutional accountability.</p>
+<br>     
+ <p>The <a href="https://docs.google.com/spreadsheets/d/1bF3FxtmMhAtRn2lyBDhansQ7YlDt4Gsm58aSHon6y0o/edit?usp=sharing" target="_blank" rel="noopener">Emergency Procedure Checklist</a> outlines step-by-step actions for responding in the moment—who to contact, how to document, and how to ensure inter-institutional accountability.</p>
     </article>
 
  <article class="card card--glass">
