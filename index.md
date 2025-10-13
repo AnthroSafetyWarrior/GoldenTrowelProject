@@ -4,8 +4,8 @@ title: Home
 homepage: true
 hero: /assets/img/romania_cave.JPG
 hero_pos: "center 40%"
-hero_opacity: .34
-hero_tint: .60
+hero_opacity: .45
+hero_tint: .40
 ---
 
 <!-- 1) Intro – plain background -->
