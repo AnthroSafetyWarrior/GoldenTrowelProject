@@ -558,7 +558,7 @@ header.hero::before{
 
 /* Maintain comfortable height */
 .pillband.pill--clip-right{
-  min-height: clamp(220px, 30vw, 2em);
+  min-height: clamp(220px, 30vw, 360px);
 }
 
 /* Tighter internal spacing for clipped pills */
@@ -677,15 +677,16 @@ header.hero::before{
   .pillband.pill--clip-right h2{ margin-top: .1rem; }
 }
 
+.pillband .lede{
+  font-size: clamp(1.05rem, 2.4vw, 1.2rem);
+  font-weight: 700;
+  margin: .15rem 0 0;   /* trims space under the h2 */
+}
+
 /* Slate band: restore proper vertical padding */
 .pillband.pill--sage.pill--clip-left .section{
   /* choose one style: EITHER balanced … */
-  padding-block: clamp(36px, 5vw, 56px);
-  /* …OR slightly top-heavier (uncomment these two lines and remove the line above)
-  padding-top:    clamp(44px, 5.6vw, 64px);
-  padding-bottom: clamp(28px, 4.8vw, 52px);
-  */
-  padding-right: max(var(--pill-pad-inline), var(--pill-curve-inset));
+    padding-right: max(var(--pill-pad-inline), var(--pill-curve-inset));
 }
 /* SOIL band: restore proper vertical padding */
 .pillband.pill--soil.pill--clip-left .section{
