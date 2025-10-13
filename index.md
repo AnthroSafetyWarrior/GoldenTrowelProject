@@ -130,9 +130,9 @@ hero_tint: .60
  <h3><a href="{{ '/support.html' | relative_url }}">Supporting You</a></h3>
 <p>Access survivor-centered resources focused on emotional support, recovery, and community care. This page highlights mental-health hotlines, trauma-informed care networks, and guidance on seeking help after an incident—because your safety and well-being come first.</p>
 </div>
-  <div class="text text--right"> 
+  <div class="text">
 <div class="inline-elements">   
-<h4><a href="https://takebackthenight.org/">TBTN</a><p> Take Back the Night</p></h4></div>
+<h4><a href="https://takebackthenight.org/">TBTN</a>: <p>Take Back the Night</p></h4></div>
 <p>National Sexual Assault Legal Hotline: Free Legal Assistance for Survivors Call 567-SHATTER (567-742-8837)</p>
 
 <div class="inline-elements">   
