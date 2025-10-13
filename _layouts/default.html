@@ -682,6 +682,17 @@ header.hero::before{
   font-weight: 700;
   margin: .15rem 0 0;   /* trims space under the h2 */
 }
+/* tighter version for short pills */
+.pillband.pill--tight{
+  min-height: auto;
+}
+.pillband.pill--tight .section{
+  padding-block: clamp(20px, 3.6vw, 32px);
+}
+.pillband.pill--tight::before{
+  top:0; bottom:0; transform:none; /* no vertical centering; just fill */
+}
+
 
 /* Slate band: restore proper vertical padding */
 .pillband.pill--sage.pill--clip-left .section{
