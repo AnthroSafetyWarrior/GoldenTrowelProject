@@ -131,19 +131,15 @@ hero_tint: .60
 <p>Access survivor-centered resources focused on emotional support, recovery, and community care. This page highlights mental-health hotlines, trauma-informed care networks, and guidance on seeking help after an incident—because your safety and well-being come first.</p>
 </div>
   <div class="text text--right"> 
-<h4><a href="https://takebackthenight.org/">TBTN</a></h4>
-<p>Take Back the Night
-<br>National Sexual Assault Legal Hotline: Free Legal Assistance for Survivors Call 567-SHATTER (567-742-8837)</p>
-<h4><a href="https://www.hotpeachpages.net/a/countries.html">Hot Peach Pages</a></h4>
-<p>International List of Sexual & Domestic Violence Agencies</p>
+<h4><a href="https://takebackthenight.org/">TBTN</a></h4>: Take Back the Night
+<p>National Sexual Assault Legal Hotline: Free Legal Assistance for Survivors Call 567-SHATTER (567-742-8837)</p>
+<h4><a href="https://www.hotpeachpages.net/a/countries.html">Hot Peach Pages</a></h4>: International List of Sexual & Domestic Violence Agencies
 <h4><a href="https://www.interaction.org/wp-content/uploads/resource-library/international_centers_for_survivors_of_sexual_assault_45553.pdf">interaction.org</a></h4>
 <p>Handbook of International Centers for Survivors of Sexual Assault and Harassment</p>
-<h4><a href="https://ilga.org/">ILGA World</a></h4>
-<p>International Lesbian, Gay, Bisexual, Trans, and Intersex Association</p>
 <h4><a href="https://rainn.org/">RAINN</a></h4>
 <p>Rape, Abuse & Incest National Network</p>
-<h4><a href="https://www.nsvrc.org/">RAINN</a></h4>
-<p>National Sexual Violence Resource Center</p>
+<h4><a href="https://ilga.org/">ILGA World</a></h4>
+<p>International Lesbian, Gay, Bisexual, Trans, and Intersex Association</p>
 </div>
 </div>
 </section>
