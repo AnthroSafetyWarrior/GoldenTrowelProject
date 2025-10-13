@@ -8,123 +8,73 @@ hero_opacity: .45                     # optional (0–1: lower = darker tint / m
 hero_tint: .40
 ---
 
+<!-- 1) Intro – plain background -->
+<section class="section intro">
+  <div class="intro-title">
+    <h1><strong>Survivorship support.</strong></h1>
+<br>
+    <h2 style="font-weight:600;">
+    STUFF
+    </h2>
+  </div>
+
 <style>
 /* small screens: allow horizontal scroll only when needed */
 @media (max-width: 700px){
   .row-panel table{ min-width: 640px; }
 }
 
-/* Caveat block */
-.oneparty-caveat{
-  background:#ffdc8f;
-  padding: clamp(12px, 2.8vw, 20px) clamp(16px, 3.5vw, 24px);
-  margin: clamp(14px, 2.5vw, 22px) auto;
-  border-radius:12px;
-  max-width: 100%;
-}
-.oneparty-caveat h3{
-  font-size: clamp(1.15rem, 1rem + 1.4vw, 1.9rem);
-  line-height: 1.2;
-  margin: 0 0 .4em;
-}
-.oneparty-caveat p,
-.oneparty-caveat li{
-  font-size: clamp(.98rem, .94rem + .35vw, 1.06rem);
-  line-height: 1.55; text-align:left;
-  margin: .5em 0;
-}
-.oneparty-caveat ul{ padding-left: clamp(16px, 4vw, 28px); }
-.oneparty-caveat p,
-.oneparty-caveat li{
-  overflow-wrap: anywhere;
-  hyphens: auto;
-}
+<!-- 2) DISCLAIMER — shared split -->
+<section class="section">
+<h4 class="pillhead pill--orange pill--clip-right">Disclaimer: This is not an exhaustive or authoritative legal resource. Laws are subject to change. While the website publishers endeavor to update these resources when applicable, you should still contact university legal services or a qualified legal advisor to confirm the most current regulations before conducting fieldwork.
+</h4>
 
-/* Disclaimer */
-.disclaimer{
-  font-size:.98em; color:#fff; background:#c4551e;
-  padding:.8em; max-width:100%;
-  border-radius:6px; border-left:5px solid #e8a084; text-align: left;
-  margin: 1.5em auto 2em;
-}
-    .main-section{ padding-block: clamp(10px, 2vw, 18px); }
-    .main-section > .docs-container{ margin: clamp(6px, 1vw, 10px) auto; }
-
-    .docs-container{
-      width: min(100%, 1000px);
-      padding: clamp(12px, 2.2vw, 18px);
-      border-radius: 16px;
-    }
-    .docs-container > :first-child{ margin-top:0; }
-    .docs-container > :last-child { margin-bottom:0; }
-
-    .docs-container.prevalence{ background:#ffdc8f; }
-    .docs-container.safety-plan{ background:#633747; color:#fff; }
-    .docs-container.safety-plan h2{ margin:.2em 0 .3em; }
-    .docs-container.safety-plan p{ margin:.2em auto .8em; max-width:72ch; }
-
-    .doc-links{
-      display:grid; gap: clamp(10px, 2vw, 18px);
-      grid-template-columns: 1fr; justify-items:center; margin-top:.5em;
-    }
-    @media (min-width:720px){  .doc-links{ grid-template-columns: repeat(2,1fr); } }
-    @media (min-width:1024px){ .doc-links{ grid-template-columns: repeat(2,1fr); } }
-
-    .doc-card{
-      width:100%; max-width:420px; background:#e8a084; color:#000; border-radius:10px;
-      padding: clamp(12px, 2.2vw, 18px); box-shadow:0 2px 6px rgba(0,0,0,.08);
-      text-align:center; display:flex; flex-direction:column; gap:.6em;
-    }
-    .doc-card h3{ margin:.1em 0 .2em; }
-    .doc-card p{ margin:.2em 0 .6em; }
-    .doc-card a{ margin-top:auto; align-self:center; background:#633747; 
-              color:#fff; text-decoration:none; padding:.5em 1em; border-radius:6px; 
-              display:inline-block; }
-    .doc-card a:hover{ background:#ffdc8f; color:#000; }
-
-</style>
-
-<section class="main-section">
-  <h2>Safety Strategies when Preparing for Fieldwork.</h2>
-  <h3 style="margin-top: 0.5em; font-weight: normal;">
-    These apply to both remote and museum/instution based field work. 
-  </h3>
+<!-- 5) CHECKLIST — consistent grid utility -->
+<section class="pillband pill--soil pill--clip-left pill--tight">
+ <div class="section">
+    <h2>How to Prepare for Safer Fieldwork</h2>
+    <p class="lede">make a copy of the <a href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing" target="_blank" rel="noopener">Pre-Fieldwork Safety Checklist</a> google sheet to customize and complete.
+</p>
+</div>
 </section>
- 
-<section class="main-section">
-  <div class="docs-container prevalence">
-  <h3>How to Prepare for Safer Fieldwork</h3>
-    <p>
-      make a copy of the <a href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing" target="_blank" rel="noopener">Pre-Fieldwork Safety Checklist</a> google sheet to customize and complete.
-    </p>
-<img
-  src="{{ '/assets/img/Safety-checklist.png' | absolute_url }}?v={{ site.time | date: '%s' }}"
+
+<section class="section">
+    <figure class="art">
+      <img
+        src="{{ '/assets/img/Safety-checklist.png' | absolute_url }}?v={{ site.time | date: '%s' }}"
   alt="Pre-Fieldwork Safety Checklist example"
   loading="lazy" decoding="async" fetchpriority="low"
-  style="display:block;width:90%;margin:1em auto 0;border-radius:12px;box-shadow:none;"
->
-  </div>
+  style="display:block;width:90%;margin:1em auto 0;border-radius:12px;box-shadow:none;">
+    </figure>
 </section>
 
-  <section class="main-section">
-  <div class="docs-container safety-plan">
-    <h3>Build Your Fieldwork Safety Plan</h3>
-    <p>Download and customize your safety materials below to protect yourself and your team.</p>
-    <div class="doc-links">
-      <div class="doc-card">
+
+<!-- 3) PREPARING — pillband -->
+<section class="pillband pill--soil pill--clip-left">
+  <div class="section resources">
+    <h2>Build Your Fieldwork Safety Plan</h2>
+<p class="lede">Download and customize your safety materials below to protect yourself and your team.</p>
+<div class="resources-grid">
+      <article class="resource-card">
         <h3>Fieldwork Safety Plan</h3>
-        <p>A personal safety plan template for researchers. </p><br>
-        <a href="https://docs.google.com/document/d/1OkEMW4VhpsccA_VZTTEvgBBq5vs0mCOEDg9Xk6f34Ss/edit?usp=sharing" target="_blank">Open Google Doc</a>
-      </div>
-      <div class="doc-card">
+        <p>A personal safety plan template for researchers.</p>
+        <p>
+          <a class="btn-doc"
+  href="https://docs.google.com/document/d/1OkEMW4VhpsccA_VZTTEvgBBq5vs0mCOEDg9Xk6f34Ss/edit?usp=sharing"
+             target="_blank" rel="noopener noreferrer">Open Google Doc</a>
+        </p>
+      </article>
+
+      <article class="resource-card">
         <h3>Collaborator Safety Commitment Agreement</h3>
         <p>A team-wide agreement on ethical and safe fieldwork protocols.</p>
-        <a href="https://docs.google.com/document/d/18SmymYAFKUz_drbDhcsx8NWaiNG6-SQflWPj0OaZ76c/edit?usp=sharing" target="_blank">Open Google Doc</a>
-      </div>
+        <p>
+          <a class="btn-doc"
+             href="https://docs.google.com/document/d/18SmymYAFKUz_drbDhcsx8NWaiNG6-SQflWPj0OaZ76c/edit?usp=sharing"
+             target="_blank" rel="noopener noreferrer">Open Google Doc</a>
+        </p>
+      </article>
     </div>
   </div>
 </section>
 
-<div class="disclaimer">
-  <strong>Disclaimer:</strong> This is not an exhaustive or authoritative legal resource. Laws are subject to change. While the website publishers endeavor to update these resources when applicable, you should still contact university legal services or a qualified legal advisor to confirm the most current regulations before conducting fieldwork.
-</div>

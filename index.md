@@ -176,7 +176,7 @@ hero_tint: .40
 
  <article class="card card--glass">
       <h3>Anonymous Survey</h3>
-      <p> <strong><a href="pill pill--nav" href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank" rel="noopener">Fieldwork Misconduct Survey</a></strong></p>
+      <p> Help us understand the current state of safety in fieldwork. The <strong><a href="pill pill--nav" href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank" rel="noopener">Fieldwork Misconduct Survey</a></strong> gathers anonymous, community-driven data on harassment and misconduct to update the only major prevalence study (Clancy et al., 2014). Your participation helps show how much change is still needed—and why these resources matter.</p>
  </article>
   </div>
 </section>
