@@ -154,7 +154,7 @@ hero_tint: .60
 <section class="pillband pill--sage pill--clip-left pill--tight">
  <div class="section">
     <h2>Reporting sexual misconduct in the field is possible whether you conduct research domestically or internationally.</h2>
-    <p class="lede"><strong>Whether you wish to file a report or not, there are resources available to support you.</strong></p>
+    <p class="lede">Whether you wish to file a report or not, there are resources available to support you.</p>
 </div>
 </section> 
   
