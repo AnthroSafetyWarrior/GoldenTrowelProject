@@ -687,6 +687,17 @@ header.hero::before{
   */
   padding-right: max(var(--pill-pad-inline), var(--pill-curve-inset));
 }
+/* SOIL band: restore proper vertical padding */
+.pillband.pill--soil.pill--clip-left .section{
+  /* choose one style: EITHER balanced … */
+  padding-block: clamp(36px, 5vw, 56px);
+  /* …OR slightly top-heavier (uncomment these two lines and remove the line above)
+  padding-top:    clamp(44px, 5.6vw, 64px);
+  padding-bottom: clamp(28px, 4.8vw, 52px);
+  */
+  padding-right: max(var(--pill-pad-inline), var(--pill-curve-inset));
+}
+
 
   .inline-elements h4, .inline-elements p {
     display: inline; /* Or 'inline' if you don't need to control width/height/margins */

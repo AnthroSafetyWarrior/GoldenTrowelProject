@@ -137,15 +137,13 @@ hero_tint: .60
 
 <div class="inline-elements">   
 <h4><a href="https://www.hotpeachpages.net/a/countries.html">Hot Peach Pages</a>: <p>International List of Sexual & Domestic Violence Agencies</p></h4></div>
-
+<br>
 <div class="inline-elements">   
 <h4><a href="https://www.interaction.org/wp-content/uploads/resource-library/international_centers_for_survivors_of_sexual_assault_45553.pdf">interaction.org</a>: <p>Handbook of International Centers for Survivors of Sexual Assault and Harassment</p></h4></div>
-
-
+<br>
 <div class="inline-elements">   
 <h4><a href="https://rainn.org/">RAINN</a>: <p>Rape, Abuse & Incest National Network</p></h4></div>
-
-
+<br>
 <div class="inline-elements">   
 <h4><a href="https://ilga.org/">ILGA World</a>: <p>International Lesbian, Gay, Bisexual, Trans, and Intersex Association</p></h4></div>
 </div>
@@ -154,17 +152,15 @@ hero_tint: .60
 
 <!-- 5) REPORTING — consistent grid utility -->
 <section class="pillband pill--sage pill--clip-left">
- <div class="section">
     <h2>Reporting sexual misconduct in the field is possible whether you conduct research domestically or internationally.</h2>
     <p class="lede"><strong>Whether you wish to file a report or not, there are resources available to support you.</strong></p>
-</div>
 </section> 
   
 <section class="section">
   <div class="pill-grid"> 
  <article class="card card--glass">
       <h3>Prevention</h3>
-      <p>The <a href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing" target="_blank" rel="noopener">Pre-Fieldwork Safety Checklist</a> helps you plan proactively—identifying risks, setting clear expectations, and documenting safety measures before entering the field. It also includes options for capturing proof of misconduct to support reporting without fear of dismissal.
+      <p>The <strong><a href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing" target="_blank" rel="noopener">Pre-Fieldwork Safety Checklist</a></strong> helps you plan proactively—identifying risks, setting clear expectations, and documenting safety measures before entering the field. It also includes options for capturing proof of misconduct to support reporting without fear of dismissal.
       </p>
     </article>
 
@@ -173,12 +169,12 @@ hero_tint: .60
       <p>Find clear, verified paths to report misconduct through your institution, funding agencies, embassies, and local authorities—with documentation tools designed to preserve your evidence and amplify your voice.
       </p>
 <br>     
- <p>The <a href="https://docs.google.com/spreadsheets/d/1bF3FxtmMhAtRn2lyBDhansQ7YlDt4Gsm58aSHon6y0o/edit?usp=sharing" target="_blank" rel="noopener">Emergency Procedure Checklist</a> outlines step-by-step actions for responding in the moment—who to contact, how to document, and how to ensure inter-institutional accountability.</p>
+ <p>The <strong><a href="https://docs.google.com/spreadsheets/d/1bF3FxtmMhAtRn2lyBDhansQ7YlDt4Gsm58aSHon6y0o/edit?usp=sharing" target="_blank" rel="noopener">Emergency Procedure Checklist</a></strong> outlines step-by-step actions for responding in the moment—who to contact, how to document, and how to ensure inter-institutional accountability.</p>
     </article>
 
  <article class="card card--glass">
       <h3>Anonymous Survey</h3>
-      <p> <a href="pill pill--nav" href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank" rel="noopener">Fieldwork Misconduct Survey</a></p>
+      <p> <strong><a href="pill pill--nav" href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank" rel="noopener">Fieldwork Misconduct Survey</a></strong></p>
  </article>
   </div>
 </section>
