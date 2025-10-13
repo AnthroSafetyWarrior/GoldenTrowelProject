@@ -678,10 +678,10 @@ header.hero::before{
 }
 
 .pillband .lede{
-  font-size: clamp(1.05rem, 2.4vw, 1.2rem);
+  font-size: clamp(1.1rem, 2.4vw, 1.2rem);
   font-weight: 700;
   margin: .15rem 0 0;
-display: inline;   /* trims space under the h2 */
+ max-inline-size: none; 
 }
 /* tighter version for short pills */
 .pillband.pill--tight{
