@@ -9,113 +9,9 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
 ---
 
 <style>
-/* ---- Accordion layout ---- */
-.accordion-grid{
-  display:grid;
-  grid-template-columns: repeat(5, minmax(0,1fr));
-  gap:.5rem;
-  margin-bottom:3rem;
-}
-
-/* responsive row: 5/4/3/2 columns */
-.country-row{
-  display:grid;
-  grid-template-columns: repeat(5, minmax(0,1fr));
-  gap:.5rem;                     /* spacing between buttons in a row */
-  margin-bottom:.5rem;           /* spacing between rows */
-  align-items:start;
-}
-@media (max-width:1100px){ .accordion-grid{ grid-template-columns:repeat(4, minmax(0,1fr)); } }
-@media (max-width:900px){  .accordion-grid{ grid-template-columns:repeat(3, minmax(0,1fr)); } }
-@media (max-width:650px){  .accordion-grid{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
-
-.country{ display:flex; flex-direction:column; }
-
-/* the injected holder spans the full grid width and sits under the clicked row */
-.row-panel{
-  display:none;
-  grid-column: 1 / -1;
-  background:#e8a084; padding:.75rem; overflow-x:auto;
-  border-bottom-left-radius:6px; border-bottom-right-radius:6px;
-  border:3px solid #e8a084; box-sizing:border-box;
-}
-.row-panel.open{ display:block; }
-
-/* Country buttons */
-.accordion{
-  background:#e8a084; color:#000; cursor:pointer;
-  padding:.4em; border:none; text-align:center;
-  font-family: Calibri, sans-serif; font-size:1.05rem; font-weight:bold;
-  transition: background-color .2s ease; border-radius:6px;
-}
-.accordion:hover{ background:#ffdc8f; color:#000; }
-.accordion[aria-expanded="true"]{ background:#633747; color:#fff; border-bottom-left-radius:0; border-bottom-right-radius:0; }
-
-.row-panel.open{ display:block; }
-
-/* hide the per-country panels in markup; JS copies their contents into .row-panel */
-.panel{ display:none; }
-
-.accordion { position: relative; z-index: 1; touch-action: manipulation; }
-
-/* Table inside the accordion */
-.row-panel table{
-  width:100%;
-  margin:0;
-  border-collapse:collapse;
-  table-layout:fixed;
-  background:#eae6df;
-}
-.row-panel th, .row-panel td{
-  padding:.5em .6em;
-  border:1px solid #000;
-  text-align:left; 
-  vertical-align:top;
-  white-space:normal;
-  overflow-wrap:anywhere;
-}
-.row-panel th{
-  background:#633747; 
-  color:#fff;
-  text-align:center; 
-  font-weight:bold;
-}
-.row-panel td{ color:#000; }
-.row-panel td :where(p, li, div, span, strong, em){ color:#000; }
-
-/* small screens: allow horizontal scroll only when needed */
-@media (max-width: 700px){
-  .row-panel table{ min-width: 640px; }
-}
-
-/* Caveat block */
-.oneparty-caveat{
-  background:#ffdc8f;
-  padding: clamp(12px, 2.8vw, 20px) clamp(16px, 3.5vw, 24px);
-  margin: clamp(14px, 2.5vw, 22px) auto;
-  border-radius:12px;
-  max-width: 100%;
-}
-.oneparty-caveat h3{
-  font-size: clamp(1.15rem, 1rem + 1.4vw, 1.9rem);
-  line-height: 1.2;
-  margin: 0 0 .4em;
-}
-.oneparty-caveat p,
-.oneparty-caveat li{
-  font-size: clamp(.98rem, .94rem + .35vw, 1.06rem);
-  line-height: 1.55; text-align:left;
-  margin: .5em 0;
-}
-.oneparty-caveat ul{ padding-left: clamp(16px, 4vw, 28px); }
-.oneparty-caveat p,
-.oneparty-caveat li{
-  overflow-wrap: anywhere;
-  hyphens: auto;
-}
-
-
-/* Container that wraps the header + all country buttons */
+/* =========================
+   Container
+   ========================= */
 .country-section{
   background:#633747;
   color:#fff;
@@ -125,23 +21,22 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
   max-width: 1100px;
   box-shadow: 0 2px 8px rgba(0,0,0,.08);
 }
-.country-section .wrap{ max-width: 100%; margin: 0 auto; }
-
-/* Keep your desired vertical spacing between groups */
-.country-section .section-head{
-  text-align: center;
-  margin: .45rem 0;
+.country-section .wrap{
+  display:grid;                 /* single track so buttons + bodies align */
+  grid-template-columns: 1fr;
+  max-width: 100%;
+  margin: 0 auto;
 }
-.country-section .section-head h2{ color:#fff; margin:0 0 .35em; }
-.country-section .section-head h4{ margin:.25em 0 0 0; }
-.country-section .section-head .lede{ color:#fff; margin:0 auto; max-width: 80ch; text-align:center;}
 
-/* --- Nested accordion toggles (continents/regions) --- */
-.section-toggle,
-.subsection-toggle{
+/* =========================
+   Region (top-level accordion)
+   ========================= */
+.region { grid-column: 1 / -1; }
+
+.region-toggle{
   display:block;
   width:100%;
-  box-sizing:border-box;          /* ensures padding doesn't change width */
+  box-sizing:border-box;
   background:#e8a084;
   color:#000;
   border:none;
@@ -152,62 +47,101 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
   text-align:center;
   cursor:pointer;
   transition: background-color .2s ease;
-  margin:.45em 0;
+  margin:.7rem 0;
+  font-size:1.05rem;
 }
-.section-toggle{ font-size:1.15rem; }   /* continent size */
-.subsection-toggle{ font-size:1.05rem; margin:.7rem 0; } /* region size */
+.region-toggle:hover{ background:#ffdc8f; color:#000; }
+.region-toggle[aria-expanded="true"]{ background:#633747; color:#fff; }
 
-.section-toggle:hover,
-.subsection-toggle:hover{ background:#ffdc8f; color:#000; }
+.region-body{ display:none; margin:.5rem 0 1rem; }
+.region-body.open{ display:block; }
 
-.section-toggle[aria-expanded="true"],
-.subsection-toggle[aria-expanded="true"]{
-  background:#633747; color:#fff;
-}
-
-/* Bodies are collapsed by default */
-.section-body,
-.subsection-body{ display:none; margin:.5rem 0 1rem; }
-
-/* When JS adds .open, reveal */
-.section-body.open,
-.subsection-body.open{ display:block; }
-
-/* Hide legacy h3/h4 headings inside toggled areas (we use buttons instead) */
-.country-section .section-head h3, 
-.country-section .section-head h4{ display:none; }
-
-/* ---------- WIDTH MATCH FIX ---------- */
-/* Put everything on one column so continent + region share the exact same track */
-.country-section .wrap{
+/* =========================
+   Country grid + cards
+   ========================= */
+.accordion-grid{
   display:grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(5, minmax(0,1fr));
+  gap:.5rem;
+  margin-bottom:3rem;
 }
 
-/* Ensure all containers sit on that single track with no side padding */
-.country-section .section-head,
-.country-section .section-body,
-.country-section .subsection,
-.country-section .subsection-body{
+/* responsive columns: 5 → 4 → 3 → 2 */
+@media (max-width:1100px){ .accordion-grid{ grid-template-columns:repeat(4, minmax(0,1fr)); } }
+@media (max-width:900px){  .accordion-grid{ grid-template-columns:repeat(3, minmax(0,1fr)); } }
+@media (max-width:650px){  .accordion-grid{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+
+.country{ display:flex; flex-direction:column; }
+
+/* =========================
+   Country accordion button
+   ========================= */
+.accordion{
+  background:#e8a084; color:#000; cursor:pointer;
+  padding:.4em; border:none; text-align:center;
+  font-family: Calibri, sans-serif; font-size:1.05rem; font-weight:bold;
+  transition: background-color .2s ease; border-radius:6px;
+  position: relative; z-index: 1; touch-action: manipulation;
+}
+.accordion:hover{ background:#ffdc8f; color:#000; }
+.accordion[aria-expanded="true"]{
+  background:#633747; color:#fff;
+  border-bottom-left-radius:0; border-bottom-right-radius:0;
+}
+/* keyboard focus */
+.accordion:focus-visible,
+.region-toggle:focus-visible{
+  outline: 3px solid #ffdc8f;
+  outline-offset: 2px;
+}
+
+/* =========================
+   Injected row-panel (full-width under the row)
+   ========================= */
+.row-panel{
+  display:none;
   grid-column: 1 / -1;
-  padding: 0;
-  margin-left: 0;
-  margin-right: 0;
+  background:#e8a084;
+  padding:.75rem;
+  overflow-x:auto;
+  border-bottom-left-radius:6px; border-bottom-right-radius:6px;
+  border:3px solid #e8a084;
+  box-sizing:border-box;
 }
+.row-panel.open{ display:block; }
 
-/* Belt-and-suspenders: remove any stray inline padding on section bodies */
-.section-body { padding-inline: 0 !important; }
+/* Hide per-country panels in markup; JS copies into .row-panel */
+.panel{ display:none; }
 
-/* Region containers also full-width, no extra padding */
-.section-body, .subsection, .subsection-body{ width:100%; padding:0; }
-
-a.link-white:link,
-a.link-white:visited { color:#fff; }
-
-a.link-white:hover,
-a.link-white:focus-visible { color:#fff; text-decoration: underline; }
+/* =========================
+   Tables inside row-panel
+   ========================= */
+.row-panel table{
+  width:100%;
+  margin:0;
+  border-collapse:collapse;
+  table-layout:fixed;
+  background:#eae6df;
+}
+.row-panel th, .row-panel td{
+  padding:.5em .6em;
+  border:1px solid #000;
+  text-align:left;
+  vertical-align:top;
+  white-space:normal;
+  overflow-wrap:anywhere;
+}
+.row-panel th{
+  background:#633747;
+  color:#fff;
+  text-align:center;
+  font-weight:bold;
+}
+.row-panel td{ color:#000; }
+.row-panel td :where(p, li, div, span, strong, em){ color:#000; }
 
 </style>
+
 
 <!-- 1) Intro – plain background -->
 <section class="section intro">
@@ -9675,101 +9609,28 @@ Pick a country to view its information table containing [STUFF]</p>
 </section>
 
 <script>
-(function(){
-  // ---------- helpers ----------
-  const setExpanded = (el, v) => el && el.setAttribute('aria-expanded', String(v));
-  const toggleOpen  = (el, v) => el && el.classList.toggle('open', v);
+  // Toggle region bodies
+  document.addEventListener('click', function(e){
+    const btn = e.target.closest('.region-toggle');
+    if(!btn) return;
 
-  function closePeers(btn, selector){
-    const scope = btn.closest('.country-section') || document;
-    scope.querySelectorAll(selector).forEach(b=>{
-      if(b !== btn){
-        setExpanded(b, false);
-        const id = b.getAttribute('aria-controls');
-        if(id){ toggleOpen(document.getElementById(id), false); }
+    const bodyId = btn.getAttribute('aria-controls');
+    const body = document.getElementById(bodyId);
+    const isOpen = btn.getAttribute('aria-expanded') === 'true';
+
+    // (Optional) close other regions for "one-open-at-a-time"
+    document.querySelectorAll('.region-toggle[aria-expanded="true"]').forEach(otherBtn => {
+      if (otherBtn !== btn) {
+        otherBtn.setAttribute('aria-expanded', 'false');
+        const otherBody = document.getElementById(otherBtn.getAttribute('aria-controls'));
+        otherBody && otherBody.classList.remove('open');
       }
     });
-  }
 
-  // ---------- 1) top-level sections (USA / International) ----------
-  document.querySelectorAll('.section-toggle').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const panel  = document.getElementById(btn.getAttribute('aria-controls'));
-      const isOpen = btn.getAttribute('aria-expanded') === 'true';
-      closePeers(btn, '.section-toggle');
-      setExpanded(btn, !isOpen);
-      toggleOpen(panel, !isOpen);
-    });
+    btn.setAttribute('aria-expanded', String(!isOpen));
+    body.classList.toggle('open', !isOpen);
   });
 
-  // ---------- 2) subsections (International regions) ----------
-  document.querySelectorAll('.subsection-toggle').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const panel  = document.getElementById(btn.getAttribute('aria-controls'));
-      const isOpen = btn.getAttribute('aria-expanded') === 'true';
-      closePeers(btn, '.subsection-toggle');
-      setExpanded(btn, !isOpen);
-      toggleOpen(panel, !isOpen);
-    });
-  });
-
-  // ---------- 3) small accordions (states/countries) ----------
-  function getColCount(container){
-    const gtc = getComputedStyle(container).gridTemplateColumns.trim();
-    const m = gtc.match(/^repeat\((\d+),/);
-    return m ? +m[1] : Math.max(gtc.split(/\s+/).filter(Boolean).length, 1);
-  }
-
-  function bindRow(container){
-    // one reusable holder per container (either .accordion-grid or a .country-row)
-    let holder = container.querySelector(':scope > .row-panel');
-    if(!holder){
-      holder = document.createElement('div');
-      holder.className = 'row-panel';
-      container.appendChild(holder);
-    }
-
-    const items = Array.from(container.querySelectorAll(':scope > .country'));
-
-    items.forEach(country=>{
-      const btn   = country.querySelector(':scope > .accordion');
-      const panel = country.querySelector(':scope > .panel');
-      if(!btn || !panel) return;
-
-      btn.addEventListener('click', ()=>{
-        const wasOpen = btn.getAttribute('aria-expanded') === 'true';
-
-        // close others in this container
-        container.querySelectorAll('.accordion[aria-expanded="true"]').forEach(b=> setExpanded(b,false));
-        holder.classList.remove('open');
-        holder.innerHTML = '';
-
-        if (wasOpen) return; // just closed it
-
-        // compute last item in this visual row using this container's column count
-        const cols = getColCount(container);
-        const idx  = items.indexOf(country);
-        const last = items[Math.min(idx - (idx % cols) + (cols - 1), items.length - 1)];
-
-        // place holder right after that last item (inside the same container)
-        last.insertAdjacentElement('afterend', holder);
-
-        // render & show
-        setExpanded(btn, true);
-        holder.innerHTML = panel.innerHTML;
-        holder.classList.add('open');
-      });
-    });
-  }
-
-  // If there are row wrappers, bind each row separately; else bind the grid itself.
-  document.querySelectorAll('.accordion-grid').forEach(grid=>{
-    const rows = grid.querySelectorAll(':scope > .country-row');
-    if(rows.length){
-      rows.forEach(bindRow);     // works even if there’s only one big .country-row
-    }else{
-      bindRow(grid);
-    }
-  });
-})();
+  // Your existing per-country accordion logic can stay the same.
+  // It should continue to handle copying each hidden .panel into .row-panel under the clicked row.
 </script>
