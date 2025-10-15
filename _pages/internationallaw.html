@@ -114,13 +114,6 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
   hyphens: auto;
 }
 
-/* Disclaimer */
-.disclaimer{
-  font-size:.98em; color:#fff; background:#c4551e;
-  padding:.8em; max-width:100%;
-  border-radius:6px; border-left:5px solid #e8a084; text-align: left;
-  margin: 1.5em auto 2em;
-}
 
 /* Container that wraps the header + all country buttons */
 .country-section{
@@ -265,18 +258,20 @@ Pick a country to view its information table containing [STUFF]</p>
 </section>
 
 
-<div class="section-body" id="asia-body" role="region" aria-labelledby="asia-toggle">
-  <!-- Region -->
-  <div class="subsection">
-    <button class="subsection-toggle" id="central-asia-toggle"
-            aria-controls="central-asia-body" aria-expanded="false">
-      Central Asia
-    </button>
 
-    <div class="subsection-body" id="central-asia-body" role="region" aria-labelledby="central-asia-toggle">
-  
+<!-- Continent -->
+<div class="country-section">
+  <div class="wrap">
 
-<div class="accordion-grid">
+    <!-- Region -->
+    <div class="region">
+      <button class="region-toggle" id="central-asia-toggle"
+              aria-controls="central-asia-body" aria-expanded="false">
+        Central Asia
+      </button>
+ <div class="region-body" id="central-asia-body" role="region" aria-labelledby="central-asia-toggle">
+
+        <div class="accordion-grid">
 <!--------------START Country ROW----------------->
 <!---------Kazakhstan-----------> 
    <div class="country">
