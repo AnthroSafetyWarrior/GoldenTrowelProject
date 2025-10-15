@@ -132,7 +132,7 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
   overflow-wrap:anywhere;
 }
 .row-panel th{
-  background:var(--gold);
+  background:var(--slate);
   color:#fff;
   text-align:center;
   font-weight:bold;
@@ -5408,10 +5408,6 @@ Pick a country to view its information table containing [STUFF]</p>
 
 
 <!--------------START REGION----------------->
-<div class="country-section">
-  <div class="wrap">
-
-    <!-- Region -->
     <div class="region">
       <button class="region-toggle" id="mainlandNA-toggle"
               aria-controls="mainlandNA-body" aria-expanded="false">
@@ -6864,10 +6860,6 @@ Pick a country to view its information table containing [STUFF]</p>
   
 
 <!--------REGION---------->
-<div class="country-section">
-  <div class="wrap">
-
-    <!-- Region -->
     <div class="region">
       <button class="region-toggle" id="EuorpeanTerrorities-toggle"
               aria-controls="EuorpeanTerrorities-body" aria-expanded="false">
@@ -7065,10 +7057,6 @@ Pick a country to view its information table containing [STUFF]</p>
 
 
 <!--------REGION---------->
-<div class="country-section">
-  <div class="wrap">
-
-    <!-- Region -->
     <div class="region">
       <button class="region-toggle" id="Northern-europe-toggle"
               aria-controls="Northern-europe-body" aria-expanded="false">
@@ -7409,10 +7397,6 @@ Pick a country to view its information table containing [STUFF]</p>
      </div>
 
   <!--------REGION---------->
-<div class="country-section">
-  <div class="wrap">
-
-    <!-- Region -->
     <div class="region">
       <button class="region-toggle" id="Southern-europe-toggle"
               aria-controls="Southern-europe-body" aria-expanded="false">
@@ -8503,30 +8487,32 @@ Pick a country to view its information table containing [STUFF]</p>
   </div>
 
 <!------END CONTINENT------>
-<hr style="width: 100%; color:#c4551e; background-color:#c4551e; border-width:0; height:3px;">
 
 
 
-<!------------------------------------Oceania---------------------------------->
-<!-- Continent -->
-<header class="section-head">
-  <button class="section-toggle" id="oceania-toggle"
-          aria-controls="oceania-body" aria-expanded="false">
-    Oceania
-  </button>
-</header>
+<!-- 4) OCEANIA — consistent grid utility -->
+<section class="pillband pill--sage pill--clip-left pill--tight">
+ <div class="section">
+    <h2>Oceania</h2>
+    <p class="lede">Countries, terrorities, or regions with their own legal systems are organized alphabetically by geographic regions.
+<br>
+Pick a country to view its information table containing [STUFF]</p>
+</div>
+</section>
 
-<div class="section-body" id="oceania-body" role="region" aria-labelledby="oceania-toggle">
-  <!-- Region -->
-  <div class="subsection">
-    <button class="subsection-toggle" id="australia-toggle"
-            aria-controls="australia-body" aria-expanded="false">
-      Australia
-    </button>
+<!-----------------------------------OCEANIA---------------------------------------->
+<!--------START ACORDION---------->
+<div class="country-section">
+  <div class="wrap">
 
-    <div class="subsection-body" id="australia-body" role="region" aria-labelledby="australia-toggle">
+    <div class="region">
+      <button class="region-toggle" id="Australia-toggle"
+              aria-controls="Australia-body" aria-expanded="false">
+        Australia
+      </button>
+ <div class="region-body" id="Australia-body" role="region" aria-labelledby="Australia-toggle">
 
-<div class="accordion-grid">
+        <div class="accordion-grid">
 <!--------------START Country ROW----------------->
 <!---------Australian Capital Territory-----------> 
    <div class="country">
@@ -8856,16 +8842,16 @@ Pick a country to view its information table containing [STUFF]</p>
      </div>
      </div>
 
-  <!-- Region -->
-  <div class="subsection">
-    <button class="subsection-toggle" id="Melanesia-toggle"
-            aria-controls="Melanesia-body" aria-expanded="false">
-      Melanesia
-    </button>
+  
+  <!--------REGION---------->
+    <div class="region">
+      <button class="region-toggle" id="Melanesia-toggle"
+              aria-controls="Melanesia-body" aria-expanded="false">
+        Melanesia
+      </button>
+ <div class="region-body" id="Melanesia-body" role="region" aria-labelledby="Melanesia-toggle">
 
-    <div class="subsection-body" id="Melanesia-body" role="region" aria-labelledby="Melanesia-toggle">
-
-<div class="accordion-grid">
+        <div class="accordion-grid">
 <!--------------START Country ROW----------------->
 <!---------Fiji-----------> 
    <div class="country">
@@ -9049,16 +9035,16 @@ Pick a country to view its information table containing [STUFF]</p>
      </div>
 
 
- <!-- Region -->
-  <div class="subsection">
-    <button class="subsection-toggle" id="Micronesia-toggle"
-            aria-controls="Micronesia-body" aria-expanded="false">
-      Micronesia
-    </button>
+  <!--------REGION---------->
+    <div class="region">
+      <button class="region-toggle" id="Micronesia-toggle"
+              aria-controls="Micronesia-body" aria-expanded="false">
+        Micronesia
+      </button>
+ <div class="region-body" id="Micronesia-body" role="region" aria-labelledby="Micronesia-toggle">
 
-    <div class="subsection-body" id="Micronesia-body" role="region" aria-labelledby="Micronesia-toggle">
+        <div class="accordion-grid">
 
-<div class="accordion-grid">
 <!--------------START Country ROW----------------->
 <!---------Federated States of Micronesia (FSM)-----------> 
    <div class="country">
@@ -9312,16 +9298,17 @@ Pick a country to view its information table containing [STUFF]</p>
      </div>
      </div>
 
- <!-- Region -->
-  <div class="subsection">
-    <button class="subsection-toggle" id="Polynesia-toggle"
-            aria-controls="Polynesia-body" aria-expanded="false">
-      Polynesia
-    </button>
+<!--------REGION---------->
+    <div class="region">
+      <button class="region-toggle" id="Polynesia-toggle"
+              aria-controls="Polynesia-body" aria-expanded="false">
+        Polynesia
+      </button>
+ <div class="region-body" id="Polynesia-body" role="region" aria-labelledby="Polynesia-toggle">
 
-    <div class="subsection-body" id="Polynesia-body" role="region" aria-labelledby="Polynesia-toggle">
+        <div class="accordion-grid">
 
-<div class="accordion-grid">
+ 
 <!--------------START Country ROW----------------->
 <!---------Cook Islands-----------> 
    <div class="country">
@@ -9652,9 +9639,9 @@ Pick a country to view its information table containing [STUFF]</p>
   </div>
   </div>
   </div>
+</div>
 <!------END CONTINENT------>
 
-</section>
 
 <script>
 /* ---------- Region toggles ---------- */
