@@ -12,28 +12,34 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
 /* =========================
    Container
    ========================= */
-/* Replaces fixed 1100px cap */
-.country-section{
-  background: var(--slate);
-  color:#fff;
-  border-radius:16px;
-  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+/* 0) Baseline: make widths include padding everywhere */
+*, *::before, *::after { box-sizing: border-box; }
 
-  /* match .section sizing */
+/* 1) Standalone accordion (AFTER a pill, not inside it) — 
+      match your .section measure exactly */
+.country-section{
   width: min(100%, var(--maxw));
   margin-inline: auto;
   margin-block: clamp(10px, 2.5vw, 24px) 2rem;
   padding: clamp(16px, 2.5vw, 28px) var(--page-pad-inline);
+  background: var(--slate);
+  color:#fff;
+  border-radius:16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+  min-width: 0;  /* prevents “teeny” shrink in grid parents */
+}
 
-  /* safety so it never “goes teeny” inside grid parents */
-  min-width: 0;
+/* 2) If you ever wrap it IN a .section, avoid double padding & shrink */
+.section > .country-section{
+  width: 100%;         /* take the section’s inner width */
+  max-width: none;     /* don’t re-cap at --maxw */
+  padding: 0;          /* the section already has page padding */
+  margin-inline: 0;    /* the section centers it */
 }
-.country-section .wrap{
-  display:grid;
-  grid-template-columns: 1fr;
-  gap: clamp(10px, 1.6vw, 16px);
-  min-width: 0;
-}
+
+/* 3) Kill horizontal overflow that makes centered blocks look “wider”
+      (caused by earlier 100vw full-bleed bands) */
+html, body { overflow-x: clip; }   /* modern “hidden” without scrollbars */
 
 
 /* =========================
