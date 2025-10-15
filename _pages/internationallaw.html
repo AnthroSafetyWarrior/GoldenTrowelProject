@@ -58,7 +58,7 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
    ========================= */
 .region{
   grid-column: 1 / -1;
-  display: flex;                 /* center the button */
+  display: block;                 /* center the button */
   justify-content: center;
 }
 
@@ -67,7 +67,6 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
   inline-size: clamp(var(--region-btn-min), 92%, var(--region-btn-max));
   margin-inline: auto;
   margin-block: var(--region-btn-gap);
-  padding: .65em 1.1em;
 
   background: var(--gold);
   color:#000;
@@ -83,10 +82,13 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
 .region-toggle:hover{ background: var(--sage); color:#000; }
 .region-toggle[aria-expanded="true"]{ background: var(--slate); color:#fff; }
 
-.region-body{ display:none; margin:.5rem 0 1rem; }
-.region-body.open{ display:block; }
+.region-body{
+  display: none;
+  margin: .5rem 0 1rem;
+  width: 100%;
+}
+.region-body.open{ display: block; }
 
-/* Keep the opened country grid within the same inner width */
 .region-body > .accordion-grid{
   margin-inline: auto;
   inline-size: clamp(260px, 96%, var(--region-btn-max));
