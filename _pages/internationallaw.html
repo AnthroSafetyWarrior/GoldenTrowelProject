@@ -29,18 +29,32 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
   min-width: 0;  /* prevents “teeny” shrink in grid parents */
 }
 
-/* 2) If you ever wrap it IN a .section, avoid double padding & shrink */
-.section > .country-section{
-  width: 100%;         /* take the section’s inner width */
-  max-width: none;     /* don’t re-cap at --maxw */
-  padding: 0;          /* the section already has page padding */
-  margin-inline: 0;    /* the section centers it */
+
+/* Let children shrink normally inside grid-based sections */
+.section > * { min-width: 0; }
+
+/* A variant section with normal side padding but tighter top/bottom */
+.section.section--flush{
+  padding-block: clamp(8px, 1.6vw, 16px);
 }
 
-/* 3) Kill horizontal overflow that makes centered blocks look “wider”
-      (caused by earlier 100vw full-bleed bands) */
-html, body { overflow-x: clip; }   /* modern “hidden” without scrollbars */
+/* When the accordion is inside a .section:
+   - use the section’s width/padding
+   - avoid double side padding
+   - keep the accordion’s vertical padding and background */
+.section .country-section{
+  width: 100%;           /* fill the section’s inner column */
+  max-width: none;       /* the section already caps width */
+  margin-inline: 0;      /* centered by the section */
+  padding-inline: 0;     /* section provides side padding */
+  /* keep your vertical padding from the accordion card */
+  padding-block: clamp(16px, 2.5vw, 28px);
+}
 
+/* Optional: if you prefer the card a hair tighter inside sections */
+.section .country-section .wrap{
+  padding-inline: 0;     /* ensure no hidden inner padding creeps in */
+}
 
 /* =========================
    Region (top-level accordion)
@@ -206,6 +220,7 @@ Pick a country to view its information table containing [STUFF]</p>
 </section>
 
 <!--------START ACORDION---------->
+<section class="section section--flush">
 <div class="country-section">
   <div class="wrap">
 
@@ -2091,7 +2106,7 @@ Pick a country to view its information table containing [STUFF]</p>
 <!-------END country acordion------>
     </div>
 </div>
-
+</section>
 
 
 <!-- 4) AFRICA — consistent grid utility -->
@@ -2106,6 +2121,7 @@ Pick a country to view its information table containing [STUFF]</p>
 
 <!-------------------------------------AFRICA----------------------------------------->
 <!--------START ACORDION---------->
+<section class="section section--flush">
 <div class="country-section">
   <div class="wrap">
 
@@ -4370,7 +4386,7 @@ Pick a country to view its information table containing [STUFF]</p>
 <!-------END country acordion------>
      </div>
      </div>
-
+</section>
 <!------END CONTINENT REGION------> 
 
 
@@ -4387,6 +4403,7 @@ Pick a country to view its information table containing [STUFF]</p>
 </section>
 
 <!-----------------------------------NORTH AMERICA----------------------------------------><!--------START ACORDION---------->
+<section class="section section--flush">
 <div class="country-section">
   <div class="wrap">
 
@@ -5772,7 +5789,7 @@ Pick a country to view its information table containing [STUFF]</p>
   </div>
   </div>
   </div>
-
+</section>
 
 
 
@@ -5787,6 +5804,7 @@ Pick a country to view its information table containing [STUFF]</p>
 </section>
 
 <!-----------------------------------SOUTH AMERICA----------------------------------------><!--------START ACORDION---------->
+<section class="section section--flush">
 <div class="country-section">
   <div class="wrap">
 
@@ -6472,7 +6490,7 @@ Pick a country to view its information table containing [STUFF]</p>
 <!-------END country acordion------>
   </div>
  </div>
-
+</section>
 <!------END CONTINENT------>
 
 
@@ -6488,6 +6506,7 @@ Pick a country to view its information table containing [STUFF]</p>
 
 <!-----------------------------------EUROPE---------------------------------------->
 <!--------START ACORDION---------->
+<section class="section section--flush">
 <div class="country-section">
   <div class="wrap">
 
