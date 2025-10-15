@@ -10,13 +10,21 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
 
 <style>
 /* =========================
-   Container
+   Globals / tunables
    ========================= */
-/* 0) Baseline: make widths include padding everywhere */
 *, *::before, *::after { box-sizing: border-box; }
 
-/* 1) Standalone accordion (AFTER a pill, not inside it) — 
-      match your .section measure exactly */
+:root{
+  /* inner width for the region buttons / grids */
+  --region-btn-min: 220px;
+  --region-btn-max: 680px;      /* ← tweak this to taste */
+  --region-btn-gap: .75rem;
+}
+
+/* =========================
+   Country-section container
+   (standalone block after the pill)
+   ========================= */
 .country-section{
   width: min(100%, var(--maxw));
   margin-inline: auto;
@@ -26,63 +34,63 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
   color:#fff;
   border-radius:16px;
   box-shadow: 0 2px 8px rgba(0,0,0,.08);
-  min-width: 0;  /* prevents “teeny” shrink in grid parents */
+  min-width: 0;
+}
+.country-section .wrap{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap: clamp(10px, 1.6vw, 16px);
+  min-width: 0;
 }
 
-
-/* Let children shrink normally inside grid-based sections */
+/* If you ever wrap the accordion INSIDE a .section, avoid double padding */
 .section > * { min-width: 0; }
-
-/* A variant section with normal side padding but tighter top/bottom */
-.section.section--flush{
-  padding-block: clamp(8px, 1.6vw, 16px);
-}
-
-/* When the accordion is inside a .section:
-   - use the section’s width/padding
-   - avoid double side padding
-   - keep the accordion’s vertical padding and background */
 .section .country-section{
-  width: 100%;           /* fill the section’s inner column */
-  max-width: none;       /* the section already caps width */
-  margin-inline: 0;      /* centered by the section */
-  padding-inline: 0;     /* section provides side padding */
-  /* keep your vertical padding from the accordion card */
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+  padding-inline: 0;
   padding-block: clamp(16px, 2.5vw, 28px);
-}
-
-/* Optional: if you prefer the card a hair tighter inside sections */
-.section .country-section .wrap{
-  padding-inline: 0;     /* ensure no hidden inner padding creeps in */
 }
 
 /* =========================
    Region (top-level accordion)
    ========================= */
-.region { grid-column: 1 / -1; }
-
-.region-toggle{
-  display:block;
-  width:100%;
-  box-sizing:border-box;
-  background:var(--gold);
-  color:#000;
-  border:none;
-  border-radius:8px;
-  padding:.6em .8em;
-  font-family: Calibri, sans-serif;
-  font-weight:bold;
-  text-align:center;
-  cursor:pointer;
-  transition: background-color .2s ease;
-  margin:.7rem 0;
-  font-size:1.05rem;
+.region{
+  grid-column: 1 / -1;
+  display: flex;                 /* center the button */
+  justify-content: center;
 }
-.region-toggle:hover{ background:var(--sage); color:#000; }
-.region-toggle[aria-expanded="true"]{ background:var(--slate); color:#fff; }
+
+/* Narrower, centered region buttons (not full-width) */
+.region-toggle{
+  inline-size: clamp(var(--region-btn-min), 92%, var(--region-btn-max));
+  margin-inline: auto;
+  margin-block: var(--region-btn-gap);
+  padding: .65em 1.1em;
+
+  background: var(--gold);
+  color:#000;
+  border: none;
+  border-radius: 12px;
+  font-family: Calibri, sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color .2s ease;
+}
+.region-toggle:hover{ background: var(--sage); color:#000; }
+.region-toggle[aria-expanded="true"]{ background: var(--slate); color:#fff; }
 
 .region-body{ display:none; margin:.5rem 0 1rem; }
 .region-body.open{ display:block; }
+
+/* Keep the opened country grid within the same inner width */
+.region-body > .accordion-grid{
+  margin-inline: auto;
+  inline-size: clamp(260px, 96%, var(--region-btn-max));
+}
 
 /* =========================
    Country grid + cards
@@ -92,30 +100,41 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
   grid-template-columns: repeat(5, minmax(0,1fr));
   gap:.5rem;
   margin-bottom:3rem;
+  overflow: visible;
 }
-
-/* responsive columns: 5 → 4 → 3 → 2 */
 @media (max-width:1100px){ .accordion-grid{ grid-template-columns:repeat(4, minmax(0,1fr)); } }
 @media (max-width:900px){  .accordion-grid{ grid-template-columns:repeat(3, minmax(0,1fr)); } }
 @media (max-width:650px){  .accordion-grid{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
 
-.country{ display:flex; flex-direction:column; }
+.country{ display:flex; flex-direction:column; min-width:0; }
 
 /* =========================
    Country accordion button
    ========================= */
 .accordion{
-  background:var(--gold); color:#000; cursor:pointer;
-  padding:.4em; border:none; text-align:center;
-  font-family: Calibri, sans-serif; font-size:1.05rem; font-weight:bold;
-  transition: background-color .2s ease; border-radius:6px;
-  position: relative; z-index: 1; touch-action: manipulation;
+  background: var(--gold);
+  color:#000;
+  cursor:pointer;
+  padding:.4em;
+  border:none;
+  text-align:center;
+  font-family: Calibri, sans-serif;
+  font-size:1.05rem;
+  font-weight:bold;
+  transition: background-color .2s ease;
+  border-radius:6px;
+  position: relative;
+  z-index: 1;
+  touch-action: manipulation;
 }
-.accordion:hover{ background:var(--sage); color:#000; }
+.accordion:hover{ background: var(--sage); color:#000; }
 .accordion[aria-expanded="true"]{
-  background:var(--slate); color:#fff;
-  border-bottom-left-radius:0; border-bottom-right-radius:0;
+  background: var(--slate);
+  color:#fff;
+  border-bottom-left-radius:0;
+  border-bottom-right-radius:0;
 }
+
 /* keyboard focus */
 .accordion:focus-visible,
 .region-toggle:focus-visible{
@@ -129,10 +148,11 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
 .row-panel{
   display:none;
   grid-column: 1 / -1;
-  background:var(--slate);
+  background: var(--slate);
   padding:.75rem;
   overflow-x:auto;
-  border-bottom-left-radius:6px; border-bottom-right-radius:6px;
+  border-bottom-left-radius:6px;
+  border-bottom-right-radius:6px;
   border:3px solid var(--slate);
   box-sizing:border-box;
 }
@@ -149,7 +169,7 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
   margin:0;
   border-collapse:collapse;
   table-layout:fixed;
-  background:var(--offwhite);
+  background: var(--offwhite);
 }
 .row-panel th, .row-panel td{
   padding:.5em .6em;
@@ -160,15 +180,15 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
   overflow-wrap:anywhere;
 }
 .row-panel th{
-  background:var(--slate);
+  background: var(--slate);
   color:#fff;
   text-align:center;
   font-weight:bold;
 }
 .row-panel td{ color:#000; }
 .row-panel td :where(p, li, div, span, strong, em){ color:#000; }
-
 </style>
+
 
 
 <!-- 1) Intro – plain background -->
