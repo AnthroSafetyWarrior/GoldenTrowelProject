@@ -69,54 +69,7 @@ hero_tint: .40                        # optional (0–1: higher = more maroon ov
 .row-panel td{ color:#000; }
 .row-panel td :where(p, li, div, span, strong, em){ color:#000; }
 
-/* Small screens: allow horizontal scroll only when needed */
-@media (max-width: 700px){
-  .row-panel table{ min-width: 640px; }
-}
 
-.oneparty-caveat{
-  background:#ffdc8f;
-  padding: clamp(12px, 2.8vw, 20px) clamp(16px, 3.5vw, 24px);
-  margin: clamp(14px, 2.5vw, 22px) auto;
-  border-radius:12px;
-  /* keep lines comfortable on wide screens but full‑width on mobile */
-  max-width: 100%;
-}
-
-.oneparty-caveat h3{
-  /* fluid, but capped for desktop; no inline style to override it */
-  font-size: clamp(1.15rem, 1rem + 1.4vw, 1.9rem);
-  line-height: 1.2;
-  margin: 0 0 .4em;
-}
-
-.oneparty-caveat p,
-.oneparty-caveat li{
-  /* tie to rem first, then add a small vw bump */
-  font-size: clamp(.98rem, .94rem + .35vw, 1.06rem);
-  line-height: 1.55; text-align:left;
-  margin: .5em 0;
-}
-
-.oneparty-caveat ul{
-  padding-left: clamp(16px, 4vw, 28px);
-}
-
-.oneparty-caveat p,
-.oneparty-caveat li{
-  /* avoid awkward overflow on tiny phones */
-  overflow-wrap: anywhere;
-  hyphens: auto;
-}
-
-
-/* Disclaimer stays full-width above/below */
-.disclaimer{
-  font-size:.98em; color:#fff; background:#c4551e;
-  padding:.8em; max-width:100%;
-  border-radius:6px; border-left:5px solid #e8a084;text-align: left;
-  margin: 1.5em auto 2em;
-}
 
 /* Container that wraps the header + all funding buttons */
 .funding-section{
@@ -158,7 +111,7 @@ hero_tint: .40                        # optional (0–1: higher = more maroon ov
 
 <!-- 2) DISCLAIMER — shared split -->
 <section class="section">
-<p class="pillhead pill--orange pill--clip-right">Disclaimer: This is not an exhaustive or authoritative legal resource. Laws are subject to change. While the website publishers endeavor to update these resources when applicable, you should still contact university legal services or a qualified legal advisor to confirm the most current regulations before conducting fieldwork.
+<p class="pillhead pill--orange pill--clip-right">Disclaimer: The resources provided on this website are not exhaustive or definitive. Regulations, reporting protocols, and legal requirements may vary by location and institution. Before conducting fieldwork, confirm current information with your university legal services, ethics or Title IX office, or a qualified legal professional.
 </p>
 </section>
 
