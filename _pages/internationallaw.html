@@ -56,17 +56,23 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
 /* =========================
    Region (top-level accordion)
    ========================= */
+/* ===== Region (stacked, button centered, grid underneath) ===== */
 .region{
   grid-column: 1 / -1;
-  display: block;                 /* center the button */
-  justify-content: center;
+  display: block;              /* important: NOT flex */
 }
 
-/* Narrower, centered region buttons (not full-width) */
+/* centered, narrower region buttons */
+:root{
+  --region-btn-min: 220px;
+  --region-btn-max: 680px;     /* tweak to taste */
+  --region-btn-gap: .75rem;
+}
 .region-toggle{
+  display:block;
   inline-size: clamp(var(--region-btn-min), 92%, var(--region-btn-max));
-  margin-inline: auto;
-  margin-block: var(--region-btn-gap);
+  margin: var(--region-btn-gap) auto;   /* centers the button */
+  padding: .65em 1.1em;
 
   background: var(--gold);
   color:#000;
@@ -82,16 +88,19 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
 .region-toggle:hover{ background: var(--sage); color:#000; }
 .region-toggle[aria-expanded="true"]{ background: var(--slate); color:#fff; }
 
+/* body stacks UNDER the button at full card width */
 .region-body{
-  display: none;
-  margin: .5rem 0 1rem;
-  width: 100%;
+  display:none;
+  margin:.5rem 0 1rem;
+  width:100%;
 }
-.region-body.open{ display: block; }
+.region-body.open{ display:block; }
 
+/* keep opened grid aligned to the same inner width as the button */
 .region-body > .accordion-grid{
-  margin-inline: auto;
-  inline-size: clamp(260px, 96%, var(--region-btn-max));
+  margin-inline:auto;
+  width: min(96%, var(--region-btn-max));
+  max-width: var(--region-btn-max);
 }
 
 /* =========================
@@ -8552,6 +8561,7 @@ Pick a country to view its information table containing [STUFF]</p>
 
 <!-----------------------------------OCEANIA---------------------------------------->
 <!--------START ACORDION---------->
+<section class="section section--flush">
 <div class="country-section">
   <div class="wrap">
 
@@ -9691,7 +9701,7 @@ Pick a country to view its information table containing [STUFF]</p>
   </div>
 </div>
 <!------END CONTINENT------>
-
+</section>
 
 <script>
 /* ---------- Region toggles ---------- */
