@@ -13,7 +13,7 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
    Container
    ========================= */
 .country-section{
-  background:#633747;
+  background:var(--slate);
   color:#fff;
   border-radius:16px;
   padding: clamp(16px, 2.5vw, 28px);
@@ -37,7 +37,7 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
   display:block;
   width:100%;
   box-sizing:border-box;
-  background:#e8a084;
+  background:var(--gold);
   color:#000;
   border:none;
   border-radius:8px;
@@ -50,8 +50,8 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
   margin:.7rem 0;
   font-size:1.05rem;
 }
-.region-toggle:hover{ background:#ffdc8f; color:#000; }
-.region-toggle[aria-expanded="true"]{ background:#633747; color:#fff; }
+.region-toggle:hover{ background:var(--sage); color:#000; }
+.region-toggle[aria-expanded="true"]{ background:var(--slate); color:#fff; }
 
 .region-body{ display:none; margin:.5rem 0 1rem; }
 .region-body.open{ display:block; }
@@ -77,21 +77,21 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
    Country accordion button
    ========================= */
 .accordion{
-  background:#e8a084; color:#000; cursor:pointer;
+  background:var(--gold); color:#000; cursor:pointer;
   padding:.4em; border:none; text-align:center;
   font-family: Calibri, sans-serif; font-size:1.05rem; font-weight:bold;
   transition: background-color .2s ease; border-radius:6px;
   position: relative; z-index: 1; touch-action: manipulation;
 }
-.accordion:hover{ background:#ffdc8f; color:#000; }
+.accordion:hover{ background:var(--sage); color:#000; }
 .accordion[aria-expanded="true"]{
-  background:#633747; color:#fff;
+  background:var(--slate); color:#fff;
   border-bottom-left-radius:0; border-bottom-right-radius:0;
 }
 /* keyboard focus */
 .accordion:focus-visible,
 .region-toggle:focus-visible{
-  outline: 3px solid #ffdc8f;
+  outline: 3px solid var(--sage);
   outline-offset: 2px;
 }
 
@@ -101,11 +101,11 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
 .row-panel{
   display:none;
   grid-column: 1 / -1;
-  background:#e8a084;
+  background:var(--slate);
   padding:.75rem;
   overflow-x:auto;
   border-bottom-left-radius:6px; border-bottom-right-radius:6px;
-  border:3px solid #e8a084;
+  border:3px solid (--slate);
   box-sizing:border-box;
 }
 .row-panel.open{ display:block; }
@@ -121,7 +121,7 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
   margin:0;
   border-collapse:collapse;
   table-layout:fixed;
-  background:#eae6df;
+  background:var(--offwhite);
 }
 .row-panel th, .row-panel td{
   padding:.5em .6em;
@@ -132,7 +132,7 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
   overflow-wrap:anywhere;
 }
 .row-panel th{
-  background:#633747;
+  background:var(--slate);
   color:#fff;
   text-align:center;
   font-weight:bold;
@@ -182,7 +182,7 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
 
 
 <!-- 4) ASIA — consistent grid utility -->
-<section class="pillband pill--sage pill--clip-left pill--tight">
+<section class="pillband pill--slate pill--clip-right pill--tight">
  <div class="section">
     <h2>Asia</h2>
     <p class="lede">Countries, terrorities, or regions with their own legal systems are organized alphabetically by geographic regions.
@@ -203,7 +203,7 @@ Pick a country to view its information table containing [STUFF]</p>
       </button>
  <div class="region-body" id="central-asia-body" role="region" aria-labelledby="central-asia-toggle">
 
-        <div class="accordion-grid">
+<div class="accordion-grid">
 <!--------------START Country ROW----------------->
 <!---------Kazakhstan-----------> 
    <div class="country">
@@ -9663,28 +9663,102 @@ Pick a country to view its information table containing [STUFF]</p>
 </section>
 
 <script>
-  // Toggle region bodies
-  document.addEventListener('click', function(e){
-    const btn = e.target.closest('.region-toggle');
-    if(!btn) return;
+/* ---------- Region toggles ---------- */
+document.addEventListener('click', (e) => {
+  const regBtn = e.target.closest('.region-toggle');
+  if (!regBtn) return;
 
-    const bodyId = btn.getAttribute('aria-controls');
-    const body = document.getElementById(bodyId);
-    const isOpen = btn.getAttribute('aria-expanded') === 'true';
+  const bodyId = regBtn.getAttribute('aria-controls');
+  const body = document.getElementById(bodyId);
+  const isOpen = regBtn.getAttribute('aria-expanded') === 'true';
 
-    // (Optional) close other regions for "one-open-at-a-time"
-    document.querySelectorAll('.region-toggle[aria-expanded="true"]').forEach(otherBtn => {
-      if (otherBtn !== btn) {
-        otherBtn.setAttribute('aria-expanded', 'false');
-        const otherBody = document.getElementById(otherBtn.getAttribute('aria-controls'));
-        otherBody && otherBody.classList.remove('open');
-      }
-    });
-
-    btn.setAttribute('aria-expanded', String(!isOpen));
-    body.classList.toggle('open', !isOpen);
+  // (Optional) one-open-at-a-time across regions
+  document.querySelectorAll('.region-toggle[aria-expanded="true"]').forEach(b => {
+    if (b !== regBtn) {
+      b.setAttribute('aria-expanded', 'false');
+      const other = document.getElementById(b.getAttribute('aria-controls'));
+      other && other.classList.remove('open');
+    }
   });
 
-  // Your existing per-country accordion logic can stay the same.
-  // It should continue to handle copying each hidden .panel into .row-panel under the clicked row.
+  regBtn.setAttribute('aria-expanded', String(!isOpen));
+  body.classList.toggle('open', !isOpen);
+
+  // When closing a region, also close any open row-panel inside
+  if (isOpen) {
+    body.querySelectorAll('.row-panel.open').forEach(rp => rp.remove());
+    body.querySelectorAll('.accordion[aria-expanded="true"]').forEach(btn => btn.setAttribute('aria-expanded','false'));
+  }
+});
+
+/* ---------- Country accordions (row-aware) ---------- */
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.accordion');
+  if (!btn) return;
+
+  const countryCard = btn.closest('.country');
+  const grid = btn.closest('.accordion-grid');
+  if (!countryCard || !grid) return;
+
+  const panelId = btn.getAttribute('aria-controls');
+  const hiddenPanel = document.getElementById(panelId);  // the per-country .panel (hidden in markup)
+  if (!hiddenPanel) return;
+
+  const isOpen = btn.getAttribute('aria-expanded') === 'true';
+
+  // Close if already open
+  if (isOpen) {
+    btn.setAttribute('aria-expanded', 'false');
+    const existing = grid.querySelector('.row-panel.open');
+    if (existing) existing.remove();
+    return;
+  }
+
+  // Close any other open country in this grid
+  grid.querySelectorAll('.accordion[aria-expanded="true"]').forEach(b => b.setAttribute('aria-expanded','false'));
+  grid.querySelectorAll('.row-panel.open').forEach(rp => rp.remove());
+
+  // Mark this one open
+  btn.setAttribute('aria-expanded', 'true');
+
+  // Determine current number of columns in the grid
+  const cols = getComputedStyle(grid).gridTemplateColumns.split(' ').length;
+
+  // Figure out index of the clicked card among visible .country items in this grid
+  const countries = Array.from(grid.querySelectorAll(':scope > .country'));
+  const idx = countries.indexOf(countryCard);
+
+  // Compute end-of-row index (0-based) and the element to insert after
+  const rowEndIndex = Math.min(countries.length - 1, idx - (idx % cols) + (cols - 1));
+  const insertAfter = countries[rowEndIndex];
+
+  // Create or reuse a .row-panel element
+  const rowPanel = document.createElement('div');
+  rowPanel.className = 'row-panel open';
+
+  // Copy table/content from hidden .panel into rowPanel
+  rowPanel.innerHTML = hiddenPanel.innerHTML;
+
+  // Insert right after the end of current row
+  insertAfter.after(rowPanel);
+});
+
+/* ---------- Fixup: keep ARIA consistent if viewport columns change ---------- */
+window.addEventListener('resize', () => {
+  document.querySelectorAll('.accordion-grid').forEach(grid => {
+    // If there is an open row-panel, rebuild it at the right row end
+    const openBtn = grid.querySelector('.accordion[aria-expanded="true"]');
+    const rowPanel = grid.querySelector('.row-panel.open');
+    if (!openBtn || !rowPanel) return;
+
+    const countryCard = openBtn.closest('.country');
+    const cols = getComputedStyle(grid).gridTemplateColumns.split(' ').length;
+    const countries = Array.from(grid.querySelectorAll(':scope > .country'));
+    const idx = countries.indexOf(countryCard);
+    const rowEndIndex = Math.min(countries.length - 1, idx - (idx % cols) + (cols - 1));
+    const insertAfter = countries[rowEndIndex];
+    insertAfter.after(rowPanel);
+  });
+});
 </script>
+
