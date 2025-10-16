@@ -103,8 +103,8 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
 .accordion-grid{
   display:grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap:.6rem;
-  margin-bottom:3rem;
+  gap: var(--grid-gap);
+  margin-bottom: 2rem;
   overflow: visible;
 }
 
@@ -120,11 +120,14 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
   color:#000;
   cursor:pointer;
   padding:.6em .9em;
+  border-radius: 12px;
   border:none;
   text-align:center;
+ white-space: nowrap;
   font-family: Calibri, sans-serif;
   font-size:1.05rem;
   font-weight:bold;
+  overflow: hidden;
   transition: background-color .2s ease;
   border-radius:10px;
   position: relative;
@@ -204,7 +207,7 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
 .state-grid{
   display:grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap:.5rem;
+  gap: var(--grid-gap);
   margin-top:.75rem;
 }
 
@@ -238,10 +241,10 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
 .state-panel{
   display:none;
   background:var(--slate);
-  padding:.5rem;
   border:2px solid var(--slate);
   border-bottom-left-radius:10px;
   border-bottom-right-radius:10px;
+padding: .6rem var(--grid-inset) .75rem;
 }
 .state-panel.open{ display:block; }
 
