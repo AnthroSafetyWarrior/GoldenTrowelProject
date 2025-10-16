@@ -23,6 +23,7 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
   --region-btn-min: 220px;
   --region-btn-max: 980px;  /* let it grow more; adjust to taste */
   --region-btn-gap: .75rem;
+  --table-min: 960px; /* dial this up/down */
 }
 
 /* =========================
@@ -156,16 +157,16 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
 /* =========================
    Injected row-panel (full width under the row)
    ========================= */
-.row-panel{
-  display:none;
+.row-panel,
+.state-row-panel{
   grid-column: 1 / -1;
   background: var(--slate);
-  padding:.75rem var(--grid-inset);   /* align tables to button gutters */
-  overflow-x:auto;
-  border-bottom-left-radius:6px;
-  border-bottom-right-radius:6px;
-  border:3px solid var(--slate);
-  box-sizing:border-box;
+  padding: .75rem var(--grid-inset);
+  border: 3px solid var(--slate);
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  overflow-x: auto;       /* <-- horizontal scroll */
+  box-sizing: border-box;
 }
 .row-panel.open{ display:block; }
 
@@ -173,14 +174,38 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
 .panel{ display:none; }
 
 /* Tables inside row-panel */
-.row-panel table{
-  width:100%;
-  margin:0;
-  border-collapse:collapse;
-  table-layout:fixed;
+/* ===== Full-width injected panels under a grid row ===== */
+.row-panel,
+.state-row-panel{
+  grid-column: 1 / -1;
+  background: var(--slate);
+  padding: .75rem var(--grid-inset);
+  border: 3px solid var(--slate);
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  overflow-x: auto;                 /* horizontal scroll inside the panel */
+  -webkit-overflow-scrolling: touch;/* smooth on iOS */
+  box-sizing: border-box;
+  display: none;                    /* default hidden; JS adds .open */
+}
+.row-panel.open,
+.state-row-panel.open{ display:block; }
+
+/* Hidden source panels (copied into the row panel via JS) */
+.panel{ display:none; }
+
+/* ===== Tables inside the injected panels ===== */
+.row-panel table,
+.state-row-panel table{
+  width: 100%;
+  min-width: var(--table-min);      /* forces horizontal scroll on small screens */
+  border-collapse: collapse;
+  table-layout: fixed;
   background: var(--offwhite);
 }
-.row-panel th, .row-panel td{
+
+.row-panel th, .row-panel td,
+.state-row-panel th, .state-row-panel td{
   padding:.5em .6em;
   border:1px solid #000;
   text-align:left;
@@ -188,25 +213,26 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
   white-space:normal;
   overflow-wrap:anywhere;
 }
-.row-panel th{
+
+.row-panel th,
+.state-row-panel th{
   background: var(--slate);
   color:#fff;
   text-align:center;
   font-weight:bold;
 }
-.row-panel td{ color:#000; }
-.row-panel td :where(p, li, div, span, strong, em){ color:#000; }
 
-/* =========================
-   Nested STATE accordion
-   ========================= */
+.row-panel td, .state-row-panel td{ color:#000; }
+.row-panel td :where(p, li, div, span, strong, em),
+.state-row-panel td :where(p, li, div, span, strong, em){ color:#000; }
+
+/* ===== State grid & buttons (unchanged) ===== */
 .state-grid{
   display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* dial 180→200 for fewer per row */
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: var(--grid-gap);
   margin-top:.75rem;
 }
-
 .state{ display:flex; flex-direction:column; min-width:0; }
 
 .state-accordion{
@@ -222,7 +248,6 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
   cursor:pointer;
   text-align:center;
   transition: background-color .2s ease;
-
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -233,24 +258,20 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
   border-bottom-left-radius:0; border-bottom-right-radius:0;
 }
 
-/* state panel opens inline, under its button */
+/* If you are using ROW-PANELS for states, REMOVE the next 3 rules.
+   Keeping them will also open the inline .state-panel. */
 .state-panel{
   display:none;
   background:var(--slate);
   border:2px solid var(--slate);
   border-bottom-left-radius:10px;
   border-bottom-right-radius:10px;
-  padding:.6rem var(--grid-inset) .75rem; /* align to gutter */
+  padding:.6rem var(--grid-inset) .75rem;
 }
-
-/* Reveal the state panel when its button is expanded */
-.state-accordion[aria-expanded="true"] + .state-panel { 
-  display: block;
-}
-
-/* Optional: collapse any nested tables smoothly (prevents layout pop) */
-.state-panel { overflow: visible; }
-.state-panel.open{ display:block; }
+/* REMOVE this when using row-panels */
+// .state-accordion[aria-expanded="true"] + .state-panel { display:block; }
+// .state-panel { overflow: visible; }
+// .state-panel.open{ display:block; }
 
 .state-panel table{
   width:100%; margin:0; border-collapse:collapse; table-layout:fixed; background: var(--offwhite);
@@ -11628,132 +11649,70 @@ Pick a country to view its information table containing [STUFF]</p>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  // ---------- Utilities ----------
   const getCols = (grid) =>
     getComputedStyle(grid).gridTemplateColumns.split(' ').length;
 
-  const insertRowPanelAfterRowEnd = (grid, countryCard, rowPanel) => {
+  const insertRowPanelAfterRowEnd = (grid, card, rowPanel) => {
     const cols = getCols(grid);
-    const countries = Array.from(grid.querySelectorAll(':scope > .country'));
-    const idx = countries.indexOf(countryCard);
+    const cards = Array.from(grid.querySelectorAll(':scope > .state, :scope > .country')); // works for both
+    const idx = cards.indexOf(card);
     const rowEndIndex = Math.min(
-      countries.length - 1,
+      cards.length - 1,
       idx - (idx % cols) + (cols - 1)
     );
-    countries[rowEndIndex].after(rowPanel);
+    cards[rowEndIndex].after(rowPanel);
   };
 
-  // ---------- Single delegated click handler ----------
+  // keep the region + country handlers you already have…
+  // ↓↓↓ STATE handler (replace the old one with this) ↓↓↓
   document.addEventListener('click', (e) => {
-    // 1) REGION TOGGLES
-    const regBtn = e.target.closest('.region-toggle');
-    if (regBtn) {
-      const bodyId = regBtn.getAttribute('aria-controls');
-      const body = document.getElementById(bodyId);
-      if (!body) return;
-
-      const isOpen = regBtn.getAttribute('aria-expanded') === 'true';
-
-      // optional: only one region open at a time
-      document.querySelectorAll('.region-toggle[aria-expanded="true"]').forEach((b) => {
-        if (b !== regBtn) {
-          b.setAttribute('aria-expanded', 'false');
-          const other = document.getElementById(b.getAttribute('aria-controls'));
-          other && other.classList.remove('open');
-        }
-      });
-
-      regBtn.setAttribute('aria-expanded', String(!isOpen));
-      body.classList.toggle('open', !isOpen);
-
-      // when closing a region, also close any open country row-panels inside
-      if (isOpen) {
-        body.querySelectorAll('.row-panel.open').forEach((rp) => rp.remove());
-        body.querySelectorAll('.accordion[aria-expanded="true"]').forEach((btn) =>
-          btn.setAttribute('aria-expanded', 'false')
-        );
-      }
-      return; // handled
-    }
-
-    // 2) COUNTRY ACCORDIONS (row-aware)
-    const countryBtn = e.target.closest('.accordion');
-    if (countryBtn) {
-      const countryCard = countryBtn.closest('.country');
-      const grid = countryBtn.closest('.accordion-grid');
-      if (!countryCard || !grid) return;
-
-      const panelId = countryBtn.getAttribute('aria-controls');
-      const hiddenPanel = document.getElementById(panelId);
-      if (!hiddenPanel) return;
-
-      const isOpen = countryBtn.getAttribute('aria-expanded') === 'true';
-
-      if (isOpen) {
-        countryBtn.setAttribute('aria-expanded', 'false');
-        const existing = grid.querySelector('.row-panel.open');
-        if (existing) existing.remove();
-        return;
-      }
-
-      // close others in this grid
-      grid.querySelectorAll('.accordion[aria-expanded="true"]').forEach((b) =>
-        b.setAttribute('aria-expanded', 'false')
-      );
-      grid.querySelectorAll('.row-panel.open').forEach((rp) => rp.remove());
-
-      // open this one
-      countryBtn.setAttribute('aria-expanded', 'true');
-
-      const rowPanel = document.createElement('div');
-      rowPanel.className = 'row-panel open';
-      rowPanel.innerHTML = hiddenPanel.innerHTML; // copy content
-
-      insertRowPanelAfterRowEnd(grid, countryCard, rowPanel);
-      return; // handled
-    }
-
-    // 3) STATE ACCORDIONS
     const stateBtn = e.target.closest('.state-accordion');
-    if (stateBtn) {
-      e.stopPropagation(); // don't let country/region handlers swallow it
+    if (!stateBtn) return;
 
-      const controls = stateBtn.getAttribute('aria-controls');
-      const panel =
-        (controls && document.getElementById(controls)) ||
-        stateBtn.nextElementSibling;
+    e.stopPropagation();
 
-      if (!panel || !panel.classList.contains('state-panel')) return;
+    const stateGrid = stateBtn.closest('.state-grid');
+    const stateCard = stateBtn.closest('.state');
+    if (!stateGrid || !stateCard) return;
 
-      const willOpen = stateBtn.getAttribute('aria-expanded') !== 'true';
+    const hiddenPanel =
+      document.getElementById(stateBtn.getAttribute('aria-controls')) ||
+      stateBtn.nextElementSibling;
+    if (!hiddenPanel) return;
 
-      // optional: one-open-at-a-time within the same state grid
-      const grid = stateBtn.closest('.state-grid');
-      if (willOpen && grid) {
-        grid.querySelectorAll('.state-accordion[aria-expanded="true"]').forEach((other) => {
-          if (other !== stateBtn) other.setAttribute('aria-expanded', 'false');
-        });
-        grid.querySelectorAll('.state-panel.open').forEach((p) => {
-          if (p !== panel) p.classList.remove('open');
-        });
-      }
+    const isOpen = stateBtn.getAttribute('aria-expanded') === 'true';
 
-      stateBtn.setAttribute('aria-expanded', String(willOpen));
-      panel.classList.toggle('open', willOpen);
-      panel.hidden = !willOpen; // keep a11y in sync
-      return; // handled
+    // Close if already open
+    if (isOpen) {
+      stateBtn.setAttribute('aria-expanded', 'false');
+      stateGrid.querySelectorAll('.state-row-panel.open').forEach((p) => p.remove());
+      return;
     }
+
+    // Close other states in this grid
+    stateGrid.querySelectorAll('.state-accordion[aria-expanded="true"]').forEach((b) =>
+      b.setAttribute('aria-expanded', 'false')
+    );
+    stateGrid.querySelectorAll('.state-row-panel.open').forEach((p) => p.remove());
+
+    // Open this one
+    stateBtn.setAttribute('aria-expanded', 'true');
+
+    const rowPanel = document.createElement('div');
+    rowPanel.className = 'state-row-panel open';
+    rowPanel.innerHTML = hiddenPanel.innerHTML; // copy the table content
+
+    insertRowPanelAfterRowEnd(stateGrid, stateCard, rowPanel);
   });
 
-  // ---------- Reposition open row-panel on resize ----------
+  // Reposition open state row-panel on resize
   window.addEventListener('resize', () => {
-    document.querySelectorAll('.accordion-grid').forEach((grid) => {
-      const openBtn = grid.querySelector('.accordion[aria-expanded="true"]');
-      const rowPanel = grid.querySelector('.row-panel.open');
+    document.querySelectorAll('.state-grid').forEach((grid) => {
+      const openBtn = grid.querySelector('.state-accordion[aria-expanded="true"]');
+      const rowPanel = grid.querySelector('.state-row-panel.open');
       if (!openBtn || !rowPanel) return;
-
-      const countryCard = openBtn.closest('.country');
-      insertRowPanelAfterRowEnd(grid, countryCard, rowPanel);
+      const card = openBtn.closest('.state');
+      insertRowPanelAfterRowEnd(grid, card, rowPanel);
     });
   });
 });
