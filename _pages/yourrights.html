@@ -23,7 +23,6 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
   --region-btn-min: 220px;
   --region-btn-max: 980px;  /* let it grow more; adjust to taste */
   --region-btn-gap: .75rem;
-  --table-min: 960px; /* dial this up/down */
 }
 
 /* =========================
@@ -175,6 +174,9 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
 
 /* Tables inside row-panel */
 /* ===== Full-width injected panels under a grid row ===== */
+:root{ --table-min: 960px; }
+
+/* Full-width injected panels under a grid row */
 .row-panel,
 .state-row-panel{
   grid-column: 1 / -1;
@@ -183,27 +185,26 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
   border: 3px solid var(--slate);
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
-  overflow-x: auto;                 /* horizontal scroll inside the panel */
-  -webkit-overflow-scrolling: touch;/* smooth on iOS */
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   box-sizing: border-box;
-  display: none;                    /* default hidden; JS adds .open */
+  display: none;               /* default hidden */
 }
 .row-panel.open,
 .state-row-panel.open{ display:block; }
 
-/* Hidden source panels (copied into the row panel via JS) */
+/* Hidden source panels (copied into row panels via JS) */
 .panel{ display:none; }
 
-/* ===== Tables inside the injected panels ===== */
+/* Tables inside injected panels */
 .row-panel table,
 .state-row-panel table{
   width: 100%;
-  min-width: var(--table-min);      /* forces horizontal scroll on small screens */
+  min-width: var(--table-min);
   border-collapse: collapse;
   table-layout: fixed;
   background: var(--offwhite);
 }
-
 .row-panel th, .row-panel td,
 .state-row-panel th, .state-row-panel td{
   padding:.5em .6em;
@@ -213,7 +214,6 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
   white-space:normal;
   overflow-wrap:anywhere;
 }
-
 .row-panel th,
 .state-row-panel th{
   background: var(--slate);
@@ -221,10 +221,10 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
   text-align:center;
   font-weight:bold;
 }
-
 .row-panel td, .state-row-panel td{ color:#000; }
 .row-panel td :where(p, li, div, span, strong, em),
 .state-row-panel td :where(p, li, div, span, strong, em){ color:#000; }
+
 
 /* ===== State grid & buttons (unchanged) ===== */
 .state-grid{
@@ -11649,71 +11649,126 @@ Pick a country to view its information table containing [STUFF]</p>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
+  // ----- utils -----
   const getCols = (grid) =>
     getComputedStyle(grid).gridTemplateColumns.split(' ').length;
 
-  const insertRowPanelAfterRowEnd = (grid, card, rowPanel) => {
+  const insertRowPanelAfterRowEnd = (grid, card, rowPanel, selector=':scope > *') => {
+    const cards = Array.from(grid.querySelectorAll(selector));
     const cols = getCols(grid);
-    const cards = Array.from(grid.querySelectorAll(':scope > .state, :scope > .country')); // works for both
     const idx = cards.indexOf(card);
-    const rowEndIndex = Math.min(
-      cards.length - 1,
-      idx - (idx % cols) + (cols - 1)
-    );
+    const rowEndIndex = Math.min(cards.length - 1, idx - (idx % cols) + (cols - 1));
     cards[rowEndIndex].after(rowPanel);
   };
 
-  // keep the region + country handlers you already have…
-  // ↓↓↓ STATE handler (replace the old one with this) ↓↓↓
+  // ----- delegated clicks -----
   document.addEventListener('click', (e) => {
-    const stateBtn = e.target.closest('.state-accordion');
-    if (!stateBtn) return;
+    // 1) Region
+    const regBtn = e.target.closest('.region-toggle');
+    if (regBtn) {
+      const body = document.getElementById(regBtn.getAttribute('aria-controls'));
+      if (!body) return;
+      const isOpen = regBtn.getAttribute('aria-expanded') === 'true';
 
-    e.stopPropagation();
+      // optional: only one region open
+      document.querySelectorAll('.region-toggle[aria-expanded="true"]').forEach(b => {
+        if (b !== regBtn) {
+          b.setAttribute('aria-expanded','false');
+          const other = document.getElementById(b.getAttribute('aria-controls'));
+          other && other.classList.remove('open');
+        }
+      });
 
-    const stateGrid = stateBtn.closest('.state-grid');
-    const stateCard = stateBtn.closest('.state');
-    if (!stateGrid || !stateCard) return;
+      regBtn.setAttribute('aria-expanded', String(!isOpen));
+      body.classList.toggle('open', !isOpen);
 
-    const hiddenPanel =
-      document.getElementById(stateBtn.getAttribute('aria-controls')) ||
-      stateBtn.nextElementSibling;
-    if (!hiddenPanel) return;
-
-    const isOpen = stateBtn.getAttribute('aria-expanded') === 'true';
-
-    // Close if already open
-    if (isOpen) {
-      stateBtn.setAttribute('aria-expanded', 'false');
-      stateGrid.querySelectorAll('.state-row-panel.open').forEach((p) => p.remove());
+      if (isOpen) {
+        body.querySelectorAll('.row-panel.open, .state-row-panel.open').forEach(rp => rp.remove());
+        body.querySelectorAll('.accordion[aria-expanded="true"], .state-accordion[aria-expanded="true"]')
+            .forEach(btn => btn.setAttribute('aria-expanded','false'));
+      }
       return;
     }
 
-    // Close other states in this grid
-    stateGrid.querySelectorAll('.state-accordion[aria-expanded="true"]').forEach((b) =>
-      b.setAttribute('aria-expanded', 'false')
-    );
-    stateGrid.querySelectorAll('.state-row-panel.open').forEach((p) => p.remove());
+    // 2) Country (row-aware)
+    const countryBtn = e.target.closest('.accordion');
+    if (countryBtn) {
+      const grid = countryBtn.closest('.accordion-grid');
+      const card = countryBtn.closest('.country');
+      if (!grid || !card) return;
 
-    // Open this one
-    stateBtn.setAttribute('aria-expanded', 'true');
+      const hiddenPanel = document.getElementById(countryBtn.getAttribute('aria-controls'));
+      if (!hiddenPanel) return;
 
-    const rowPanel = document.createElement('div');
-    rowPanel.className = 'state-row-panel open';
-    rowPanel.innerHTML = hiddenPanel.innerHTML; // copy the table content
+      const isOpen = countryBtn.getAttribute('aria-expanded') === 'true';
+      if (isOpen) {
+        countryBtn.setAttribute('aria-expanded','false');
+        grid.querySelectorAll('.row-panel.open').forEach(p => p.remove());
+        return;
+      }
 
-    insertRowPanelAfterRowEnd(stateGrid, stateCard, rowPanel);
+      grid.querySelectorAll('.accordion[aria-expanded="true"]').forEach(b => b.setAttribute('aria-expanded','false'));
+      grid.querySelectorAll('.row-panel.open').forEach(p => p.remove());
+
+      countryBtn.setAttribute('aria-expanded','true');
+
+      const rowPanel = document.createElement('div');
+      rowPanel.className = 'row-panel open';
+      rowPanel.innerHTML = hiddenPanel.innerHTML; // copy content (may include .state-grid)
+
+      insertRowPanelAfterRowEnd(grid, card, rowPanel, ':scope > .country');
+      return;
+    }
+
+    // 3) State (row-aware inside the injected country content)
+    const stateBtn = e.target.closest('.state-accordion');
+    if (stateBtn) {
+      e.stopPropagation();
+      const stateGrid = stateBtn.closest('.state-grid');
+      const stateCard = stateBtn.closest('.state');
+      if (!stateGrid || !stateCard) return;
+
+      const hiddenPanel = document.getElementById(stateBtn.getAttribute('aria-controls')) || stateBtn.nextElementSibling;
+      if (!hiddenPanel) return;
+
+      const isOpen = stateBtn.getAttribute('aria-expanded') === 'true';
+      if (isOpen) {
+        stateBtn.setAttribute('aria-expanded','false');
+        stateGrid.querySelectorAll('.state-row-panel.open').forEach(p => p.remove());
+        return;
+      }
+
+      stateGrid.querySelectorAll('.state-accordion[aria-expanded="true"]').forEach(b => b.setAttribute('aria-expanded','false'));
+      stateGrid.querySelectorAll('.state-row-panel.open').forEach(p => p.remove());
+
+      stateBtn.setAttribute('aria-expanded','true');
+
+      const rowPanel = document.createElement('div');
+      rowPanel.className = 'state-row-panel open';
+      rowPanel.innerHTML = hiddenPanel.innerHTML;
+
+      insertRowPanelAfterRowEnd(stateGrid, stateCard, rowPanel, ':scope > .state');
+      return;
+    }
   });
 
-  // Reposition open state row-panel on resize
-  window.addEventListener('resize', () => {
-    document.querySelectorAll('.state-grid').forEach((grid) => {
-      const openBtn = grid.querySelector('.state-accordion[aria-expanded="true"]');
-      const rowPanel = grid.querySelector('.state-row-panel.open');
-      if (!openBtn || !rowPanel) return;
-      const card = openBtn.closest('.state');
-      insertRowPanelAfterRowEnd(grid, card, rowPanel);
+  // ----- resize: reposition any open row-panels -----
+  const reposition = () => {
+    document.querySelectorAll('.accordion-grid').forEach(grid => {
+      const openCountry = grid.querySelector('.country .accordion[aria-expanded="true"]');
+      const countryRowPanel = grid.querySelector('.row-panel.open');
+      if (openCountry && countryRowPanel) {
+        insertRowPanelAfterRowEnd(grid, openCountry.closest('.country'), countryRowPanel, ':scope > .country');
+      }
+      grid.querySelectorAll('.state-grid').forEach(sg => {
+        const openState = sg.querySelector('.state-accordion[aria-expanded="true"]');
+        const stateRowPanel = sg.querySelector('.state-row-panel.open');
+        if (openState && stateRowPanel) {
+          insertRowPanelAfterRowEnd(sg, openState.closest('.state'), stateRowPanel, ':scope > .state');
+        }
+      });
     });
-  });
+  };
+  window.addEventListener('resize', () => requestAnimationFrame(reposition));
 });
 </script>
