@@ -242,6 +242,14 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
   border-bottom-right-radius:10px;
   padding:.6rem var(--grid-inset) .75rem; /* align to gutter */
 }
+
+/* Reveal the state panel when its button is expanded */
+.state-accordion[aria-expanded="true"] + .state-panel { 
+  display: block;
+}
+
+/* Optional: collapse any nested tables smoothly (prevents layout pop) */
+.state-panel { overflow: visible; }
 .state-panel.open{ display:block; }
 
 .state-panel table{
@@ -11619,165 +11627,134 @@ Pick a country to view its information table containing [STUFF]</p>
 </section>
 
 <script>
-/* ---------- Region toggles ---------- */
-document.addEventListener('click', (e) => {
-  const regBtn = e.target.closest('.region-toggle');
-  if (!regBtn) return;
+document.addEventListener('DOMContentLoaded', () => {
+  // ---------- Utilities ----------
+  const getCols = (grid) =>
+    getComputedStyle(grid).gridTemplateColumns.split(' ').length;
 
-  const bodyId = regBtn.getAttribute('aria-controls');
-  const body = document.getElementById(bodyId);
-  const isOpen = regBtn.getAttribute('aria-expanded') === 'true';
+  const insertRowPanelAfterRowEnd = (grid, countryCard, rowPanel) => {
+    const cols = getCols(grid);
+    const countries = Array.from(grid.querySelectorAll(':scope > .country'));
+    const idx = countries.indexOf(countryCard);
+    const rowEndIndex = Math.min(
+      countries.length - 1,
+      idx - (idx % cols) + (cols - 1)
+    );
+    countries[rowEndIndex].after(rowPanel);
+  };
 
-  // (Optional) one-open-at-a-time across regions
-  document.querySelectorAll('.region-toggle[aria-expanded="true"]').forEach(b => {
-    if (b !== regBtn) {
-      b.setAttribute('aria-expanded', 'false');
-      const other = document.getElementById(b.getAttribute('aria-controls'));
-      other && other.classList.remove('open');
+  // ---------- Single delegated click handler ----------
+  document.addEventListener('click', (e) => {
+    // 1) REGION TOGGLES
+    const regBtn = e.target.closest('.region-toggle');
+    if (regBtn) {
+      const bodyId = regBtn.getAttribute('aria-controls');
+      const body = document.getElementById(bodyId);
+      if (!body) return;
+
+      const isOpen = regBtn.getAttribute('aria-expanded') === 'true';
+
+      // optional: only one region open at a time
+      document.querySelectorAll('.region-toggle[aria-expanded="true"]').forEach((b) => {
+        if (b !== regBtn) {
+          b.setAttribute('aria-expanded', 'false');
+          const other = document.getElementById(b.getAttribute('aria-controls'));
+          other && other.classList.remove('open');
+        }
+      });
+
+      regBtn.setAttribute('aria-expanded', String(!isOpen));
+      body.classList.toggle('open', !isOpen);
+
+      // when closing a region, also close any open country row-panels inside
+      if (isOpen) {
+        body.querySelectorAll('.row-panel.open').forEach((rp) => rp.remove());
+        body.querySelectorAll('.accordion[aria-expanded="true"]').forEach((btn) =>
+          btn.setAttribute('aria-expanded', 'false')
+        );
+      }
+      return; // handled
+    }
+
+    // 2) COUNTRY ACCORDIONS (row-aware)
+    const countryBtn = e.target.closest('.accordion');
+    if (countryBtn) {
+      const countryCard = countryBtn.closest('.country');
+      const grid = countryBtn.closest('.accordion-grid');
+      if (!countryCard || !grid) return;
+
+      const panelId = countryBtn.getAttribute('aria-controls');
+      const hiddenPanel = document.getElementById(panelId);
+      if (!hiddenPanel) return;
+
+      const isOpen = countryBtn.getAttribute('aria-expanded') === 'true';
+
+      if (isOpen) {
+        countryBtn.setAttribute('aria-expanded', 'false');
+        const existing = grid.querySelector('.row-panel.open');
+        if (existing) existing.remove();
+        return;
+      }
+
+      // close others in this grid
+      grid.querySelectorAll('.accordion[aria-expanded="true"]').forEach((b) =>
+        b.setAttribute('aria-expanded', 'false')
+      );
+      grid.querySelectorAll('.row-panel.open').forEach((rp) => rp.remove());
+
+      // open this one
+      countryBtn.setAttribute('aria-expanded', 'true');
+
+      const rowPanel = document.createElement('div');
+      rowPanel.className = 'row-panel open';
+      rowPanel.innerHTML = hiddenPanel.innerHTML; // copy content
+
+      insertRowPanelAfterRowEnd(grid, countryCard, rowPanel);
+      return; // handled
+    }
+
+    // 3) STATE ACCORDIONS
+    const stateBtn = e.target.closest('.state-accordion');
+    if (stateBtn) {
+      e.stopPropagation(); // don't let country/region handlers swallow it
+
+      const controls = stateBtn.getAttribute('aria-controls');
+      const panel =
+        (controls && document.getElementById(controls)) ||
+        stateBtn.nextElementSibling;
+
+      if (!panel || !panel.classList.contains('state-panel')) return;
+
+      const willOpen = stateBtn.getAttribute('aria-expanded') !== 'true';
+
+      // optional: one-open-at-a-time within the same state grid
+      const grid = stateBtn.closest('.state-grid');
+      if (willOpen && grid) {
+        grid.querySelectorAll('.state-accordion[aria-expanded="true"]').forEach((other) => {
+          if (other !== stateBtn) other.setAttribute('aria-expanded', 'false');
+        });
+        grid.querySelectorAll('.state-panel.open').forEach((p) => {
+          if (p !== panel) p.classList.remove('open');
+        });
+      }
+
+      stateBtn.setAttribute('aria-expanded', String(willOpen));
+      panel.classList.toggle('open', willOpen);
+      panel.hidden = !willOpen; // keep a11y in sync
+      return; // handled
     }
   });
 
-  regBtn.setAttribute('aria-expanded', String(!isOpen));
-  body.classList.toggle('open', !isOpen);
+  // ---------- Reposition open row-panel on resize ----------
+  window.addEventListener('resize', () => {
+    document.querySelectorAll('.accordion-grid').forEach((grid) => {
+      const openBtn = grid.querySelector('.accordion[aria-expanded="true"]');
+      const rowPanel = grid.querySelector('.row-panel.open');
+      if (!openBtn || !rowPanel) return;
 
-  // When closing a region, also close any open row-panel inside
-  if (isOpen) {
-    body.querySelectorAll('.row-panel.open').forEach(rp => rp.remove());
-    body.querySelectorAll('.accordion[aria-expanded="true"]').forEach(btn => btn.setAttribute('aria-expanded','false'));
-  }
-});
-
-/* ---------- Country accordions (row-aware) ---------- */
-document.addEventListener('click', (e) => {
-  const btn = e.target.closest('.accordion');
-  if (!btn) return;
-
-  const countryCard = btn.closest('.country');
-  const grid = btn.closest('.accordion-grid');
-  if (!countryCard || !grid) return;
-
-  const panelId = btn.getAttribute('aria-controls');
-  const hiddenPanel = document.getElementById(panelId);  // the per-country .panel (hidden in markup)
-  if (!hiddenPanel) return;
-
-  const isOpen = btn.getAttribute('aria-expanded') === 'true';
-
-  // Close if already open
-  if (isOpen) {
-    btn.setAttribute('aria-expanded', 'false');
-    const existing = grid.querySelector('.row-panel.open');
-    if (existing) existing.remove();
-    return;
-  }
-
-  // Close any other open country in this grid
-  grid.querySelectorAll('.accordion[aria-expanded="true"]').forEach(b => b.setAttribute('aria-expanded','false'));
-  grid.querySelectorAll('.row-panel.open').forEach(rp => rp.remove());
-
-  // Mark this one open
-  btn.setAttribute('aria-expanded', 'true');
-
-  // Determine current number of columns in the grid
-  const cols = getComputedStyle(grid).gridTemplateColumns.split(' ').length;
-
-  // Figure out index of the clicked card among visible .country items in this grid
-  const countries = Array.from(grid.querySelectorAll(':scope > .country'));
-  const idx = countries.indexOf(countryCard);
-
-  // Compute end-of-row index (0-based) and the element to insert after
-  const rowEndIndex = Math.min(countries.length - 1, idx - (idx % cols) + (cols - 1));
-  const insertAfter = countries[rowEndIndex];
-
-  // Create or reuse a .row-panel element
-  const rowPanel = document.createElement('div');
-  rowPanel.className = 'row-panel open';
-
-  // Copy table/content from hidden .panel into rowPanel
-  rowPanel.innerHTML = hiddenPanel.innerHTML;
-
-  // Insert right after the end of current row
-  insertAfter.after(rowPanel);
-});
-
-/* ---------- Fixup: keep ARIA consistent if viewport columns change ---------- */
-window.addEventListener('resize', () => {
-  document.querySelectorAll('.accordion-grid').forEach(grid => {
-    // If there is an open row-panel, rebuild it at the right row end
-    const openBtn = grid.querySelector('.accordion[aria-expanded="true"]');
-    const rowPanel = grid.querySelector('.row-panel.open');
-    if (!openBtn || !rowPanel) return;
-
-    const countryCard = openBtn.closest('.country');
-    const cols = getComputedStyle(grid).gridTemplateColumns.split(' ').length;
-    const countries = Array.from(grid.querySelectorAll(':scope > .country'));
-    const idx = countries.indexOf(countryCard);
-    const rowEndIndex = Math.min(countries.length - 1, idx - (idx % cols) + (cols - 1));
-    const insertAfter = countries[rowEndIndex];
-    insertAfter.after(rowPanel);
+      const countryCard = openBtn.closest('.country');
+      insertRowPanelAfterRowEnd(grid, countryCard, rowPanel);
+    });
   });
 });
 </script>
-<script>
-(function(){
-  const container = document.querySelector('#usa-states');
-  if(!container) return;
-
-  container.addEventListener('click', function(e){
-    const btn = e.target.closest('.state-accordion');
-    if(!btn) return;
-
-    const panelId = btn.getAttribute('aria-controls');
-    const panel = document.getElementById(panelId);
-    if(!panel) return;
-
-    const isOpen = btn.getAttribute('aria-expanded') === 'true';
-
-    // optional: close other states in the grid (single-open behavior)
-    // [...container.querySelectorAll('.state-accordion[aria-expanded="true"]')].forEach(b=>{
-    //   if(b !== btn){ b.setAttribute('aria-expanded','false'); 
-    //     const p = document.getElementById(b.getAttribute('aria-controls'));
-    //     if(p){ p.classList.remove('open'); }
-    //   }
-    // });
-
-    btn.setAttribute('aria-expanded', String(!isOpen));
-    panel.classList.toggle('open', !isOpen);
-  });
-})();
-</script>
-<script>
-/* ---------- STATE ACCORDIONS ---------- */
-/* Delegated so it works for dynamically-inserted panels */
-document.addEventListener('click', function (e) {
-  const btn = e.target.closest('.state-accordion');
-  if (!btn) return;
-
-  // don't let parent accordions eat the click
-  e.stopPropagation();
-
-  // Find the target panel by aria-controls, fall back to next sibling
-  const controls = btn.getAttribute('aria-controls');
-  const panel = (controls && document.getElementById(controls)) || btn.nextElementSibling;
-  if (!panel || !panel.classList.contains('state-panel')) return;
-
-  const willOpen = btn.getAttribute('aria-expanded') !== 'true';
-
-  // Optional: close other states in the same grid (true accordion behavior)
-  const grid = btn.closest('.state-grid');
-  if (grid) {
-    grid.querySelectorAll('.state-accordion[aria-expanded="true"]').forEach(other => {
-      if (other !== btn) other.setAttribute('aria-expanded', 'false');
-    });
-    grid.querySelectorAll('.state-panel.open').forEach(p => {
-      if (p !== panel) p.classList.remove('open');
-    });
-  }
-
-  // Toggle this one
-  btn.setAttribute('aria-expanded', String(willOpen));
-  panel.classList.toggle('open', willOpen);
-});
-</script>
-
-
-
