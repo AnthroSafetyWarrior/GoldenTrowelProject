@@ -230,6 +230,7 @@ header.hero::before{
 .pill-split .text{ max-width:66ch; }
 .pill-split .art{ justify-self:center; }
 .pill-split .art img{ width:clamp(320px,32vw,380px); height:auto; display:block; }
+
 @media (max-width:880px){
   .pill-split{ grid-template-columns:1fr; justify-items:start; }
   .pillband .section{ padding-inline: clamp(18px, 6vw, 32px); }
@@ -243,6 +244,13 @@ header.hero::before{
   box-shadow: 0 6px 14px rgba(0,0,0,.12);
 }
 .pillband .card h4{ margin:.1rem 0 .35rem; font-size: clamp(1rem, 1.8vw, 1.1rem); }
+/* Make the outside margin slimmer on phones so the curve stays snug */
+@media (max-width: 640px){
+  :root{ --pill-margin: clamp(6px, 3vw, 14px); }
+}
+
+/* Prevent accidental horizontal overflow from grid children */
+main, .section { min-inline-size: 0; overflow-x: clip; }
 
 /* ===== Heading-only pill (pillhead) ===== */
 .pillhead{
