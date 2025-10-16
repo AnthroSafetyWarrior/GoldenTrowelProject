@@ -11745,5 +11745,39 @@ window.addEventListener('resize', () => {
   });
 })();
 </script>
+<script>
+/* ---------- STATE ACCORDIONS ---------- */
+/* Delegated so it works for dynamically-inserted panels */
+document.addEventListener('click', function (e) {
+  const btn = e.target.closest('.state-accordion');
+  if (!btn) return;
+
+  // don't let parent accordions eat the click
+  e.stopPropagation();
+
+  // Find the target panel by aria-controls, fall back to next sibling
+  const controls = btn.getAttribute('aria-controls');
+  const panel = (controls && document.getElementById(controls)) || btn.nextElementSibling;
+  if (!panel || !panel.classList.contains('state-panel')) return;
+
+  const willOpen = btn.getAttribute('aria-expanded') !== 'true';
+
+  // Optional: close other states in the same grid (true accordion behavior)
+  const grid = btn.closest('.state-grid');
+  if (grid) {
+    grid.querySelectorAll('.state-accordion[aria-expanded="true"]').forEach(other => {
+      if (other !== btn) other.setAttribute('aria-expanded', 'false');
+    });
+    grid.querySelectorAll('.state-panel.open').forEach(p => {
+      if (p !== panel) p.classList.remove('open');
+    });
+  }
+
+  // Toggle this one
+  btn.setAttribute('aria-expanded', String(willOpen));
+  panel.classList.toggle('open', willOpen);
+});
+</script>
+
 
 
