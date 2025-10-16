@@ -15,9 +15,13 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
 *, *::before, *::after { box-sizing: border-box; }
 
 :root{
-  /* inner width idea for region button only (grid now uses full card width) */
+  /* gutters & gaps used everywhere on the card */
+  --grid-inset: clamp(12px, 3vw, 28px);   /* slate padding left/right */
+  --grid-gap: clamp(8px, 1.2vw, 14px);    /* space between buttons */
+
+  /* region toggle sizing */
   --region-btn-min: 220px;
-  --region-btn-max: 680px;
+  --region-btn-max: 980px;  /* let it grow more; adjust to taste */
   --region-btn-gap: .75rem;
 }
 
@@ -40,9 +44,11 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
   grid-template-columns: 1fr;
   gap: clamp(10px, 1.6vw, 16px);
   min-width: 0;
+  /* NEW: give everything inside the card a slate gutter */
+  padding-inline: var(--grid-inset);
 }
 
-/* If you ever wrap the accordion INSIDE a .section, avoid double padding */
+/* If accordion is nested in .section, avoid double padding */
 .section > * { min-width: 0; }
 .section .country-section{
   width: 100%;
@@ -58,14 +64,17 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
 .region{
   grid-column: 1 / -1;
   display: block;
+  /* ensure slate gutter around the region header too */
+  padding-inline: var(--grid-inset);
 }
 
-/* centered region toggle button */
+/* Scalable, full-width inside the gutter */
 .region-toggle{
   display:block;
-  inline-size: clamp(var(--region-btn-min), 92%, var(--region-btn-max));
-  margin: var(--region-btn-gap) auto;
-  padding: .65em 1.1em;
+  width: 100%;
+  max-width: var(--region-btn-max);
+  margin: var(--region-btn-gap) auto 0;
+  padding: .7em 1.1em;
   background: var(--gold);
   color:#000;
   border: none;
@@ -80,39 +89,33 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
 .region-toggle:hover{ background: var(--sage); color:#000; }
 .region-toggle[aria-expanded="true"]{ background: var(--slate); color:#fff; }
 
-/* body stacks under the button at full card width */
+/* Region body uses the SAME gutter so grids never touch edges */
 .region-body{
   display:none;
-  margin:.5rem 0 1rem;
+  margin:.6rem 0 1rem;
   width:100%;
+  padding-inline: var(--grid-inset);
 }
 .region-body.open{ display:block; }
-
-/* let the opened grid use the full section width */
-.region-body > .accordion-grid{
-  margin-inline: 0;
-  width: 100%;
-  max-width: none;
-}
 
 /* =========================
    Country grid + cards
    ========================= */
-/* Responsive columns: fewer/wider buttons automatically.
-   TUNE: raise/lower 240px to control columns per row. */
-.accordion-grid{
+/* Make EVERY top-level grid respect the gutter (for island/country rows that
+   are not inside a region-body as well) */
+.country-section .wrap > .accordion-grid,
+.region-body > .accordion-grid{
   display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); /* dial 240→260 for fewer per row */
   gap: var(--grid-gap);
   margin-bottom: 2rem;
   overflow: visible;
 }
 
+/* Country card wrapper */
 .country{ display:flex; flex-direction:column; min-width:0; }
 
-/* =========================
-   Country accordion button
-   ========================= */
+/* Buttons fill their cells; never touch edge thanks to parent padding */
 .accordion{
   display:block;
   width:100%;
@@ -120,21 +123,17 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
   color:#000;
   cursor:pointer;
   padding:.6em .9em;
-  border-radius: 12px;
   border:none;
+  border-radius:12px;
   text-align:center;
- white-space: nowrap;
   font-family: Calibri, sans-serif;
   font-size:1.05rem;
   font-weight:bold;
-  overflow: hidden;
   transition: background-color .2s ease;
-  border-radius:10px;
   position: relative;
   z-index: 1;
   touch-action: manipulation;
 
-  /* prevent wrapping; ellipsis if truly too long */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -155,13 +154,13 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
 }
 
 /* =========================
-   Injected row-panel (full-width under the row)
+   Injected row-panel (full width under the row)
    ========================= */
 .row-panel{
   display:none;
   grid-column: 1 / -1;
   background: var(--slate);
-  padding:.75rem;
+  padding:.75rem var(--grid-inset);   /* align tables to button gutters */
   overflow-x:auto;
   border-bottom-left-radius:6px;
   border-bottom-right-radius:6px;
@@ -173,9 +172,7 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
 /* Hide per-country panels in markup; JS copies into .row-panel */
 .panel{ display:none; }
 
-/* =========================
-   Tables inside row-panel
-   ========================= */
+/* Tables inside row-panel */
 .row-panel table{
   width:100%;
   margin:0;
@@ -201,12 +198,11 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
 .row-panel td :where(p, li, div, span, strong, em){ color:#000; }
 
 /* =========================
-   Nested STATE accordion (inside USA panel)
+   Nested STATE accordion
    ========================= */
-/* Responsive state grid; TUNE min width if you want fewer per row */
 .state-grid{
   display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* dial 180→200 for fewer per row */
   gap: var(--grid-gap);
   margin-top:.75rem;
 }
@@ -244,11 +240,10 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
   border:2px solid var(--slate);
   border-bottom-left-radius:10px;
   border-bottom-right-radius:10px;
-padding: .6rem var(--grid-inset) .75rem;
+  padding:.6rem var(--grid-inset) .75rem; /* align to gutter */
 }
 .state-panel.open{ display:block; }
 
-/* reuse your table look */
 .state-panel table{
   width:100%; margin:0; border-collapse:collapse; table-layout:fixed; background: var(--offwhite);
 }
@@ -258,6 +253,7 @@ padding: .6rem var(--grid-inset) .75rem;
 .state-panel th{ background: var(--slate); color:#fff; text-align:center; font-weight:700; }
 .state-panel td{ color:#000; }
 .state-panel td :where(p, li, div, span, strong, em){ color:#000; }
+
 </style>
 
 
