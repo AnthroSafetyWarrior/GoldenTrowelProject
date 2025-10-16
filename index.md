@@ -27,15 +27,11 @@ hero_tint: .40
     </figure>
 
     <div class="intro-copy">
-      <p>
-        This project was built from urgency — to make fieldwork safer for ourselves, our students, and our colleagues.
-        It offers accessible, customizable tools to help researchers prevent and report sexual misconduct and other forms of behavioral harm during field research.
-      </p>
-      <p>
-        We cannot protect our science without protecting the people who do it. Safety begins with accountability:
-        clearly stated expectations, transparent reporting systems, and a shared commitment to safeguarding not just our data, but each other.
-        We are researchers, educators, and students — and we deserve to work in environments built on dignity, consent, and respect.
-      </p>
+      
+      <p>This project was built from urgency — to make fieldwork safer for ourselves, our students, and our colleagues. It offers accessible, customizable tools to help researchers prevent and report sexual misconduct and other forms of behavioral harm during field research.</p>
+      <br>
+       <p>We cannot protect our science without protecting the people who do it. Safety begins with accountability: clearly stated expectations, transparent reporting systems, and a shared commitment to safeguarding not just our data, but each other.
+        We are researchers, educators, and students — and we deserve to work in environments built on dignity, consent, and respect.</p>
     </div>
   </div>
 </section>
@@ -134,7 +130,7 @@ hero_tint: .40
 <div class="inline-elements">   
 <h4><a href="https://takebackthenight.org/">TBTN</a>: <p>Take Back the Night</p></h4></div>
 <p>National Sexual Assault Legal Hotline: Free Legal Assistance for Survivors Call 567-SHATTER (567-742-8837)</p>
-
+<br>
 <div class="inline-elements">   
 <h4><a href="https://www.hotpeachpages.net/a/countries.html">Hot Peach Pages</a>: <p>International List of Sexual & Domestic Violence Agencies</p></h4></div>
 <br>
