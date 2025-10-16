@@ -13,7 +13,13 @@ hero_tint: .40
 .pillhead.pill--sage > a,
 .pill--sage .pillhead__link{
   color: var(--slate);
-  text-decoration: none;
+  text-decoration: underline;
+}
+.pillhead.pill--sage > a:visited{ color: var(--slate); }
+.pillhead.pill--sage > a:hover{ color: var(--logo-orange); },
+.pillhead.pill--sage > a:focus-visible{
+  color: var(--slate);           /* or a darker slate var if you have one */
+  text-decoration: underline;
 }
 </style>
 
