@@ -209,6 +209,7 @@ header.hero::before{
 .pillband.pill--clip-left::before{  left:  calc(50% - 50vw); border-radius: 0 9999px 9999px 0; }
 .pillband.pill--clip-right::before{ right: calc(50% - 50vw); border-radius: 9999px 0 0 9999px; }
 
+
 /* color variants */
 .pillband.pill--orange{ --pill-color: var(--logo-orange); color:#fff; }
 .pillband.pill--soil  { --pill-color: var(--soil);        color:#fff; }
@@ -314,10 +315,19 @@ main, .section { min-inline-size: 0; overflow-x: clip; }
   left:  calc(50% - 50svw);                  /* was 50vw */
 }
 
-.pill.pill--clip-right::before,
-.pillhead.pill--clip-right::before,
-.pillband.pill--clip-right::before{
-  right: calc(50% - 50svw);                  /* was 50vw */
+/* make the band/pill/head truly flush to the right edge */
+.pill--edge-right::before,
+.pillband.pill--edge-right::before,
+.pillhead.pill--edge-right::before{
+  width: 100svw;                   /* full visual viewport width */
+  right: calc(50% - 50svw);        /* anchor to the right edge */
+}
+
+/* also zero out any intentional viewport margin for these */
+.pill--edge-right,
+.pillband.pill--edge-right,
+.pillhead.pill--edge-right{
+  --pill-margin: 0;
 }
 
 /* Optional: provide a fallback for older Safari/Chrome */
