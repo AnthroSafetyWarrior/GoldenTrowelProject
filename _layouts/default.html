@@ -499,16 +499,9 @@ main, .section{ min-inline-size: 0; overflow-x: visible; }  /* was: clip */
     minmax(var(--img-min),  auto);
 }
 
-/* keep art sizing consistent */
-.split--prep .art{
-  justify-self: center;
-  max-inline-size: var(--img-max);
-}
-.split--prep .art img{
-  width: clamp(var(--img-min), var(--img-ideal), var(--img-max));
-  height: auto;
-  display: block;
-}
+.split--prep { grid-auto-flow: row; }
+.split--prep .art{ max-inline-size: 100%; justify-self: center; }
+.split--prep .art img{ max-width: 100%; height: auto; }
 
 /* put the second text block in the RIGHT column */
 .split--prep .text--right{ grid-column: 2; }
@@ -528,8 +521,6 @@ main, .section{ min-inline-size: 0; overflow-x: visible; }  /* was: clip */
 /* keep your existing stack rule */
 @media (max-width: 760px){
   .split--prep{ grid-template-columns: 1fr; --gap: clamp(12px, 3.5vw, 20px); }
-  .split--prep .text--right{ grid-column: auto; } /* normal flow when stacked */
-}
   .split--prep .text--right{ grid-column: auto; } /* normal flow when stacked */
 }
 
