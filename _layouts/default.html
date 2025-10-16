@@ -292,17 +292,39 @@ header.hero::before{
 .pill.pill--clip-left { padding-left:  max(var(--pill-pad-x), var(--curve-inset)); }
 
 /* full-bleed rounded band behind the pill */
-.pill::before{
-  content:"";
-  position:absolute;
-  top:0; bottom:0;
-  width: calc(100vw - var(--pill-margin));
-  background: var(--soil);
-  z-index:-1;
-  box-shadow: 0 8px 18px rgba(0,0,0,.1);
+/* --- Full-bleed pill bands: use visible viewport units --- */
+.pill::before,
+.pillhead::before,
+.pillband::before{
+  width: calc(100svw - var(--pill-margin));  /* was 100vw */
 }
-.pill.pill--clip-right::before{ right: calc(50% - 50vw); left:auto; border-radius: 9999px 0 0 9999px; }
-.pill.pill--clip-left::before { left:  calc(50% - 50vw); right:auto; border-radius: 0 9999px 9999px 0; }
+
+/* Left / right anchoring must use the same unit */
+.pill.pill--clip-left::before,
+.pillhead.pill--clip-left::before,
+.pillband.pill--clip-left::before{
+  left:  calc(50% - 50svw);                  /* was 50vw */
+}
+
+.pill.pill--clip-right::before,
+.pillhead.pill--clip-right::before,
+.pillband.pill--clip-right::before{
+  right: calc(50% - 50svw);                  /* was 50vw */
+}
+
+/* Optional: provide a fallback for older Safari/Chrome */
+@supports not (width: 100svw) {
+  .pill::before,
+  .pillhead::before,
+  .pillband::before{ width: calc(100dvw - var(--pill-margin)); }
+  .pill.pill--clip-left::before,
+  .pillhead.pill--clip-left::before,
+  .pillband.pill--clip-left::before{ left:  calc(50% - 50dvw); }
+  .pill.pill--clip-right::before,
+  .pillhead.pill--clip-right::before,
+  .pillband.pill--clip-right::before{ right: calc(50% - 50dvw); }
+}
+
 
 /* comfortable content spacing inside pill */
 .pill .pill__title{ margin:0 0 .6rem; font-weight:800; line-height:1.2; }
