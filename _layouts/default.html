@@ -245,14 +245,12 @@ header.hero::before{
 }
 .pillband .card h4{ margin:.1rem 0 .35rem; font-size: clamp(1rem, 1.8vw, 1.1rem); }
 /* Make the outside margin slimmer on phones so the curve stays snug */
-
 @media (max-width: 640px){
   :root{ --pill-margin: clamp(6px, 3vw, 14px); }
 }
 
-/* Let full-bleed bands extend to the viewport edges */
-main, .section{ min-inline-size: 0; overflow-x: visible; }  /* was: clip */
-
+/* Prevent accidental horizontal overflow from grid children */
+main, .section { min-inline-size: 0; overflow-x: clip; }
 
 /* ===== Heading-only pill (pillhead) ===== */
 .pillhead{
@@ -384,14 +382,14 @@ main, .section{ min-inline-size: 0; overflow-x: visible; }  /* was: clip */
 
   --text-measure: 54ch;
 
-
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, var(--img-max));
+  grid-template-columns: minmax(var(--left-min),1fr) minmax(var(--img-min),auto);
   align-items: center;
   column-gap: var(--gap);
 }
-.split .art{ max-inline-size: 100%; justify-self: center; }
-.split .art img{ max-width: 100%; width: auto; height: auto; }.split .text{ hyphens:auto; overflow-wrap:anywhere; }
+.split .art{ justify-self: center; max-inline-size: var(--img-max); }
+.split .art img{ width: clamp(var(--img-min), var(--img-ideal), var(--img-max)); height: auto; display: block; }
+.split .text{ hyphens:auto; overflow-wrap:anywhere; }
 @media (max-width:1040px){
   .split{ --left-min:340px; --left-max:460px; --text-measure:50ch; --gap: clamp(12px,1.2vw,18px); }
 }
@@ -481,46 +479,69 @@ main, .section{ min-inline-size: 0; overflow-x: visible; }  /* was: clip */
 @media (max-width:880px){ main{ padding-inline: clamp(18px, 6vw, 32px); } }
 
 
-/* ===== PREPARIING soil pill) — circular cards ===== */
-/* Preparing split (only this section) */
+/* ===== PREPARING (soil pill) — split with right-side art ===== */
 .split--prep{
-  /* more space between columns here only */
+  /* spacing + layout knobs */
   --gap: clamp(28px, 6vw, 96px);
-  column-gap: var(--gap);
-
-  /* balance the two columns so image doesn't feel tiny */
   --left-min: 420px;
+
+  /* art sizing knobs */
   --img-min:  440px;
-  --img-ideal: 34vw;   /* similar vibe to 'Prevalence' */
+  --img-ideal: 34vw;
   --img-max:  560px;
 
+  display: grid;
+  column-gap: var(--gap);
+
+  /* IMPORTANT: right track is shrinkable; left honors its min */
   grid-template-columns:
     minmax(var(--left-min), 1fr)
-    minmax(var(--img-min),  auto);
+    minmax(0, 1fr);
 }
 
-.split--prep { grid-auto-flow: row; }
-.split--prep .art{ max-inline-size: 100%; justify-self: center; }
-.split--prep .art img{ max-width: 100%; height: auto; }
+/* Let text actually shrink/wrap inside the grid */
+.split--prep .text,
+.split--prep .text--right{
+  min-width: 0;                        /* prevents overflow from long lines */
+  max-inline-size: var(--text-measure, 54ch);
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
 
-/* put the second text block in the RIGHT column */
-.split--prep .text--right{ grid-column: 2; }
+/* Keep art sizing consistent without forcing the grid wider */
+.split--prep .art{
+  justify-self: center;
+  max-inline-size: 100%;
+}
+.split--prep .art img{
+  width: clamp(var(--img-min), var(--img-ideal), var(--img-max));
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
 
-/* (alternative if you don’t want a class)
-.split--prep .text:nth-of-type(2){ grid-column: 2; } */
-
-/* remove this global rule:
-.split--prep .text--right{ grid-column: 2; }
-*/
-
-/* only push the second text to column 2 when there ARE two columns */
+/* Place the second text block to the RIGHT only when we truly have 2 cols */
 @media (min-width: 900px){
   .split--prep .text--right{ grid-column: 2; }
 }
 
-/* keep your existing stack rule */
+/* Medium down: relax mins + gap so it doesn't feel cramped */
+@media (max-width: 1040px){
+  .split--prep{
+    --left-min: 360px;
+    --img-min:  360px;
+    --img-ideal: 40vw;
+    --img-max:  520px;
+    --gap: clamp(18px, 4vw, 40px);
+  }
+}
+
+/* Phone: stack and tighten */
 @media (max-width: 760px){
-  .split--prep{ grid-template-columns: 1fr; --gap: clamp(12px, 3.5vw, 20px); }
+  .split--prep{
+    grid-template-columns: 1fr;
+    --gap: clamp(12px, 3.5vw, 20px);
+  }
   .split--prep .text--right{ grid-column: auto; } /* normal flow when stacked */
 }
 
