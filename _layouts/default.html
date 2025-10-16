@@ -384,14 +384,14 @@ main, .section{ min-inline-size: 0; overflow-x: visible; }  /* was: clip */
 
   --text-measure: 54ch;
 
+
   display: grid;
-  grid-template-columns: minmax(var(--left-min),1fr) minmax(var(--img-min),auto);
+  grid-template-columns: minmax(0, 1fr) minmax(0, var(--img-max));
   align-items: center;
   column-gap: var(--gap);
 }
-.split .art{ justify-self: center; max-inline-size: var(--img-max); }
-.split .art img{ width: clamp(var(--img-min), var(--img-ideal), var(--img-max)); height: auto; display: block; }
-.split .text{ hyphens:auto; overflow-wrap:anywhere; }
+.split .art{ max-inline-size: 100%; justify-self: center; }
+.split .art img{ max-width: 100%; width: auto; height: auto; }.split .text{ hyphens:auto; overflow-wrap:anywhere; }
 @media (max-width:1040px){
   .split{ --left-min:340px; --left-max:460px; --text-measure:50ch; --gap: clamp(12px,1.2vw,18px); }
 }
