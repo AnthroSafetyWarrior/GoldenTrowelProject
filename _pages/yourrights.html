@@ -15,15 +15,14 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
 *, *::before, *::after { box-sizing: border-box; }
 
 :root{
-  /* inner width for the region buttons / grids */
+  /* inner width idea for region button only (grid now uses full card width) */
   --region-btn-min: 220px;
-  --region-btn-max: 680px;      /* ← tweak this to taste */
+  --region-btn-max: 680px;
   --region-btn-gap: .75rem;
 }
 
 /* =========================
    Country-section container
-   (standalone block after the pill)
    ========================= */
 .country-section{
   width: min(100%, var(--maxw));
@@ -56,24 +55,17 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
 /* =========================
    Region (top-level accordion)
    ========================= */
-/* ===== Region (stacked, button centered, grid underneath) ===== */
 .region{
   grid-column: 1 / -1;
-  display: block;              /* important: NOT flex */
+  display: block;
 }
 
-/* centered, narrower region buttons */
-:root{
-  --region-btn-min: 220px;
-  --region-btn-max: 680px;     /* tweak to taste */
-  --region-btn-gap: .75rem;
-}
+/* centered region toggle button */
 .region-toggle{
   display:block;
   inline-size: clamp(var(--region-btn-min), 92%, var(--region-btn-max));
-  margin: var(--region-btn-gap) auto;   /* centers the button */
+  margin: var(--region-btn-gap) auto;
   padding: .65em 1.1em;
-
   background: var(--gold);
   color:#000;
   border: none;
@@ -88,7 +80,7 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
 .region-toggle:hover{ background: var(--sage); color:#000; }
 .region-toggle[aria-expanded="true"]{ background: var(--slate); color:#fff; }
 
-/* body stacks UNDER the button at full card width */
+/* body stacks under the button at full card width */
 .region-body{
   display:none;
   margin:.5rem 0 1rem;
@@ -96,26 +88,25 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
 }
 .region-body.open{ display:block; }
 
-/* keep opened grid aligned to the same inner width as the button */
+/* let the opened grid use the full section width */
 .region-body > .accordion-grid{
-  margin-inline:auto;
-  width: min(96%, var(--region-btn-max));
-  max-width: var(--region-btn-max);
+  margin-inline: 0;
+  width: 100%;
+  max-width: none;
 }
 
 /* =========================
    Country grid + cards
    ========================= */
+/* Responsive columns: fewer/wider buttons automatically.
+   TUNE: raise/lower 240px to control columns per row. */
 .accordion-grid{
   display:grid;
-  grid-template-columns: repeat(5, minmax(0,1fr));
-  gap:.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap:.6rem;
   margin-bottom:3rem;
   overflow: visible;
 }
-@media (max-width:1100px){ .accordion-grid{ grid-template-columns:repeat(4, minmax(0,1fr)); } }
-@media (max-width:900px){  .accordion-grid{ grid-template-columns:repeat(3, minmax(0,1fr)); } }
-@media (max-width:650px){  .accordion-grid{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
 
 .country{ display:flex; flex-direction:column; min-width:0; }
 
@@ -123,20 +114,27 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
    Country accordion button
    ========================= */
 .accordion{
+  display:block;
+  width:100%;
   background: var(--gold);
   color:#000;
   cursor:pointer;
-  padding:.4em;
+  padding:.6em .9em;
   border:none;
   text-align:center;
   font-family: Calibri, sans-serif;
   font-size:1.05rem;
   font-weight:bold;
   transition: background-color .2s ease;
-  border-radius:6px;
+  border-radius:10px;
   position: relative;
   z-index: 1;
   touch-action: manipulation;
+
+  /* prevent wrapping; ellipsis if truly too long */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .accordion:hover{ background: var(--sage); color:#000; }
 .accordion[aria-expanded="true"]{
@@ -198,31 +196,37 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
 }
 .row-panel td{ color:#000; }
 .row-panel td :where(p, li, div, span, strong, em){ color:#000; }
-/* ===== Nested STATE accordion (inside USA panel) ===== */
+
+/* =========================
+   Nested STATE accordion (inside USA panel)
+   ========================= */
+/* Responsive state grid; TUNE min width if you want fewer per row */
 .state-grid{
   display:grid;
-  grid-template-columns: repeat(6, minmax(0,1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap:.5rem;
   margin-top:.75rem;
 }
-@media (max-width:1100px){ .state-grid{ grid-template-columns:repeat(5, minmax(0,1fr)); } }
-@media (max-width:900px){  .state-grid{ grid-template-columns:repeat(4, minmax(0,1fr)); } }
-@media (max-width:700px){  .state-grid{ grid-template-columns:repeat(3, minmax(0,1fr)); } }
-@media (max-width:520px){  .state-grid{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
 
 .state{ display:flex; flex-direction:column; min-width:0; }
 
 .state-accordion{
+  display:block;
+  width:100%;
   background: var(--gold);
   color:#000;
   border:none;
   border-radius:10px;
-  padding:.45em .6em;
+  padding:.55em .7em;
   font: inherit;
   font-weight:700;
   cursor:pointer;
   text-align:center;
   transition: background-color .2s ease;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .state-accordion:hover{ background: var(--sage); color:#000; }
 .state-accordion[aria-expanded="true"]{
@@ -231,8 +235,14 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
 }
 
 /* state panel opens inline, under its button */
-.state-panel{ display:none; background:var(--slate); padding:.5rem; border:2px solid var(--slate);
-  border-bottom-left-radius:10px; border-bottom-right-radius:10px; }
+.state-panel{
+  display:none;
+  background:var(--slate);
+  padding:.5rem;
+  border:2px solid var(--slate);
+  border-bottom-left-radius:10px;
+  border-bottom-right-radius:10px;
+}
 .state-panel.open{ display:block; }
 
 /* reuse your table look */
@@ -245,7 +255,6 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
 .state-panel th{ background: var(--slate); color:#fff; text-align:center; font-weight:700; }
 .state-panel td{ color:#000; }
 .state-panel td :where(p, li, div, span, strong, em){ color:#000; }
-
 </style>
 
 
