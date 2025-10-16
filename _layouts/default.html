@@ -516,23 +516,20 @@ main, .section{ min-inline-size: 0; overflow-x: visible; }  /* was: clip */
 /* (alternative if you don’t want a class)
 .split--prep .text:nth-of-type(2){ grid-column: 2; } */
 
-/* medium down: relax min widths and gap so it doesn't feel cramped */
-@media (max-width: 1040px){
-  .split--prep{
-    --left-min: 360px;
-    --img-min:  360px;
-    --img-ideal: 40vw;
-    --img-max:  520px;
-    --gap: clamp(18px, 4vw, 40px);
-  }
+/* remove this global rule:
+.split--prep .text--right{ grid-column: 2; }
+*/
+
+/* only push the second text to column 2 when there ARE two columns */
+@media (min-width: 900px){
+  .split--prep .text--right{ grid-column: 2; }
 }
 
-/* phone: stack and tighten */
+/* keep your existing stack rule */
 @media (max-width: 760px){
-  .split--prep{
-    grid-template-columns: 1fr;
-    --gap: clamp(12px, 3.5vw, 20px);
-  }
+  .split--prep{ grid-template-columns: 1fr; --gap: clamp(12px, 3.5vw, 20px); }
+  .split--prep .text--right{ grid-column: auto; } /* normal flow when stacked */
+}
   .split--prep .text--right{ grid-column: auto; } /* normal flow when stacked */
 }
 
