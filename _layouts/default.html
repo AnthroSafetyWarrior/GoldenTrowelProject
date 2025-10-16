@@ -245,12 +245,14 @@ header.hero::before{
 }
 .pillband .card h4{ margin:.1rem 0 .35rem; font-size: clamp(1rem, 1.8vw, 1.1rem); }
 /* Make the outside margin slimmer on phones so the curve stays snug */
+
 @media (max-width: 640px){
   :root{ --pill-margin: clamp(6px, 3vw, 14px); }
 }
 
-/* Prevent accidental horizontal overflow from grid children */
-main, .section { min-inline-size: 0; overflow-x: clip; }
+/* Let full-bleed bands extend to the viewport edges */
+main, .section{ min-inline-size: 0; overflow-x: visible; }  /* was: clip */
+
 
 /* ===== Heading-only pill (pillhead) ===== */
 .pillhead{
