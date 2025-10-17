@@ -723,17 +723,13 @@ header.hero::before{
     margin-right: 10px; /* Adds some space between them */
   }
 
-
-/* Text can shrink to 0; image column keeps its min */
-.split{
-  grid-template-columns: minmax(0, 1fr) minmax(var(--img-min), auto);
+/* Make split children shrinkable so text wraps instead of growing the grid */
+.split .text,
+.pill-split .text,
+.split .art,
+.pill-split .art{
+  min-width: 0;  /* key for CSS Grid wrapping */
 }
-
-/* Same idea for the pill-specific split, if you use it */
-.pill-split{
-  grid-template-columns: minmax(0, 1fr) minmax(320px, auto);
-}
-
 
 </style>
 
