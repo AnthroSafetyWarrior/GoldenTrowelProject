@@ -722,6 +722,44 @@ header.hero::before{
     vertical-align: middle; /* Aligns elements vertically in the middle */
     margin-right: 10px; /* Adds some space between them */
   }
+
+/* Make split children shrinkable so text wraps instead of growing the grid */
+.split .text,
+.pill-split .text,
+.split .art,
+.pill-split .art{
+  min-width: 0;  /* key for CSS Grid wrapping */
+}
+
+/* Curve is on the LEFT (clip-right), so protect the LEFT side */
+.pillband.pill--clip-right .section{
+  padding-left:  max(var(--pill-pad-inline), var(--pill-curve-inset));
+  padding-right: var(--pill-pad-inline);
+}
+
+/* Small screens: same direction, with a tiny extra buffer if you like */
+@media (max-width: 640px){
+  .pillband.pill--clip-right .section{
+    padding-left:  max(var(--pill-pad-inline), calc(var(--pill-curve-inset) + 16px));
+    padding-right: var(--pill-pad-inline);
+  }
+}
+
+
+/* Text can shrink to 0; image column keeps its min */
+.split{
+  grid-template-columns: minmax(0, 1fr) minmax(var(--img-min), auto);
+}
+
+/* Same idea for the pill-specific split, if you use it */
+.pill-split{
+  grid-template-columns: minmax(0, 1fr) minmax(320px, auto);
+}
+
+@media (max-width: 780px){
+  .split{ grid-template-columns: 1fr; }
+}
+
 </style>
 
 
