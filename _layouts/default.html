@@ -539,6 +539,36 @@ header.hero::before{
   .split--prep .text--right{ grid-column: auto; } /* normal flow when stacked */
 }
 
+/* Mid+ desktop: keep two columns, but make the RIGHT text wrap earlier */
+@media (min-width: 761px){
+  .split--prep .text--right{
+    max-inline-size: clamp(36ch, 42vw, 50ch); /* narrower measure = earlier wrap */
+    min-width: 0;                             /* allow shrink inside grid track */
+    overflow-wrap: anywhere;
+    word-break: normal;
+    hyphens: auto;
+    padding-right: clamp(8px, 1.5vw, 16px);   /* optional breathing room */
+  }
+  .split--prep .text--right :where(p, ul, ol, blockquote){
+    max-inline-size: 100%;
+  }
+}
+
+/* Tighter cap as the viewport narrows but before stacking */
+@media (max-width: 1040px) and (min-width: 761px){
+  .split--prep .text--right{
+    max-inline-size: clamp(34ch, 50%, 46ch);
+  }
+}
+
+/* Once you hit the stack breakpoint, let it flow full-width */
+@media (max-width: 760px){
+  .split--prep .text--right{
+    max-inline-size: none;
+    padding-right: 0;
+  }
+}
+
 
 /* ===== NAV ===== */
 /* NAV FLYOUT: styles only for the tiny round buttons */
