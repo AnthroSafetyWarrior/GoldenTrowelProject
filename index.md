@@ -167,7 +167,7 @@ hero_tint: .40
       <p>Find clear, verified paths to report misconduct through your institution, funding agencies, embassies, and local authorities—with documentation tools designed to preserve your evidence and amplify your voice.
       </p>
 <br>     
- <p>The <strong><a href="https://docs.google.com/spreadsheets/d/1bF3FxtmMhAtRn2lyBDhansQ7YlDt4Gsm58aSHon6y0o/edit?usp=sharing" target="_blank" rel="noopener">Emergency Procedure Checklist</a></strong> outlines step-by-step actions for responding in the moment—who to contact, how to document, and how to ensure inter-institutional accountability.</p>
+ <p>The <strong><a href="https://docs.google.com/spreadsheets/d/1bF3FxtmMhAtRn2lyBDhansQ7YlDt4Gsm58aSHon6y0o/edit?usp=sharing" target="_blank" rel="noopener">Emergency Procedure Checklist</a></strong> outlines step-by-step actions prior to and following sexual misconduct outlining how to collect evidence, who to contact, how to document, and how to ensure inter-institutional accountability.</p>
     </article>
 
  <article class="card card--glass">
