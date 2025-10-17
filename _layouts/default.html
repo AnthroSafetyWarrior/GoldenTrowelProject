@@ -202,118 +202,14 @@ header.hero::before{
   outline: 0;
 }
 
-/* ===== NAV ===== */
-/* NAV FLYOUT: styles only for the tiny round buttons */
-.pill--nav{
-  all: unset;
-  display:block;
-  width:260px;
-  text-align:center;
-  padding:.7em 1.1em;
-  font-weight:700;
-  font-size:.95rem;
-  color: var(--soil);
-  background: var(--gold);
-  border: 2px solid var(--gold);
-  border-radius: 999px;
-  text-decoration:none;
-  background-clip:padding-box;
-  cursor:pointer;
-}
-.pill--nav + .pill--nav{ margin-top:-2px; }
-.pill--nav:hover,
-.pill--nav:focus-visible{
-  background:#444054; color:#fff; transform:translateY(-1px);
-  border-color:var(--gold); outline:0;
-}
 
 /* ===== Generic section grid helper ===== */
-main, .section { min-inline-size: 0; overflow-x: visible; }
 .section{
   width:min(100%, var(--maxw));
   margin-inline:auto;
   padding:clamp(36px,5vw,56px) var(--page-pad-inline);
   display:grid; gap:clamp(18px,2.4vw,28px);
 }
-
-
-
-/* ===== Content Pill ===== */
-.pill{
-  --pill-top-extra: clamp(16px, 2.6vw, 28px);     /* extra top cushion */
-  --curve-inset: clamp(32px, 10vw, 280px);        /* side protection near curve */
-
-  position: relative;
-  z-index: 0;
-  isolation: auto;
-  border-radius: 9999px;
-  box-shadow: 0 8px 24px rgba(0,0,0,.12);
-  background: var(--soil);
-  color:#fff;
-  margin-block: clamp(28px, 4.5vw, 56px);
-
-  padding-block-start: calc(var(--pill-pad-y) + var(--pill-top-extra));
-  padding-block-end:   var(--pill-pad-y);
-  padding-inline:      var(--pill-pad-x);
-}
-/* first/last margin collapse guard */
-.pill > :first-child{ margin-top: 0; }
-.pill > :last-child { margin-bottom: 0; }
-
-/* curve-side protection */
-.pill.pill--clip-right{ padding-right: max(var(--pill-pad-x), var(--curve-inset)); }
-.pill.pill--clip-left { padding-left:  max(var(--pill-pad-x), var(--curve-inset)); }
-
-
-/* comfortable content spacing inside pill */
-.pill .pill__title{ margin:0 0 .6rem; font-weight:800; line-height:1.2; }
-.pill > p{ margin:0 0 .8rem; max-inline-size:66ch; }
-.pill ul{ list-style: disc outside; padding-left:1.6rem; margin:.6rem 0 0; max-inline-size:66ch; }
-.pill li{ margin:.3rem 0; }
-.pill .split{ column-gap: clamp(14px, 3vw, 28px); }
-
-/* small screens: a touch more curve protection */
-@media (max-width:640px){
-  .pill{ --curve-inset: clamp(40px, 12vw, 220px); }
-}
-
-
-
-
-/* ===== Heading-only pill (pillhead) ===== */
-.pillhead{
-  --pillhead-pad-y: clamp(1.8em, 2.1vw, 2em);
-  --pillhead-pad-x: clamp(1.1em, 2.2vw, 1.5em);
-  position:relative; z-index:0; display:inline-block; font-weight:800; color: var(--pill-text, #fff);
-  padding: var(--pillhead-pad-y) var(--pillhead-pad-x);
-  margin: clamp(10px,1.5vw,14px) 0 clamp(16px,2.2vw,22px);
-  line-height:1.1; text-wrap: balance;
-}
-
-/* ===== Intro (non-pill) ===== */
-.section.intro{ row-gap: clamp(8px, 1.2vw, 16px); }
-.intro-title h1{ margin-bottom:.15em; color:var(--logo-orange); }
-.intro-title h2{ margin-top:.25em; margin-bottom:.15em; font-weight:600; }
-.intro-row{
-  display:grid;
-  grid-template-columns:minmax(240px,520px) minmax(0,1fr);
-  align-items:center;
-  column-gap:clamp(8px, 2vw, 18px);
-}
-.intro-graphic{ display:flex; align-items:center; justify-content:center; }
-.intro-graphic img{
-  width:clamp(240px, 32vw, 320px);
-  height:auto;
-  filter: drop-shadow(0 8px 16px rgba(0,0,0,.12)) drop-shadow(0 2px 5px rgba(0,0,0,.08));
-}
-@media (max-width:1120px){
-  .intro-row{ grid-template-columns:minmax(240px,480px) minmax(0,1fr); column-gap:clamp(6px, 1.6vw, 14px); }
-}
-@media (max-width:880px){
-  .intro-row{ grid-template-columns:1fr; }
-  .intro-graphic{ order:-1; margin-bottom:.5rem; }
-}
-
 
 /* --- Allow pill pseudos to render outside their boxes --- */
 .pill, .pillhead, .pillband { position: relative; overflow: visible; }
@@ -325,7 +221,6 @@ main, .section { min-inline-size: 0; overflow-x: visible; }
 .pill.pill--sage,  .pillhead.pill--sage,  .pillband.pill--sage  { --pill-color: var(--sage); }
 .pill.pill--orange,.pillhead.pill--orange,.pillband.pill--orange{ --pill-color: var(--logo-orange); }
 
-/* --- Full-bleed background band (use svw so OS scrollbars don't leave a gap) --- */
 /* Band + heading: vertically centered ribbon */
 .pillband::before,
 .pillhead::before{
@@ -409,6 +304,9 @@ main, .section { min-inline-size: 0; overflow-x: visible; }
   max-width: var(--maxw); margin-inline:auto;
   padding: clamp(36px,5vw,56px) var(--pill-pad-inline);
 }
+/* protect the curve side */
+.pillband.pill--clip-right .section{ padding-left:  max(var(--pill-pad-inline), var(--pill-curve-inset)); }
+.pillband.pill--clip-left  .section{ padding-right: max(var(--pill-pad-inline), var(--pill-curve-inset)); }
 
 /* background band */
 
@@ -418,9 +316,6 @@ main, .section { min-inline-size: 0; overflow-x: visible; }
 .pillband p{ text-wrap: pretty; overflow-wrap:anywhere; hyphens:auto; }
 .pillband blockquote{ margin:.25rem 0 0; font-style:italic; opacity:.95; }
 
-
-
-/* ===== two-column ===== */
 /* two-column helper */
 .pill-split{
   display:grid; gap: var(--pill-gap);
@@ -433,6 +328,130 @@ main, .section { min-inline-size: 0; overflow-x: visible; }
 @media (max-width:880px){
   .pill-split{ grid-template-columns:1fr; justify-items:start; }
   .pillband .section{ padding-inline: clamp(18px, 6vw, 32px); }
+}
+
+/* optional card polish */
+.pillband .card{
+  background: color-mix(in srgb, #000 12%, transparent);
+  border-radius: 16px;
+  padding: clamp(12px, 1.6vw, 18px);
+  box-shadow: 0 6px 14px rgba(0,0,0,.12);
+}
+.pillband .card h4{ margin:.1rem 0 .35rem; font-size: clamp(1rem, 1.8vw, 1.1rem); }
+
+/* ===== Heading-only pill (pillhead) ===== */
+.pillhead{
+  --pillhead-pad-y: clamp(1.8em, 2.1vw, 2em);
+  --pillhead-pad-x: clamp(1.1em, 2.2vw, 1.5em);
+  position:relative; z-index:0; display:inline-block; font-weight:800; color: var(--pill-text, #fff);
+  padding: var(--pillhead-pad-y) var(--pillhead-pad-x);
+  margin: clamp(10px,1.5vw,14px) 0 clamp(16px,2.2vw,22px);
+  line-height:1.1; text-wrap: balance;
+}
+
+/* --- STACKING: band above page bg, pills/heads behind their content --- */
+.pillband::before{ z-index: 1; }      /* sits above the page */
+.pill::before,
+.pillhead::before{ z-index: -1; }     /* sits behind the text */
+
+/* --- PADDING: curve side gets the bigger gutter ----------------------- */
+.pillband.pill--clip-right .section{
+  padding-left:  var(--pill-pad-inline);
+  padding-right: max(var(--pill-pad-inline), var(--pill-curve-inset));
+}
+.pillband.pill--clip-left .section{
+  padding-right: var(--pill-pad-inline);
+  padding-left:  max(var(--pill-pad-inline), var(--pill-curve-inset));
+}
+
+/* Small screens – keep the same direction */
+@media (max-width:640px){
+  .pillband.pill--clip-right .section{
+    padding-left:  var(--pill-pad-inline);
+    padding-right: max(var(--pill-pad-inline), calc(var(--pill-curve-inset) + 16px));
+  }
+  .pillband.pill--clip-left .section{
+    padding-right: var(--pill-pad-inline);
+    padding-left:  max(var(--pill-pad-inline), calc(var(--pill-curve-inset) + 16px));
+  }
+}
+
+/* --- FOREGROUND COLORS per variant (applies to band, head, and pill) -- */
+.pillband.pill--soil,  .pillhead.pill--soil,  .pill.pill--soil,
+.pillband.pill--slate, .pillhead.pill--slate, .pill.pill--slate,
+.pillband.pill--orange,.pillhead.pill--orange,.pill.pill--orange{
+  color:#fff;
+}
+.pillband.pill--sage,  .pillhead.pill--sage,  .pill.pill--sage{
+  color:#0e2a1f;
+}
+
+/* --- WRAP SAFEGUARD so long text doesn't push the split wider --------- */
+.split .text,
+.split--prep .text{ min-width:0; word-break:break-word; }
+.split--prep{ --left-min: 440px; }   /* or 420→440/460 to taste */
+
+/* ===== Content Pill ===== */
+.pill{
+  --pill-top-extra: clamp(16px, 2.6vw, 28px);     /* extra top cushion */
+  --curve-inset: clamp(32px, 10vw, 280px);        /* side protection near curve */
+
+  position: relative;
+  z-index: 0;
+  isolation: auto;
+  border-radius: 9999px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.12);
+  background: var(--soil);
+  color:#fff;
+  margin-block: clamp(28px, 4.5vw, 56px);
+
+  padding-block-start: calc(var(--pill-pad-y) + var(--pill-top-extra));
+  padding-block-end:   var(--pill-pad-y);
+  padding-inline:      var(--pill-pad-x);
+}
+/* first/last margin collapse guard */
+.pill > :first-child{ margin-top: 0; }
+.pill > :last-child { margin-bottom: 0; }
+
+/* curve-side protection */
+.pill.pill--clip-right{ padding-right: max(var(--pill-pad-x), var(--curve-inset)); }
+.pill.pill--clip-left { padding-left:  max(var(--pill-pad-x), var(--curve-inset)); }
+
+
+/* comfortable content spacing inside pill */
+.pill .pill__title{ margin:0 0 .6rem; font-weight:800; line-height:1.2; }
+.pill > p{ margin:0 0 .8rem; max-inline-size:66ch; }
+.pill ul{ list-style: disc outside; padding-left:1.6rem; margin:.6rem 0 0; max-inline-size:66ch; }
+.pill li{ margin:.3rem 0; }
+.pill .split{ column-gap: clamp(14px, 3vw, 28px); }
+
+/* small screens: a touch more curve protection */
+@media (max-width:640px){
+  .pill{ --curve-inset: clamp(40px, 12vw, 220px); }
+}
+
+/* ===== Intro (non-pill) ===== */
+.section.intro{ row-gap: clamp(8px, 1.2vw, 16px); }
+.intro-title h1{ margin-bottom:.15em; color:var(--logo-orange); }
+.intro-title h2{ margin-top:.25em; margin-bottom:.15em; font-weight:600; }
+.intro-row{
+  display:grid;
+  grid-template-columns:minmax(240px,520px) minmax(0,1fr);
+  align-items:center;
+  column-gap:clamp(8px, 2vw, 18px);
+}
+.intro-graphic{ display:flex; align-items:center; justify-content:center; }
+.intro-graphic img{
+  width:clamp(240px, 32vw, 320px);
+  height:auto;
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,.12)) drop-shadow(0 2px 5px rgba(0,0,0,.08));
+}
+@media (max-width:1120px){
+  .intro-row{ grid-template-columns:minmax(240px,480px) minmax(0,1fr); column-gap:clamp(6px, 1.6vw, 14px); }
+}
+@media (max-width:880px){
+  .intro-row{ grid-template-columns:1fr; }
+  .intro-graphic{ order:-1; margin-bottom:.5rem; }
 }
 
 /* GLOBAL split */
@@ -463,27 +482,87 @@ main, .section { min-inline-size: 0; overflow-x: visible; }
   .split .art{ justify-self:start; }
 }
 
-
-/* --- STACKING: band above page bg, pills/heads behind their content --- */
-.pillband::before{ z-index: 1; }      /* sits above the page */
-.pill::before,
-.pillhead::before{ z-index: -1; }     /* sits behind the text */
-
-
-/* --- FOREGROUND COLORS per variant (applies to band, head, and pill) -- */
-.pillband.pill--soil,  .pillhead.pill--soil,  .pill.pill--soil,
-.pillband.pill--slate, .pillhead.pill--slate, .pill.pill--slate,
-.pillband.pill--orange,.pillhead.pill--orange,.pill.pill--orange{
-  color:#fff;
+/* ===== Resources (slate pill) — circular cards ===== */
+.resources-grid{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(200px,1fr));
+  justify-items:center;
+  gap: clamp(8px, 3vw, 16px);
 }
-.pillband.pill--sage,  .pillhead.pill--sage,  .pill.pill--sage{
-  color:#0e2a1f;
+.resource-card{
+  --diameter: clamp(240px, 28vw, 360px);
+  width: var(--diameter);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background:var(--gold);
+  color:#000;
+  border:6px solid var(--slate);
+  outline-offset: -6px;
+  padding: clamp(6px, 1.2vw, 16px);
+  box-shadow:2px 2px 7px rgba(250, 247,242);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:.6em;
+}
+.resource-card h3{ margin:0; font-size: clamp(1.15rem, 1.9vw, 1.25rem); text-wrap: balance; }
+.resource-card p{ margin:0; font-size: clamp(.95rem, 1.6vw, 1.05rem); line-height:1.35; max-width: 24ch; }
+
+/* Outside-the-pill grid */
+.pill-grid{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 2.4vw, 24px); overflow: visible;
+  align-items: stretch; /* optional; default is stretch */
 }
 
-/* --- WRAP SAFEGUARD so long text doesn't push the split wider --------- */
-.split .text,
-.split--prep .text{ min-width:0; word-break:break-word; }
-.split--prep{ --left-min: 440px; }   /* or 420→440/460 to taste */
+.pill-grid{ display:grid; gap:clamp(12px,2.4vw,24px); }
+@media (min-width: 960px){ .pill-grid{ grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 640px) and (max-width: 959.98px){ .pill-grid{ grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 639.98px){ .pill-grid{ grid-template-columns: 1fr; } }
+
+
+/* Base card */
+.card{
+  border-radius:16px;
+  padding:clamp(14px, 2vw, 18px);
+  box-shadow:0 6px 14px rgba(68, 64, 84, .15); /* 4th value = alpha */
+  color:var(--ink);
+}
+
+/* put these OUTSIDE the .card block */
+.card a{
+  color:var(--sage);
+  text-decoration-thickness:.08em;
+  text-underline-offset:.18em;
+}
+.card a:hover{ color:var(--logo-orange); }
+
+/* Ghost/transparent vibe (was inside the pill, but now standalone) */
+.card--glass{
+  /* subtle see-through look over the page background */
+  background: color-mix(in srgb, #000 10%, transparent);
+  backdrop-filter: saturate(110%) blur(2px); box-shadow:0 6px 14px rgba(68, 64, 84, .15); 
+  border: 1px solid color-mix(in srgb, #000 12%, transparent);
+}
+
+/* Titles/spacing polish */
+.card h4{ margin:.1rem 0 .35rem; font-size: clamp(1rem, 1.8vw, 1.1rem); }
+.card p{ margin:0; line-height:1.45; }
+
+/* Optional: a roomier stack for the links block */
+.tools-stack{ margin-top: clamp(12px, 2vw, 24px); }
+
+
+.btn-doc{
+  display:inline-block; font-weight:700; border-radius:999px; padding:.5em .9em;
+  background:var(--slate); color:#fff; text-decoration:none;
+}
+
+.btn-doc:hover,.btn-doc:focus-visible{ background: var(--logo-orange); color:#fff; outline:0; }
+@media (max-width:720px){ .resources-grid{ grid-template-columns:1fr; } }
+
+/* optional: tighten page padding on phones */
+@media (max-width:880px){ main{ padding-inline: clamp(18px, 6vw, 32px); } }
+
+main, .section { min-inline-size: 0; overflow-x: visible; }
 
 /* ===== PREPARIING soil pill) — circular cards ===== */
 .split--prep{
@@ -553,6 +632,99 @@ main, .section { min-inline-size: 0; overflow-x: visible; }
 .pill.pill--clip-right,
 .pillhead.pill--clip-right,
 .pillband.pill--clip-right{ --pill-margin: 0; }
+
+/* ===== NAV ===== */
+/* NAV FLYOUT: styles only for the tiny round buttons */
+.pill--nav{
+  all: unset;
+  display:block;
+  width:260px;
+  text-align:center;
+  padding:.7em 1.1em;
+  font-weight:700;
+  font-size:.95rem;
+  color: var(--soil);
+  background: var(--gold);
+  border: 2px solid var(--gold);
+  border-radius: 999px;
+  text-decoration:none;
+  background-clip:padding-box;
+  cursor:pointer;
+}
+.pill--nav + .pill--nav{ margin-top:-2px; }
+.pill--nav:hover,
+.pill--nav:focus-visible{
+  background:#444054; color:#fff; transform:translateY(-1px);
+  border-color:var(--gold); outline:0;
+}
+
+
+/* === Safer spacing for clipped bands & pills =========================== */
+
+/* LEFT-CLIPPED band: slightly denser vertical padding */
+.pillband.pill--clip-left .section{
+  padding-block: clamp(16px, 2.6vw, 28px);
+}
+
+/* === Right-clipped pillband spacing (clean + responsive) === */
+
+/* Default & small screens — tight but safe */
+.pillband.pill--clip-right .section{
+  padding-block: clamp(28px, 4.8vw, 52px);
+  padding-top:   clamp(44px, 5.6vw, 64px);
+  /* Left side: use normal padding or a small curve buffer */
+  padding-left: max(
+    var(--pill-pad-inline),
+    calc(var(--pill-curve-inset) + 36px)
+  );
+}
+
+/* Keep title off the curve */
+.pillband.pill--clip-right h2{
+  margin-top: .2rem;
+}
+
+/* Maintain comfortable height */
+.pillband.pill--clip-right{
+  min-height: clamp(220px, 30vw, 360px);
+}
+
+/* Tighter internal spacing for clipped pills */
+.pill.pill--clip-left,
+.pill.pill--clip-right{
+  --pill-pad-x:     clamp(22px, 3vw, 30px);
+  --pill-pad-y:     clamp(44px, 3.6vw, 64px);
+  --pill-top-extra: clamp(8px, 1.2vw, 12px);
+  margin-block:     clamp(16px, 3vw, 32px);
+}
+
+/* Desktop — reduce the curve inset so left padding isn’t excessive */
+@media (min-width: 1200px){
+  .pillband.pill--clip-right{
+    --pill-curve-inset: clamp(16px, 2.5vw, 96px);
+  }
+  .pillband.pill--clip-right .section{
+    padding-left: max(
+      var(--pill-pad-inline),
+      calc(var(--pill-curve-inset) + 20px)
+    );
+  }
+}
+
+/* Ultra-wide — cap curve inset tighter still */
+@media (min-width: 1600px){
+  .pillband.pill--clip-right{
+    --pill-curve-inset: clamp(12px, 2vw, 72px);
+  }
+}
+
+
+
+/* --- tighter spacing between h2 and .split --- */
+.pillband .section {
+  /* gently close vertical rhythm between heading and next block */
+  gap: clamp(8px, 1.6vw, 16px);
+}
 
 
 /* === Extra pinch on small screens ========================== */
@@ -638,168 +810,7 @@ main, .section { min-inline-size: 0; overflow-x: visible; }
   :root{ --pill-margin: clamp(6px, 3vw, 14px); }
 }
 
-
-/* === Safer spacing for clipped bands & pills =========================== */
-
-/* LEFT-CLIPPED band: slightly denser vertical padding */
-.pillband.pill--clip-left .section{
-  padding-block: clamp(16px, 2.6vw, 28px);
-}
-
-/* === Right-clipped pillband spacing (clean + responsive) === */
-
-/* Default & small screens — tight but safe */
-.pillband.pill--clip-right .section{
-  padding-block: clamp(28px, 4.8vw, 52px);
-  padding-top:   clamp(44px, 5.6vw, 64px);
-  /* Left side: use normal padding or a small curve buffer */
-  padding-left: max(
-    var(--pill-pad-inline),
-    calc(var(--pill-curve-inset) + 36px)
-  );
-}
-
-/* Keep title off the curve */
-.pillband.pill--clip-right h2{
-  margin-top: .2rem;
-}
-
-/* Maintain comfortable height */
-.pillband.pill--clip-right{
-  min-height: clamp(220px, 30vw, 360px);
-}
-
-/* Tighter internal spacing for clipped pills */
-.pill.pill--clip-left,
-.pill.pill--clip-right{
-  --pill-pad-x:     clamp(22px, 3vw, 30px);
-  --pill-pad-y:     clamp(44px, 3.6vw, 64px);
-  --pill-top-extra: clamp(8px, 1.2vw, 12px);
-  margin-block:     clamp(16px, 3vw, 32px);
-}
-
-/* Desktop — reduce the curve inset so left padding isn’t excessive */
-@media (min-width: 1200px){
-  .pillband.pill--clip-right{
-    --pill-curve-inset: clamp(16px, 2.5vw, 96px);
-  }
-  .pillband.pill--clip-right .section{
-    padding-left: max(
-      var(--pill-pad-inline),
-      calc(var(--pill-curve-inset) + 20px)
-    );
-  }
-}
-
-/* Ultra-wide — cap curve inset tighter still */
-@media (min-width: 1600px){
-  .pillband.pill--clip-right{
-    --pill-curve-inset: clamp(12px, 2vw, 72px);
-  }
-}
-
-/* --- tighter spacing between h2 and .split --- */
-.pillband .section {
-  /* gently close vertical rhythm between heading and next block */
-  gap: clamp(8px, 1.6vw, 16px);
-}
-
-
-
-
-/* ===== Resources (slate pill) — circular cards ===== */
-.resources-grid{
-  display:grid;
-  grid-template-columns: repeat(2, minmax(200px,1fr));
-  justify-items:center;
-  gap: clamp(8px, 3vw, 16px);
-}
-.resource-card{
-  --diameter: clamp(240px, 28vw, 360px);
-  width: var(--diameter);
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
-  background:var(--gold);
-  color:#000;
-  border:6px solid var(--slate);
-  outline-offset: -6px;
-  padding: clamp(6px, 1.2vw, 16px);
-  box-shadow:2px 2px 7px rgba(250, 247,242);
-  display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:.6em;
-}
-.resource-card h3{ margin:0; font-size: clamp(1.15rem, 1.9vw, 1.25rem); text-wrap: balance; }
-.resource-card p{ margin:0; font-size: clamp(.95rem, 1.6vw, 1.05rem); line-height:1.35; max-width: 24ch; }
-
-/* Outside-the-pill grid */
-.pill-grid{
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(12px, 2.4vw, 24px); overflow: visible;
-  align-items: stretch; /* optional; default is stretch */
-}
-
-.pill-grid{ display:grid; gap:clamp(12px,2.4vw,24px); }
-@media (min-width: 960px){ .pill-grid{ grid-template-columns: repeat(3, 1fr); } }
-@media (min-width: 640px) and (max-width: 959.98px){ .pill-grid{ grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 639.98px){ .pill-grid{ grid-template-columns: 1fr; } }
-
-
-
-/* ============= CARDS ========== */
-/* optional card polish */
-.pillband .card{
-  background: color-mix(in srgb, #000 12%, transparent);
-  border-radius: 16px;
-  padding: clamp(12px, 1.6vw, 18px);
-  box-shadow: 0 6px 14px rgba(0,0,0,.12);
-}
-.pillband .card h4{ margin:.1rem 0 .35rem; font-size: clamp(1rem, 1.8vw, 1.1rem); }
-
-
-/* Base card */
-.card{
-  border-radius:16px;
-  padding:clamp(14px, 2vw, 18px);
-  box-shadow:0 6px 14px rgba(68, 64, 84, .15); /* 4th value = alpha */
-  color:var(--ink);
-}
-
-/* put these OUTSIDE the .card block */
-.card a{
-  color:var(--sage);
-  text-decoration-thickness:.08em;
-  text-underline-offset:.18em;
-}
-.card a:hover{ color:var(--logo-orange); }
-
-/* Ghost/transparent vibe (was inside the pill, but now standalone) */
-.card--glass{
-  /* subtle see-through look over the page background */
-  background: color-mix(in srgb, #000 10%, transparent);
-  backdrop-filter: saturate(110%) blur(2px); box-shadow:0 6px 14px rgba(68, 64, 84, .15); 
-  border: 1px solid color-mix(in srgb, #000 12%, transparent);
-}
-
-/* Titles/spacing polish */
-.card h4{ margin:.1rem 0 .35rem; font-size: clamp(1rem, 1.8vw, 1.1rem); }
-.card p{ margin:0; line-height:1.45; }
-
-/* Optional: a roomier stack for the links block */
-.tools-stack{ margin-top: clamp(12px, 2vw, 24px); }
-
-.btn-doc{
-  display:inline-block; font-weight:700; border-radius:999px; padding:.5em .9em;
-  background:var(--slate); color:#fff; text-decoration:none;
-}
-
-.btn-doc:hover,.btn-doc:focus-visible{ background: var(--logo-orange); color:#fff; outline:0; }
-@media (max-width:720px){ .resources-grid{ grid-template-columns:1fr; } }
-
-/* optional: tighten page padding on phones */
-@media (max-width:880px){ main{ padding-inline: clamp(18px, 6vw, 32px); } }
-
-
-</style>
+</style> 
 
 
 
