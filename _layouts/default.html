@@ -251,9 +251,14 @@ main, .section, .pillhead, .pill, .pillband { overflow-x: visible; }
   transform: translateY(-50%);
   height: 100%;
   width: calc(100svw - var(--pill-margin));              /* use svw to avoid scrollbar sliver */
-  background: var(--pill-color, var(--logo-orange));
+  background: var(--pill-color);
   box-shadow: 0 8px 18px rgba(0,0,0,.10);
 }
+
+.pill--soil,  .pillhead.pill--soil,  .pillband.pill--soil  { --pill-color: var(--soil); }
+.pill--slate, .pillhead.pill--slate, .pillband.pill--slate { --pill-color: var(--slate); }
+.pill--sage,  .pillhead.pill--sage,  .pillband.pill--sage  { --pill-color: var(--sage); }
+.pill--orange,.pillhead.pill--orange,.pillband.pill--orange{ --pill-color: var(--logo-orange); }
 
 /* Stacking: pills/heads sit under their content, band sits above page bg */
 .pillhead::before, .pill::before{ z-index: -1; }
