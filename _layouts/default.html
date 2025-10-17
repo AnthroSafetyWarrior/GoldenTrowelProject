@@ -291,9 +291,6 @@ header.hero::before{
   max-width: var(--maxw); margin-inline:auto;
   padding: clamp(36px,5vw,56px) var(--pill-pad-inline);
 }
-/* protect the curve side */
-.pillband.pill--clip-right .section{ padding-left:  max(var(--pill-pad-inline), var(--pill-curve-inset)); }
-.pillband.pill--clip-left  .section{ padding-right: max(var(--pill-pad-inline), var(--pill-curve-inset)); }
 
 /* background band */
 
@@ -341,27 +338,6 @@ header.hero::before{
 .pill::before,
 .pillhead::before{ z-index: -1; }     /* sits behind the text */
 
-/* --- PADDING: curve side gets the bigger gutter ----------------------- */
-.pillband.pill--clip-right .section{
-  padding-left:  var(--pill-pad-inline);
-  padding-right: max(var(--pill-pad-inline), var(--pill-curve-inset));
-}
-.pillband.pill--clip-left .section{
-  padding-right: var(--pill-pad-inline);
-  padding-left:  max(var(--pill-pad-inline), var(--pill-curve-inset));
-}
-
-/* Small screens – keep the same direction */
-@media (max-width:640px){
-  .pillband.pill--clip-right .section{
-    padding-left:  var(--pill-pad-inline);
-    padding-right: max(var(--pill-pad-inline), calc(var(--pill-curve-inset) + 16px));
-  }
-  .pillband.pill--clip-left .section{
-    padding-right: var(--pill-pad-inline);
-    padding-left:  max(var(--pill-pad-inline), calc(var(--pill-curve-inset) + 16px));
-  }
-}
 
 /* --- FOREGROUND COLORS per variant (applies to band, head, and pill) -- */
 .pillband.pill--soil,  .pillhead.pill--soil,  .pill.pill--soil,
