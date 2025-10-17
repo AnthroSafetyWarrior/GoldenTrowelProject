@@ -10,24 +10,10 @@ hero_tint: .40                        # optional (0–1: higher = more maroon ov
 
 <style>
 /* =========================
-   Globals / tunables
+   Embassy directory — continents → table panels
    ========================= */
-*, *::before, *::after { box-sizing: border-box; }
 
-:root{
-  /* gutters & gaps used everywhere on the card */
-  --grid-inset: clamp(12px, 3vw, 28px);   /* slate padding left/right */
-  --grid-gap: clamp(8px, 1.2vw, 14px);    /* space between buttons */
-
-  /* region toggle sizing */
-  --region-btn-min: 220px;
-  --region-btn-max: 980px;  /* let it grow more; adjust to taste */
-  --region-btn-gap: .75rem;
-}
-
-/* =========================
-   Country-section container
-   ========================= */
+/* Container card */
 .country-section{
   width: min(100%, var(--maxw));
   margin-inline: auto;
@@ -40,119 +26,135 @@ hero_tint: .40                        # optional (0–1: higher = more maroon ov
   min-width: 0;
 }
 .country-section .wrap{
-  display:grid;
-  grid-template-columns: 1fr;
-  gap: clamp(10px, 1.6vw, 16px);
-  min-width: 0;
-  /* NEW: give everything inside the card a slate gutter */
-  padding-inline: var(--grid-inset);
+  display:block;
+  min-width:0;
+  padding-inline: clamp(12px, 3vw, 28px); /* inner gutter */
 }
 
-/* If accordion is nested in .section, avoid double padding */
-.section > * { min-width: 0; }
-.section .country-section{
-  width: 100%;
-  max-width: none;
-  margin-inline: 0;
-  padding-inline: 0;
-  padding-block: clamp(16px, 2.5vw, 28px);
-}
-
-/* =========================
-   Region (top-level accordion)
-   ========================= */
+/* Region (continent) header + toggle */
 .region{
-  grid-column: 1 / -1;
-  display: block;
-  /* ensure slate gutter around the region header too */
-  padding-inline: var(--grid-inset);
+  margin-block: clamp(10px, 2vw, 16px);
 }
-
-/* Scalable, full-width inside the gutter */
 .region-toggle{
   display:block;
   width: 100%;
-  max-width: var(--region-btn-max);
-  margin: var(--region-btn-gap) auto 0;
-  padding: .7em 1.1em;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: .8em 1.1em;
   background: var(--gold);
   color:#000;
   border: none;
   border-radius: 12px;
   font-family: Calibri, sans-serif;
   font-weight: 700;
-  font-size: 1.05rem;
+  font-size: 1.06rem;
   text-align: center;
   cursor: pointer;
-  transition: background-color .2s ease;
+  transition: background-color .2s ease, color .2s ease, box-shadow .2s ease;
+  position: relative;
 }
 .region-toggle:hover{ background: var(--sage); color:#000; }
-.region-toggle[aria-expanded="true"]{ background: var(--slate); color:#fff; }
+.region-toggle[aria-expanded="true"]{
+  background: var(--slate);
+  color:#fff;
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,.18);
+}
 
-/* Region body uses the SAME gutter so grids never touch edges */
+/* Chevron indicator */
+.region-toggle::after{
+  content:"▾";
+  position:absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  opacity:.9;
+}
+.region-toggle[aria-expanded="true"]::after{ content:"▴"; }
+
+/* Accessible focus */
+.region-toggle:focus-visible{
+  outline: 3px solid var(--sage);
+  outline-offset: 3px;
+}
+
+/* Panel wrapper (the bit that opens) */
 .region-body{
   display:none;
-  margin:.6rem 0 1rem;
-  width:100%;
-  padding-inline: var(--grid-inset);
+  margin: .7rem auto 1.2rem;
+  max-width: 980px;
+  padding-inline: 0;
 }
 .region-body.open{ display:block; }
 
-/* =========================
-   Country grid + cards
-   ========================= */
-/* Make EVERY top-level grid respect the gutter (for island/country rows that
-   are not inside a region-body as well) */
-.country-section .wrap > .accordion-grid,
-.region-body > .accordion-grid{
-  display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); /* dial 240→260 for fewer per row */
-  gap: var(--grid-gap);
-  margin-bottom: 2rem;
-  overflow: visible;
-}
-
-/* Country card wrapper */
-.country{ display:flex; flex-direction:column; min-width:0; }
-
-/* Buttons fill their cells; never touch edge thanks to parent padding */
-.accordion{
-  display:block;
-  width:100%;
-  background: var(--gold);
-  color:#000;
-  cursor:pointer;
-  padding:.6em .9em;
-  border:none;
+/* White panel that holds the table */
+.panel--table{
+  background:#fff;
+  color:#111;
   border-radius:12px;
-  text-align:center;
-  font-family: Calibri, sans-serif;
-  font-size:1.05rem;
-  font-weight:bold;
-  transition: background-color .2s ease;
-  position: relative;
-  z-index: 1;
-  touch-action: manipulation;
-
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.accordion:hover{ background: var(--sage); color:#000; }
-.accordion[aria-expanded="true"]{
-  background: var(--slate);
-  color:#fff;
-  border-bottom-left-radius:0;
-  border-bottom-right-radius:0;
+  padding:12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
 }
 
-/* keyboard focus */
-.accordion:focus-visible,
-.region-toggle:focus-visible{
-  outline: 3px solid var(--sage);
-  outline-offset: 2px;
+/* Make the table scrollable on small screens */
+.panel--table{
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
+/* Table styles */
+.embassy-table{
+  width:100%;
+  border-collapse: collapse;
+  min-width: 520px; /* keeps columns readable; enables horizontal scroll when needed */
+}
+.embassy-table thead th{
+  font-weight:700;
+  font-size: .98rem;
+  background: #f6f6f6;
+  color:#111;
+  border-bottom: 1px solid rgba(0,0,0,.12);
+}
+.embassy-table th,
+.embassy-table td{
+  padding:.65rem .75rem;
+  text-align:left;
+  vertical-align: top;
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  line-height:1.35;
+}
+.embassy-table tr:last-child td{ border-bottom:none; }
+
+.embassy-table a{
+  text-decoration: underline;
+  color: inherit; /* inherits dark text in white panel */
+}
+.embassy-table a:hover{ text-decoration: none; }
+
+/* Optional: subtle zebra for readability */
+.embassy-table tbody tr:nth-child(odd){
+  background: rgba(0,0,0,.025);
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce){
+  .region-toggle{ transition: none; }
+}
+
+/* Small-screen tweaks */
+@media (max-width: 540px){
+  .region-toggle{ font-size: 1rem; padding: .7em 2.3em .7em .9em; }
+  .region-toggle::after{ right: 10px; }
+}
+
+/* If this block lives inside .section, avoid double padding from parent */
+.section .country-section{
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+  padding-block: clamp(16px, 2.5vw, 28px);
+  padding-inline: 0;
+}
 </style>
 
 
@@ -185,37 +187,56 @@ hero_tint: .40                        # optional (0–1: higher = more maroon ov
 <section class="section">
 <h2 class="pillhead pill--slate pill--clip-right">Locate your embassy or consulate in your research area</h2>
 
-   <!--------START ACORDION---------->
-<section class="section section--flush">
-<div class="country-section">
-  <div class="wrap">
+     <section class="section section--flush">
+    <div class="country-section">
+      <div class="wrap">
 
-    <!-- Region -->
-    <div class="region">
-      <button class="region-toggle" id="asia-toggle"
-              aria-controls="asia-body" aria-expanded="false">
-        Asia
-      </button>
-      <div class="panel" id="asia-panel" role="region" aria-labelledby="asia-btn">
+        <!-- Continent (example: Asia) -->
+        <div class="region">
+          <button class="region-toggle"
+                  id="asia-toggle"
+                  aria-controls="asia-body"
+                  aria-expanded="false">
+            Asia
+          </button>
 
-<div class="accordion-grid">
+          <div class="region-body" id="asia-body" role="region" aria-labelledby="asia-toggle">
+            <div class="accordion-grid">
+              <div class="country">
+                <div class="panel panel--table">
+                  <table class="embassy-table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Country</th>
+                        <th scope="col">Embassy / Consulate Directory</th>
+                        <th scope="col">Emergency Contact (if listed)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>[Country name]</td>
+                        <td><a href="[directory link]" rel="noopener noreferrer">Find embassy/consulate</a></td>
+                        <td>[+XX-XXXX-XXXX] (optional)</td>
+                      </tr>
+                      <tr>
+                        <td>[Country name]</td>
+                        <td><a href="[directory link]" rel="noopener noreferrer">Find embassy/consulate</a></td>
+                        <td>—</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div><!-- /.panel -->
+              </div><!-- /.country -->
+            </div><!-- /.accordion-grid -->
+          </div><!-- /.region-body -->
+        </div><!-- /.region -->
 
-      <table>
-    <tr>
-     <th scope="col">Country</th>
-      <th scope="col">Title IX / Ethics Office</th>
-     </tr>
-    <tr>
-      <td>[country name]</td>
-      <td><a href="[link]" rel="noopener noreferrer">Title IX Office</a></td>
-</td>
-    </tr>
-   </table>
-     </div>
-     </div>
-</div>
-</div>
-  </div>
+        <!-- Duplicate the block above for other continents:
+             id/for pairs: africa-toggle/africa-body, europe-toggle/europe-body, etc. -->
+
+      </div><!-- /.wrap -->
+    </div><!-- /.country-section -->
+  </section>
 </section>
 
 
@@ -248,4 +269,24 @@ hero_tint: .40                        # optional (0–1: higher = more maroon ov
 </section>
  
 
+<script>
+  document.querySelectorAll('.region-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const body = document.getElementById(btn.getAttribute('aria-controls'));
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+
+      // Optional: close others so only one is open
+      document.querySelectorAll('.region-toggle[aria-expanded="true"]').forEach(openBtn => {
+        if (openBtn !== btn) {
+          openBtn.setAttribute('aria-expanded','false');
+          const other = document.getElementById(openBtn.getAttribute('aria-controls'));
+          if (other) other.classList.remove('open');
+        }
+      });
+
+      btn.setAttribute('aria-expanded', String(!isOpen));
+      body.classList.toggle('open', !isOpen);
+    });
+  });
+</script>
 
