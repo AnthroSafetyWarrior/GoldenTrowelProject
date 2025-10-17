@@ -162,13 +162,6 @@ header.hero::before{
   flex-direction:column; align-items:center; gap:0; pointer-events:none; opacity:0; transition:opacity .18s ease; z-index:10; }
 .circle:hover .flyout, .circle.is-open .flyout{ display:flex; opacity:1; pointer-events:auto; }
 .flyout.is-floating{ position:fixed; left:0; top:0; transform:translateX(-50%); display:flex; opacity:1; pointer-events:auto; z-index:2000; }
-.flyout .pill{
-  display:block; width:260px; text-align:center; padding:.7em 1.1em; font-weight:700; font-size:.95rem;
-  color:var(--soil); background:var(--gold); border:2px solid var(--gold); border-radius:999px;
-  text-decoration:none; background-clip:padding-box; transition:background .15s ease, color .15s ease, transform .15s ease; margin:0;
-}
-.flyout .pill + .pill{ margin-top:-2px; }
-.flyout .pill:hover,.flyout .pill:focus-visible{ background:#444054; color:#fff; transform:translateY(-1px); border-color:var(--gold); outline:0; }
 
 
 /* === NAV FLYOUT FIX ===================================================== */
@@ -516,9 +509,9 @@ header.hero::before{
 /* optional: tighten page padding on phones */
 @media (max-width:880px){ main{ padding-inline: clamp(18px, 6vw, 32px); } }
 
+main, .section { min-inline-size: 0; overflow-x: visible; }
 
 /* ===== PREPARIING soil pill) — circular cards ===== */
-/* Preparing split (only this section) */
 .split--prep{
   /* more space between columns here only */
   --gap: clamp(28px, 6vw, 96px);
@@ -530,10 +523,12 @@ header.hero::before{
   --img-ideal: 34vw;   /* similar vibe to 'Prevalence' */
   --img-max:  560px;
 
-+ grid-template-columns:
-+   minmax(var(--left-min), 1fr)
-+   minmax(var(--img-min),  fit-content(var(--img-max)));
+  grid-template-columns:
+    minmax(var(--left-min), 1fr)
+    minmax(var(--img-min), fit-content(var(--img-max)));
 }
+.split--prep .text{ min-width: 0; }  /* keep this */
+
 
 /* keep art sizing consistent */
 .split--prep .art{
@@ -575,6 +570,15 @@ header.hero::before{
   .split--prep .text--right{ grid-column: auto; } /* normal flow when stacked */
 }
 
+/* optional: make left-clipped bands/pills flush too */
+.pill.pill--clip-left,
+.pillhead.pill--clip-left,
+.pillband.pill--clip-left{ --pill-margin: 0; }
+
+/* you already have this for right-clipped */
+.pill.pill--clip-right,
+.pillhead.pill--clip-right,
+.pillband.pill--clip-right{ --pill-margin: 0; }
 
 /* ===== NAV ===== */
 /* NAV FLYOUT: styles only for the tiny round buttons */
@@ -748,6 +752,10 @@ header.hero::before{
     vertical-align: middle; /* Aligns elements vertically in the middle */
     margin-right: 10px; /* Adds some space between them */
   }
+
+@media (max-width: 640px){
+  :root{ --pill-margin: clamp(6px, 3vw, 14px); }
+}
 
 </style>
 
