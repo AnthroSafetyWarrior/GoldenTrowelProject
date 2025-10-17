@@ -8,6 +8,154 @@ hero_opacity: .45                     # optional (0–1: lower = darker tint / m
 hero_tint: .40                        # optional (0–1: higher = more maroon overlay)
 ---
 
+<style>
+/* =========================
+   Globals / tunables
+   ========================= */
+*, *::before, *::after { box-sizing: border-box; }
+
+:root{
+  /* gutters & gaps used everywhere on the card */
+  --grid-inset: clamp(12px, 3vw, 28px);   /* slate padding left/right */
+  --grid-gap: clamp(8px, 1.2vw, 14px);    /* space between buttons */
+
+  /* region toggle sizing */
+  --region-btn-min: 220px;
+  --region-btn-max: 980px;  /* let it grow more; adjust to taste */
+  --region-btn-gap: .75rem;
+}
+
+/* =========================
+   Country-section container
+   ========================= */
+.country-section{
+  width: min(100%, var(--maxw));
+  margin-inline: auto;
+  margin-block: clamp(10px, 2.5vw, 24px) 2rem;
+  padding: clamp(16px, 2.5vw, 28px) var(--page-pad-inline);
+  background: var(--slate);
+  color:#fff;
+  border-radius:16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+  min-width: 0;
+}
+.country-section .wrap{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap: clamp(10px, 1.6vw, 16px);
+  min-width: 0;
+  /* NEW: give everything inside the card a slate gutter */
+  padding-inline: var(--grid-inset);
+}
+
+/* If accordion is nested in .section, avoid double padding */
+.section > * { min-width: 0; }
+.section .country-section{
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+  padding-inline: 0;
+  padding-block: clamp(16px, 2.5vw, 28px);
+}
+
+/* =========================
+   Region (top-level accordion)
+   ========================= */
+.region{
+  grid-column: 1 / -1;
+  display: block;
+  /* ensure slate gutter around the region header too */
+  padding-inline: var(--grid-inset);
+}
+
+/* Scalable, full-width inside the gutter */
+.region-toggle{
+  display:block;
+  width: 100%;
+  max-width: var(--region-btn-max);
+  margin: var(--region-btn-gap) auto 0;
+  padding: .7em 1.1em;
+  background: var(--gold);
+  color:#000;
+  border: none;
+  border-radius: 12px;
+  font-family: Calibri, sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color .2s ease;
+}
+.region-toggle:hover{ background: var(--sage); color:#000; }
+.region-toggle[aria-expanded="true"]{ background: var(--slate); color:#fff; }
+
+/* Region body uses the SAME gutter so grids never touch edges */
+.region-body{
+  display:none;
+  margin:.6rem 0 1rem;
+  width:100%;
+  padding-inline: var(--grid-inset);
+}
+.region-body.open{ display:block; }
+
+/* =========================
+   Country grid + cards
+   ========================= */
+/* Make EVERY top-level grid respect the gutter (for island/country rows that
+   are not inside a region-body as well) */
+.country-section .wrap > .accordion-grid,
+.region-body > .accordion-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); /* dial 240→260 for fewer per row */
+  gap: var(--grid-gap);
+  margin-bottom: 2rem;
+  overflow: visible;
+}
+
+/* Country card wrapper */
+.country{ display:flex; flex-direction:column; min-width:0; }
+
+/* Buttons fill their cells; never touch edge thanks to parent padding */
+.accordion{
+  display:block;
+  width:100%;
+  background: var(--gold);
+  color:#000;
+  cursor:pointer;
+  padding:.6em .9em;
+  border:none;
+  border-radius:12px;
+  text-align:center;
+  font-family: Calibri, sans-serif;
+  font-size:1.05rem;
+  font-weight:bold;
+  transition: background-color .2s ease;
+  position: relative;
+  z-index: 1;
+  touch-action: manipulation;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.accordion:hover{ background: var(--sage); color:#000; }
+.accordion[aria-expanded="true"]{
+  background: var(--slate);
+  color:#fff;
+  border-bottom-left-radius:0;
+  border-bottom-right-radius:0;
+}
+
+/* keyboard focus */
+.accordion:focus-visible,
+.region-toggle:focus-visible{
+  outline: 3px solid var(--sage);
+  outline-offset: 2px;
+}
+
+</style>
+
+
 <!-- 1) Intro – plain background -->
 <section class="section intro">
   <div class="intro-title">
@@ -37,8 +185,36 @@ hero_tint: .40                        # optional (0–1: higher = more maroon ov
 <section class="section">
 <h2 class="pillhead pill--slate pill--clip-right">Locate your embassy or consulate in your research area</h2>
 
-<div class="intro-title">
-    <p></p>
+   <!--------START ACORDION---------->
+<section class="section section--flush">
+<div class="country-section">
+  <div class="wrap">
+
+    <!-- Region -->
+    <div class="region">
+      <button class="region-toggle" id="asia-toggle"
+              aria-controls="asia-body" aria-expanded="false">
+        Asia
+      </button>
+      <div class="panel" id="asia-panel" role="region" aria-labelledby="asia-btn">
+
+<div class="accordion-grid">
+
+      <table>
+    <tr>
+     <th scope="col">Country</th>
+      <th scope="col">Title IX / Ethics Office</th>
+     </tr>
+    <tr>
+      <td>[country name]</td>
+      <td><a href="[link]" rel="noopener noreferrer">Title IX Office</a></td>
+</td>
+    </tr>
+   </table>
+     </div>
+     </div>
+</div>
+</div>
   </div>
 </section>
 
