@@ -9,6 +9,9 @@
 
   {% assign is_home = page.homepage or page.is_homepage or page.home or page.url == '/' %}
 
+this weird thing is happening when the window gets smaller where the pills are no longer attached 
+
+
 <style>
 /* ============== Design Tokens ============== */
 :root{
@@ -167,6 +170,48 @@ header.hero::before{
 .flyout .pill + .pill{ margin-top:-2px; }
 .flyout .pill:hover,.flyout .pill:focus-visible{ background:#444054; color:#fff; transform:translateY(-1px); border-color:var(--gold); outline:0; }
 
+
+/* === NAV FLYOUT FIX ===================================================== */
+/* Fully isolate .pill--nav so it ignores .pill geometry rules */
+
+.pill--nav {
+  all: unset;
+  display: block;
+  width: 260px;
+  text-align: center;
+  padding: .7em 1.1em;
+  font-weight: 700;
+  font-size: .95rem;
+  color: var(--soil);
+  background: var(--gold);
+  border: 2px solid var(--gold);
+  border-radius: 999px;
+  text-decoration: none;
+  background-clip: padding-box;
+  cursor: pointer;
+  position: static !important;  /* override .pill position:relative */
+  box-shadow: none !important;
+  isolation: auto;
+}
+
+.pill--nav::before {
+  content: none !important;   /* stop the full-bleed ::before band */
+}
+
+.pill--nav + .pill--nav {
+  margin-top: -2px;
+}
+
+.pill--nav:hover,
+.pill--nav:focus-visible {
+  background: #444054;
+  color: #fff;
+  transform: translateY(-1px);
+  border-color: var(--gold);
+  outline: 0;
+}
+
+
 /* ===== Generic section grid helper ===== */
 .section{
   width:min(100%, var(--maxw));
@@ -197,6 +242,17 @@ header.hero::before{
 .pillband.pill--clip-right .section{ padding-left:  max(var(--pill-pad-inline), var(--pill-curve-inset)); }
 .pillband.pill--clip-left  .section{ padding-right: max(var(--pill-pad-inline), var(--pill-curve-inset)); }
 
+/* background band */
+.pillband::before{
+  content:"";
+  position:absolute; inset:0 auto; top:50%; transform:translateY(-50%);
+  height:100%; width: calc(100vw - var(--pill-margin));
+  background: var(--pill-color, var(--logo-orange));
+  box-shadow:0 8px 18px rgba(0,0,0,.10);
+  z-index:1;
+}
+.pillband.pill--clip-left::before{  left:  calc(50% - 50vw); border-radius: 0 9999px 9999px 0; }
+.pillband.pill--clip-right::before{ right: calc(50% - 50vw); border-radius: 9999px 0 0 9999px; }
 
 /* color variants */
 .pillband.pill--orange{ --pill-color: var(--logo-orange); color:#fff; }
@@ -219,7 +275,6 @@ header.hero::before{
 .pill-split .text{ max-width:66ch; }
 .pill-split .art{ justify-self:center; }
 .pill-split .art img{ width:clamp(320px,32vw,380px); height:auto; display:block; }
-
 @media (max-width:880px){
   .pill-split{ grid-template-columns:1fr; justify-items:start; }
   .pillband .section{ padding-inline: clamp(18px, 6vw, 32px); }
@@ -233,133 +288,66 @@ header.hero::before{
   box-shadow: 0 6px 14px rgba(0,0,0,.12);
 }
 .pillband .card h4{ margin:.1rem 0 .35rem; font-size: clamp(1rem, 1.8vw, 1.1rem); }
-/* Make the outside margin slimmer on phones so the curve stays snug */
-@media (max-width: 640px){
-  :root{ --pill-margin: clamp(6px, 3vw, 14px); }
+
+/* ===== Heading-only pill (pillhead) ===== */
+.pillhead{
+  --pillhead-pad-y: clamp(1.8em, 2.1vw, 2em);
+  --pillhead-pad-x: clamp(1.1em, 2.2vw, 1.5em);
+  position:relative; z-index:0; display:inline-block; font-weight:800; color: var(--pill-text, #fff);
+  padding: var(--pillhead-pad-y) var(--pillhead-pad-x);
+  margin: clamp(10px,1.5vw,14px) 0 clamp(16px,2.2vw,22px);
+  line-height:1.1; text-wrap: balance;
 }
-
-/* --- Let full-bleed pseudos extend past containers --- */
-main, .section, .pillhead, .pill, .pillband { overflow-x: visible; }
-
-/* --- Unified full-bleed pseudo for head, pill, and band --- */
-.pillhead::before,
-.pill::before,
-.pillband::before{
-  content: "";
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  height: 100%;
-  width: calc(100svw - var(--pill-margin));              /* use svw to avoid scrollbar sliver */
-  background: var(--pill-color);
-  box-shadow: 0 8px 18px rgba(0,0,0,.10);
+.pillhead::before{
+  content:""; position:absolute; top:50%; transform:translateY(-50%); height:100%;
+  width: calc(100vw - var(--pill-margin)); background: var(--pill-color, var(--logo-orange));
+  box-shadow:0 8px 16px rgba(0,0,0,.12); z-index:-1;
 }
+.pillhead.pill--clip-left::before{  left:  calc(50% - 50vw); border-radius:0 9999px 9999px 0; }
+.pillhead.pill--clip-right::before{ right: calc(50% - 50vw); border-radius:9999px 0 0 9999px; }
+.pillhead.pill--orange{ --pill-color: var(--logo-orange); --pill-text:#fff; }
+.pillhead.pill--soil  { --pill-color: var(--soil);        --pill-text:#fff; }
+.pillhead.pill--slate { --pill-color: var(--slate);       --pill-text:#fff; }
+.pillhead.pill--sage  { --pill-color: var(--sage);        --pill-text:#0e2a1f; }
 
-.pill--soil,  .pillhead.pill--soil,  .pillband.pill--soil  { --pill-color: var(--soil); }
-.pill--slate, .pillhead.pill--slate, .pillband.pill--slate { --pill-color: var(--slate); }
-.pill--sage,  .pillhead.pill--sage,  .pillband.pill--sage  { --pill-color: var(--sage); }
-.pill--orange,.pillhead.pill--orange,.pillband.pill--orange{ --pill-color: var(--logo-orange); }
+/* ===== Content Pill ===== */
+.pill{
+  --pill-top-extra: clamp(16px, 2.6vw, 28px);     /* extra top cushion */
+  --curve-inset: clamp(32px, 10vw, 280px);        /* side protection near curve */
 
-/* Stacking: pills/heads sit under their content, band sits above page bg */
-.pillhead::before, .pill::before{ z-index: -1; }
-.pillband::before{ z-index: 1; }
+  position: relative;
+  z-index: 0;
+  isolation: auto;
+  border-radius: 9999px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.12);
+  background: var(--soil);
+  color:#fff;
+  margin-block: clamp(28px, 4.5vw, 56px);
 
-/* Clip edges (use svw consistently) */
-.pillhead.pill--clip-left::before,
-.pill.pill--clip-left::before,
-.pillband.pill--clip-left::before{
-  left: calc(50% - 50svw);
-  border-radius: 0 9999px 9999px 0;
+  padding-block-start: calc(var(--pill-pad-y) + var(--pill-top-extra));
+  padding-block-end:   var(--pill-pad-y);
+  padding-inline:      var(--pill-pad-x);
 }
-.pillhead.pill--clip-right::before,
-.pill.pill--clip-right::before,
-.pillband.pill--clip-right::before{
-  right: calc(50% - 50svw);
-  border-radius: 9999px 0 0 9999px;
+/* first/last margin collapse guard */
+.pill > :first-child{ margin-top: 0; }
+.pill > :last-child { margin-bottom: 0; }
+
+/* curve-side protection */
+.pill.pill--clip-right{ padding-right: max(var(--pill-pad-x), var(--curve-inset)); }
+.pill.pill--clip-left { padding-left:  max(var(--pill-pad-x), var(--curve-inset)); }
+
+/* full-bleed rounded band behind the pill */
+.pill::before{
+  content:"";
+  position:absolute;
+  top:0; bottom:0;
+  width: calc(100vw - var(--pill-margin));
+  background: var(--soil);
+  z-index:-1;
+  box-shadow: 0 8px 18px rgba(0,0,0,.1);
 }
-
-/* Make right-clipped variants truly flush */
-.pillhead.pill--clip-right,
-.pill.pill--clip-right,
-.pillband.pill--clip-right{
-  --pill-margin: 0;
-}
-
-/* --- Fallback for engines without svw --- */
-@supports not (width: 100svw){
-  .pillhead::before,
-  .pill::before,
-  .pillband::before { width: calc(100dvw - var(--pill-margin)); }
-
-  .pillhead.pill--clip-left::before,
-  .pill.pill--clip-left::before,
-  .pillband.pill--clip-left::before{ left: calc(50% - 50dvw); }
-
-  .pillhead.pill--clip-right::before,
-  .pill.pill--clip-right::before,
-  .pillband.pill--clip-right::before{ right: calc(50% - 50dvw); }
-}
-
-
-/* === Safer spacing for clipped bands & pills =========================== */
-
-/* LEFT-CLIPPED band: slightly denser vertical padding */
-.pillband.pill--clip-left .section{
-  padding-block: clamp(16px, 2.6vw, 28px);
-}
-
-/* === Right-clipped pillband spacing (clean + responsive) === */
-
-/* Default & small screens — tight but safe */
-.pillband.pill--clip-right .section{
-  padding-block: clamp(28px, 4.8vw, 52px);
-  padding-top:   clamp(44px, 5.6vw, 64px);
-  /* Left side: use normal padding or a small curve buffer */
-  padding-left: max(
-    var(--pill-pad-inline),
-    calc(var(--pill-curve-inset) + 36px)
-  );
-}
-
-/* Keep title off the curve */
-.pillband.pill--clip-right h2{
-  margin-top: .2rem;
-}
-
-/* Maintain comfortable height */
-.pillband.pill--clip-right{
-  min-height: clamp(220px, 30vw, 360px);
-}
-
-/* Tighter internal spacing for clipped pills */
-.pill.pill--clip-left,
-.pill.pill--clip-right{
-  --pill-pad-x:     clamp(22px, 3vw, 30px);
-  --pill-pad-y:     clamp(44px, 3.6vw, 64px);
-  --pill-top-extra: clamp(8px, 1.2vw, 12px);
-  margin-block:     clamp(16px, 3vw, 32px);
-}
-
-/* Desktop — reduce the curve inset so left padding isn’t excessive */
-@media (min-width: 1200px){
-  .pillband.pill--clip-right{
-    --pill-curve-inset: clamp(16px, 2.5vw, 96px);
-  }
-  .pillband.pill--clip-right .section{
-    padding-left: max(
-      var(--pill-pad-inline),
-      calc(var(--pill-curve-inset) + 20px)
-    );
-  }
-}
-
-/* Ultra-wide — cap curve inset tighter still */
-@media (min-width: 1600px){
-  .pillband.pill--clip-right{
-    --pill-curve-inset: clamp(12px, 2vw, 72px);
-  }
-}
-
+.pill.pill--clip-right::before{ right: calc(50% - 50vw); left:auto; border-radius: 9999px 0 0 9999px; }
+.pill.pill--clip-left::before { left:  calc(50% - 50vw); right:auto; border-radius: 0 9999px 9999px 0; }
 
 /* comfortable content spacing inside pill */
 .pill .pill__title{ margin:0 0 .6rem; font-weight:800; line-height:1.2; }
@@ -506,53 +494,42 @@ main, .section, .pillhead, .pill, .pillband { overflow-x: visible; }
 @media (max-width:880px){ main{ padding-inline: clamp(18px, 6vw, 32px); } }
 
 
-/* ===== PREPARING (soil pill) — split with right-side art ===== */
+/* ===== PREPARIING soil pill) — circular cards ===== */
+/* Preparing split (only this section) */
 .split--prep{
-  /* spacing + layout knobs */
+  /* more space between columns here only */
   --gap: clamp(28px, 6vw, 96px);
-  --left-min: 420px;
-
-  /* art sizing knobs */
-  --img-min:  440px;
-  --img-ideal: 34vw;
-  --img-max:  560px;
-
-  display: grid;
   column-gap: var(--gap);
 
-  /* IMPORTANT: right track is shrinkable; left honors its min */
+  /* balance the two columns so image doesn't feel tiny */
+  --left-min: 420px;
+  --img-min:  440px;
+  --img-ideal: 34vw;   /* similar vibe to 'Prevalence' */
+  --img-max:  560px;
+
   grid-template-columns:
     minmax(var(--left-min), 1fr)
-    minmax(0, 1fr);
+    minmax(var(--img-min),  auto);
 }
 
-/* Let text actually shrink/wrap inside the grid */
-.split--prep .text,
-.split--prep .text--right{
-  min-width: 0;                        /* prevents overflow from long lines */
-  max-inline-size: var(--text-measure, 54ch);
-  overflow-wrap: anywhere;
-  hyphens: auto;
-}
-
-/* Keep art sizing consistent without forcing the grid wider */
+/* keep art sizing consistent */
 .split--prep .art{
   justify-self: center;
-  max-inline-size: 100%;
+  max-inline-size: var(--img-max);
 }
 .split--prep .art img{
   width: clamp(var(--img-min), var(--img-ideal), var(--img-max));
-  max-width: 100%;
   height: auto;
   display: block;
 }
 
-/* Place the second text block to the RIGHT only when we truly have 2 cols */
-@media (min-width: 900px){
-  .split--prep .text--right{ grid-column: 2; }
-}
+/* put the second text block in the RIGHT column */
+.split--prep .text--right{ grid-column: 2; }
 
-/* Medium down: relax mins + gap so it doesn't feel cramped */
+/* (alternative if you don’t want a class)
+.split--prep .text:nth-of-type(2){ grid-column: 2; } */
+
+/* medium down: relax min widths and gap so it doesn't feel cramped */
 @media (max-width: 1040px){
   .split--prep{
     --left-min: 360px;
@@ -563,7 +540,7 @@ main, .section, .pillhead, .pill, .pillband { overflow-x: visible; }
   }
 }
 
-/* Phone: stack and tighten */
+/* phone: stack and tighten */
 @media (max-width: 760px){
   .split--prep{
     grid-template-columns: 1fr;
@@ -599,46 +576,66 @@ main, .section, .pillhead, .pill, .pillband { overflow-x: visible; }
 }
 
 
+/* === Safer spacing for clipped bands & pills =========================== */
 
-/* === NAV FLYOUT FIX ===================================================== */
-/* Fully isolate .pill--nav so it ignores .pill geometry rules */
-
-.pill--nav {
-  all: unset;
-  display: block;
-  width: 260px;
-  text-align: center;
-  padding: .7em 1.1em;
-  font-weight: 700;
-  font-size: .95rem;
-  color: var(--soil);
-  background: var(--gold);
-  border: 2px solid var(--gold);
-  border-radius: 999px;
-  text-decoration: none;
-  background-clip: padding-box;
-  cursor: pointer;
-  position: static !important;  /* override .pill position:relative */
-  box-shadow: none !important;
-  isolation: auto;
+/* LEFT-CLIPPED band: slightly denser vertical padding */
+.pillband.pill--clip-left .section{
+  padding-block: clamp(16px, 2.6vw, 28px);
 }
 
-.pill--nav::before {
-  content: none !important;   /* stop the full-bleed ::before band */
+/* === Right-clipped pillband spacing (clean + responsive) === */
+
+/* Default & small screens — tight but safe */
+.pillband.pill--clip-right .section{
+  padding-block: clamp(28px, 4.8vw, 52px);
+  padding-top:   clamp(44px, 5.6vw, 64px);
+  /* Left side: use normal padding or a small curve buffer */
+  padding-left: max(
+    var(--pill-pad-inline),
+    calc(var(--pill-curve-inset) + 36px)
+  );
 }
 
-.pill--nav + .pill--nav {
-  margin-top: -2px;
+/* Keep title off the curve */
+.pillband.pill--clip-right h2{
+  margin-top: .2rem;
 }
 
-.pill--nav:hover,
-.pill--nav:focus-visible {
-  background: #444054;
-  color: #fff;
-  transform: translateY(-1px);
-  border-color: var(--gold);
-  outline: 0;
+/* Maintain comfortable height */
+.pillband.pill--clip-right{
+  min-height: clamp(220px, 30vw, 360px);
 }
+
+/* Tighter internal spacing for clipped pills */
+.pill.pill--clip-left,
+.pill.pill--clip-right{
+  --pill-pad-x:     clamp(22px, 3vw, 30px);
+  --pill-pad-y:     clamp(44px, 3.6vw, 64px);
+  --pill-top-extra: clamp(8px, 1.2vw, 12px);
+  margin-block:     clamp(16px, 3vw, 32px);
+}
+
+/* Desktop — reduce the curve inset so left padding isn’t excessive */
+@media (min-width: 1200px){
+  .pillband.pill--clip-right{
+    --pill-curve-inset: clamp(16px, 2.5vw, 96px);
+  }
+  .pillband.pill--clip-right .section{
+    padding-left: max(
+      var(--pill-pad-inline),
+      calc(var(--pill-curve-inset) + 20px)
+    );
+  }
+}
+
+/* Ultra-wide — cap curve inset tighter still */
+@media (min-width: 1600px){
+  .pillband.pill--clip-right{
+    --pill-curve-inset: clamp(12px, 2vw, 72px);
+  }
+}
+
+
 
 /* --- tighter spacing between h2 and .split --- */
 .pillband .section {
@@ -646,11 +643,6 @@ main, .section, .pillhead, .pill, .pillband { overflow-x: visible; }
   gap: clamp(8px, 1.6vw, 16px);
 }
 
-/* optional: if you only want it for pill-split sections */
-.pillband .pill-split {
-  /* smaller vertical gap between h2 and the split grid */
-  row-gap: clamp(6px, 1.2vw, 14px);
-}
 
 /* === Extra pinch on small screens ========================== */
 @media (max-width: 640px){
@@ -731,6 +723,7 @@ main, .section, .pillhead, .pill, .pillband { overflow-x: visible; }
     margin-right: 10px; /* Adds some space between them */
   }
 </style>
+
 
 
 </head>
