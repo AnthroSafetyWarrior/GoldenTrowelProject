@@ -744,36 +744,20 @@ header.hero::before{
   }
 
 
-/* — Restore original 100vw anchors so pills render — */
-.pill::before,
-.pillhead::before,
-.pillband::before{
-  width: calc(100vw - var(--pill-margin));
-}
+/* Don't let the root hide the pill bands that extend to the edge */
+html { overflow-x: clip; }       /* no scrollbar */
+body { overflow-x: visible; }    /* allow abspos ::before to render */
 
+/* Safety: make sure the band actually exists and sits behind */
 .pill.pill--clip-right::before,
 .pillhead.pill--clip-right::before,
 .pillband.pill--clip-right::before{
-  right: calc(50% - 50vw);
+  content: "";                   /* in case something nuked it */
+  right: calc(50% - 50vw);       /* your original anchor */
   left: auto;
+  width: calc(100vw - var(--pill-margin));
+  z-index: -1;
 }
-
-.pill.pill--clip-left::before,
-.pillhead.pill--clip-left::before,
-.pillband.pill--clip-left::before{
-  left: calc(50% - 50vw);
-  right: auto;
-}
-
-/* Keep clipped-right variants truly flush */
-.pill.pill--clip-right,
-.pillband.pill--clip-right,
-.pillhead.pill--clip-right{
-  --pill-margin: 0;
-}
-
-/* Remove the tiny page-level horizontal overflow  */
-html, body { overflow-x: hidden; }
 
 </style>
 
