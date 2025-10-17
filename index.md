@@ -38,7 +38,7 @@ hero_tint: .40
 
 <!-- 2) PREVALENCE — shared split -->
 <section class="section">
-<h2 class="pillhead pill--orange pill--clip-right pill--edge-right">Prevalence of Fieldwork Harassment and Assault
+<h2 class="pillhead pill--orange pill--clip-right">Prevalence of Fieldwork Harassment and Assault
 </h2>
   <div class="split">
     <div class="text">
@@ -120,7 +120,7 @@ hero_tint: .40
 
 <!-- 4) SUPPORT — consistent grid utility -->
 <section class="section">
-<h2 class="pillhead pill--slate pill--clip-right pill--edge-right">Survivor Support</h2>
+<h2 class="pillhead pill--slate pill--clip-right">Survivor Support</h2>
   <div class="split">
     <div class="text"> 
  <h3><a href="{{ '/support.html' | relative_url }}">Supporting You</a></h3>
