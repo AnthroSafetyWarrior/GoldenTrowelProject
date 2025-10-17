@@ -9,8 +9,6 @@
 
   {% assign is_home = page.homepage or page.is_homepage or page.home or page.url == '/' %}
 
-this weird thing is happening when the window gets smaller where the pills are no longer attached 
-
 
 <style>
 /* ============== Design Tokens ============== */
@@ -337,6 +335,48 @@ header.hero::before{
   margin: clamp(10px,1.5vw,14px) 0 clamp(16px,2.2vw,22px);
   line-height:1.1; text-wrap: balance;
 }
+
+/* --- STACKING: band above page bg, pills/heads behind their content --- */
+.pillband::before{ z-index: 1; }      /* sits above the page */
+.pill::before,
+.pillhead::before{ z-index: -1; }     /* sits behind the text */
+
+/* --- PADDING: curve side gets the bigger gutter ----------------------- */
+.pillband.pill--clip-right .section{
+  padding-left:  var(--pill-pad-inline);
+  padding-right: max(var(--pill-pad-inline), var(--pill-curve-inset));
+}
+.pillband.pill--clip-left .section{
+  padding-right: var(--pill-pad-inline);
+  padding-left:  max(var(--pill-pad-inline), var(--pill-curve-inset));
+}
+
+/* Small screens – keep the same direction */
+@media (max-width:640px){
+  .pillband.pill--clip-right .section{
+    padding-left:  var(--pill-pad-inline);
+    padding-right: max(var(--pill-pad-inline), calc(var(--pill-curve-inset) + 16px));
+  }
+  .pillband.pill--clip-left .section{
+    padding-right: var(--pill-pad-inline);
+    padding-left:  max(var(--pill-pad-inline), calc(var(--pill-curve-inset) + 16px));
+  }
+}
+
+/* --- FOREGROUND COLORS per variant (applies to band, head, and pill) -- */
+.pillband.pill--soil,  .pillhead.pill--soil,  .pill.pill--soil,
+.pillband.pill--slate, .pillhead.pill--slate, .pill.pill--slate,
+.pillband.pill--orange,.pillhead.pill--orange,.pill.pill--orange{
+  color:#fff;
+}
+.pillband.pill--sage,  .pillhead.pill--sage,  .pill.pill--sage{
+  color:#0e2a1f;
+}
+
+/* --- WRAP SAFEGUARD so long text doesn't push the split wider --------- */
+.split .text,
+.split--prep .text{ min-width:0; word-break:break-word; }
+.split--prep{ --left-min: 440px; }   /* or 420→440/460 to taste */
 
 /* ===== Content Pill ===== */
 .pill{
