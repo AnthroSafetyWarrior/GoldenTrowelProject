@@ -507,9 +507,9 @@ header.hero::before{
   --img-ideal: 34vw;   /* similar vibe to 'Prevalence' */
   --img-max:  560px;
 
-  grid-template-columns:
-    minmax(var(--left-min), 1fr)
-    minmax(var(--img-min),  auto);
++ grid-template-columns:
++   minmax(var(--left-min), 1fr)
++   minmax(var(--img-min),  fit-content(var(--img-max)));
 }
 
 /* keep art sizing consistent */
@@ -722,14 +722,6 @@ header.hero::before{
     vertical-align: middle; /* Aligns elements vertically in the middle */
     margin-right: 10px; /* Adds some space between them */
   }
-
-/* Make split children shrinkable so text wraps instead of growing the grid */
-.split .text,
-.pill-split .text,
-.split .art,
-.pill-split .art{
-  min-width: 0;  /* key for CSS Grid wrapping */
-}
 
 </style>
 
