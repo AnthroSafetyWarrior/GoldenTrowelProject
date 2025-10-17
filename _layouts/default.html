@@ -742,6 +742,54 @@ header.hero::before{
     vertical-align: middle; /* Aligns elements vertically in the middle */
     margin-right: 10px; /* Adds some space between them */
   }
+
+
+/* 1) Clipped variants should be flush with the viewport edge */
+.pillband.pill--clip-right,
+.pillhead.pill--clip-right,
+.pill.pill--clip-right{
+  --pill-margin: 0;
+}
+.pillband.pill--clip-left,
+.pillhead.pill--clip-left,
+.pill.pill--clip-left{
+  --pill-margin: 0; /* optional: make left-clipped flush too */
+}
+
+/* 2) Use svw for the full-bleed band width + anchors */
+.pillband::before,
+.pillhead::before,
+.pill::before{
+  width: calc(100svw - var(--pill-margin));
+}
+
+.pillband.pill--clip-right::before,
+.pillhead.pill--clip-right::before,
+.pill.pill--clip-right::before{
+  right: calc(50% - 50svw);
+}
+
+.pillband.pill--clip-left::before,
+.pillhead.pill--clip-left::before,
+.pill.pill--clip-left::before{
+  left: calc(50% - 50svw);
+}
+
+/* Fallback for engines without svw support */
+@supports not (width: 100svw){
+  .pillband::before,
+  .pillhead::before,
+  .pill::before{ width: calc(100dvw - var(--pill-margin)); }
+
+  .pillband.pill--clip-right::before,
+  .pillhead.pill--clip-right::before,
+  .pill.pill--clip-right::before{ right: calc(50% - 50dvw); }
+
+  .pillband.pill--clip-left::before,
+  .pillhead.pill--clip-left::before,
+  .pill.pill--clip-left::before{ left: calc(50% - 50dvw); }
+}
+
 </style>
 
 </head>
