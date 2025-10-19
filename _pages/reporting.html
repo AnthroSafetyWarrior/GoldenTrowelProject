@@ -29,7 +29,20 @@ hero_tint: .40                        # optional (0–1: higher = more maroon ov
  <div class="section">
 <h2>Your health and safety comes first.</h2> 
 <p class="lede">If you’re in danger or need urgent care, act now. You control what you share and when. Advocates can help you stay safe, protect your academic standing, and decide if/when to report. </p>
-</div>
+</div><style>
+.split .art{ justify-self: center; }
+.pillhead.pill--sage > a,
+.pill--sage .pillhead__link{
+  color: var(--slate);
+  text-decoration: underline;
+}
+.pillhead.pill--sage > a:visited{ color: var(--slate); }
+.pillhead.pill--sage > a:hover{ color: var(--logo-orange); },
+.pillhead.pill--sage > a:focus-visible{
+  color: var(--slate);           /* or a darker slate var if you have one */
+  text-decoration: underline;
+}
+</style>
 </section>
 
 <section class="section section--prep">
@@ -122,7 +135,7 @@ Procedures may differ depending on the country where you conduct research. Visit
       <ul>
         <li><strong>They can:</strong> link you to medical care; help replace a lost or stolen passport; contact family or your employer (with your consent); provide lists of lawyers; explain possible financial assistance to return to your country; and <strong>request updates from local authorities on your case</strong>; file a report on your behalf after you have safely left the country.</li>
         <li><strong>They cannot:</strong> investigate crimes, give legal advice or represent you, serve as official interpreters, or pay legal or medical costs.</li>
-        <li><strong>How to find yours:</strong> Go to <a href="{{ '/yourrights.html' | relative_url }}"><strong>Know Your Rights</strong></a>, select your country of citizenship, and use the “Find My Local Embassy” link to open the directory for the country you’re currently in.</li>
+        <li><strong>How to find yours:</strong> Go to <a href="{{ '/embassy.html' | relative_url }}"><strong>Embassy or Consulate</strong></a>, select your country of citizenship, and use the “Find embassy/consulate” link to open the directory for the country you’re currently in.</li>
       </ul>
 <p class="lede-note" style="margin-top:.8rem; font-size:1em;">
         Information here is general and may change or be inaccurate depending on your country of citizenship—confirm details with the local embassy or consulate before you act.
