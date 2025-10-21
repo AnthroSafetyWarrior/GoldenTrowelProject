@@ -21,6 +21,42 @@ hero_tint: .40
   color: var(--offwhite);           /* or a darker slate var if you have one */
   text-decoration: underline;
 }
+
+<style>
+/* Links inside a sage pillband */
+.pillband.pill--sage a{
+  color:var(--offwhite);
+  text-decoration: underline;
+}
+.pillband.pill--sage a:hover {color: var(--soil)},
+.pillband.pill--sage a:focus-visible{
+  color: var(--offwhite);
+  text-decoration-thickness: 2px;
+}
+
+
+/* Links inside a sage pillband */
+.pillband.pill--orange a{
+  color: var(--gold);
+  text-decoration: underline;
+}
+.pillband.pill--orange a:hover {color: var(--offwhite)},
+.pillband.pill--orange a:focus-visible{
+  color: var(--gold);
+  text-decoration-thickness: 2px;
+}
+
+/* Links inside a sage pillband */
+.pillband.pill--slate a{
+  color: var(--gold);
+  text-decoration: underline;
+}
+.pillband.pill--slate a:hover {color: var(--offwhite)},
+.pillband.pill--slate a:focus-visible{
+  color: var(--gold);
+  text-decoration-thickness: 2px;
+}
+</style>
 </style>
 
 <!-- 1) Intro – plain background -->
@@ -148,6 +184,9 @@ Explore resources for:</p><ul>
  <article class="card card--glass">
   <h3>Register Your Travel</h3>
       <p>Sign up with your country’s travel registry so your embassy can reach you during emergencies.</p>
+</article>
+
+<article class="card card--glass">
       <h3>What Your Embassy Can (and Can’t) Do</h3>
       <p>Passport help, contacts for medical/legal aid, welfare checks—plus important limits to their role.</p>
     </article>
@@ -155,16 +194,22 @@ Explore resources for:</p><ul>
  <article class="card card--glass">
   <h3>Find Your Embassy or Consulate</h3>
       <p>Search by country to get local addresses, phone numbers, hours, and after-hours emergency lines.</p>
- <h3>General Safety & Emergencies</h3>
-      <p>Understand relevant safety concerns.</p>
-    </article>
-
+</article>
 
  <article class="card card--glass">
 <h3>LGBTQ+ Rights (At-a-Glance)</h3>
       <p>Country-level legal status, practical safety notes, and links to local orgs and legal overviews.</p>
+</article>
 
+<article class="card card--glass">
+ <h3>General Safety & Emergencies</h3>
+      <p>Understand relevant safety concerns.</p>
+    </article>
+
+<article class="card card--glass">
       <h3>Culture &amp; Etiquette for Fieldwork</h3>
       <p>Greeting norms, dress expectations, photo/recording sensitivities, and local research etiquette.</p>
-
     </article>
+
+</div>
+</section>
