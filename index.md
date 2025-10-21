@@ -42,7 +42,8 @@ hero_tint: .40
 </h2>
   <div class="split">
     <div class="text">
-       <p>A 2014 survey sampling &gt;650 anthropologists revealed high frequencies of harassment and assault, and low frequencies of awareness of reporting procedures (Clancy <em>et&nbsp;al.</em>, 2014; DOI: <a href="https://doi.org/10.1371/journal.pone.0102172">10.1371/journal.pone.0102172</a>).</p>
+       <p>A 2014 survey sampling &gt;650 anthropologists revealed high frequencies of harassment and assault, and low frequencies of awareness of reporting procedures (Clancy <em>et&nbsp;al.</em>, 2014; DOI: <a href="https://doi.org/10.1371/journal.pone.0102172"  target="_blank" 
+     rel="noopener noreferrer">10.1371/journal.pone.0102172</a>).</p>
     </div>
     <figure class="art">
       <img
@@ -106,7 +107,9 @@ hero_tint: .40
     not just reactive — it can <strong>shift how we respond under threat</strong>. For example,
   </p>
   <ul>
-    <li>empowerment self-defense (ESD) programs have demonstrated increased assertiveness, reduced fear in risky environments, and stronger self-protective decision-making <a href="https://doi.org/10.1177/08862605221082734">(Beaujolais, 2023; </a><a href="https://doi.org/10.33043/SSWJ.2.1.63-76">Follo, 2022).</a></li>
+    <li>empowerment self-defense (ESD) programs have demonstrated increased assertiveness, reduced fear in risky environments, and stronger self-protective decision-making <a href="https://doi.org/10.1177/08862605221082734"  target="_blank" 
+     rel="noopener noreferrer">(Beaujolais, 2023; </a><a href="https://doi.org/10.33043/SSWJ.2.1.63-76"  target="_blank" 
+     rel="noopener noreferrer">Follo, 2022).</a></li>
     <li>Other efforts in trauma prevention and rape-resistance place such training within evidence-based prevention strategies <a href="https://doi.org/10.1080/10926771.2022.2046224">(Basile, 2022).</a></li>
   </ul>
   <p>
@@ -123,25 +126,31 @@ hero_tint: .40
 <h2 class="pillhead pill--slate pill--clip-right">Survivor Support</h2>
   <div class="split">
     <div class="text"> 
- <h3><a href="{{ '/support.html' | relative_url }}">Supporting You</a></h3>
+ <h3><a href="{{ '/support.html' | relative_url }}"  target="_blank" 
+     rel="noopener noreferrer">Supporting You</a></h3>
 <p>Access survivor-centered resources focused on emotional support, recovery, and community care. This page highlights mental-health hotlines, trauma-informed care networks, and guidance on seeking help after an incident—because your safety and well-being come first.</p>
 </div>
   <div class="text">
 <div class="inline-elements">   
-<h4><a href="https://takebackthenight.org/">TBTN</a>: <p>Take Back the Night</p></h4></div>
+<h4><a href="https://takebackthenight.org/"  target="_blank" 
+     rel="noopener noreferrer">TBTN</a>: <p>Take Back the Night</p></h4></div>
 <p>National Sexual Assault Legal Hotline: Free Legal Assistance for Survivors Call 567-SHATTER (567-742-8837)</p>
 <br>
 <div class="inline-elements">   
-<h4><a href="https://www.hotpeachpages.net/a/countries.html">Hot Peach Pages</a>: <p>International List of Sexual & Domestic Violence Agencies</p></h4></div>
+<h4><a href="https://www.hotpeachpages.net/a/countries.html"  target="_blank" 
+     rel="noopener noreferrer">Hot Peach Pages</a>: <p>International List of Sexual & Domestic Violence Agencies</p></h4></div>
 <br>
 <div class="inline-elements">   
-<h4><a href="https://www.interaction.org/wp-content/uploads/resource-library/international_centers_for_survivors_of_sexual_assault_45553.pdf">interaction.org</a>: <p>Handbook of International Centers for Survivors of Sexual Assault and Harassment</p></h4></div>
+<h4><a href="https://www.interaction.org/wp-content/uploads/resource-library/international_centers_for_survivors_of_sexual_assault_45553.pdf"  target="_blank" 
+     rel="noopener noreferrer">interaction.org</a>: <p>Handbook of International Centers for Survivors of Sexual Assault and Harassment</p></h4></div>
 <br>
 <div class="inline-elements">   
-<h4><a href="https://rainn.org/">RAINN</a>: <p>Rape, Abuse & Incest National Network</p></h4></div>
+<h4><a href="https://rainn.org/"  target="_blank" 
+     rel="noopener noreferrer">RAINN</a>: <p>Rape, Abuse & Incest National Network</p></h4></div>
 <br>
 <div class="inline-elements">   
-<h4><a href="https://ilga.org/">ILGA World</a>: <p>International Lesbian, Gay, Bisexual, Trans, and Intersex Association</p></h4></div>
+<h4><a href="https://ilga.org/"  target="_blank" 
+     rel="noopener noreferrer">ILGA World</a>: <p>International Lesbian, Gay, Bisexual, Trans, and Intersex Association</p></h4></div>
 </div>
 </div>
 </section>
@@ -163,7 +172,8 @@ hero_tint: .40
     </article>
 
 <article class="card card--glass">
-      <h3><a href="{{ '/reporting.html' | relative_url }}">Reporting</a></h3>
+      <h3><a href="{{ '/reporting.html' | relative_url }}"  target="_blank" 
+     rel="noopener noreferrer">Reporting</a></h3>
       <p>Find clear, verified paths to report misconduct through your institution, funding agencies, embassies, and local authorities—with documentation tools designed to preserve your evidence and amplify your voice.
       </p>
 <br>     
