@@ -777,8 +777,23 @@ body { overflow-x: visible; }    /* allow abspos ::before to render */
   max-inline-size: clamp(28ch, 44vw, 36ch);
   text-wrap: balance;
 }
-.pillband.pill--clip-right.pill--earlywrap .section{
-  padding-right: max(var(--pill-pad-inline), var(--pill-curve-inset));
+
+/* Early-wrap utility for RIGHT-clipped pillbands */
+.pillband.pill--clip-right.pill--earlywrap {
+  /* make text wrap sooner and stay off the curve */
+  --pill-measure: clamp(34ch, 48vw, 42ch);
+  --pill-curve-inset: clamp(48px, 14vw, 320px);
+}
+
+/* Respect the larger inset on the clipped side */
+.pillband.pill--clip-right.pill--earlywrap .section {
+  padding-left: max(var(--pill-pad-inline), var(--pill-curve-inset));
+}
+
+/* Optional: tighten headline width */
+.pillband.pill--clip-right.pill--earlywrap h2 {
+  max-inline-size: clamp(28ch, 44vw, 36ch);
+  text-wrap: balance;
 }
 
 </style>
