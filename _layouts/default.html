@@ -777,6 +777,9 @@ body { overflow-x: visible; }    /* allow abspos ::before to render */
   max-inline-size: clamp(28ch, 44vw, 36ch);
   text-wrap: balance;
 }
+.pillband.pill--clip-right.pill--earlywrap .section{
+  padding-right: max(var(--pill-pad-inline), var(--pill-curve-inset));
+}
 
 </style>
 
