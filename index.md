@@ -7,6 +7,26 @@ hero_pos: "center 40%"
 hero_opacity: .45
 hero_tint: .40
 ---
+<style>
+/* Early-wrap utility just for bands that need it */
+.pillband.pill--earlywrap{
+  /* shrink text line length so it wraps sooner */
+  --pill-measure: clamp(34ch, 48vw, 42ch);
+  /* increase the safe gutter near the curve */
+  --pill-curve-inset: clamp(48px, 14vw, 320px);
+}
+
+/* Ensure the section respects the larger curve inset on the clipped side */
+.pillband.pill--clip-left.pill--earlywrap .section{
+  padding-right: max(var(--pill-pad-inline), var(--pill-curve-inset));
+}
+
+/* Optional: cap the H2 a bit tighter than body copy */
+.pillband.pill--earlywrap h2{
+  max-inline-size: clamp(28ch, 44vw, 36ch);
+  text-wrap: balance;
+}
+</style>
 
 <!-- 1) Intro – plain background -->
 <section class="section intro">
@@ -56,7 +76,7 @@ hero_tint: .40
 </section>
 
 <!-- 3) PREPARING — pillband -->
-<section class="pillband pill--soil pill--clip-left">
+<section class="pillband pill--soil pill--clip-left pill--earlywrap">
   <div class="section resources">
     <h2>Preparing for fieldwork includes proactive safety planning.</h2>
 <div class="resources-grid">
