@@ -56,10 +56,9 @@ hero_tint: .40
 </section>
 
 <!-- 3) PREPARING — pillband -->
-<section class="section">
 <section class="pillband pill--soil pill--clip-left">
-    <h2>Preparing for fieldwork includes proactive safety planning.</h2>
   <div class="section resources">
+    <h2>Preparing for fieldwork includes proactive safety planning.</h2>
 <div class="resources-grid">
       <article class="resource-card">
         <h3>Fieldwork Safety Plan</h3>
@@ -82,7 +81,6 @@ hero_tint: .40
       </article>
     </div>
   </div>
-</section>
 </section>
 
 <section class="section section--prep">
