@@ -805,31 +805,24 @@ body { overflow-x: visible; }    /* allow abspos ::before to render */
   }
 }
 
-/* Phone-only: make right-clipped disclaimer wrap sooner and sit
-   farther from the curve */
+/* Phone-only: keep the pill flush to the right, but wrap earlier */
 @media (max-width: 560px){
+  /* DO NOT change the section padding */
 
-  /* a little more room on the curve side of the section */
-  .disclaimer-wrap{
-    /* extra right gutter near the clip curve */
-    padding-right: max(var(--page-pad-inline), clamp(56px, 20vw, 120px));
-    padding-left:  var(--page-pad-inline);
-  }
-
-  /* tighten the pillhead itself */
   .pillhead.pill--clip-right.pill--disclaimer{
-    /* smaller, denser pill */
-    --pillhead-pad-y: clamp(1.1em, 3.6vw, 1.4em);
-    --pillhead-pad-x: clamp(0.9em, 3.8vw, 1.2em);
+    /* compact pill */
+    --pillhead-pad-y: clamp(1.05em, 3.6vw, 1.3em);
+    --pillhead-pad-x: clamp(0.9em, 3.6vw, 1.2em);
 
-    /* earlier line wrapping */
-    max-inline-size: clamp(30ch, 78vw, 38ch);
-
-    /* friendlier phone text */
-    font-size: clamp(0.98rem, 3.5vw, 1.05rem);
+    /* wrap sooner */
+    max-inline-size: clamp(28ch, 76vw, 36ch);
     text-wrap: pretty;
     overflow-wrap: anywhere;
     hyphens: auto;
+
+    /* add a private buffer on the curve side without shifting the pill */
+    padding-right: calc(var(--pillhead-pad-x) + clamp(32px, 12vw, 72px));
+    margin-right:  calc(-1 * clamp(32px, 12vw, 72px));
   }
 }
 
