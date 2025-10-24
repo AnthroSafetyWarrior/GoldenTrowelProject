@@ -303,7 +303,7 @@ header.hero::before{
 /* ===== Content Pill ===== */
 .pill{
   --pill-top-extra: clamp(16px, 2.6vw, 28px);     /* extra top cushion */
-  --curve-inset: clamp(32px, 10vw, 280px);        /* side protection near curve */
+  --curve-inset: clamp(48px, 10vw, 320px);        /* side protection near curve */
 
   position: relative;
   z-index: 0;
@@ -348,7 +348,7 @@ header.hero::before{
 
 /* small screens: a touch more curve protection */
 @media (max-width:640px){
-  .pill{ --curve-inset: clamp(40px, 12vw, 220px); }
+  .pill{ --curve-inset: clamp(48px, 12vw, 320px); }
 }
 
 /* ===== Intro (non-pill) ===== */
@@ -411,7 +411,7 @@ header.hero::before{
   gap: clamp(8px, 3vw, 16px);
 }
 .resource-card{
-  --diameter: clamp(240px, 28vw, 360px);
+  --diameter: clamp(230px, 28vw, 360px);
   width: var(--diameter);
   aspect-ratio: 1 / 1;
   border-radius: 50%;
