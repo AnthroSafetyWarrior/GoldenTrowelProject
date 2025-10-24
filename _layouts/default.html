@@ -777,23 +777,32 @@ body { overflow-x: visible; }    /* allow abspos ::before to render */
   max-inline-size: clamp(28ch, 44vw, 36ch);
   text-wrap: balance;
 }
+/* ---- Extra-tight rules for RIGHT-clipped pills on phones ---- */
+@media (max-width: 560px){
 
-/* Early-wrap utility for RIGHT-clipped pillbands */
-.pillband.pill--clip-right.pill--earlywrap {
-  /* make text wrap sooner and stay off the curve */
-  --pill-measure: clamp(34ch, 48vw, 42ch);
-  --pill-curve-inset: clamp(48px, 14vw, 320px);
-}
+  /* BAND: earlier wrap + bigger safe gutter near the curve */
+  .pillband.pill--clip-right.pill--earlywrap{
+    --pill-curve-inset: clamp(72px, 22vw, 360px);   /* push text further left */
+    --pill-measure:     clamp(28ch, 80vw, 34ch);    /* shorter line length */
+    min-height: clamp(170px, 24vw, 260px);          /* optional: slightly shorter band */
+  }
+  .pillband.pill--clip-right.pill--earlywrap .section{
+    padding-left: max(var(--pill-pad-inline), calc(var(--pill-curve-inset) + 8px));
+  }
+  .pillband.pill--clip-right.pill--earlywrap h2{
+    max-inline-size: clamp(24ch, 70vw, 30ch);
+    text-wrap: balance;
+  }
+  .pillband.pill--clip-right.pill--earlywrap :where(p, ul, ol, blockquote){
+    max-inline-size: 100%;
+  }
 
-/* Respect the larger inset on the clipped side */
-.pillband.pill--clip-right.pill--earlywrap .section {
-  padding-left: max(var(--pill-pad-inline), var(--pill-curve-inset));
-}
-
-/* Optional: tighten headline width */
-.pillband.pill--clip-right.pill--earlywrap h2 {
-  max-inline-size: clamp(30ch, 44vw, 36ch);
-  text-wrap: balance;
+  /* CONTENT PILL: deeper inset on the curved side */
+  .pill.pill--clip-right{
+    --curve-inset: clamp(72px, 22vw, 360px);
+    --pill-pad-x:  clamp(16px, 4.5vw, 22px);
+    --pill-pad-y:  clamp(20px, 5.5vw, 28px);
+  }
 }
 
 </style>
