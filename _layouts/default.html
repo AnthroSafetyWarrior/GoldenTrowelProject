@@ -785,11 +785,7 @@ body { overflow-x: visible; }    /* allow abspos ::before to render */
     --pill-curve-inset: clamp(72px, 22vw, 360px);   /* push text further left */
     --pill-measure:     clamp(28ch, 80vw, 34ch);    /* shorter line length */
     min-height: clamp(170px, 24vw, 260px);          /* optional: slightly shorter band */
-.pillhead.pill--clip-right.pill--earlywrapl{
-    --pill-curve-inset: clamp(72px, 22vw, 360px);   /* push text further left */
-    --pill-measure:     clamp(28ch, 80vw, 34ch);    /* shorter line length */
-    min-height: clamp(170px, 24vw, 260px);          /* optional: slightly shorter 
-  }
+
   .pillband.pill--clip-right.pill--earlywrapl .section{
     padding-left: max(var(--pill-pad-inline), calc(var(--pill-curve-inset) + 8px));
   }
@@ -801,22 +797,39 @@ body { overflow-x: visible; }    /* allow abspos ::before to render */
     max-inline-size: 100%;
   }
 
-.pillhead.pill--clip-right.pill--earlywrapl .section{
-    padding-left: max(var(--pill-pad-inline), calc(var(--pill-curve-inset) + 8px));
-  }
-  .pillhead.pill--clip-right.pill--earlywrapl h2{
-    max-inline-size: clamp(24ch, 70vw, 30ch);
-    text-wrap: balance;
-  }
-  .pillhead.pill--clip-right.pill--earlywrapl :where(p, ul, ol, blockquote){
-    max-inline-size: 100%;
-  }
-
   /* CONTENT PILL: deeper inset on the curved side */
   .pill.pill--clip-right{
     --curve-inset: clamp(72px, 22vw, 360px);
     --pill-pad-x:  clamp(16px, 4.5vw, 22px);
     --pill-pad-y:  clamp(20px, 5.5vw, 28px);
+  }
+}
+
+/* Phone-only: make right-clipped disclaimer wrap sooner and sit
+   farther from the curve */
+@media (max-width: 560px){
+
+  /* a little more room on the curve side of the section */
+  .disclaimer-wrap{
+    /* extra right gutter near the clip curve */
+    padding-right: max(var(--page-pad-inline), clamp(56px, 20vw, 120px));
+    padding-left:  var(--page-pad-inline);
+  }
+
+  /* tighten the pillhead itself */
+  .pillhead.pill--clip-right.pill--disclaimer{
+    /* smaller, denser pill */
+    --pillhead-pad-y: clamp(1.1em, 3.6vw, 1.4em);
+    --pillhead-pad-x: clamp(0.9em, 3.8vw, 1.2em);
+
+    /* earlier line wrapping */
+    max-inline-size: clamp(30ch, 78vw, 38ch);
+
+    /* friendlier phone text */
+    font-size: clamp(0.98rem, 3.5vw, 1.05rem);
+    text-wrap: pretty;
+    overflow-wrap: anywhere;
+    hyphens: auto;
   }
 }
 
