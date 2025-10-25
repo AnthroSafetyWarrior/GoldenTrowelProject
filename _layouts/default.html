@@ -116,13 +116,13 @@ header.hero::before{
 /* The wave pulls the next band upward by exactly this amount */
 .hero-wave svg{
   display:block;
-  margin-bottom: calc(var(--seam-gap) * -1);
+  margin-bottom: calc(var(--seam-gap) * -0.5);
 }
 
 /* Sticky band sits up into the wave by the same amount */
 .nav-gradient{
   position: sticky;
-  top: calc(var(--seam-gap) * -.5);
+  top: calc(var(--seam-gap) * -0.5);
   z-index: 3000;
   overflow: hidden;
   background: linear-gradient(to bottom,
