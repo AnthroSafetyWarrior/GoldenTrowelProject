@@ -118,45 +118,100 @@ header.hero::before{
   margin-bottom: calc(-8px + var(--seam-gap));
 }
 
-/* keep the nav band attached to the wave but fixed while scrolling */
+/* ===== Wave Nav band ===== */
 .nav-gradient{
-  position: relative;                 /* default (on load) */
+  position: relative;                 /* attached to the wave by default */
   z-index: 3000;
+  background: linear-gradient(to bottom,
+    var(--wave-dark) 0%,
+    color-mix(in srgb, var(--wave-dark) 75%, var(--wave-mid)) 22%,
+    var(--wave-mid) 46%,
+    color-mix(in srgb, var(--wave-mid) 65%, #eae6df) 58%,
+    color-mix(in srgb, var(--wave-mid) 35%, #eae6df) 80%,
+    #eae6df 100%);
 }
 
-/* when JS adds .is-fixed we overlay it on the page */
+/* When it needs to float over the page */
 .nav-gradient.is-fixed{
   position: fixed;
-  left: 0; right: 0; top: 0;
-  /* same background you already use so the look stays consistent */
+  top: 0; left: 0; right: 0;
   backdrop-filter: saturate(110%) blur(2px);
   box-shadow: 0 6px 14px rgba(0,0,0,.12);
 }
 
-/* spacer so content doesn’t jump when the bar becomes fixed */
-.nav-spacer{ height: var(--nav-height, 120px); }
+/* Spacer prevents layout jump when .is-fixed is active */
+.nav-spacer{ height: var(--nav-height, 120px); display:none; }
 
-/* allow ends to scroll past the edges, with nice snap */
+/* Hide the decorative SVG wave inside the fixed band */
+.nav-gradient .wave{ display:none !important; }
+
+/* ===== Scrollable row of circles ===== */
 .wave-nav{
+  position: relative;
   overflow-x: auto;
+  overflow-y: clip;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0,0,0,.28) transparent;
+
+  /* gentle affordance that more items exist off-screen */
   scroll-snap-type: x proximity;
   overscroll-behavior-x: contain;
-  position: relative;
+}
+.wave-nav::-webkit-scrollbar{ height:10px; }
+.wave-nav::-webkit-scrollbar-thumb{
+  background: rgba(0,0,0,.25);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
 }
 
-/* optional soft edge fades so users realize it scrolls */
+/* soft edge fades (don’t block clicks) */
 .wave-nav::before,
 .wave-nav::after{
   content:"";
-  position:absolute; top:0; bottom:0; width:40px; pointer-events:none; z-index:6;
+  position:absolute; top:0; bottom:0; width:40px; z-index:6; pointer-events:none;
   background: linear-gradient(to right, rgba(234,230,223,1), rgba(234,230,223,0));
 }
-.wave-nav::after{ right:0; transform:scaleX(-1); }
 .wave-nav::before{ left:0; }
+.wave-nav::after{ right:0; transform: scaleX(-1); }
 
-/* let each circle snap toward center */
-.circle{ scroll-snap-align: center; }
+.wave-track{ position:relative; height:100%; min-width:0; }
 
+/* Absolute-position the circles along the track */
+.circle-nav{ position:absolute; inset:0; pointer-events:none; z-index:5; transform:translateY(var(--circle-lift)); }
+.circle{
+  position:absolute; pointer-events:auto;
+  --size: clamp(90px, 9.25vw, 112px);
+  width:var(--size); height:var(--size);
+  scroll-snap-align: center;        /* centers on release */
+}
+
+/* Buttons (unchanged visual) */
+.circle-btn{
+  position:absolute; inset:0; border-radius:50%; border:3px solid var(--gold);
+  display:flex; align-items:center; justify-content:center; text-align:center;
+  padding:6px; line-height:1.1; font-weight:800; cursor:pointer;
+  font-size:clamp(.9rem,1.1vw,1rem);
+  background:var(--gold); color:var(--soil);
+  box-shadow:0 10px 0 rgba(0,0,0,.10), 0 2px 8px rgba(0,0,0,.08);
+  transition: transform .15s ease, background .15s ease, color .15s ease,
+              box-shadow .15s ease, border-color .15s ease;
+  z-index:1;
+}
+.circle-btn:hover,
+.circle-btn:focus-visible{
+  background:#444054; color:#fff; border-color:var(--gold); outline:0;
+  box-shadow:0 12px 0 rgba(0,0,0,.12), 0 6px 14px rgba(0,0,0,.12);
+}
+
+/* Flyouts (unchanged) */
+.flyout{
+  display:none; position:absolute; left:50%; top:calc(100% + 10px); transform:translateX(-50%);
+  flex-direction:column; align-items:center; gap:0; pointer-events:none; opacity:0; transition:opacity .18s ease; z-index:10;
+}
+.circle:hover .flyout, .circle.is-open .flyout{ display:flex; opacity:1; pointer-events:auto; }
+.flyout.is-floating{ position:fixed; left:0; top:0; transform:translateX(-50%); display:flex; opacity:1; pointer-events:auto; z-index:2000; }
 
 /* === NAV FLYOUT FIX ===================================================== */
 /* Fully isolate .pill--nav so it ignores .pill geometry rules */
@@ -898,17 +953,17 @@ body { overflow-x: visible; }    /* allow abspos ::before to render */
   </main>
 
   <!-- Tight layout + portal-on-open so flyouts sit over the page -->
-  <script>
-  (() => {
-  const wrap  = document.querySelector('.wave-nav');
-  const band  = document.querySelector('.nav-gradient');
-  const track = wrap?.querySelector('.wave-track');
+ <script>
+(() => {
+  const wrap   = document.querySelector('.wave-nav');
+  const band   = document.querySelector('.nav-gradient');
+  const track  = wrap?.querySelector('.wave-track');
   const circles = track?.querySelectorAll('.circle') || [];
-  if (!wrap || !track || !circles.length) return;
-
-  // Create a spacer right after the hero-wave so layout doesn't jump
   const heroWave = document.querySelector('.hero-wave');
-  let spacer = document.createElement('div');
+  if (!wrap || !track || !circles.length || !band || !heroWave) return;
+
+  /* Spacer after the wave; shown only while fixed */
+  const spacer = document.createElement('div');
   spacer.className = 'nav-spacer';
   heroWave.after(spacer);
 
@@ -924,52 +979,55 @@ body { overflow-x: visible; }    /* allow abspos ::before to render */
     const extra = Math.max(0, -lift) + 12;
     const h = Math.max(110, Math.round(size * 1.12) + extra);
     wrap.style.height = h + 'px';
-    // expose height for spacer when fixed
     document.documentElement.style.setProperty('--nav-height', h + 'px');
   }
 
   function draw(){
-    const size   = getCircleSize();
-    const wrapW  = wrap.clientWidth;
-    const count  = circles.length;
+    const size  = getCircleSize();
+    const wrapW = wrap.clientWidth;
+    const count = circles.length;
 
-    // spacing between circles
+    /* circle spacing */
     const GAP_MIN = 120, GAP_MAX = 220;
-    const gapFit  = (wrapW - count*size) / Math.max(1, (count - 1));
+    const gapFit  = (wrapW - count*size) / Math.max(1, count - 1);
     const gap     = Math.max(GAP_MIN, Math.min(gapFit, GAP_MAX));
 
-    // edge gutters so first/last can center
+    /* edge gutters so first/last can center on small screens */
     const edgePad = Math.max(24, Math.floor(wrapW/2 - size/2));
 
-    // full row width including gutters
+    /* total width incl. gutters */
     const rowWidth    = count*size + (count-1)*gap;
-    const neededWidth = rowWidth + 2*edgePad;
+    const neededWidth = rowWidth + edgePad*2;
 
-    // widen the scroll area and shift all circles by the left gutter
     track.style.width        = Math.max(wrapW, neededWidth) + 'px';
     track.style.paddingLeft  = edgePad + 'px';
     track.style.paddingRight = edgePad + 'px';
 
     const TOP = Math.max(2, Math.round(size * 0.08));
-    circles.forEach((circleEl, i) => {
+    circles.forEach((el, i) => {
       const left = edgePad + i*(size + gap);
-      circleEl.style.left = left + 'px';
-      circleEl.style.top  = TOP  + 'px';
-      const href = circleEl.getAttribute('data-href');
-      const btn  = circleEl.querySelector('.circle-btn');
+      el.style.left = left + 'px';
+      el.style.top  = TOP  + 'px';
+
+      const href = el.getAttribute('data-href');
+      const btn  = el.querySelector('.circle-btn');
       if (btn && href) btn.onclick = () => { location.href = href; };
     });
   }
 
-  // Make the band fixed once you scroll past the hero wave seam
+  /* make the band float after you scroll past the wave */
   function stickiness(){
-    const rect = heroWave.getBoundingClientRect();
-    if (rect.bottom <= 0) {
-      band.classList.add('is-fixed');
-      spacer.style.display = 'block';
+    const seam = heroWave.getBoundingClientRect().bottom;
+    if (seam <= 0){
+      if (!band.classList.contains('is-fixed')){
+        band.classList.add('is-fixed');
+        spacer.style.display = 'block';
+      }
     } else {
-      band.classList.remove('is-fixed');
-      spacer.style.display = 'none';
+      if (band.classList.contains('is-fixed')){
+        band.classList.remove('is-fixed');
+        spacer.style.display = 'none';
+      }
     }
   }
 
@@ -977,9 +1035,71 @@ body { overflow-x: visible; }    /* allow abspos ::before to render */
   addEventListener('resize', () => { setHeight(); draw(); stickiness(); }, { passive:true });
   addEventListener('scroll', stickiness, { passive:true });
 
-  /* your flyout portal code stays the same below */
-})();
+  /* Flyout portal (unchanged behavior) */
+  const circlesAll = document.querySelectorAll('.circle');
+  circlesAll.forEach(circle => {
+    const btn = circle.querySelector('.circle-btn');
+    const fly = circle.querySelector('.flyout');
+    if (!btn || !fly) return;
 
-  </script>
+    let placeholder = null;
+    let hideTimer = null;
+
+    const toBody = () => {
+      if (fly.parentElement === document.body) return;
+      placeholder = document.createElement('span');
+      placeholder.hidden = true;
+      circle.appendChild(placeholder);
+      document.body.appendChild(fly);
+    };
+    const backHome = () => {
+      if (!placeholder) return;
+      placeholder.replaceWith(fly);
+      placeholder = null;
+    };
+    const positionFlyout = () => {
+      const r = btn.getBoundingClientRect();
+      fly.classList.add('is-floating');
+      fly.style.left = Math.round(r.left + r.width/2) + 'px';
+      fly.style.top  = Math.round(r.bottom + 8) + 'px';
+      fly.style.display = 'flex';
+    };
+    const show = () => { clearTimeout(hideTimer); toBody(); positionFlyout(); };
+    const hide = () => {
+      fly.classList.remove('is-floating');
+      fly.style.left = fly.style.top = '';
+      fly.style.display = 'none';
+      backHome();
+    };
+
+    btn.addEventListener('pointerenter', show);
+    btn.addEventListener('pointerleave', () => { hideTimer = setTimeout(hide, 120); });
+    fly.addEventListener('pointerenter', () => clearTimeout(hideTimer));
+    fly.addEventListener('pointerleave', () => { hideTimer = setTimeout(hide, 120); });
+
+    btn.addEventListener('focus', show);
+    btn.addEventListener('blur',  () => { hideTimer = setTimeout(hide, 150); });
+
+    let armed = false;
+    btn.addEventListener('click', (e) => {
+      const hasItems = fly.querySelector('.pill');
+      if (!hasItems) return;
+      if (!armed) {
+        e.preventDefault();
+        show();
+        armed = true;
+        setTimeout(() => armed = false, 1200);
+      }
+    }, { passive:false });
+
+    addEventListener('scroll', hide, { passive:true });
+    addEventListener('resize', () => { hide(); positionFlyout(); }, { passive:true });
+    document.addEventListener('click', (ev) => {
+      if (!fly.contains(ev.target) && !btn.contains(ev.target)) hide();
+    }, { passive:true });
+  });
+})();
+</script>
+
 </body>
 </html>
