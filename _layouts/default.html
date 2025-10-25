@@ -111,18 +111,18 @@ header.hero::before{
 .hero-wave{ position:relative; }
 /* space between the wave and the gradient band */
 /* One token, used by both the wave and the sticky band */
-.hero-wave{ --seam-gap: clamp(6px, 0.8vw, 10px); }
+.hero-wave{ --seam-gap: clamp(6px, 0.8vw, 8px); }
 
 /* The wave pulls the next band upward by exactly this amount */
 .hero-wave svg{
   display:block;
-  margin-bottom: calc(var(--seam-gap) * -0.5);
+  margin-bottom: calc(var(--seam-gap) * -1);
 }
 
 /* Sticky band sits up into the wave by the same amount */
 .nav-gradient{
   position: sticky;
-  top: calc(var(--seam-gap) * -0.5);
+  top: calc(var(--seam-gap) * -1);
   z-index: 3000;
   overflow: hidden;
   background: linear-gradient(to bottom,
