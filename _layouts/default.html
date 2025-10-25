@@ -111,7 +111,7 @@ header.hero::before{
 .hero-wave{ position:relative; }
 /* space between the wave and the gradient band */
 /* One token, used by both the wave and the sticky band */
-.hero-wave{ --seam-gap: clamp(6px); }
+.hero-wave{ --seam-gap: clamp(6px, 0.8vw, 10px); }
 
 /* The wave pulls the next band upward by exactly this amount */
 .hero-wave svg{
@@ -940,6 +940,18 @@ html, body { overflow-x: hidden; }
   </main>
 
   <!-- Tight layout + portal-on-open so flyouts sit over the page -->
+<script>
+(function detachNavBand(){
+  const header = document.querySelector('header.hero');
+  const band   = header?.querySelector('.nav-gradient');
+  if (!header || !band) return;
+
+  // move band after the header so sticky can span the whole page
+  header.after(band);
+  band.classList.add('is-detached'); // style hook (below)
+})();
+</script>
+
 <script>
 (() => {
   const wrap  = document.querySelector('.wave-nav');
