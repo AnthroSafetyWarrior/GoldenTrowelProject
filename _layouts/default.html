@@ -116,7 +116,7 @@ header.hero::before{
 /* The wave pulls the next band upward by exactly this amount */
 .hero-wave svg{
   display:block;
-  margin-bottom: calc(var(--seam-gap) * -1);
+  margin-bottom: calc(var(--seam-gap));
 }
 
 /* Sticky band sits up into the wave by the same amount */
@@ -201,7 +201,7 @@ html, body { overflow-x: hidden; }
 .flyout{ display:none; position:absolute; left:50%; top:calc(100% + 10px); transform:translateX(-50%);
   flex-direction:column; align-items:center; gap:0; pointer-events:none; opacity:0; transition:opacity .18s ease; z-index:10; }
 .circle:hover .flyout, .circle.is-open .flyout{ display:flex; opacity:1; pointer-events:auto; }
-.flyout.is-floating{ position:fixed; left:0; top:0; transform:translateX(-50%); display:flex; opacity:1; pointer-events:auto; z-index:2000; }
+.flyout.is-floating{ position:fixed; left:0; top:0; transform:translateX(-50%); display:flex; opacity:1; pointer-events:auto; z-index:4000; }
 
 
 /* === NAV FLYOUT FIX ===================================================== */
