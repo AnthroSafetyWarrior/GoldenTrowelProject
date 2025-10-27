@@ -120,9 +120,10 @@ header.hero::before{
 }
 
 /* Sticky band sits up into the wave by the same amount */
+/* default state while still in the header */
 .nav-gradient{
-  position: sticky;
-  top: calc(var(--seam-gap) * -1);
+  position: relative;   /* not sticky yet */
+  top: auto;
   z-index: 3000;
   overflow: hidden;
   background: linear-gradient(to bottom,
@@ -134,6 +135,13 @@ header.hero::before{
     #eae6df 100%);
   box-shadow: 0 6px 14px rgba(0,0,0,.12);
   backdrop-filter: saturate(110%) blur(2px);
+}
+
+/* once JS moves the band after the header */
+.nav-gradient.is-detached{
+  position: sticky;
+  top: 0;                               /* stick to the viewport top */
+  margin-top: calc(var(--seam-gap) * -1); /* “hug” the wave edge */
 }
 
 /* Keep the page from side-scrolling at all */
