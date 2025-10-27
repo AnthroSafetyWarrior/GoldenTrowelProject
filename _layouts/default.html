@@ -138,11 +138,18 @@ header.hero::before{
 }
 
 /* once JS moves the band after the header */
-.nav-gradient.is-detached{
+.nav-gradient.is-detached {
   position: sticky;
-  top: 0;                               /* stick to the viewport top */
-  margin-top: calc(var(--seam-gap) * -1); /* “hug” the wave edge */
+  top: 0;
+  z-index: 3000;
+  margin-top: 0;                 /* remove overlap with hero */
+  transform: translateY(-6px);   /* visually hug the wave edge */
 }
+
+header.hero {
+  margin-bottom: var(--seam-gap);
+}
+
 
 /* Keep the page from side-scrolling at all */
 html, body { overflow-x: hidden; }
