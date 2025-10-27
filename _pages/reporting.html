@@ -20,6 +20,153 @@ hero_tint: .40                        # optional (0–1: higher = more maroon ov
   color: var(--slate);           /* or a darker slate var if you have one */
   text-decoration: underline;
 }
+
+/* =========================
+   Embassy directory — continents → table panels
+   ========================= */
+
+/* Container card */
+.country-section{
+  width: min(100%, var(--maxw));
+  margin-inline: auto;
+  margin-block: clamp(10px, 2.5vw, 24px) 2rem;
+  padding: clamp(16px, 2.5vw, 28px) var(--page-pad-inline);
+  background: var(--slate);
+  color:#fff;
+  border-radius:16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+  min-width: 0;
+}
+.country-section .wrap{
+  display:block;
+  min-width:0;
+  padding-inline: clamp(12px, 3vw, 28px); /* inner gutter */
+}
+
+/* Region (continent) header + toggle */
+.region{
+  margin-block: clamp(10px, 2vw, 16px);
+}
+.region-toggle{
+  display:block;
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: .8em 1.1em;
+  background: var(--gold);
+  color:#000;
+  border: none;
+  border-radius: 12px;
+  font-family: Calibri, sans-serif;
+  font-weight: 700;
+  font-size: 1.06rem;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color .2s ease, color .2s ease, box-shadow .2s ease;
+  position: relative;
+}
+.region-toggle:hover{ background: var(--sage); color:#000; }
+.region-toggle[aria-expanded="true"]{
+  background: var(--slate);
+  color:#fff;
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,.18);
+}
+
+/* Chevron indicator */
+.region-toggle::after{
+  content:"▾";
+  position:absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  opacity:.9;
+}
+.region-toggle[aria-expanded="true"]::after{ content:"▴"; }
+
+/* Accessible focus */
+.region-toggle:focus-visible{
+  outline: 3px solid var(--sage);
+  outline-offset: 3px;
+}
+
+/* Panel wrapper (the bit that opens) */
+.region-body{
+  display:none;
+  margin: .7rem auto 1.2rem;
+  max-width: 980px;
+  padding-inline: 0;
+}
+.region-body.open{ display:block; }
+
+/* White panel that holds the table */
+.panel--table{
+  background:#fff;
+  color:#111;
+  border-radius:12px;
+  padding:12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+
+/* Make the table scrollable on small screens */
+.panel--table{
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Table styles */
+.embassy-table{
+  width:100%;
+  border-collapse: collapse;
+  min-width: 520px; /* keeps columns readable; enables horizontal scroll when needed */
+}
+.embassy-table thead th{
+  font-weight:700;
+  font-size: .98rem;
+  background: #f6f6f6;
+  color:#111;
+  border-bottom: 1px solid rgba(0,0,0,.12);
+}
+.embassy-table th,
+.embassy-table td{
+  padding:.65rem .75rem;
+  text-align:left;
+  vertical-align: top;
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  line-height:1.35;
+}
+.embassy-table tr:last-child td{ border-bottom:none; }
+
+.embassy-table a{
+  text-decoration: underline;
+  color: inherit; /* inherits dark text in white panel */
+}
+.embassy-table a:hover{ text-decoration: none; }
+
+/* Optional: subtle zebra for readability */
+.embassy-table tbody tr:nth-child(odd){
+  background: rgba(0,0,0,.025);
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce){
+  .region-toggle{ transition: none; }
+}
+
+/* Small-screen tweaks */
+@media (max-width: 540px){
+  .region-toggle{ font-size: 1rem; padding: .7em 2.3em .7em .9em; }
+  .region-toggle::after{ right: 10px; }
+}
+
+/* If this block lives inside .section, avoid double padding from parent */
+.section .country-section{
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+  padding-block: clamp(16px, 2.5vw, 28px);
+  padding-inline: 0;
+}
 </style>
 <!-- 1) Intro – plain background -->
 <section class="section intro">
@@ -145,4 +292,3314 @@ Procedures may differ depending on the country where you conduct research. Visit
 </section>
  
 
+<!-- 2) SUPPORT — shared split -->
+<section class="pillband pill--soil pill--clip-left pill--tight">
+ <div class="section">
+<h2>Reporting Process at a Glance</h2> 
+<p class="lede">Many of these links will take you to an embassy page detailing reporting country-specific reporting processes that may not reflect your citizenship or residence. Though the information may be accurate, it is best to access a similar page from your country of residence or citizenship to have the most accurrate information for your circumstance</p>
+</div>
+</section>
 
+  <section class="section section--flush">
+    <div class="country-section">
+      <div class="wrap">
+
+        <!-- Continent (example: Asia) -->
+        <div class="region">
+          <button class="region-toggle"
+                  id="asia-toggle"
+                  aria-controls="asia-body"
+                  aria-expanded="false">
+            Asia
+          </button>
+
+          <div class="region-body" id="asia-body" role="region" aria-labelledby="asia-toggle">
+            <div class="accordion-grid">
+              <div class="country">
+                <div class="panel panel--table">
+                  <table class="embassy-table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Country</th>
+                        <th scope="col">Sexual Misconduct Law</th>
+                        <th scope="col">Self Defense Law</th>
+                        <th scope="col">Reporting Process</th>
+			<th scope="col">Embassy/Consulate</th>                 
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Afghanistan</td>
+<td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>                   
+                        <td><a href="https://mfa.gov.af/en/page/27115"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a>
+<br>
+<a href="https://embassies.net/afghanistan-embassy" target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+</tr>
+                      <tr>
+                        <td>Armenia</td>
+
+<td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>                   
+ </tr>
+                      <tr>
+                        <td>Azerbaijan</td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+<td><a href="https://www.mfa.gov.az/files/f-doc/Embassies-hotlines.pdf"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+</tr>
+                      <tr>
+                        <td>Bahrain</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.mofa.gov.bh/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>                     
+ <tr>
+                        <td>Bangladesh</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://embassies.net/bangladesh-embassy"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr> 
+                    
+ <tr>
+                        <td>Bhutan</td>
+                        <td>Ministry of Foreign Affairs and External Trade</td>  
+                        <td><a href="https://www.mfa.gov.bt/embassies-missions-and-consulates-abroad/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+                      </tr>
+
+                      <tr>
+                        <td>Brunei</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.mfa.gov.bn/Pages/Foreign-Diplomatic-Missions.aspx"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>     
+                
+ <tr>
+                        <td>Cambodia</td>
+                        <td>Ministry of Foreign Affairs & Internal Cooperation</td>  
+                        <td><a href="https://www.mfaic.gov.kh/EmbassyCambodiaMissionAbroad"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                      <tr>
+                        <td>China</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.fmprc.gov.cn/eng/zwjg/zglsg/2491_665346/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>        
+
+                      <tr>
+                        <td>Cyprus</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.gov.cy/mfa/en/foreign-diplomatic-missions-to-cyprus/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+                      <tr>
+                        <td>Georgia</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://mfa.gov.ge/pfiles/files/DIPLOMATIC%20LIST_%20December%202024.pdf"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+                        <td><a href="https://www.equaldex.com/region/Georgia"  target="_blank"  rel="noopener noreferrer">Equality Index (LGBTQ+)</a></td>
+<td><a href="https://www.smartraveller.gov.au/destinations/europe/georgia"  target="_blank"  rel="noopener noreferrer">General Safety</a>
+<br>
+<a href="https://www.worldnomads.com/travel-safety/middle-east/georgia/georgia-internal-travel"  target="_blank"  rel="noopener noreferrer">General Safety</a></td>
+<td><a href="https://georgia.to/en/language-and-etiquette/"  target="_blank"  rel="noopener noreferrer">Cultural Etiquette</a></td>
+</tr>
+                      <tr>
+                        <td>Hong Kong</td>
+                        <td>Protocol Division Government Secretariat</td>  
+                        <td><a href="https://www.protocol.gov.hk/en/posts_bodies.html"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>             
+</tr>
+
+<tr>
+                        <td>India</td>
+                        <td>Ministry of External Affairs</td>  
+                        <td><a href="https://igod.gov.in/int/INMISS/organizations"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                      <tr>
+                        <td>Indonesia</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.mfa.gov.rs/sites/default/files/2025-10/Diplomatska%20lista%2C%201.10.2025.pdf"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+                      <tr>
+                        <td>Iran</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://en.mfa.gov.ir/portal/viewpage/15154/embassies-consulates"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+                        <td><a href="https://www.equaldex.com/region/Iran"  target="_blank"  rel="noopener noreferrer">Equality Index (LGBTQ+)</a></td>
+<td><a href="https://www.smartraveller.gov.au/destinations/middle-east/iran"  target="_blank"  rel="noopener noreferrer">General Safety</a>
+<br>
+<a href="https://www.worldnomads.com/explore/southern-asia/iran/5-things-to-know-before-going-to-iran"  target="_blank"  rel="noopener noreferrer">General Safety</a></td>
+<td><a href="https://culturalatlas.sbs.com.au/iranian-culture/iranian-culture-etiquette"  target="_blank"  rel="noopener noreferrer">Cultural Etiquette</a></td>
+</tr>
+
+                      <tr>
+                        <td>Iraq</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://mofa.gov.iq/iraqis-missions-abroad/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td></tr>
+
+                      <tr>
+                        <td>Israel</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.gov.il/en/departments/dynamiccollectors/israeli-consular-services?skip=0"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                      <tr>
+                        <td>Japan</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.mofa.go.jp/about/emb_cons/mofaserv.html"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                      <tr>
+                        <td>Jordan</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://embassies.net/jordan-embassy"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                      <tr>
+                        <td>Kazakhstan</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://egov.kz/cms/en/articles/kz_foreign_establishments"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                      <tr>
+                        <td>Kuwait</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.mofa.gov.kw/en/kuwait-missions/kuwaiti-diplomatic-missions-abroad/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a>
+<br>
+<a href="https://embassies.net/kuwait-embassy"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                      <tr>
+                        <td>Kyrgyzstan</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://mfa.kg/diplomatic-missions-of-kr/dipmissions-of-kr-abroad-2_en.html"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                 <tr>
+                        <td>Laos</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://embassies.net/laos-embassy"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                 <tr>
+                        <td>Lebanon</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://maronitefoundation.org/LebaneseCitizenship/uploads/documents/List-Of-Embassies-en.pdf"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                 <tr>
+                        <td>Macau</td>
+                        <td>Ministry of Foreign Affairs (China)</td>  
+                        <td><a href="https://www.fmprc.gov.cn/eng/zwjg/zglsg/2491_665346/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                 <tr>
+                        <td>Malaysia</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.kln.gov.my/web/guest/malaysian-mission"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+   <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                 <tr>
+                        <td>Maldives</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://foreign.gov.mv/index.php/en/ministry/embassies-and-consulates"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+   <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                 <tr>
+                        <td>Mongolia</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://en.consul.mn/representative/c/32"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                 <tr>
+                        <td>Myanmar</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://meberlin.com/myanmar-missions-abroad/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a>
+<br>
+<a href="https://embassies.net/myanmar-embassy"  target="_blank"  rel="noopener noreferrer">embassies.net</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Nepal</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://mofa.gov.np/pages/concurrent-accreditation-20/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Oman</td>
+                        <td>Foreign Ministry of Oman</td>  
+                        <td><a href="https://www.fm.gov.om/ministry/embassies/embassies-and-consulates-abroad/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Pakistan</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.mofa.gov.pk/list-of-focal-persons-pakistan-missions-abroad"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Philippines</td>
+                        <td>Department of Foreign Affairs</td>  
+                        <td><a href="https://dfa.gov.ph/office-of-protocol/foreign-consulates"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Qatar</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://mofa.gov.qa/en/qatar-and-the-world"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Saudi Arabia</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.mofa.gov.sa/en/embassies/Pages/default.aspx"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+        <tr>
+                        <td>Singapore</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.mfa.gov.sg/Overseas-Missions/Find-A-Singapore-Overseas-Mission"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+   <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+
+                <tr>
+                        <td>South Korea</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.mofa.go.kr/eng/nation/m_4902/list.do"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Sri Lanka</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://mfa.gov.lk/en/sri-lankas-honorary-consuls-abroad-2/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+
+                <tr>
+                        <td>State of Palestine</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.mofa.pna.ps/portals/0/Diplomatic%20List%20February%202025.pdf"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a>
+<br>
+<br>
+<a href="https://embassies.info/palestine"  target="_blank"  rel="noopener noreferrer">embassies.info</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Syria</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://mofaex.gov.sy/en/diplomatic-missions"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Taiwan</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://en.mofa.gov.tw/OverseasOfficeLink.aspx?n=1573&sms=957"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Tajikistan</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://mfa.tj/en/main/ministry/tajikistan-foreign-missions"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Thailand</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://image.mfa.go.th/mfa/0/mkKfL2iULZ/Diplomatic_and_Consular_List_as_of_August_2025/August_2025.pdf"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a>
+<br>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Turkey</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.mfa.gov.tr/turkish-representations.en.mfa"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Turkmenistan</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.mfa.gov.tm/en/consulates"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>United Arab Emirates</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.mofa.gov.ae/api/features/OpenData/DownloadWithCount?id=%7B2E4A22B5-B352-4DAA-B76D-638E9598133D%7D&Name=UAE%20Missions%20Abroad%20locations&openDataID=%7B8EBD0898-8454-4BE3-BD43-932F08999B48%7D"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Uzbekistan</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://data.egov.uz/eng/data/6107cb7d2a2e256d868e86ac?page=3"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Vietnam</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://omw.mofa.gov.vn/en-us/Pages/default.aspx"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+<td><a href="https://www.smartraveller.gov.au/destinations/asia/vietnam"  target="_blank"  rel="noopener noreferrer">Equality Index (LGBTQ+)</a></td>
+<td><a href="https://www.smartraveller.gov.au/destinations/asia/vietnam"  target="_blank"  rel="noopener noreferrer">General Safety</a></td>
+<td><a href="https://www.worldnomads.com/explore/southeast-asia/vietnam/dos-and-donts-when-travelling-in-vietnam"  target="_blank"  rel="noopener noreferrer">Cultural Etiquette</a>
+<br>
+<a href="https://vietnam.travel/things-to-do/vietnamese-etiquette-travellers"  target="_blank"  rel="noopener noreferrer">Cultural Etiquette</a></td>
+</tr>
+                <tr>
+                        <td>Yemen</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://embassies.net/yemen-embassy"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                    </tbody>
+                  </table>
+                </div><!-- /.panel -->
+              </div><!-- /.country -->
+            </div><!-- /.accordion-grid -->
+          </div><!-- /.region-body -->
+        </div><!-- /.region -->
+
+        
+ <!------------- Continent AFRICA ---------------->
+        <div class="region">
+          <button class="region-toggle"
+                  id="africa-toggle"
+                  aria-controls="africa-body"
+                  aria-expanded="false">
+            Africa
+          </button>
+
+          <div class="region-body" id="africa-body" role="region" aria-labelledby="africa-toggle">
+            <div class="accordion-grid">
+              <div class="country">
+                <div class="panel panel--table">
+                  <table class="embassy-table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Country</th>
+                        <th scope="col">Sexual Misconduct Law</th>
+                        <th scope="col">Self Defense Law</th>
+                        <th scope="col">Reporting Process</th>
+			<th scope="col">Embassy/Consulate</th>                 
+                      </tr>
+                    </thead>
+                    <tbody>
+                <tr>
+                        <td>Algeria</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.mfa.gov.dz/embassys-locations-list"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Angola</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.angola-visa.com/embassy/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Ascension Island</td>
+                        <td>Foreign, Commonwealth & Development Office</td>  
+                        <td><a href="https://www.gov.uk/world/embassies"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Benin</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.123embassy.com/country.php?c=Benin"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Botswana</td>
+                        <td>Ministry of International Affairs and Cooperation</td>  
+                        <td><a href="https://www.consulate-info.com/country.php?c=Botswana"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Burkina Faso</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.mfa.gov.bn/Pages/missions-abroad02.aspx"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a>
+<br>
+<a href="https://embassies.net/burkina-faso-embassy"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Burundi</td>
+                        <td>Ministry of Foreign Affairs and Development Cooperation</td>  
+                        <td><a href="https://www.mae.gov.bi/en/burundi-embassies-abroad/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+         <tr>
+                        <td>Cameroon</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.consulate-info.com/country.php?c=Cameroon"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Cape Verde</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://embassies.info/capeverde"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Central African Republic</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://embassies.info/centralafricanrepublic"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Chad</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://embassies.net/chad-embassy"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Comoros</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.consulate-info.com/country.php?c=Comoros"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Côte d'Ivoire</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://embassies.info/ivorycoast"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Democratic Republic of Congo</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="embassy-worldwide.com/country/democratic-republic-of-congo/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Djibouti</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://online.djibouti-evisa.com/emabssies-consulates-of-djibouti/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Egypt</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://cms.iatf.africa/sites/default/files/2023-10/List%20of%20Egyptian%20Consulates%20and%20Consular%20Sections%20in%20Egyptian%20Embassies%20AFRICA.pdf"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+
+                <tr>
+                        <td>Equatorial Guinea</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.embassy-worldwide.com/country/equatorial-guinea/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Eritrea</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.embassy-worldwide.com/country/eritrea/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+   <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+           <tr>
+                        <td>Eswatini</td>
+                        <td>Ministry of Foreign Affairs and International Cooperation</td>  
+                        <td><a href="https://www.gov.sz/images/2021-Diplomatic-Directory---Revised-October-2021.doc"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+              <tr>
+                        <td>Ethiopia</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.embassy-worldwide.com/country/ethiopia/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+   <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+
+              <tr>
+                        <td>Gabon</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.embassy-worldwide.com/country/gabon/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+              <tr>
+                        <td>Gambia</td>
+                        <td>Ministry of Foreign Affairs, International Cooperation & Gambians Abroad</td>  
+                        <td><a href="https://mofa.gov.gm/gambian-honorary-consuls-abroad/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+              <tr>
+                        <td>Ghana</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://ghanahighcommissionuk.com/ghanamissionabroad.aspx"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+              <tr>
+                        <td>Guinea</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.embassypages.com/guinea"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+
+              <tr>
+                        <td>Guinea-Bissau</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.consulate-info.com/country.php?c=Guinea-Bissau"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+              <tr>
+                        <td>Kenya</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://mfa.go.ke/sites/default/files/2025-06/DIPLOMATIC%20DIRECTORY%20MAY%202025%20FINAL.pdf"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+   <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+
+              <tr>
+                        <td>Lesotho</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.gov.ls/embassies/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+         <tr>
+                        <td>Liberia</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.mofa.gov.lr/general/foreign-missions"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+              <tr>
+                        <td>Libya</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.embassy-worldwide.com/country/libya/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+              <tr>
+                        <td>Madagascar</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.embassy-worldwide.com/country/madagascar/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+              <tr>
+                        <td>Malawi</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.embassy-worldwide.com/country/malawi/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+   <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+
+              <tr>
+                        <td>Mali</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.embassy-worldwide.com/country/mali/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+   <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+
+              <tr>
+                        <td>Mauritania</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.embassy-worldwide.com/country/mauritania/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+         <tr>
+                        <td>Mauritius</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://mauritiusifc.mu/edb-representative-offices-mauritius-diplomatic-missions-overseas"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+
+              <tr>
+                        <td>Mayotte</td>
+                        <td>Ministry for Europe and Foreign Affairs</td>  
+                        <td><a href="https://www.diplomatie.gouv.fr/fr/le-ministere-et-son-reseau/organisation-et-annuaires/ambassades-et-consulats-francais-a-l-etranger/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+               
+              <tr>
+                        <td>Morocco</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://chicmorocco.com/en/information/embassies-from-to-morocco/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+              <tr>
+                        <td>Mozambique</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.mozambique-info.co.za/country/travel_info/consulates"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+              <tr>
+                        <td>Namibia</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://visitnamibia.com.na/our-foreign-missions/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+              <tr>
+                        <td>Niger</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.embassy-worldwide.com/country/niger/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+              <tr>
+                        <td>Nigeria</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.foreignaffairs.gov.ng/diplomatic-missions/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a>
+<br>
+<a href="https://mofa.gov.bs/diplomatic-relations/foreign-missions-and-honorary-counsel/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+              <tr>
+                        <td>Republic of Congo</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.ambacongo-us.org/en/about-congo/embassies-abroad"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+ <tr>
+                        <td>Réunion</td>
+                        <td>Ministry for Europe and Foreign Affairs</td>  
+                        <td><a href="https://www.diplomatie.gouv.fr/fr/le-ministere-et-son-reseau/organisation-et-annuaires/ambassades-et-consulats-francais-a-l-etranger/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+              <tr>
+                        <td>Rwanda</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://embassies.info/niger"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+              <tr>
+                        <td>Saint Helena</td>
+                        <td>Foreign, Commonwealth & Development Office</td>  
+                        <td><a href="https://www.gov.uk/world/embassies"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+              <tr>
+                        <td>Sao Tome and Principe</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.embassy-worldwide.com/country/sao-tome-and-principe/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+              <tr>
+                        <td>Senegal</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.senegel.org/en/administration/executive-power/embassies-and-consulates-abroad"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+              <tr>
+                        <td>Seychelles</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://mfa.gov.sc/diplomatic-directory-2/seychelles-representative-overseas/seychelles-diplomatic-missions/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+              <tr>
+                        <td>Sierra Leone</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.embassy-worldwide.com/country/sierra-leone/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+              <tr>
+                        <td>Somalia</td>
+                        <td>Ministry of Foreign Affairs & International Cooperation</td>  
+                        <td><a href="https://web.mfa.gov.so/find-our-embassy-abroad/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+              <tr>
+                        <td>South Africa</td>
+                        <td>Department of International Relations and Cooperation</td>  
+                        <td><a href="https://dirco.gov.za/south-african-representation-abroad/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+              <tr>
+                        <td>South Sudan</td>
+                        <td>Ministry of Foreign Affairs & International Cooperation</td>  
+                        <td><a href="https://mofaic.gov.ss/missions-abroad/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+              <tr>
+                        <td>Sudan</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://embassies.net/sudan-embassy"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+              <tr>
+                        <td>Tanzania</td>
+                        <td>Ministry of Foreign Affairs and East African Cooperation</td>  
+<td><a href="http://foreign.go.tz/missions"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a>
+<br>
+<a href="https://www.embassy-worldwide.com/country/tanzania/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+              <tr>
+                        <td>Togo</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://embassies.info/togo"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a>
+<br>
+<a href="https://togohighcommissionza.org/diplomatic-missions-of-togo-abroad/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+              <tr>
+                        <td>Tristan da Cunha</td>
+                        <td>Foreign, Commonwealth & Development Office</td>  
+                        <td><a href="https://www.gov.uk/world/embassies"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+              <tr>
+                        <td>Tunisia</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://tunisia-e-visa.com/emabssies-consulates-of-tunisia/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+              <tr>
+                        <td>Uganda</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.embassy-worldwide.com/country/uganda/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+              <tr>
+                        <td>Zambia</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.zambiaimmigration.gov.zm/zambia-missions-abroad/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+
+              <tr>
+                        <td>Zimbabwe</td>
+                        <td>Ministry of Foreign Affairs</td>  
+                        <td><a href="https://www.zimfa.gov.zw/index.php/zimbabwe-embassies"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+ 
+                   </tbody>
+                  </table>
+                </div><!-- /.panel -->
+              </div><!-- /.country -->
+            </div><!-- /.accordion-grid -->
+          </div><!-- /.region-body -->
+        </div><!-- /.region -->
+
+
+ <!------------- Continent N AMERICA ---------------->
+        <div class="region">
+          <button class="region-toggle"
+                  id="namerica-toggle"
+                  aria-controls="namerica-body"
+                  aria-expanded="false">
+            North America
+          </button>
+
+          <div class="region-body" id="namerica-body" role="region" aria-labelledby="namerica-toggle">
+            <div class="accordion-grid">
+              <div class="country">
+                <div class="panel panel--table">
+                  <table class="embassy-table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Country</th>
+                        <th scope="col">Sexual Misconduct Law</th>
+                        <th scope="col">Self Defense Law</th>
+                        <th scope="col">Reporting Process</th>
+			<th scope="col">Embassy/Consulate</th>                 
+                      </tr>
+                    </thead>
+                    <tbody>
+                <tr>
+                        <td>Anguilla</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://embassies.net/anguilla-embassy"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+
+                <tr>
+                        <td>Antigua and Barbuda</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.antiguabarbudaconsulate.com/overseas-offices"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Aruba</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.embassy-worldwide.com/country/aruba/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+</tr>
+
+                <tr>
+                        <td>Bahamas</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://mofa.gov.bs/bahamas-overseas-missions-and-counsel/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+
+                <tr>
+                        <td>Barbados</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.foreign.gov.bb/embassies-high-commissions-and-permanent-missions/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Belize</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://mfa.gov.bz/belizean-representation-overseas/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Bermuda</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.embassy-worldwide.com/country/bermuda/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+                <tr>
+                        <td>British Virgin Islands</td>
+                        <td>Foreign, Commonwealth & Development Office</td>  
+<td><a href="https://www.gov.uk/world/embassies"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Canada</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://travel.gc.ca/assistance/embassies-consulates"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Cayman Islands</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.embassy-worldwide.com/country/cayman-islands/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Costa Rica</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.embassy-worldwide.com/country/costa-rica/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Cuba</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://cubaminrex.cu/en/list-cuban-missions-abroad"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Curaçao</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.embassy-worldwide.com/country/curacao/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Dominica</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://embassies.net/dominica-embassy#google_vignette"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Dominican Republic</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.embassy-worldwide.com/country/dominican-republic/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>El Salvador</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.embassy-worldwide.com/country/el-salvador/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+
+                <tr>
+                        <td>Greenland</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.embassy-worldwide.com/country/greenland/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Grenada</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://grenadaembassyusa.org/directory-category/grenadas-diplomatic-consular-representatives-abroad/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Guatemala</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.embassy-worldwide.com/country/guatemala/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Haiti</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.embassy-worldwide.com/country/haiti/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Honduras</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.embassy-worldwide.com/country/honduras/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Jamaica</td>
+                        <td>Ministry of Foreign Affairs and Foreign Trade</td>  
+<td><a href="https://mfaft.gov.jm/site/about-us/jamaican-representatives-overseas/high-commissions-2//"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Mexico</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.gob.mx/sre/documentos/list-of-mexico-s-embassies-and-consulates-around-the-world"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Montserrat</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://embassies.net/montserrat-embassy"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Nicaragua</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.embassy-worldwide.com/country/nicaragua/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+                <tr>
+                        <td>Panama</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.embassy-worldwide.com/country/panama/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Puerto Rico</td>
+                        <td>Department of State</td>  
+<td><a href="https://www.embassy-worldwide.com/country/puerto-rico/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Saint Barthélemy</td>
+                        <td>Ministry for Europe and Foreign Affairs</td>  
+<td><a href="https://www.diplomatie.gouv.fr/fr/le-ministere-et-son-reseau/organisation-et-annuaires/ambassades-et-consulats-francais-a-l-etranger/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Saint Kitts and Nevis</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.foreign.gov.kn/embassies-overseas/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Saint Lucia</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://unfccc.int/sites/default/files/consularlist.pdf"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Saint Vincent and the Grenadines</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.embassy-worldwide.com/country/st-vincent-grenadines/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Sint Maarten</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.government.nl/topics/embassies-consulates-and-other-representations/overview-countries-and-regions"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Trinidad and Tobago</td>
+                        <td>Ministry of Foreign and CARICOM Affairs</td>  
+<td><a href="https://foreign.gov.tt/missions-consuls/tt-missions-abroad/diplomatic-missions/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Turks and Caicos</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://embassies.info/turksandcaicos/foreignmissions"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>United States of America</td>
+                        <td>Department of State</td>  
+<td><a href="https://www.usembassy.gov/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+
+                    </tbody>
+                  </table>
+                </div><!-- /.panel -->
+              </div><!-- /.country -->
+            </div><!-- /.accordion-grid -->
+          </div><!-- /.region-body -->
+        </div><!-- /.region -->
+
+
+
+ <!------------- Continent S AMERICA ---------------->
+        <div class="region">
+          <button class="region-toggle"
+                  id="samerica-toggle"
+                  aria-controls="samerica-body"
+                  aria-expanded="false">
+            South America
+          </button>
+
+          <div class="region-body" id="samerica-body" role="region" aria-labelledby="samerica-toggle">
+            <div class="accordion-grid">
+              <div class="country">
+                <div class="panel panel--table">
+                  <table class="embassy-table">
+                    <thead>
+                            <tr>
+                        <th scope="col">Country</th>
+                        <th scope="col">Sexual Misconduct Law</th>
+                        <th scope="col">Self Defense Law</th>
+                        <th scope="col">Reporting Process</th>
+			<th scope="col">Embassy/Consulate</th>                 
+                      </tr>
+                    </thead>
+                    <tbody>
+                <tr>
+                        <td>Argentina</td>
+                        <td>Ministry of Foreign Affairs, International Trade and Worship</td>  
+<td><a href="https://cancilleria.gob.ar/en/representaciones"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Bolivia</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.embassy-worldwide.com/country/bolivia/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Brazil</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.brazil-embassy.net/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Chile</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.embassy-worldwide.com/country/chile/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Colombia</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.embassy-worldwide.com/country/colombia/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+           <tr>
+                        <td>Ecuador</td>
+                        <td>the Ministry of Foreign Affairs and Human Mobility</td>  
+<td><a href="https://www.embassy-worldwide.com/country/ecuador/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>French Guiana</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.embassypages.com/frenchguiana"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Galápagos Islands</td>
+                        <td>the Ministry of Foreign Affairs and Human Mobility</td>  
+<td><a href="https://www.embassy-worldwide.com/country/ecuador/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Guyana</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.oldminfor.minfor.gov.gy/consulates"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Paraguay</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.embassy-worldwide.com/country/paraguay/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Peru</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.manuexplorers.com/en/information/travel-information/peruvian-emabassies.html"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Suriname</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.embassy-worldwide.com/country/suriname/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Uruguay</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.embassy-worldwide.com/country/uruguay/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+          <tr>
+                        <td>Venezuela</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.embassy-worldwide.com/country/venezuela/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+
+
+
+                    </tbody>
+                  </table>
+                </div><!-- /.panel -->
+              </div><!-- /.country -->
+            </div><!-- /.accordion-grid -->
+          </div><!-- /.region-body -->
+        </div><!-- /.region -->
+ 
+
+
+ <!------------- Continent EUROPE ---------------->
+        <div class="region">
+          <button class="region-toggle"
+                  id="europe-toggle"
+                  aria-controls="europe-body"
+                  aria-expanded="false">
+            Europe
+          </button>
+
+          <div class="region-body" id="europe-body" role="region" aria-labelledby="europe-toggle">
+            <div class="accordion-grid">
+              <div class="country">
+                <div class="panel panel--table">
+                  <table class="embassy-table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Country</th>
+                        <th scope="col">Sexual Misconduct Law</th>
+                        <th scope="col">Self Defense Law</th>
+                        <th scope="col">Reporting Process</th>
+			<th scope="col">Embassy/Consulate</th>                 
+                      </tr>
+                    </thead>
+                    <tbody>
+                <tr>
+                        <td>Albania</td>
+                        <td>Ministry for Europe and Foreign Affairs</td>  
+<td><a href="https://punetejashtme.gov.al/en/perfaqesite-shqiptare-ne-bote/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Andorra</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.embassy-worldwide.com/country/andorra/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Austria</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.bmeia.gv.at/en/embassies-consulates/search-for-austrian-representations"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Belarus</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://mfa.gov.by/en/embassies/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+
+                <tr>
+                        <td>Belgium</td>
+                        <td>Federal Public Service Foreign Affairs </td>  
+<td><a href="https://diplomatie.belgium.be/en/embassies-and-consulates"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Bosnia and Herzegovina</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.embassy-worldwide.com/country/bosnia-and-herzegovina/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Bulgaria</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.embassy-worldwide.com/country/bulgaria/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Croatia</td>
+                        <td>Ministry of Foreign and European Affairs</td>  
+<td><a href="https://mvep.gov.hr/embassies-and-consulates/embassies-of-the-republic-of-croatia-in-the-world/244601"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Czech Republic</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://mzv.gov.cz/jnp/en/diplomatic_missions/czech_missions_abroad/index.html"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Denmark</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://um.dk/en/about-us/organisation/find-us-abroad"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>England</td>
+                        <td>Foreign, Commonwealth & Development Office</td>  
+<td><a href="https://www.gov.uk/world/embassies"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Estonia</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://vm.ee/en/consular-visa-and-travel-information/estonian-honorary-consuls"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Faroe Islands</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://um.dk/en/about-us/organisation/find-us-abroad"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Finland</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://um.fi/finland-s-representation-abroad-by-country"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>France</td>
+                        <td>Ministry for Europe and Foreign Affairs</td>  
+<td><a href="https://www.diplomatie.gouv.fr/fr/le-ministere-et-son-reseau/organisation-et-annuaires/ambassades-et-consulats-francais-a-l-etranger/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Germany</td>
+                        <td>German Federal Foreign Office</td>  
+<td><a href="https://www.auswaertiges-amt.de/en/about-us/auslandsvertretungen/deutsche-auslandsvertretungen"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Gibraltar</td>
+                        <td>Foreign, Commonwealth & Development Office</td>  
+<td><a href="https://www.gov.uk/world/embassies"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Greece</td>
+                        <td>Hellenic Republic Ministry of Foreign Affairs</td>  
+<td><a href="https://www.mfa.gr/missionsabroad/en/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Guernsey</td>
+                        <td>Foreign, Commonwealth & Development Office</td>  
+<td><a href="https://www.gov.uk/world/embassies"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Hungary</td>
+                        <td>Ministry of Foreign Affairs and Trade</td>  
+<td><a href="https://konzinfo.mfa.gov.hu/en/embassies"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Iceland</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.government.is/diplomatic-missions/iceland-abroad/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Ireland</td>
+                        <td>Ministry of Foreign Affairs and Trade</td>  
+<td><a href="https://www.ireland.ie/en/dfa/embassies/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Italy</td>
+                        <td>Ministry of Foreign Affairs and International Cooperation</td>  
+<td><a href="https://www.esteri.it/en/ministero/struttura/laretediplomatica/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Jersey</td>
+                        <td>Foreign, Commonwealth & Development Office</td>  
+<td><a href="https://www.gov.uk/world/embassies"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Kosovo</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://ambasadat.net/en/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Latvia</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.mfa.gov.lv/en/latvias-embassies-and-consulates?utm_source=https%3A%2F%2Fwww.google.com%2F"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Liechtenstein</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://embassies.net/liechtenstein-embassy"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Lithuania</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.urm.lt/en/about-us/organisation/find-us-abroad/941"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Luxembourg</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.embassy-worldwide.com/country/luxembourg/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Malta</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.embassy-worldwide.com/country/malta/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Moldova</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://mfa.gov.md/en/content/diplomatic-missions-and-consular-offices-republic-moldova"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Monaco</td>
+                        <td>Ministry of Foreign Affairs and Cooperation</td>  
+<td><a href="https://www.consulate-info.com/country.php?c=Monaco"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Montenegro</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.gov.me/en/diplomatic-missions/embassies-and-consulates-of-montenegro"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Netherlands</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.government.nl/topics/embassies-consulates-and-other-representations/overview-countries-and-regions"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>North Macedonia</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://embassies.net/north-macedonia-embassy"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Northern Ireland</td>
+                        <td>Foreign, Commonwealth & Development Office</td>  
+<td><a href="https://www.gov.uk/world/embassies"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Norway</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.norway.no/en/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Poland</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.gov.pl/web/diplomacy/polands-missions-abroad"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Portugal</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.embassy-worldwide.com/country/portugal/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Romania</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://evisa-romania.com/romanian-emabssies-consulates/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Russia</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://russiable.com/russian-embassies-consulates-visa-centers/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>San Marino</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.esteri.sm/pub2/EsteriSM/en/Dipartimento/Rete-Diplomatica-e-Consolare-RSM.html"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Scotland</td>
+                        <td>Foreign, Commonwealth & Development Office</td>  
+<td><a href="https://www.gov.uk/world/embassies"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Serbia</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="http://arhiviranisajt.msp.gov.rs/en/embassies/serbian-diplomatic-missions/serbian-consulates"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Slovakia</td>
+                        <td>Ministry of Foreign and European Affairs</td>  
+<td><a href="https://www.mzv.sk/en/web/en/ministry/slovak-diplomatic-missions/diplomatic-missions-of-the-slovak-republic"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Slovenia</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.gov.si/en/representations/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Spain</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.exteriores.gob.es/en/EmbajadasConsulados/Paginas/index.aspx"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Sweden</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.swedenabroad.se/en/embassies/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Switzerland</td>
+                        <td>Federal Department of Foreign Affairs</td>  
+<td><a href="https://www.eda.admin.ch/dam/eda/en/documents/vertretungen-reisehinweise/vertretungsverzeichnis_EN.pdf"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Ukraine</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://embassies.net/ukraine-embassy"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+                <tr>
+                        <td>Vatican City</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://barrysborderpoints.com/enclaves-and-exclaves/vatican-2/embassies/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Wales</td>
+                        <td>Foreign, Commonwealth & Development Office</td>  
+<td><a href="https://www.gov.uk/world/embassies"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+
+                   </tbody>
+                  </table>
+                </div><!-- /.panel -->
+              </div><!-- /.country -->
+            </div><!-- /.accordion-grid -->
+          </div><!-- /.region-body -->
+        </div><!-- /.region -->
+
+
+ <!------------- Continent OCEANIA ---------------->
+        <div class="region">
+          <button class="region-toggle"
+                  id="oceania-toggle"
+                  aria-controls="oceania-body"
+                  aria-expanded="false">
+            Oceania
+          </button>
+
+          <div class="region-body" id="oceania-body" role="region" aria-labelledby="oceania-toggle">
+            <div class="accordion-grid">
+              <div class="country">
+                <div class="panel panel--table">
+                  <table class="embassy-table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Country</th>
+                        <th scope="col">Sexual Misconduct Law</th>
+                        <th scope="col">Self Defense Law</th>
+                        <th scope="col">Reporting Process</th>
+			<th scope="col">Embassy/Consulate</th>                 
+                      </tr>
+                    </thead>
+                    <tbody>
+                <tr>
+                        <td>Australian Capital Territory</td>
+                        <td>Department of Foreign Affairs</td>  
+<td><a href="https://www.dfat.gov.au/about-us/our-locations/missions/our-embassies-and-consulates-overseas"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Cook Islands</td>
+                        <td>Ministry of Foreign Affairs and Immigration</td>  
+<td><a href="https://www.embassy-worldwide.com/country/cook-islands/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+                <tr>
+                        <td>Federated States of Micronesia</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://gov.fm/mission-abroad/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+                <tr>
+                        <td>Fiji</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.embassy-worldwide.com/country/fiji/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>French Polynesia</td>
+                        <td>Ministry for Europe and Foreign Affairs</td>  
+<td><a href="https://www.diplomatie.gouv.fr/fr/le-ministere-et-son-reseau/organisation-et-annuaires/ambassades-et-consulats-francais-a-l-etranger/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Guam</td>
+                        <td>Department of State</td>  
+<td><a href="https://www.usembassy.gov/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Kiribati</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.embassy-worldwide.com/country/kiribati/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Marshall Islands</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.un.int/marshallislands/marshallislands/embassies"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Nauru</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.embassy-worldwide.com/country/nauru/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>New Caledonia</td>
+                        <td>Ministry for Europe and Foreign Affairs</td>  
+<td><a href="https://www.diplomatie.gouv.fr/fr/le-ministere-et-son-reseau/organisation-et-annuaires/ambassades-et-consulats-francais-a-l-etranger/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>New South Wales</td>
+                        <td>Department of Foreign Affairs</td>  
+<td><a href="https://www.dfat.gov.au/about-us/our-locations/missions/our-embassies-and-consulates-overseas"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>New Zealand</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.mfat.govt.nz/en/embassies"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Niue</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.embassy-worldwide.com/country/niue/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Northern Territory</td>
+                        <td>Department of Foreign Affairs</td>  
+<td><a href="https://www.dfat.gov.au/about-us/our-locations/missions/our-embassies-and-consulates-overseas"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Palau</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.palaugov.pw/executive-branch/ministries/state/embasies-consulates/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Papua New Guinea</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://papuanewguinea.travel/papua-new-guineas-overseas-missions-and-posts/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Queensland</td>
+                        <td>Department of Foreign Affairs</td>  
+<td><a href="https://www.dfat.gov.au/about-us/our-locations/missions/our-embassies-and-consulates-overseas"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Samoa</td>
+                        <td>Ministry of Foreign Affairs and Trade</td>  
+<td><a href="https://www.mfat.gov.ws/embassies/overseas-missions/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Solomon Islands</td>
+                        <td>Ministry of Foreign Affairs and Trade</td>  
+<td><a href="https://www.mfaet.gov.sb/missions/si-diplomatic-missions-abroad.html"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>South Australia</td>
+                        <td>Department of Foreign Affairs</td>  
+<td><a href="https://www.dfat.gov.au/about-us/our-locations/missions/our-embassies-and-consulates-overseas"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Tasmania</td>
+                        <td>Department of Foreign Affairs</td>  
+<td><a href="https://www.dfat.gov.au/about-us/our-locations/missions/our-embassies-and-consulates-overseas"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Tokelau</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.mfat.govt.nz/en/embassies"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Tonga</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.embassy-worldwide.com/country/tonga/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Tuvalu</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://www.un.int/tuvalu/tuvalu/embassies"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Vanuatu</td>
+                        <td>Ministry of Foreign Affairs</td>  
+<td><a href="https://mfaicet.gov.vu/index.php/countries/missions"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Victoria</td>
+                        <td>Department of Foreign Affairs</td>  
+<td><a href="https://www.dfat.gov.au/about-us/our-locations/missions/our-embassies-and-consulates-overseas"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Wallis and Futuna</td>
+                        <td>Ministry for Europe and Foreign Affairs</td>  
+<td><a href="https://www.diplomatie.gouv.fr/fr/le-ministere-et-son-reseau/organisation-et-annuaires/ambassades-et-consulats-francais-a-l-etranger/"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+                <tr>
+                        <td>Western Australia</td>
+                        <td>Department of Foreign Affairs</td>  
+<td><a href="https://www.dfat.gov.au/about-us/our-locations/missions/our-embassies-and-consulates-overseas"  target="_blank"  rel="noopener noreferrer">Find embassy/consulate</a></td>
+  <td>SALAW
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Sexual Misconduct Law</a></td>
+<td>DEFENSE
+<BR>
+<a href="link"  target="_blank"  rel="noopener noreferrer">Self Defense Law</a></td>   
+<td><a href="link"  target="_blank"  rel="noopener noreferrer">Reporting Process</a></td>
+</tr>
+
+
+                   </tbody>
+                  </table>
+                </div><!-- /.panel -->
+              </div><!-- /.country -->
+            </div><!-- /.accordion-grid -->
+          </div><!-- /.region-body -->
+        </div><!-- /.region -->
+
+<!------------- END ACORDIONS ---------------->
+      </div><!-- /.wrap -->
+    </div><!-- /.country-section -->
+  </section>
+</section>
