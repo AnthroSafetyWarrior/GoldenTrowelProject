@@ -7,76 +7,18 @@ hero_pos: "center 40%"                # optional
 hero_opacity: .45                     # optional (0–1: lower = darker tint / more visible photo)
 hero_tint: .40                        # optional (0–1: higher = more maroon overlay)
 ---
-<style>
-/* ===============================
-   Split section (2-column layout)
-   =============================== */
-.split {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: clamp(1.5rem, 4vw, 3rem);
-  flex-wrap: wrap;               /* allows stacking on smaller screens */
-  margin-top: clamp(1rem, 2vw, 2rem);
+/* Exact 50/50 two-column layout; stacks on small screens */
+.split-equal{
+  display:grid;
+  grid-template-columns: 1fr 1fr;         /* equal widths */
+  gap: clamp(16px, 3vw, 28px);
+  align-items:start;
 }
+.split-equal > .col{ min-width:0; }       /* prevent overflow/wrapping issues */
 
-/* Each text column */
-.split .text {
-  flex: 1 1 48%;                 /* equal width columns, flexible on resize */
-  max-width: 48%;
-  background: #fff;              /* optional, remove if you don’t want background cards */
-  padding: clamp(1rem, 2vw, 1.5rem);
-  border-radius: 0.75rem;
-  box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+@media (max-width: 760px){
+  .split-equal{ grid-template-columns: 1fr; }
 }
-
-/* Headings inside columns */
-.split .text h4 {
-  margin-top: 0;
-  color: var(--soil);
-  font-weight: 700;
-}
-
-/* Paragraphs and lists inside */
-.split .text p,
-.split .text ul {
-  font-size: clamp(0.95rem, 1vw, 1.05rem);
-  line-height: 1.55;
-}
-
-.split .text ul {
-  margin: 0.5em 0 0.5em 1.2em;
-  padding-left: 0;
-}
-
-.split .text li {
-  margin-bottom: 0.5em;
-}
-
-/* Small note paragraphs */
-.split .text .note {
-  font-style: italic;
-  font-size: 0.95em;
-  margin-top: 0.75em;
-  color: var(--slate);
-}
-
-/* Optional right alignment modifier */
-.text--right {
-  text-align: left;  /* keep text left-aligned for readability */
-}
-
-/* Responsive stacking */
-@media (max-width: 780px) {
-  .split {
-    flex-direction: column;
-  }
-  .split .text {
-    max-width: 100%;
-  }
-}
-</style>
-
 
 <!-- 1) Intro – plain background -->
 <section class="section intro" aria-labelledby="support-title">
@@ -106,8 +48,8 @@ hero_tint: .40                        # optional (0–1: higher = more maroon ov
 
   <section class="section">
 <h3><strong>Choose your support style: confidential or non-confidential</strong></h3>
-  <div class="split">
-    <div class="text">
+  <div class="split-equal">
+    <div class="col">
     <!-- CONFIDENTIAL -->
       <h4><strong>Confidential Support</strong></h4>
       <p>
@@ -129,7 +71,7 @@ hero_tint: .40                        # optional (0–1: higher = more maroon ov
     </div>
 
     <!-- NON-CONFIDENTIAL -->
- <div class="text text--right"> 
+ <div class="col"> 
       <h4><strong>Non-Confidential Support</strong></h4>
       <p>
         Non-confidential (or “responsible”) resources are required to share certain information with others,
