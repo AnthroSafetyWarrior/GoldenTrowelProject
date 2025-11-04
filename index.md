@@ -83,8 +83,8 @@ hero_tint: .40
   </div>
 </section>
 
-<section class="section section--prep">
-    <div class="split split--prep">
+<section class="section">
+    <div class="split">
       <div class="text">
         <p>
           <strong>This website provides essential resources and education for researchers to
@@ -101,7 +101,7 @@ hero_tint: .40
           loading="lazy" decoding="async">
       </figure>
     </div>
-  <div class="text text--right"> 
+  <div class="text"> 
   <p>
     A growing body of research suggests that training in boundary-setting and self-defense is
     not just reactive — it can <strong>shift how we respond under threat</strong>. For example,
