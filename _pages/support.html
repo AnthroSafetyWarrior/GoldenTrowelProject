@@ -7,18 +7,19 @@ hero_pos: "center 40%"                # optional
 hero_opacity: .45                     # optional (0–1: lower = darker tint / more visible photo)
 hero_tint: .40                        # optional (0–1: higher = more maroon overlay)
 ---
-/* Exact 50/50 two-column layout; stacks on small screens */
-.split-equal{
-  display:grid;
-  grid-template-columns: 1fr 1fr;         /* equal widths */
-  gap: clamp(16px, 3vw, 28px);
+<style>
+/* Force the existing .split to be 50/50 for this section only */
+.split.split--equal{
+  grid-template-columns: 1fr 1fr !important;
+  column-gap: clamp(16px, 3vw, 28px);
   align-items:start;
 }
-.split-equal > .col{ min-width:0; }       /* prevent overflow/wrapping issues */
+.split.split--equal > .text{ min-width:0; }
 
 @media (max-width: 760px){
-  .split-equal{ grid-template-columns: 1fr; }
+  .split.split--equal{ grid-template-columns: 1fr !important; }
 }
+</style>
 
 <!-- 1) Intro – plain background -->
 <section class="section intro" aria-labelledby="support-title">
@@ -48,8 +49,8 @@ hero_tint: .40                        # optional (0–1: higher = more maroon ov
 
   <section class="section">
 <h3><strong>Choose your support style: confidential or non-confidential</strong></h3>
-  <div class="split-equal">
-    <div class="col">
+  <div class="split split-equal">
+    <div class="text">
     <!-- CONFIDENTIAL -->
       <h4><strong>Confidential Support</strong></h4>
       <p>
@@ -71,7 +72,7 @@ hero_tint: .40                        # optional (0–1: higher = more maroon ov
     </div>
 
     <!-- NON-CONFIDENTIAL -->
- <div class="col"> 
+ <div class="text"> 
       <h4><strong>Non-Confidential Support</strong></h4>
       <p>
         Non-confidential (or “responsible”) resources are required to share certain information with others,
