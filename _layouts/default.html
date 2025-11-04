@@ -869,55 +869,21 @@ html, body { overflow-x: hidden; }
   }
 }
 
-/* ============== Footer ============== */
-.site-footer{
-  background: var(--slate);
-  color: #f7f4ee;
-  margin-top: clamp(36px, 6vw, 72px);
-  padding: clamp(18px, 3.5vw, 28px) var(--page-pad-inline);
-}
-.site-footer a{
-  color: color-mix(in srgb, #fff 85%, var(--gold));
-  text-decoration-thickness:.08em; text-underline-offset:.18em;
-}
-.site-footer a:hover{ color: var(--gold); }
-
-.footer-inner{
-  width: min(100%, var(--maxw));
-  margin-inline: auto;
-  display: grid;
-  gap: clamp(10px, 2vw, 16px);
-}
-
-.footer-grid{
-  display: grid;
-  grid-template-columns: minmax(0,1fr) auto;
-  gap: clamp(10px, 2vw, 16px);
-  align-items: start;
-}
-@media (max-width:720px){
-  .footer-grid{ grid-template-columns: 1fr; }
-}
-
-.footer-brand{
-  display:flex; align-items:center; gap:.6rem;
-}
-.footer-brand img{
-  width: clamp(36px, 4.5vw, 46px); height:auto; border-radius:8px;
-  box-shadow:0 2px 6px rgba(0,0,0,.15);
-}
-.footer-brand strong{ font-weight:800; color:#fff; }
-
-.footer-links{
-  display:flex; flex-wrap:wrap; gap:.65rem 1rem; justify-content:flex-end;
-}
-@media (max-width:720px){ .footer-links{ justify-content:flex-start; } }
-
-.footer-legal{
+/* Minimal legal footer */
+.legal-footer{
+  width:min(100%, var(--maxw));
+  margin: clamp(24px, 5vw, 48px) auto 0;
+  padding: 12px var(--page-pad-inline) 32px;
   border-top: 1px solid color-mix(in srgb, #000 14%, transparent);
-  margin-top: clamp(10px, 2vw, 16px);
-  padding-top: clamp(10px, 2vw, 16px);
-  font-size: .95rem; line-height:1.45; opacity:.95;
+  font-size: .95rem;
+  line-height: 1.45;
+  color: var(--ink);
+  text-align: center;
+}
+.legal-footer small{
+  display:block;
+  margin-top:.35rem;
+  opacity:.9;
 }
 
 </style>
@@ -1016,22 +982,14 @@ html, body { overflow-x: hidden; }
     {{ content }}
   </main>
 
-/* Minimal legal footer */
-.legal-footer{
-  width:min(100%, var(--maxw));
-  margin: clamp(24px, 5vw, 48px) auto 0;
-  padding: 12px var(--page-pad-inline) 32px;
-  border-top: 1px solid color-mix(in srgb, #000 14%, transparent);
-  font-size: .95rem;
-  line-height: 1.45;
-  color: var(--ink);
-  text-align: center;
-}
-.legal-footer small{
-  display:block;
-  margin-top:.35rem;
-  opacity:.9;
-}
+<footer class="legal-footer" role="contentinfo" aria-label="Legal">
+  © {{ site.time | date: '%Y' }} Golden Trowel Project. All rights reserved.
+  The Golden Trowel Project™ name and logo are the property of Samantha Gogol and may not be used without written permission.
+  <small>This website provides educational information and does not constitute legal advice.
+    <a href="{{ '/legal.html' | relative_url }}">Legal notice</a>.
+  </small>
+</footer>
+
 
   <!-- Tight layout + portal-on-open so flyouts sit over the page -->
 <script>
