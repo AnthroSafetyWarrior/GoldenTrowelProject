@@ -8,8 +8,24 @@ hero_opacity: .45
 hero_tint: .40
 ---
 <style>
+  /* balance the two columns so image doesn't feel tiny */
+  --left-min: 420px;
+  --img-min:  320px;
+  --img-ideal: 34vw;   /* similar vibe to 'Prevalence' */
+  --img-max:  400px;
+
+  grid-template-columns:
+    minmax(var(--left-min), 1fr)
+    minmax(var(--img-min),  auto);
+}
+
+/* keep art sizing consistent */
+.split--prep .art{
+  justify-self: center;
+  max-inline-size: var(--img-max);
+}
 .split--prep .art img{
-  width: clamp(var(--img-min), var(--img-ideal), var(400px));
+  width: clamp(var(--img-min), var(--img-ideal), var(--img-max));
   height: auto;
   display: block;
 }
