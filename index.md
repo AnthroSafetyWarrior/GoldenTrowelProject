@@ -59,6 +59,7 @@ hero_tint: .40
 <section class="pillband pill--soil pill--clip-left pill--earlywrap">
   <div class="section resources">
     <h2>Preparing for fieldwork includes proactive safety planning.</h2>
+<br>
 <div class="resources-grid">
       <article class="resource-card">
         <h3>Fieldwork Safety Plan</h3>
@@ -83,8 +84,8 @@ hero_tint: .40
   </div>
 </section>
 
-<section class="section">
-    <div class="split">
+<section class="section section--prep">
+    <div class="split split--prep">
       <div class="text">
         <p>
           <strong>This website provides essential resources and education for researchers to
@@ -101,7 +102,7 @@ hero_tint: .40
           loading="lazy" decoding="async">
       </figure>
     </div>
-  <div class="text"> 
+  <div class="text text--right"> 
   <p>
     A growing body of research suggests that training in boundary-setting and self-defense is
     not just reactive — it can <strong>shift how we respond under threat</strong>. For example,
