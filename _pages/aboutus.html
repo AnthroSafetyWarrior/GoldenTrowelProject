@@ -7,29 +7,6 @@ hero_pos: "center 40%"
 hero_opacity: .45
 hero_tint: .40
 ---
-<style>
-  /* balance the two columns so image doesn't feel tiny */
-  --left-min: 420px;
-  --img-min:  220px;
-  --img-ideal: 12vw;   /* similar vibe to 'Prevalence' */
-  --img-max:  340px;
-
-  grid-template-columns:
-    minmax(var(--left-min), 1fr)
-    minmax(var(--img-min),  auto);
-}
-
-/* keep art sizing consistent */
-.split--prep .art{
-  justify-self: center;
-  max-inline-size: var(--img-max);
-}
-.split--prep .art img{
-  width: clamp(var(--img-min), var(--img-ideal), var(--img-max));
-  height: auto;
-  display: block;
-}
-</style>
 
 <!-- 1) Intro – plain background -->
 <section class="section intro">
@@ -99,10 +76,11 @@ hero_tint: .40
 <section class="section section--prep">
     <div class="split split--prep">
     <figure class="art">
-      <img
-        src="{{ '/assets/img/IMG_3241.PNG' | absolute_url }}?v={{ site.time | date: '%s' }}"
-             alt="Logo for the Golden Trowel Project."
-             loading="lazy" decoding="async" fetchpriority="low">
+ <img
+  src="{{ '/assets/img/IMG_3241.PNG' | absolute_url }}?v={{ site.time | date: '%s' }}"
+  alt="Logo for the Golden Trowel Project."
+  loading="lazy" decoding="async" fetchpriority="low"
+  style="max-width:180px; height:auto; display:block; margin-inline:auto;">
     </figure>
 
     <div class="text text--right"> 
