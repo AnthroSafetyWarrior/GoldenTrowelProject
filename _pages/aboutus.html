@@ -7,6 +7,13 @@ hero_pos: "center 40%"
 hero_opacity: .45
 hero_tint: .40
 ---
+<style>
+.split--prep .art img{
+  width: clamp(var(--img-min), var(--img-ideal), var(400px));
+  height: auto;
+  display: block;
+}
+</style>
 
 <!-- 1) Intro – plain background -->
 <section class="section intro">
@@ -75,7 +82,7 @@ hero_tint: .40
 
 <section class="section section--prep">
     <div class="split split--prep">
-    <figure class="art" style="img-max: 400px">
+    <figure class="art">
       <img
         src="{{ '/assets/img/IMG_3241.PNG' | absolute_url }}?v={{ site.time | date: '%s' }}"
              alt="Logo for the Golden Trowel Project."
