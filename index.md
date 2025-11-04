@@ -7,6 +7,20 @@ hero_pos: "center 40%"
 hero_opacity: .45
 hero_tint: .40
 ---
+<style>
+/* Exact 50/50 two-column layout; stacks on small screens */
+.split-equal{
+  display:grid;
+  grid-template-columns: 1fr 1fr;         /* equal widths */
+  gap: clamp(16px, 3vw, 28px);
+  align-items:start;
+}
+.split-equal > .col{ min-width:0; }       /* prevent overflow/wrapping issues */
+
+@media (max-width: 760px){
+  .split-equal{ grid-template-columns: 1fr; }
+}
+</style>
 
 <!-- 1) Intro – plain background -->
 <section class="section intro">
@@ -56,7 +70,7 @@ hero_tint: .40
 </section>
 
 <!-- 3) PREPARING — pillband -->
-<section class="pillband pill--soil pill--clip-left pill--earlywrapl">
+<section class="pillband pill--soil pill--clip-left pill--earlywrap">
   <div class="section resources">    
 <h2>Preparing for fieldwork includes proactive safety planning.</h2>
 <div class="resources-grid">
@@ -124,13 +138,13 @@ hero_tint: .40
 <!-- 4) SUPPORT — consistent grid utility -->
 <section class="section">
 <h2 class="pillhead pill--slate pill--clip-right">Survivor Support</h2>
-  <div class="split">
-    <div class="text"> 
+  <div class="split-equal">
+    <div class="col"> 
  <h3><a href="{{ '/support.html' | relative_url }}"  target="_blank" 
      rel="noopener noreferrer">Supporting You</a></h3>
 <p>Access survivor-centered resources focused on emotional support, recovery, and community care. This page highlights mental-health hotlines, trauma-informed care networks, and guidance on seeking help after an incident—because your safety and well-being come first.</p>
 </div>
-  <div class="text">
+   <div class="col">
 <div class="inline-elements">   
 <h4><a href="https://takebackthenight.org/"  target="_blank" 
      rel="noopener noreferrer">TBTN</a>: <p>Take Back the Night</p></h4></div>
