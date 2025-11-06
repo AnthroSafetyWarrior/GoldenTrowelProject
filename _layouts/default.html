@@ -889,35 +889,75 @@ html, body { overflow-x: hidden; }
   opacity:.9;
 }
 
-:root{ --pill-border: 6px; }
-.pill{
-  position: relative;
-  z-index: 0;
-  isolation: isolate;
-  background: transparent !important;
+/* ===== OUTLINE + PER-PILL STRIPES — scoped to page content ============ */
+/* Only target page pills/bands in <main>, never the nav flyout pills */
+:root { --pill-border: 3px; }
+
+main :is(.pillband, .pillhead, .pill):not(.pill--nav){
   color: var(--ink) !important;
+  background: transparent !important;
+}
+
+/* Convert their full-bleed ribbons to outlines */
+main :is(.pillband, .pillhead, .pill):not(.pill--nav)::before{
+  background: transparent !important;
+  border: var(--pill-border) solid var(--pill-color, var(--soil)) !important;
+  box-shadow: none !important;
+  box-sizing: border-box;
+}
+
+/* Beat color variants that force white text (only for bands/heads in main) */
+main .pillband:is(.pill--orange, .pill--soil, .pill--slate, .pill--sage),
+main .pillhead:is(.pill--orange, .pill--soil, .pill--slate, .pill--sage){
+  color: var(--ink) !important;
+}
+
+/* Comfortable spacing in outline mode (page pills only) */
+main .pill:not(.pill--nav){
+  margin-block: clamp(16px, 3vw, 28px);
+  --curve-inset: clamp(36px, 8vw, 240px);
+}
+
+/* ===== Per-pill background stripe (extends to next pill) ============== */
+main .pill:not(.pill--nav){
+  position: relative;
+  isolation: isolate;
   border: var(--pill-border) solid var(--pill-color, var(--soil)) !important;
   box-shadow: none !important;
 }
-.pill::before{ content: none !important; }   /* kills old solid fill */
-.pill::after{
+
+/* kill legacy fill so we’re outline + stripe only */
+main .pill:not(.pill--nav)::before{ content: none !important; }
+
+/* Stripe uses --band-h set by your sizeBands() JS */
+main .pill:not(.pill--nav)::after{
   content: "";
   position: absolute;
   top: 0;
   left: calc(50% - 50vw);
   width: 100vw;
-  height: var(--band-h, 0px);   /* JS sets this */
+  height: var(--band-h, 0px);
   z-index: -1;
   pointer-events: none;
-  background: transparent;
+  background: var(--stripe, transparent);
 }
-.pill.pill--clip-right::after{ background: var(--offwhite); right: calc(50% - 50vw); left:auto; }
-.pill.pill--clip-left::after { background: var(--wave-dark); left:  calc(50% - 50vw); right:auto; }
+/* If pill is clipped right, hug the right side */
+main .pill.pill--clip-right:not(.pill--nav)::after{
+  left: auto; right: calc(50% - 50vw);
+}
 
-.pill.pill--orange{ --pill-color: var(--logo-orange); }
-.pill.pill--soil  { --pill-color: var(--soil); }
-.pill.pill--slate { --pill-color: var(--slate); }
-.pill.pill--sage  { --pill-color: var(--sage); }
+/* Defaults for stripe colors (override per pill with --stripe if you like) */
+main .pill.pill--clip-left:not(.pill--nav)  { --stripe: var(--wave-dark); }
+main .pill.pill--clip-right:not(.pill--nav) { --stripe: var(--offwhite); }
+
+/* Optional themed stripes */
+main .pill.pill--orange:not(.pill--nav){ --stripe: color-mix(in srgb, var(--logo-orange) 10%, transparent); }
+main .pill.pill--soil:not(.pill--nav)  { --stripe: color-mix(in srgb, var(--soil) 10%, transparent); }
+main .pill.pill--slate:not(.pill--nav) { --stripe: color-mix(in srgb, var(--slate) 10%, transparent); }
+main .pill.pill--sage:not(.pill--nav)  { --stripe: color-mix(in srgb, var(--sage) 10%, transparent); }
+
+/* Safety: never touch flyout pills */
+.pill--nav::before, .pill--nav::after { content: none !important; }
 
 
 </style>
