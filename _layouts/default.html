@@ -840,9 +840,6 @@ html, body { overflow-x: hidden; }
 .pillband.pill--earlywrap h2{
   max-inline-size: clamp(28ch, 44vw, 36ch);
   text-wrap: balance;
-}
-/* ---- Extra-tight rules for RIGHT-clipped pills on phones ---- */
-@media (max-width: 560px){
 
 /* ---- Extra-tight rules for RIGHT-clipped pills on phones ---- */
 @media (max-width: 560px){
@@ -937,6 +934,17 @@ html, body { overflow-x: hidden; }
 }
 .pillband, .pillhead{ color: var(--ink) !important; }
 
+/* ===== Final override: bands/heads are transparent, text readable ===== */
+.pillband::before,
+.pillhead::before{
+  background: none !important;   /* kill fills/gradients */
+  box-shadow: none !important;
+}
+
+.pillband,
+.pillhead{
+  color: var(--ink) !important;   /* readable on page bg */
+}
 
 </style>
 
