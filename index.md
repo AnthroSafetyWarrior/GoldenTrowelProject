@@ -181,17 +181,19 @@ hero_tint: .40
   <div class="pill-grid"> 
  <article class="card card--glass">
       <h3>Prevention</h3>
-      <p>The <strong><a href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing" target="_blank" rel="noopener">Pre-Fieldwork Safety Checklist</a></strong> helps you plan proactively—identifying risks, setting clear expectations, and documenting safety measures before entering the field. It also includes options for capturing proof of misconduct to support reporting without fear of dismissal.
+      <p>The <strong><a href="https://docs.google.com/document/d/1jdA2Iz-ALuxHU-jHoH5CLHHMJhotDdCoATkuu8lDrug/edit?usp=sharing" target="_blank" rel="noopener">Pre-Fieldwork Safety Checklist</a></strong> helps you plan proactively—identifying risks, setting clear expectations, and documenting safety measures before entering the field. It also includes options for capturing proof of misconduct to support reporting without fear of dismissal.
       </p>
     </article>
 
 <article class="card card--glass">
-      <h3><a href="{{ '/reporting.html' | relative_url }}"  target="_blank" 
-     rel="noopener noreferrer">Reporting</a></h3>
-      <p>Find clear, verified paths to report misconduct through your institution, funding agencies, embassies, and local authorities—with documentation tools designed to preserve your evidence and amplify your voice.
+      <h3>Action</h3>
+ <p>The <strong><a href="https://docs.google.com/document/d/1MJgV6zWpse_j56-pG34uMZzVBxhifiIYZdU-F7TGbes/edit?usp=sharing" rel="noopener">Emergency Procedure Checklist</a></strong> outlines step-by-step actions prior to and following sexual misconduct outlining how to collect evidence, who to contact, how to document, and how to ensure inter-institutional accountability.</p>
+    </article>
+</h3>
+      <p>Find clear, verified paths to <strong><a href="{{ '/reporting.html' | relative_url }}"  target="_blank" rel="noopener noreferrer">report misconduct</a></strong> through your institution, funding agencies, embassies, and local authorities—with documentation tools designed to preserve your evidence and amplify your voice.
       </p>
 <br>     
- <p>The <strong><a href="https://docs.google.com/spreadsheets/d/1bF3FxtmMhAtRn2lyBDhansQ7YlDt4Gsm58aSHon6y0o/edit?usp=sharing" target="_blank" rel="noopener">Emergency Procedure Checklist</a></strong> outlines step-by-step actions prior to and following sexual misconduct outlining how to collect evidence, who to contact, how to document, and how to ensure inter-institutional accountability.</p>
+ <p>The <strong><a href="https://docs.google.com/document/d/1MJgV6zWpse_j56-pG34uMZzVBxhifiIYZdU-F7TGbes/edit?usp=sharing" rel="noopener">Emergency Procedure Checklist</a></strong> outlines step-by-step actions prior to and following sexual misconduct outlining how to collect evidence, who to contact, how to document, and how to ensure inter-institutional accountability.</p>
     </article>
 
  <article class="card card--glass">
