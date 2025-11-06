@@ -374,9 +374,6 @@ html, body { overflow-x: hidden; }
   --curve-inset: clamp(48px, 10vw, 320px);
 
   position: relative;
-  z-index: 0;
-  isolation: isolate;        /* <— was auto; now isolate */
-
   border-radius: 9999px;
   box-shadow: 0 8px 24px rgba(0,0,0,.12);
   background: var(--soil);
@@ -908,7 +905,7 @@ body{ background: var(--offwhite); }
 */
 
 /* ===== GLOBAL OUTLINE MODE (toggle-safe) ========================= */
-:root{ --pill-border: 3px; }
+:root{ --pill-border: 6px; }
 
 /* 1) Make copy dark and backgrounds transparent (but NOT flyout pills) */
 html body :is(.pillband, .pillhead, .pill):not(.pill--nav){
