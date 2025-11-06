@@ -925,28 +925,33 @@ html body .pillhead.pill--sage{
   --curve-inset: clamp(36px, 8vw, 240px);
 }
 
-/* --- A) Side-rail ribbon for pillbands --- */
-.pillband{
-  min-height: auto;
-}
-.pillband::before{
-  /* turn the big band into a slim rail */
-  width: clamp(10px, 1.2vw, 14px);
-  height: 84%;
-  top: 50%;
-  transform: translateY(-50%);
-  background: var(--pill-color, var(--slate)) !important;
-  box-shadow: none !important;
-  border-radius: 9999px;
-}
-.pillband.pill--clip-right::before{ right: calc(50% - 50vw); left: auto; }
-.pillband.pill--clip-left::before { left:  calc(50% - 50vw); right: auto; }
+/* === Alternating page backgrounds by pill direction ================== */
 
-/* keep text default/dark on bands */
-.pillband{ color: var(--ink) !important; }
+/* everything by default (your existing offwhite tone) */
+body { background: var(--offwhite); }
 
-/* content pills stay as-is; if you want them lighter: */
-/* .pill{ background: color-mix(in srgb, #000 6%, transparent); color: var(--ink); } */
+/* when a right-clipped pill starts, the region after it stays offwhite */
+.pill--clip-right::after {
+  content:"";
+  position:absolute;
+  left:0; right:0; bottom:0;
+  height: 200vh;                     /* large enough to reach next band */
+  background: var(--offwhite);
+  z-index:-2;
+}
+
+/* when a left-clipped pill starts, switch to the darker tone */
+.pill--clip-left::after {
+  content:"";
+  position:absolute;
+  left:0; right:0; bottom:0;
+  height: 200vh;
+  background: var(--wave-dark);
+  z-index:-2;
+}
+
+/* make sure pills and bands sit above the alternating layers */
+.pill, .pillband, .pillhead { position: relative; z-index: 1; }
 
 </style>
 
