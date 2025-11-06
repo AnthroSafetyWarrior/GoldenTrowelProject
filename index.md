@@ -187,13 +187,10 @@ hero_tint: .40
 
 <article class="card card--glass">
       <h3>Action</h3>
- <p>The <strong><a href="https://docs.google.com/document/d/1MJgV6zWpse_j56-pG34uMZzVBxhifiIYZdU-F7TGbes/edit?usp=sharing" rel="noopener">Emergency Procedure Checklist</a></strong> outlines step-by-step actions prior to and following sexual misconduct outlining how to collect evidence, who to contact, how to document, and how to ensure inter-institutional accountability.</p>
-    </article>
-</h3>
-      <p>Find clear, verified paths to <strong><a href="{{ '/reporting.html' | relative_url }}"  target="_blank" rel="noopener noreferrer">report misconduct</a></strong> through your institution, funding agencies, embassies, and local authorities—with documentation tools designed to preserve your evidence and amplify your voice.
+ <p>The <strong><a href="https://docs.google.com/document/d/1MJgV6zWpse_j56-pG34uMZzVBxhifiIYZdU-F7TGbes/edit?usp=sharing" target="_blank" rel="noopener">Emergency Procedure Checklist</a></strong> outlines step-by-step actions prior to and following sexual misconduct outlining how to collect evidence, who to contact, how to document, and how to ensure inter-institutional accountability.</p>
+<br>   
+<p>Find clear, verified paths to <strong><a href="{{ '/reporting.html' | relative_url }}"  target="_blank" rel="noopener noreferrer">report misconduct</a></strong> through your institution, funding agencies, embassies, and local authorities—with documentation tools designed to preserve your evidence and amplify your voice.
       </p>
-<br>     
- <p>The <strong><a href="https://docs.google.com/document/d/1MJgV6zWpse_j56-pG34uMZzVBxhifiIYZdU-F7TGbes/edit?usp=sharing" rel="noopener">Emergency Procedure Checklist</a></strong> outlines step-by-step actions prior to and following sexual misconduct outlining how to collect evidence, who to contact, how to document, and how to ensure inter-institutional accountability.</p>
     </article>
 
  <article class="card card--glass">

@@ -889,6 +889,43 @@ html, body { overflow-x: hidden; }
   opacity:.9;
 }
 
+/* ===== GLOBAL OUTLINE MODE (no HTML changes) ========================= */
+:root{ --pill-border: 3px; }
+
+/* 1) Make copy dark everywhere */
+html body :is(.pillband, .pillhead, .pill){
+  color: var(--ink) !important;
+  background: transparent !important;
+}
+
+/* 2) Convert the full-bleed ribbons to outlines */
+html body :is(.pillband, .pillhead, .pill)::before{
+  background: transparent !important;
+  border: var(--pill-border) solid var(--pill-color, var(--soil)) !important;
+  box-shadow: none !important;
+  box-sizing: border-box;  /* keep border inside the same geometry */
+}
+
+/* 3) Ensure the band color classes don't flip text back to white */
+html body .pillband.pill--orange,
+html body .pillband.pill--soil,
+html body .pillband.pill--slate,
+html body .pillband.pill--sage,
+html body .pillhead.pill--orange,
+html body .pillhead.pill--soil,
+html body .pillhead.pill--slate,
+html body .pillhead.pill--sage{
+  color: var(--ink) !important;
+}
+
+/* 4) Optional: gentler spacing so outlines feel airier */
+.pillband{ min-height: clamp(180px, 26vw, 300px); }
+.pill{
+  margin-block: clamp(16px, 3vw, 28px);
+  --curve-inset: clamp(36px, 8vw, 240px);
+}
+
+
 </style>
 
 </head>
