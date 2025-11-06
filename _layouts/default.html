@@ -959,6 +959,19 @@ main .pill.pill--sage:not(.pill--nav)  { --stripe: color-mix(in srgb, var(--sage
 /* Safety: never touch flyout pills */
 .pill--nav::before, .pill--nav::after { content: none !important; }
 
+/* Full-width background from top of <main> down to the first pill */
+main{ position: relative; }
+main::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: calc(50% - 50vw);
+  width: 100vw;
+  height: var(--pre-h, 0px);         /* JS sets this */
+  background: var(--pre-stripe, transparent);
+  z-index: -1;
+  pointer-events: none;
+}
 
 </style>
 
@@ -1067,41 +1080,50 @@ The Golden Trowel Project™ name and logo are the property of Samantha Gogol an
 
 
   <!-- Tight layout + portal-on-open so flyouts sit over the page -->
-<script>
-(function () {
-  const header = document.querySelector('header.hero');
-  const band   = header?.querySelector('.nav-gradient');
-  if (!header || !band) return;
+(function(){
+  const topOf = (el) => el.getBoundingClientRect().top + window.scrollY;
 
-  // 1) Move the band after the header so it can span the whole page
-  header.after(band);
-  band.classList.add('is-detached');
+  function sizeBands(){
+    const pills = Array.from(document.querySelectorAll('main .pill:not(.pill--nav)'));
+    if (!pills.length) return;
 
-  // 2) Create a tiny sentinel right before the band to watch the top edge
-  const sentinel = document.createElement('div');
-  sentinel.style.position = 'relative';
-  sentinel.style.height = '1px';
-  sentinel.style.marginTop = 'calc(var(--seam-gap, 8px) * -1)'; // keep the “kiss” to the wave
-  band.parentNode.insertBefore(sentinel, band);
+    // NEW: paint from top of <main> to the first pill
+    const mainEl = document.querySelector('main');
+    if (mainEl) {
+      const first = pills[0];
+      const preH = Math.max(0, Math.round(topOf(first) - topOf(mainEl)));
+      mainEl.style.setProperty('--pre-h', preH + 'px');
 
-  // 3) Observer toggles a fixed fallback right when the band hits the top
-  const io = new IntersectionObserver((entries) => {
-    const e = entries[0];
-    const atTop = e.boundingClientRect.top <= 0;
-    // If the sentinel is above the viewport, pin the band with .is-fixed
-    if (atTop) {
-      band.classList.add('is-fixed');
-    } else {
-      band.classList.remove('is-fixed');
+      const firstIsRight = first.classList.contains('pill--clip-right');
+      // Set the color to match the first pill’s side
+      mainEl.style.setProperty('--pre-stripe', firstIsRight ? 'var(--offwhite)' : 'var(--wave-dark)');
     }
-  }, { root: null, threshold: [0], rootMargin: '0px 0px -1px 0px' });
 
-  io.observe(sentinel);
+    // Existing: set each pill’s --band-h down to the next pill (or footer)
+    for (let i = 0; i < pills.length; i++){
+      const cur  = pills[i];
+      const next = pills[i+1];
 
-  // (optional) quick visual sanity check in dev tools
-  // console.log('Nav band detached + observing:', band);
+      const start = topOf(cur);
+      const end   = next
+        ? topOf(next)
+        : (document.querySelector('.legal-footer')
+            ? topOf(document.querySelector('.legal-footer'))
+            : document.body.scrollHeight);
+
+      const h = Math.max(0, Math.round(end - start));
+      cur.style.setProperty('--band-h', h + 'px');
+    }
+  }
+
+  const run = () => requestAnimationFrame(sizeBands);
+  window.addEventListener('load',   run, {passive:true});
+  window.addEventListener('resize', run, {passive:true});
+  document.fonts && document.fonts.ready.then(run);
+
+  const root = document.querySelector('main') || document.body;
+  new MutationObserver(run).observe(root, {childList:true, subtree:true});
 })();
-</script>
 
 
 <script>
