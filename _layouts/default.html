@@ -925,6 +925,28 @@ html body .pillhead.pill--sage{
   --curve-inset: clamp(36px, 8vw, 240px);
 }
 
+/* --- A) Side-rail ribbon for pillbands --- */
+.pillband{
+  min-height: auto;
+}
+.pillband::before{
+  /* turn the big band into a slim rail */
+  width: clamp(10px, 1.2vw, 14px);
+  height: 84%;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--pill-color, var(--slate)) !important;
+  box-shadow: none !important;
+  border-radius: 9999px;
+}
+.pillband.pill--clip-right::before{ right: calc(50% - 50vw); left: auto; }
+.pillband.pill--clip-left::before { left:  calc(50% - 50vw); right: auto; }
+
+/* keep text default/dark on bands */
+.pillband{ color: var(--ink) !important; }
+
+/* content pills stay as-is; if you want them lighter: */
+/* .pill{ background: color-mix(in srgb, #000 6%, transparent); color: var(--ink); } */
 
 </style>
 
