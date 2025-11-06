@@ -917,6 +917,14 @@ main .pill:not(.pill--nav){
   margin-block: clamp(16px, 3vw, 28px);
   --curve-inset: clamp(36px, 8vw, 240px);
 }
+/* Alternating stripes when no side/theme class is present */
+main .pill:not(.pill--nav):not(.pill--clip-left):not(.pill--clip-right){
+  --stripe: var(--offwhite);
+}
+main .pill:nth-of-type(even):not(.pill--nav):not(.pill--clip-left):not(.pill--clip-right){
+  --stripe: var(--wave-dark);
+}
+
 
 /* ===== Per-pill background stripe (extends to next pill) ============== */
 main .pill:not(.pill--nav){
