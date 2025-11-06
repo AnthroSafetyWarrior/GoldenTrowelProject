@@ -866,15 +866,13 @@ html, body { overflow-x: hidden; }
 /* Base page tone */
 body{ background: var(--offwhite); }
 
-/* Keep flyout pills solid (already isolated by .pill--nav rules) */
-
-/* Make pillbands & pillheads transparent only */
-.pillband::before,
-.pillhead::before{
+.outline-mode .pillband::before,
+.outline-mode .pillhead::before{
   background: transparent !important;
   box-shadow: none !important;
   border: 0 !important;
 }
+
 
 
 
@@ -907,19 +905,18 @@ body{ background: var(--offwhite); }
 /* ===== GLOBAL OUTLINE MODE (toggle-safe) ========================= */
 :root{ --pill-border: 6px; }
 
-/* 1) Make copy dark and backgrounds transparent (but NOT flyout pills) */
-html body :is(.pillband, .pillhead, .pill):not(.pill--nav){
+/* ===== OUTLINE MODE (opt-in) ===== */
+/* Turn on by adding class="outline-mode" on <html> when you need it */
+.outline-mode :is(.pillband, .pillhead, .pill):not(.pill--nav){
   color: var(--ink) !important;
   background: transparent !important;
 }
-
-/* 2) Convert full-bleed ribbons to outlines (but NOT flyout pills) */
-html body :is(.pillband, .pillhead, .pill):not(.pill--nav)::before{
+.outline-mode :is(.pillband, .pillhead, .pill):not(.pill--nav)::before{
   background: transparent !important;
   border: var(--pill-border) solid var(--pill-color, var(--soil)) !important;
   box-shadow: none !important;
-  box-sizing: border-box;
 }
+
 
 /* 3) Beat the color variants that force white text (but NOT flyout pills) */
 html body :is(
@@ -940,6 +937,16 @@ html body :is(
 .pill{
   margin-block: clamp(16px, 3vw, 28px);
   --curve-inset: clamp(36px, 8vw, 240px);
+}
+
+/* Keep each pill’s background band behind its content but above the page */
+.pill{
+  position: relative; /* you already have this */
+  z-index: 0;         /* establish a stacking context */
+  isolation: isolate; /* keep ::after from slipping under neighbors */
+}
+.pill::after{
+  z-index: -1;        /* sit behind pill content, inside the context */
 }
 
 </style>
