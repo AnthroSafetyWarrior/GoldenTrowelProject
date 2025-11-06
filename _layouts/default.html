@@ -370,12 +370,13 @@ html, body { overflow-x: hidden; }
 
 /* ===== Content Pill ===== */
 .pill{
-  --pill-top-extra: clamp(16px, 2.6vw, 28px);     /* extra top cushion */
-  --curve-inset: clamp(48px, 10vw, 320px);        /* side protection near curve */
+  --pill-top-extra: clamp(16px, 2.6vw, 28px);
+  --curve-inset: clamp(48px, 10vw, 320px);
 
   position: relative;
   z-index: 0;
-  isolation: auto;
+  isolation: isolate;        /* <— was auto; now isolate */
+
   border-radius: 9999px;
   box-shadow: 0 8px 24px rgba(0,0,0,.12);
   background: var(--soil);
@@ -902,25 +903,21 @@ body{ background: var(--offwhite); }
   border: 0 !important;
 }
 
-/* Each content pill paints a full-bleed background band BEHIND itself */
-.pill{
-  position: relative;
-  isolation: isolate;        /* create a stacking context so ::after can sit behind everything */
-  z-index: 0;                /* content above ::after */
-}
+
 
 /* default (no band until JS sets its height) */
 .pill::after{
   content:"";
   position:absolute;
-  top:0;                     /* start BEHIND the pill itself */
-  left: calc(50% - 50vw);    /* full-bleed anchor */
+  top:0;
+  left: calc(50% - 50vw);
   width: 100vw;
-  height: 0;                 /* JS will set the height to “until next pill” */
-  z-index: -1;               /* behind the pill + all following content */
+  height: var(--band-h, 0);  /* <— was 0 */
+  z-index: -10;              /* <— was -1 */
   pointer-events: none;
   background: transparent;
 }
+
 
 /* Alternate colors by clip direction */
 .pill.pill--clip-right::after{ background: var(--offwhite); }
@@ -1079,63 +1076,37 @@ The Golden Trowel Project™ name and logo are the property of the founder and m
 
 <script>
 (function(){
-  function px(n){ return Math.max(0, Math.round(n)); }
+  const topOf = (el) => el.getBoundingClientRect().top + window.scrollY;
 
-  function layoutBands(){
+  function sizeBands(){
     const pills = Array.from(document.querySelectorAll('.pill'));
-    if(!pills.length) return;
+    if (!pills.length) return;
 
-    // Document offset helper
-    const pageTop = (el) => {
-      const r = el.getBoundingClientRect();
-      return r.top + window.scrollY;
-    };
+    for (let i = 0; i < pills.length; i++){
+      const cur  = pills[i];
+      const next = pills[i+1];
 
-    for(let i=0; i<pills.length; i++){
-      const cur   = pills[i];
-      const next  = pills[i+1] || null;
+      const start = topOf(cur);
+      const end   = next
+        ? topOf(next)
+        : (document.querySelector('.legal-footer')
+            ? topOf(document.querySelector('.legal-footer'))
+            : document.body.scrollHeight);
 
-      // Start at the top of this pill
-      const curTop = pageTop(cur);
-
-      // End at the top of the next pill, or the end of main/footer if none
-      let endY;
-      if(next){
-        endY = pageTop(next);
-      }else{
-        // last pill — run to just before the legal footer (or bottom of page)
-        const footer = document.querySelector('.legal-footer');
-        endY = footer ? pageTop(footer) : (document.body.scrollHeight);
-      }
-
-      // Height = distance from this pill's top to the end point
-      const h = px(endY - curTop);
-
-      // Set the height as an inline style so CSS stays pure
-      cur.style.setProperty('--band-h', h + 'px');
-      // apply it
-      cur.style.setProperty('position', 'relative'); // safety
-      cur.style.setProperty('z-index', '0');
-      const after = cur;
-      after.style.setProperty('--_band_height', h + 'px');
-      // feed ::after via a known CSS property
-      after.style.setProperty('--band-height', h + 'px');
-      // and in case you prefer direct style via attribute:
-      after.setAttribute('style', after.getAttribute('style')); // nudge repaint
-      // use the CSS var in the stylesheet (see below)
+      const h = Math.max(0, Math.round(end - start));
+      cur.style.setProperty('--band-h', h + 'px');  // the only thing we set
     }
   }
 
-  // Recompute on load, resize, and after fonts/images settle a bit
-  window.addEventListener('load', layoutBands, {passive:true});
-  window.addEventListener('resize', () => { requestAnimationFrame(layoutBands); }, {passive:true});
-  // mutation observer to catch CMS content swaps (optional, cheap)
-  const mo = new MutationObserver(() => requestAnimationFrame(layoutBands));
-  mo.observe(document.querySelector('main') || document.body, {childList:true, subtree:true});
+  const run = () => requestAnimationFrame(sizeBands);
+  window.addEventListener('load',   run, {passive:true});
+  window.addEventListener('resize', run, {passive:true});
+
+  // If page content changes after load
+  const root = document.querySelector('main') || document.body;
+  new MutationObserver(run).observe(root, {childList:true, subtree:true});
 })();
 </script>
-
-
 
 <script>
 (() => {
