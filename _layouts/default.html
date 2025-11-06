@@ -395,18 +395,6 @@ html, body { overflow-x: hidden; }
 .pill.pill--clip-right{ padding-right: max(var(--pill-pad-x), var(--curve-inset)); }
 .pill.pill--clip-left { padding-left:  max(var(--pill-pad-x), var(--curve-inset)); }
 
-/* full-bleed rounded band behind the pill */
-.pill::before{
-  content:"";
-  position:absolute;
-  top:0; bottom:0;
-  width: calc(100vw - var(--pill-margin));
-  background: var(--soil);
-  z-index:-1;
-  box-shadow: 0 8px 18px rgba(0,0,0,.1);
-}
-.pill.pill--clip-right::before{ right: calc(50% - 50vw); left:auto; border-radius: 9999px 0 0 9999px; }
-.pill.pill--clip-left::before { left:  calc(50% - 50vw); right:auto; border-radius: 0 9999px 9999px 0; }
 
 /* comfortable content spacing inside pill */
 .pill .pill__title{ margin:0 0 .6rem; font-weight:800; line-height:1.2; }
@@ -930,6 +918,43 @@ body{ background: var(--offwhite); }
 }
 */
 
+/* ===== GLOBAL OUTLINE MODE (toggle-safe) ========================= */
+:root{ --pill-border: 3px; }
+
+/* 1) Make copy dark and backgrounds transparent (but NOT flyout pills) */
+html body :is(.pillband, .pillhead, .pill):not(.pill--nav){
+  color: var(--ink) !important;
+  background: transparent !important;
+}
+
+/* 2) Convert full-bleed ribbons to outlines (but NOT flyout pills) */
+html body :is(.pillband, .pillhead, .pill):not(.pill--nav)::before{
+  background: transparent !important;
+  border: var(--pill-border) solid var(--pill-color, var(--soil)) !important;
+  box-shadow: none !important;
+  box-sizing: border-box;
+}
+
+/* 3) Beat the color variants that force white text (but NOT flyout pills) */
+html body :is(
+  .pillband.pill--orange,
+  .pillband.pill--soil,
+  .pillband.pill--slate,
+  .pillband.pill--sage,
+  .pillhead.pill--orange,
+  .pillhead.pill--soil,
+  .pillhead.pill--slate,
+  .pillhead.pill--sage
+):not(.pill--nav){
+  color: var(--ink) !important;
+}
+
+/* 4) Airier when outlined */
+.pillband{ min-height: clamp(180px, 26vw, 300px); }
+.pill{
+  margin-block: clamp(16px, 3vw, 28px);
+  --curve-inset: clamp(36px, 8vw, 240px);
+}
 
 </style>
 
