@@ -967,6 +967,45 @@ main .pill.pill--sage:not(.pill--nav)  { --stripe: color-mix(in srgb, var(--sage
 /* Safety: never touch flyout pills */
 .pill--nav::before, .pill--nav::after { content: none !important; }
 
+/* Stripe painter for bands + heads too */
+main :is(.pillband, .pillhead):not(.pill--nav){
+  position: relative;
+  isolation: isolate;
+}
+
+/* kill their legacy fills so we’re outline + stripe only (you already outline via ::before) */
+main :is(.pillband, .pillhead):not(.pill--nav)::before{
+  /* you already set border via ::before above; nothing else to do here */
+}
+
+/* Shared stripe layer */
+main :is(.pillband, .pillhead, .pill):not(.pill--nav)::after{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: calc(50% - 50vw);
+  width: 100vw;
+  height: var(--band-h, 0px);   /* set by JS */
+  z-index: -1;
+  pointer-events: none;
+  background: var(--stripe, transparent);
+}
+
+/* Clip-side alignment like pills */
+main :is(.pillband, .pillhead).pill--clip-right:not(.pill--nav)::after{
+  left: auto; right: calc(50% - 50vw);
+}
+
+/* Defaults per side (override-able with theme classes) */
+main :is(.pillband, .pillhead).pill--clip-left:not(.pill--nav)  { --stripe: var(--wave-dark); }
+main :is(.pillband, .pillhead).pill--clip-right:not(.pill--nav) { --stripe: var(--offwhite); }
+
+/* Optional: themed stripes still win */
+main :is(.pillband, .pillhead).pill--orange:not(.pill--nav){ --stripe: color-mix(in srgb, var(--logo-orange) 10%, transparent); }
+main :is(.pillband, .pillhead).pill--soil:not(.pill--nav)  { --stripe: color-mix(in srgb, var(--soil) 10%, transparent); }
+main :is(.pillband, .pillhead).pill--slate:not(.pill--nav) { --stripe: color-mix(in srgb, var(--slate) 10%, transparent); }
+main :is(.pillband, .pillhead).pill--sage:not(.pill--nav)  { --stripe: color-mix(in srgb, var(--sage) 10%, transparent); }
+
 </style>
 
 </head>
@@ -1207,9 +1246,12 @@ The Golden Trowel Project™ name and logo are the property of Samantha Gogol an
   const topOf = (el) => el.getBoundingClientRect().top + window.scrollY;
 
   function sizeBands(){
-    // Only page pills; ignore nav flyout pills
-    const pills = Array.from(document.querySelectorAll('main .pill:not(.pill--nav)'));
-    if (!pills.length) return;
+// Treat .pill, .pillhead, and .pillband as “stripe blocks” (but never the nav flyout)
+const pills = Array.from(document.querySelectorAll(
+  'main .pill:not(.pill--nav), main .pillhead, main .pillband'
+));
+if (!pills.length) return;
+
 
     // Per-pill band height down to the next pill (or footer)
     for (let i = 0; i < pills.length; i++){
