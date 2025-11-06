@@ -844,20 +844,26 @@ html, body { overflow-x: hidden; }
 /* ---- Extra-tight rules for RIGHT-clipped pills on phones ---- */
 @media (max-width: 560px){
 
+/* ---- Extra-tight rules for RIGHT-clipped pills on phones ---- */
+@media (max-width: 560px){
+
   /* BAND: earlier wrap + bigger safe gutter near the curve */
-  .pillband.pill--clip-right.pill--earlywrapl{
+  .pillband.pill--clip-right.pill--earlywrap{
     --pill-curve-inset: clamp(72px, 22vw, 360px);   /* push text further left */
     --pill-measure:     clamp(28ch, 80vw, 34ch);    /* shorter line length */
     min-height: clamp(170px, 24vw, 260px);          /* optional: slightly shorter band */
+  }
 
-  .pillband.pill--clip-right.pill--earlywrapl .section{
+  .pillband.pill--clip-right.pill--earlywrap .section{
     padding-left: max(var(--pill-pad-inline), calc(var(--pill-curve-inset) + 8px));
   }
-  .pillband.pill--clip-right.pill--earlywrapl h2{
+
+  .pillband.pill--clip-right.pill--earlywrap h2{
     max-inline-size: clamp(24ch, 70vw, 30ch);
     text-wrap: balance;
   }
-  .pillband.pill--clip-right.pill--earlywrapl :where(p, ul, ol, blockquote){
+
+  .pillband.pill--clip-right.pill--earlywrap :where(p, ul, ol, blockquote){
     max-inline-size: 100%;
   }
 
@@ -889,66 +895,46 @@ html, body { overflow-x: hidden; }
 /* ===== Pill outline & background-stripe system (global override) ===== */
 :root{ --pill-border: 6px; }
 
-/* 1) Make content pills transparent with a 6px outline in their chosen color.
-      We use --pill-color if you set it on a pill; otherwise fall back to --soil. */
 .pill{
   position: relative;
   z-index: 0;
   isolation: isolate;
-
   background: transparent !important;
   color: var(--ink) !important;
-
   border: var(--pill-border) solid var(--pill-color, var(--soil)) !important;
-  box-shadow: none !important; /* outlines look cleaner without dropshadows */
+  box-shadow: none !important;
 }
-
-/* Kill the original full-bleed background used by content pills */
 .pill::before{ content: none !important; }
 
-/* 2) Long background stripe that runs to the start of the next pill.
-      Height is set by JS via --band-h per pill. */
 .pill::after{
   content: "";
   position: absolute;
   top: 0;
-  left: calc(50% - 50vw);   /* anchor full-bleed to the viewport edge */
+  left: calc(50% - 50vw);
   width: 100vw;
   height: var(--band-h, 0px);
-
-  z-index: -1;              /* behind the pill content, above the page */
+  z-index: -1;
   pointer-events: none;
-  background: transparent;  /* per-side colors below */
+  background: transparent;
 }
 
-/* Clip-side colors for the long stripe */
 .pill.pill--clip-right::after{
   background: var(--offwhite);
   left: auto;
-  right: calc(50% - 50vw);  /* stripe extends from the curved right side */
+  right: calc(50% - 50vw);
 }
-
 .pill.pill--clip-left::after{
   background: var(--wave-dark);
   left: calc(50% - 50vw);
   right: auto;
 }
 
-/* Optional: a little extra curve safety on narrow screens */
-@media (max-width: 640px){
-  .pill{ --curve-inset: clamp(48px, 12vw, 320px); }
-}
-
-/* 3) Bands/heads should be transparent (no fills), keeping your geometry.
-      If you still want an outline for them too, uncomment the border lines. */
+/* Bands/heads transparent */
 .pillband::before,
 .pillhead::before{
   background: transparent !important;
   box-shadow: none !important;
-  /* border: var(--pill-border) solid var(--pill-color, var(--soil)) !important; */
 }
-
-/* Make sure pillband/pillhead text stays readable on transparent background */
 .pillband, .pillhead{ color: var(--ink) !important; }
 
 
