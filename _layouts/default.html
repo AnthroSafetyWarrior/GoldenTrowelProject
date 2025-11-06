@@ -841,22 +841,24 @@ html, body { overflow-x: hidden; }
   max-inline-size: clamp(28ch, 44vw, 36ch);
   text-wrap: balance;
 }
-/* ---- Extra-tight rules for RIGHT-clipped pills on phones ---- */
 @media (max-width: 560px){
 
   /* BAND: earlier wrap + bigger safe gutter near the curve */
   .pillband.pill--clip-right.pill--earlywrapl{
-    --pill-curve-inset: clamp(72px, 22vw, 360px);   /* push text further left */
-    --pill-measure:     clamp(28ch, 80vw, 34ch);    /* shorter line length */
-    min-height: clamp(170px, 24vw, 260px);          /* optional: slightly shorter band */
+    --pill-curve-inset: clamp(72px, 22vw, 360px);
+    --pill-measure:     clamp(28ch, 80vw, 34ch);
+    min-height: clamp(170px, 24vw, 260px);
+  }
 
   .pillband.pill--clip-right.pill--earlywrapl .section{
     padding-left: max(var(--pill-pad-inline), calc(var(--pill-curve-inset) + 8px));
   }
+
   .pillband.pill--clip-right.pill--earlywrapl h2{
     max-inline-size: clamp(24ch, 70vw, 30ch);
     text-wrap: balance;
   }
+
   .pillband.pill--clip-right.pill--earlywrapl :where(p, ul, ol, blockquote){
     max-inline-size: 100%;
   }
@@ -868,6 +870,7 @@ html, body { overflow-x: hidden; }
     --pill-pad-y:  clamp(20px, 5.5vw, 28px);
   }
 }
+
 
 /* Minimal legal footer */
 .legal-footer{
@@ -884,80 +887,6 @@ html, body { overflow-x: hidden; }
   display:block;
   margin-top:.35rem;
   opacity:.9;
-}
-/* ================================
-   GLOBAL PILL -> OUTLINE OVERRIDES
-   (no HTML changes needed)
-   ================================= */
-:root{ --pill-border: 3px; }
-
-/* 1) Bands/Headings/Pills: force text dark for all color variants */
-.pillband,
-.pillhead,
-.pill{
-  color: var(--ink) !important;
-}
-
-/* 2) Remove filled backgrounds & heavy shadows on the elements themselves */
-.pill{
-  background: transparent !important;
-  box-shadow: none !important;
-}
-
-/* 3) Convert the full-bleed “ribbon” (::before) into an outline */
-.pillband::before,
-.pillhead::before,
-.pill::before{
-  background: transparent !important;
-  box-shadow: none !important;
-  border: var(--pill-border) solid var(--pill-color, var(--slate));
-}
-
-/* 4) Neutral link colors on lighter background */
-.pill a,
-.pillband a,
-.pillhead a{
-  color: var(--sage);
-}
-.pill a:hover,
-.pillband a:hover,
-.pillhead a:hover{
-  color: var(--logo-orange);
-}
-
-/* 5) So the outline feels lighter/airier */
-.pillband{ min-height: clamp(180px, 26vw, 300px); }
-.pill{
-  margin-block: clamp(16px, 3vw, 28px);
-  --curve-inset: clamp(36px, 8vw, 240px);
-}
-
-/* 6) Cards and lists inside pills: keep a subtle glass look for contrast */
-.pill .card{
-  background: color-mix(in srgb, #000 6%, transparent);
-  border: 1px solid color-mix(in srgb, #000 10%, transparent);
-  box-shadow: 0 4px 10px rgba(0,0,0,.08);
-}
-
-/* 7) Do NOT change the small nav flyout buttons */
-.pill--nav{ /* intentionally left as-is */ }
-
-/* 8) Optional escape hatch: add 'pill--filled' on any one element to restore fill */
-.pill.pill--filled{
-  background: var(--pill-color, var(--soil)) !important;
-  color: #fff !important;
-  box-shadow: 0 8px 24px rgba(0,0,0,.12) !important;
-}
-.pill.pill--filled::before{
-  background: var(--pill-color, var(--soil)) !important;
-  border: none !important;
-  box-shadow: 0 8px 18px rgba(0,0,0,.10) !important;
-}
-.pillhead.pill--filled::before,
-.pillband.pill--filled::before{
-  background: var(--pill-color, var(--slate)) !important;
-  border: none !important;
-  box-shadow: 0 8px 16px rgba(0,0,0,.12) !important;
 }
 
 </style>
