@@ -889,41 +889,113 @@ html, body { overflow-x: hidden; }
   opacity:.9;
 }
 
-/* ===== GLOBAL OUTLINE MODE (no HTML changes) ========================= */
-:root{ --pill-border: 3px; }
-
-/* 1) Make copy dark everywhere */
-html body :is(.pillband, .pillhead, .pill){
-  color: var(--ink) !important;
-  background: transparent !important;
+/* ===== Pretty Outline Mode — upgrades (no HTML changes) ================= */
+:root{
+  /* easy knobs */
+  --pill-border: 3px;          /* main outline thickness */
+  --pill-accent: var(--pill-color, var(--soil));
+  --pill-wash: 6%;             /* 0% = no fill, 8–10% = slightly stronger */
+  --pill-hairline: 1px;        /* inner hairline for “premium” look */
+  --pill-cap-size: 14px;       /* end-cap dot size for bands/heads */
+  --pill-shadow: 0 2px 10px rgba(0,0,0,.06);
 }
 
-/* 2) Convert the full-bleed ribbons to outlines */
-html body :is(.pillband, .pillhead, .pill)::before{
+/* 1) Softer background wash inside outline (still “transparent-ish”) */
+:is(.pillband, .pillhead, .pill){
+  background:
+    /* faint diagonal texture for depth (very low contrast) */
+    repeating-linear-gradient(135deg,
+      color-mix(in srgb, var(--pill-accent) var(--pill-wash), transparent) 0 6px,
+      transparent 6px 12px
+    ) !important;
+  color: var(--ink) !important;
+  box-shadow: var(--pill-shadow) !important;
+}
+
+/* 2) Nicer outline (gradient stroke + inner hairline) */
+:is(.pillband, .pillhead, .pill)::before{
   background: transparent !important;
-  border: var(--pill-border) solid var(--pill-color, var(--soil)) !important;
+  /* gradient stroke that’s a touch darker at the edges */
+  border: var(--pill-border) solid
+          color-mix(in srgb, var(--pill-accent) 92%, #000 8%) !important;
   box-shadow: none !important;
-  box-sizing: border-box;  /* keep border inside the same geometry */
+  box-sizing: border-box;
+  position: absolute; /* ensure we can add an inner hairline:after */
 }
 
-/* 3) Ensure the band color classes don't flip text back to white */
-html body .pillband.pill--orange,
-html body .pillband.pill--soil,
-html body .pillband.pill--slate,
-html body .pillband.pill--sage,
-html body .pillhead.pill--orange,
-html body .pillhead.pill--soil,
-html body .pillhead.pill--slate,
-html body .pillhead.pill--sage{
-  color: var(--ink) !important;
+/* inner hairline “inset” border for a premium look */
+:is(.pillband, .pillhead, .pill)::after{
+  content: "";
+  position: absolute;
+  inset: calc(var(--pill-border) + 2px);  /* sits just inside main border */
+  border-radius: inherit;
+  border: var(--pill-hairline) solid
+          color-mix(in srgb, var(--pill-accent) 35%, transparent);
+  pointer-events: none;
 }
 
-/* 4) Optional: gentler spacing so outlines feel airier */
-.pillband{ min-height: clamp(180px, 26vw, 300px); }
-.pill{
-  margin-block: clamp(16px, 3vw, 28px);
-  --curve-inset: clamp(36px, 8vw, 240px);
+/* 3) End-caps on ribbons so they feel designed, not “open” */
+.pillband::before,
+.pillhead::before{ /* they already draw the main shape; add caps via another layer */
+  /* nothing extra here; caps are new pseudo elements below */
 }
+.pillband::marker, .pillhead::marker { content: none; } /* just in case */
+
+.pillband .section, .pillhead{ isolation:isolate; } /* ensure caps sit above wash */
+
+.pillband::selection{ background: transparent; } /* avoid odd highlighting */
+
+/* left & right “beads” that kiss the outline — telegraphs continuation */
+.pillband::after,
+.pillhead::after{
+  content:"";
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width: var(--pill-cap-size);
+  height: var(--pill-cap-size);
+  border-radius:50%;
+  background: var(--offwhite);
+  box-shadow:
+    0 0 0 var(--pill-hairline) color-mix(in srgb, var(--pill-accent) 55%, transparent),
+    0 1px 6px rgba(0,0,0,.08);
+  /* default place on the clipped side gets auto by your clip classes; provide both, hide one */
+  right: calc(50% - 50vw - var(--pill-border) - 2px);
+  z-index: 2;
+}
+
+/* if the band is clipped on the LEFT, move the cap to the left */
+.pillband.pill--clip-left::after,
+.pillhead.pill--clip-left::after{
+  left: calc(50% - 50vw - var(--pill-border) - 2px);
+  right: auto;
+}
+
+/* 4) Make links feel balanced on the lighter wash */
+:is(.pill, .pillband, .pillhead) a{ color: color-mix(in srgb, var(--sage) 85%, #000 15%) !important; }
+:is(.pill, .pillband, .pillhead) a:hover{ color: var(--logo-orange) !important; }
+
+/* 5) Slightly crisper typography inside pills */
+.pill .pill__title{ letter-spacing:.2px; }
+.pill p{ text-wrap: pretty; }
+
+/* 6) Keep cards readable on the faint wash */
+.pill .card{
+  background: color-mix(in srgb, #000 8%, transparent);
+  border: 1px solid color-mix(in srgb, #000 12%, transparent);
+  box-shadow: 0 4px 10px rgba(0,0,0,.08);
+}
+
+/* (Safety) ensure our override still defeats original white text variants */
+.pillband.pill--orange,
+.pillband.pill--soil,
+.pillband.pill--slate,
+.pillband.pill--sage,
+.pillhead.pill--orange,
+.pillhead.pill--soil,
+.pillhead.pill--slate,
+.pillhead.pill--sage{ color: var(--ink) !important; }
+
 
 
 </style>
