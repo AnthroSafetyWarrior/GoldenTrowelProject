@@ -959,20 +959,6 @@ main .pill.pill--sage:not(.pill--nav)  { --stripe: color-mix(in srgb, var(--sage
 /* Safety: never touch flyout pills */
 .pill--nav::before, .pill--nav::after { content: none !important; }
 
-/* Full-width background from top of <main> down to the first pill */
-main{ position: relative; }
-main::before{
-  content: "";
-  position: absolute;
-  top: 0;
-  left: calc(50% - 50vw);
-  width: 100vw;
-  height: var(--pre-h, 0px);         /* JS sets this */
-  background: var(--pre-stripe, transparent);
-  z-index: -1;
-  pointer-events: none;
-}
-
 </style>
 
 </head>
@@ -1215,29 +1201,7 @@ The Golden Trowel Project™ name and logo are the property of Samantha Gogol an
   function sizeBands(){
     // Only page pills; ignore nav flyout pills
     const pills = Array.from(document.querySelectorAll('main .pill:not(.pill--nav)'));
-    if (!pills.length){
-      // Fallback: if a page has no .pill, try .pillband so the pre-stripe still paints
-      const bands = Array.from(document.querySelectorAll('main .pillband'));
-      const mainEl = document.querySelector('main');
-      if (mainEl && bands.length){
-        const first = bands[0];
-        const preH = Math.max(0, Math.round(topOf(first) - topOf(mainEl)));
-        mainEl.style.setProperty('--pre-h', preH + 'px');
-        const firstIsRight = first.classList.contains('pill--clip-right');
-        mainEl.style.setProperty('--pre-stripe', firstIsRight ? 'var(--offwhite)' : 'var(--wave-dark)');
-      }
-      return;
-    }
-
-    // Paint from top of <main> to the first pill
-    const mainEl = document.querySelector('main');
-    if (mainEl) {
-      const first = pills[0];
-      const preH = Math.max(0, Math.round(topOf(first) - topOf(mainEl)));
-      mainEl.style.setProperty('--pre-h', preH + 'px');
-      const firstIsRight = first.classList.contains('pill--clip-right');
-      mainEl.style.setProperty('--pre-stripe', firstIsRight ? 'var(--offwhite)' : 'var(--wave-dark)');
-    }
+    if (!pills.length) return;
 
     // Per-pill band height down to the next pill (or footer)
     for (let i = 0; i < pills.length; i++){
