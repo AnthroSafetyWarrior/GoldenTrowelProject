@@ -1080,6 +1080,7 @@ The Golden Trowel Project™ name and logo are the property of Samantha Gogol an
 
 
   <!-- Tight layout + portal-on-open so flyouts sit over the page -->
+<script>
 (function(){
   const topOf = (el) => el.getBoundingClientRect().top + window.scrollY;
 
@@ -1124,7 +1125,7 @@ The Golden Trowel Project™ name and logo are the property of Samantha Gogol an
   const root = document.querySelector('main') || document.body;
   new MutationObserver(run).observe(root, {childList:true, subtree:true});
 })();
-
+</script>
 
 <script>
 (() => {
