@@ -889,70 +889,39 @@ html, body { overflow-x: hidden; }
   opacity:.9;
 }
 
-/* ===== GLOBAL OUTLINE MODE (no HTML changes) ========================= */
-:root{ --pill-border: 6px; }
+/* === Alternating page backgrounds by pill direction (full-bleed) ====== */
 
-/* 1) Make copy dark everywhere */
-html body :is(.pillband, .pillhead, .pill){
-  color: var(--ink) !important;
-  background: transparent !important;
-}
-
-/* 2) Convert the full-bleed ribbons to outlines */
-html body :is(.pillband, .pillhead, .pill)::before{
-  background: transparent !important;
-  border: var(--pill-border) solid var(--pill-color, var(--soil)) !important;
-  box-shadow: none !important;
-  box-sizing: border-box;  /* keep border inside the same geometry */
-}
-
-/* 3) Ensure the band color classes don't flip text back to white */
-html body .pillband.pill--orange,
-html body .pillband.pill--soil,
-html body .pillband.pill--slate,
-html body .pillband.pill--sage,
-html body .pillhead.pill--orange,
-html body .pillhead.pill--soil,
-html body .pillhead.pill--slate,
-html body .pillhead.pill--sage{
-  color: var(--ink) !important;
-}
-
-/* 4) Optional: gentler spacing so outlines feel airier */
-.pillband{ min-height: clamp(180px, 26vw, 300px); }
-.pill{
-  margin-block: clamp(16px, 3vw, 28px);
-  --curve-inset: clamp(36px, 8vw, 240px);
-}
-
-/* === Alternating page backgrounds by pill direction ================== */
-
-/* everything by default (your existing offwhite tone) */
+/* base page tone */
 body { background: var(--offwhite); }
 
-/* when a right-clipped pill starts, the region after it stays offwhite */
-.pill--clip-right::after {
-  content:"";
-  position:absolute;
-  left:0; right:0; bottom:0;
-  height: 200vh;                     /* large enough to reach next band */
-  background: var(--offwhite);
-  z-index:-2;
-}
-
-/* when a left-clipped pill starts, switch to the darker tone */
-.pill--clip-left::after {
-  content:"";
-  position:absolute;
-  left:0; right:0; bottom:0;
-  height: 200vh;
-  background: var(--wave-dark);
-  z-index:-2;
-}
-
-/* make sure pills and bands sit above the alternating layers */
+/* make sure pills/bands sit above the background swatches */
 .pill, .pillband, .pillhead { position: relative; z-index: 1; }
 
+/* OFFWHITE section after right-clipped pills */
+.pill--clip-right::after {
+  content: "";
+  position: absolute;
+  top: 100%;                      /* start after the pill */
+  left: calc(50% - 50vw);         /* anchor to viewport left */
+  width: 100vw;                   /* full bleed */
+  height: 120vh;                  /* extend until the next pill (tweak as needed) */
+  background: var(--offwhite);
+  z-index: 0;                     /* under content, above body */
+  pointer-events: none;
+}
+
+/* WAVE-DARK section after left-clipped pills */
+.pill--clip-left::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: calc(50% - 50vw);
+  width: 100vw;
+  height: 120vh;
+  background: var(--wave-dark);
+  z-index: 0;
+  pointer-events: none;
+}
 </style>
 
 </head>
