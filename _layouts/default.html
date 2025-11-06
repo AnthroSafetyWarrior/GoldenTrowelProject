@@ -800,18 +800,6 @@ html, body { overflow-x: hidden; }
     margin-right: 10px; /* Adds some space between them */
   }
 
-
-/* Safety: make sure the band actually exists and sits behind */
-.pill.pill--clip-right::before,
-.pillhead.pill--clip-right::before,
-.pillband.pill--clip-right::before{
-  content: "";                   /* in case something nuked it */
-  right: calc(50% - 50vw);       /* your original anchor */
-  left: auto;
-  width: calc(100vw - var(--pill-margin));
-  z-index: -1;
-}
-
 /* Early-wrap utility just for bands that need it */
 .pillband.pill--earlywrap{
   /* shrink text line length so it wraps sooner */
@@ -893,18 +881,19 @@ body{ background: var(--offwhite); }
 
 
 
-/* default (no band until JS sets its height) */
 .pill::after{
   content:"";
   position:absolute;
   top:0;
   left: calc(50% - 50vw);
   width: 100vw;
-  height: var(--band-h, 0);  /* <— was 0 */
-  z-index: -10;              /* <— was -1 */
+  height: var(--band-h, 0);
+  /* KEY FIX: keep it just behind the pill content, not buried under the page */
+  z-index: -1;               /* was -10 */
   pointer-events: none;
-  background: transparent;
+  background: transparent;   /* base; overridden below by side-specific rules */
 }
+
 
 
 /* Alternate colors by clip direction */
@@ -1119,19 +1108,20 @@ The Golden Trowel Project™ name and logo are the property of the founder and m
             : document.body.scrollHeight);
 
       const h = Math.max(0, Math.round(end - start));
-      cur.style.setProperty('--band-h', h + 'px');  // the only thing we set
+      cur.style.setProperty('--band-h', h + 'px');
     }
   }
 
   const run = () => requestAnimationFrame(sizeBands);
   window.addEventListener('load',   run, {passive:true});
   window.addEventListener('resize', run, {passive:true});
+  document.fonts && document.fonts.ready.then(run);  /* NEW */
 
-  // If page content changes after load
   const root = document.querySelector('main') || document.body;
   new MutationObserver(run).observe(root, {childList:true, subtree:true});
 })();
 </script>
+
 
 <script>
 (() => {
