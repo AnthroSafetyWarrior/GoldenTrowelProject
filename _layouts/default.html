@@ -959,6 +959,26 @@ html body .pillhead.pill--sage{
 /* Quick presets if you like */
 .stripe--wave-dark { --stripe: var(--wave-dark); }
 .stripe--offwhite  { --stripe: #eae6df; }       /* exact sand color */
+.stripe{
+  position: relative;
+  isolation: isolate;
+  margin: 0;             /* kill any gap around the stripe */
+  padding: 0;            /* prevents fake “extra” space */
+}
+
+.stripe::before{
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: calc(50% - 50vw);
+  width: 100vw;
+
+  /* this is the real control */
+  top:    calc(-1 * var(--stripe-bleed-top, 0px));
+  bottom: calc(-1 * var(--stripe-bleed-bottom, 0px));
+
+  background: var(--stripe-color, transparent);
+}
 
 </style>
 
