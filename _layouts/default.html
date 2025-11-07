@@ -529,7 +529,7 @@ html, body { overflow-x: hidden; }
   /* tweak these 3 to taste */
   --glass-tint:  color-mix(in srgb, var(--off-white) 40%, transparent); /* warm amber haze */
   --glass-edge:  color-mix(in srgb, var(--wave-mid) 18%, transparent);        /* warm border */
-  --glass-shadow: 0 8px 18px rgba(59, 42, 31, .16);                        /* warm brown shadow */
+  --glass-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
 .card--glass{
@@ -876,7 +876,7 @@ background: var(--slate);
   border-top: 1px solid color-mix(in srgb, #000 14%, transparent);
   font-size: .95rem;
   line-height: 1.45;
-  color: #000;
+  color: #FFF;
   text-align: center;
 }
 .legal-footer small{
