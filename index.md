@@ -83,7 +83,7 @@ hero_tint: .40
 </h2>
   <div class="split">
     <div class="text">
-       <h3>A 2014 survey sampling &gt;650 anthropologists revealed high frequencies of harassment and assault, and low frequencies of awareness of reporting procedures (Clancy <em>et&nbsp;al.</em>, 2014; DOI: <a href="https://doi.org/10.1371/journal.pone.0102172"  target="_blank" 
+       <h3>A 2014 survey sampling &gt;650 anthropologists revealed high frequencies of harassment and assault, and low frequencies of awareness of reporting procedures (Clancy <em>et&nbsp;al.</em>, 2014: <a href="https://doi.org/10.1371/journal.pone.0102172"  target="_blank" 
      rel="noopener noreferrer">10.1371/journal.pone.0102172</a>).</h3>
     </div>
     <figure class="art">
@@ -100,8 +100,7 @@ hero_tint: .40
 <!-- 4) START HERE — consistent grid utility -->
 <section class="pillband pill--slate pill--clip-right pill--tight" id="start-here">
   <div class="section">
-    <h2>Start here: three steps before you go</h2>
-    <p class="lede">These are the core documents. Customize them first.</p>
+    <h2>Start Here: three steps before you go</h2>
 </div>
 </section>
 
@@ -110,7 +109,7 @@ hero_tint: .40
 
       <!-- 1) Checklist -->
       <article class="doc-callout doc--gold">
-  <a class="badge badge--circle" href="https://docs.google.com/document/d/1jdA2Iz-ALuxHU-jHoH5CLHHMJhotDdCoATkuu8lDrug/edit?usp=sharing" target="_blank" rel="noopener">Before You Go</a>
+  <a class="badge badge--circle" href="https://docs.google.com/document/d/1jdA2Iz-ALuxHU-jHoH5CLHHMJhotDdCoATkuu8lDrug/edit?usp=sharing" target="_blank" rel="noopener">CLICK HERE Before You Go</a>
         <div>
           <h3>Pre-Fieldwork Safety Checklist</h3>
           <p>Step-by-step setup that ties the plan and commitment together.</p>
@@ -121,7 +120,7 @@ hero_tint: .40
 
       <!-- 2) Safety Plan -->
       <article class="doc-callout doc--gold">
-       <a class="badge badge--circle" href="https://docs.google.com/document/d/1OkEMW4VhpsccA_VZTTEvgBBq5vs0mCOEDg9Xk6f34Ss/edit?usp=sharing" target="_blank" rel="noopener">Build Your Plan</a>
+       <a class="badge badge--circle" href="https://docs.google.com/document/d/1OkEMW4VhpsccA_VZTTEvgBBq5vs0mCOEDg9Xk6f34Ss/edit?usp=sharing" target="_blank" rel="noopener">CLICK HERE to Build Your Plan</a>
         <div>
           <h3>Fieldwork Safety Plan</h3>
           <p>Your personal contacts, risks, and response steps in one place.</p>
@@ -130,7 +129,7 @@ hero_tint: .40
 
       <!-- 3) Collaborator Commitment -->
       <article class="doc-callout doc--gold">
-       <a class="badge badge--circle"  href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing" target="_blank" rel="noopener">Team Safety Pledge</a>
+       <a class="badge badge--circle"  href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing" target="_blank" rel="noopener">CLICK HERE for Team Safety Pledge</a>
         <div>
           <h3>Collaborator Safety Commitment</h3>
           <p>Shared expectations, boundaries, & accountability for your team.</p>

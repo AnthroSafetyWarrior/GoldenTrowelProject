@@ -1046,94 +1046,98 @@ html body .pillhead.pill--sage{
 
 
 /* ===== Badge-pill cards (hero docs) ===== */
-.hero-docs { display:grid; gap: clamp(16px, 2.2vw, 22px); }
+.hero-docs{
+  /* more breathing room between rows */
+  display: grid;
+  gap: clamp(18px, 3vw, 28px);
+}
 
+/* Shared sizing knobs for each callout */
 .doc-callout{
+  /* control the circle size + gutter in ONE place */
+  --badge-diam: clamp(132px, 12vw, 240px);   /* bigger circle */
+  --badge-gutter: clamp(14px, 2vw, 24px);    /* space between circle and text */
+  --content-pad-x: clamp(18px, 2.4vw, 28px); /* right-side padding */
+
   position: relative;
-  display: flex; align-items: center;
+  display: flex;
+  align-items: center;
   gap: clamp(10px, 1.4vw, 16px);
-  padding: clamp(14px, 2vw, 18px) clamp(16px, 2.4vw, 24px) clamp(14px, 2vw, 18px) clamp(90px, 10vw, 120px);
+
+  /* left padding now = circle width + gutter */
+  padding: clamp(14px, 2vw, 18px) var(--content-pad-x)
+           clamp(14px, 2vw, 18px) calc(var(--badge-diam) + var(--badge-gutter));
+
   background: var(--slate);
   color: #fff;
   border: 4px solid var(--slate);
   border-radius: 999px;
   box-shadow: 0 6px 14px rgba(0,0,0,.15);
+
+  /* extra vertical rhythm between callouts (in addition to grid gap) */
+  margin-block: clamp(2px, 0.6vw, 6px);
+
+  /* make the pill tall enough to “hold” a bigger circle nicely */
+  min-height: calc(var(--badge-diam) * 0.62);
 }
 
 .doc-callout h3{ margin:0 0 .15rem; font-weight:800; }
 .doc-callout p{ margin:0; opacity:.95; }
 
-.doc-callout .btn-doc{
-  margin-top:.45rem;
-  background:#fff; color:var(--slate); font-weight:800;
-}
-
-/* Left circular badge */
-.doc-callout .badge{
-  position:absolute; left:-18px; top:50%; transform:translateY(-50%);
-  width: clamp(108px, 9vw, 220px); height: clamp(108px, 9vw, 220px);
-  border-radius: 50%;
-  box-shadow: 0 0 0 6px var(--slate), 0 6px 12px rgba(0,0,0,.15);
-  display:grid; place-items:center; font-weight:900; color:var(--slate);
-  background:
-    radial-gradient(#fff 62%, transparent 63%),                 /* inner white */
-    conic-gradient(var(--gold));   /* gold arc */
-}
-
-/* Color variants if you want */
-.doc--gold { background: var(--slate); border-color: var(--slate); }
-.doc--sage { background: var(--sage); border-color: var(--sage); }
-.doc--soil { background: var(--soil); border-color: var(--soil); }
-
-/* ======= Badge Circle Button ======= */
-.badge--circle {
+/* ===== Circle is a true button/link (entire area clickable) ===== */
+.badge--circle{
   position: absolute;
   left: -18px;
   top: 50%;
   transform: translateY(-50%);
-  width: clamp(108px, 9vw, 220px);
-  height: clamp(108px, 9vw, 220px);
+  width: var(--badge-diam);
+  height: var(--badge-diam);
   border-radius: 50%;
+
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
+
   cursor: pointer;
   text-decoration: none;
   font-weight: 900;
   line-height: 1.15;
-  font-size: clamp(0.9rem, 1.6vw, 1.2rem); /* scales text */
-  color: var(--slate);
 
-  /* Visual style */
+  /* guarantee at least 1em, but scale a bit on larger screens */
+  font-size: clamp(1em, 1.8vw, 1.35rem);
+
+  color: var(--slate);
+  padding: 0 12px; /* allow text wrap inside */
+
   background:
-    radial-gradient(#fff 62%, transparent 63%),      /* inner white */
-    conic-gradient(var(--gold) 0deg 280deg, transparent 280deg); /* arc accent */
-  box-shadow: 0 0 0 6px var(--slate), 0 6px 12px rgba(0, 0, 0, .15);
+    radial-gradient(#fff 62%, transparent 63%),
+    conic-gradient(var(--gold) 0deg 280deg, transparent 280deg);
+  box-shadow: 0 0 0 6px var(--slate), 0 6px 12px rgba(0,0,0,.15);
   transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
-  padding: 0 10px; /* for text wrapping room */
 }
 
-/* Hover & focus */
-.badge--circle:hover {
+.badge--circle:hover{
   transform: translateY(calc(-50% - 2px));
   filter: brightness(1.02);
   box-shadow: 0 0 0 6px var(--gold), 0 8px 16px rgba(0,0,0,.25);
 }
-.badge--circle:focus-visible {
+
+.badge--circle:focus-visible{
   outline: 3px solid var(--gold);
   outline-offset: 4px;
 }
 
-/* Text wrapping inside */
-.badge--circle span {
-  display: block;
-  padding: 0 8px;
+.badge--circle span{
+  display:block;
   word-wrap: break-word;
 }
 
+/* Optional: slightly smaller circle on phones so layout stays comfy */
+@media (max-width: 560px){
+  .doc-callout{ --badge-diam: clamp(112px, 26vw, 148px); }
+}
 </style>
-
 </head>
 
 <body class="{% if is_home %}home{% endif %}">
