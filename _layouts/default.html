@@ -1057,7 +1057,8 @@ html body .pillhead.pill--sage{
   /* control the circle size + gutter in ONE place */
   --badge-diam: clamp(132px, 12vw, 150px);   /* bigger circle */
   --badge-gutter: clamp(14px, 2vw, 24px);    /* space between circle and text */
-  --content-pad-x: clamp(18px, 2.4vw, 28px); /* right-side padding */
+  --content-pad-x: clamp(18px, 2.4vw, 28px);
+  margin-block: 20px;  /* right-side padding */
 
   position: relative;
   display: flex;
@@ -1120,8 +1121,8 @@ html body .pillhead.pill--sage{
 .badge--circle:hover{
   transform: translateY(calc(-50% - 2px));
   filter: brightness(1.02);
-color: #111;
-background: var(--slate);
+color: var(--ink);
+background: var(--gold);
   box-shadow: 0 0 0 6px var(--gold), 0 8px 16px rgba(0,0,0,.25);
 }
 
