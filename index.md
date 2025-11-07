@@ -70,7 +70,6 @@ hero_tint: .40
         src="{{ '/assets/img/content.png' | relative_url }}"
         alt="1. Prepare: Create your safety plan and set expectations with your team. 2. Support: Find confidential, survivor-centered resources. 3. Report: Learn clear steps for documenting and reporting misconduct."
         loading="lazy" decoding="async">
-    </figure>
 </div>
 </div>
 </section>
@@ -111,7 +110,7 @@ hero_tint: .40
 
       <!-- 1) Checklist -->
       <article class="doc-callout doc--gold">
-  <a class="badge" href="https://docs.google.com/document/d/1jdA2Iz-ALuxHU-jHoH5CLHHMJhotDdCoATkuu8lDrug/edit?usp=sharing" target="_blank" rel="noopener">Before You Go</a>
+  <a class=class="badge badge--circle" href="https://docs.google.com/document/d/1jdA2Iz-ALuxHU-jHoH5CLHHMJhotDdCoATkuu8lDrug/edit?usp=sharing" target="_blank" rel="noopener">Before You Go</a>
         <div>
           <h3>Pre-Fieldwork Safety Checklist</h3>
           <p>Step-by-step setup that ties the plan and commitment together.</p>
@@ -122,7 +121,7 @@ hero_tint: .40
 
       <!-- 2) Safety Plan -->
       <article class="doc-callout doc--gold">
-       <a class="badge" href="https://docs.google.com/document/d/1OkEMW4VhpsccA_VZTTEvgBBq5vs0mCOEDg9Xk6f34Ss/edit?usp=sharing" target="_blank" rel="noopener">Build Your Plan</a>
+       <a class=class="badge badge--circle" href="https://docs.google.com/document/d/1OkEMW4VhpsccA_VZTTEvgBBq5vs0mCOEDg9Xk6f34Ss/edit?usp=sharing" target="_blank" rel="noopener">Build Your Plan</a>
         <div>
           <h3>Fieldwork Safety Plan</h3>
           <p>Your personal contacts, risks, and response steps in one place.</p>
@@ -131,7 +130,7 @@ hero_tint: .40
 
       <!-- 3) Collaborator Commitment -->
       <article class="doc-callout doc--gold">
-       <a class="badge"  href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing" target="_blank" rel="noopener">Team Safety Pledge</a>
+       <a class=class="badge badge--circle"  href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing" target="_blank" rel="noopener">Team Safety Pledge</a>
         <div>
           <h3>Collaborator Safety Commitment</h3>
           <p>Shared expectations, boundaries, & accountability for your team.</p>
