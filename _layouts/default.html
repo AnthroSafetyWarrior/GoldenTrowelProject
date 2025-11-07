@@ -923,7 +923,7 @@ html body .pillhead.pill--sage{
 
 
 /* ===== Kraft-paper stripe (soft speckles + fibers + gentle taper) ===== */
-.stripe{
+.stripe--kraft{
   --kraft-base: var(--wave-dark);     /* base color of the paper */
   --kraft-fade: 28px;                 /* how soft the top/bottom taper is */
   --speckle-light: rgba(255,255,255,.08);
@@ -933,7 +933,7 @@ html body .pillhead.pill--sage{
 }
 
 /* full-bleed panel */
-.stripe::before{
+.stripe--kraft::before{
   content:"";
   position:absolute; z-index:-1;
   left: calc(50% - 50vw); width:100vw;
@@ -983,7 +983,7 @@ html body .pillhead.pill--sage{
 }
 
 /* optional: tiny inner glow so it feels “moonlit” not heavy */
-.stripe::after{
+.stripe--kraft::after{
   content:"";
   position:absolute; z-index:-1;
   left: calc(50% - 50vw); width:100vw;
