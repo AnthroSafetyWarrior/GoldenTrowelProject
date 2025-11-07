@@ -922,10 +922,101 @@ html body .pillhead.pill--sage{
 }
 
 
+/* ================= STRIPE (full-bleed background wrapper) ================= */
+.stripe{
+  /* ----------- CONTROLS (tweak once, affects all) ----------- */
+  --stripe-bg: var(--wave-dark);   /* background color */
+  --stripe-bleed-top: 20px;        /* color extends above content */
+  --stripe-bleed-bottom: 0px;      /* color extends below content */
+  --stripe-pad-y: 10px;             /* padding inside the colored area */
+  --stripe-section-pad-y: 8px;     /* padding on inner .section */
+  --stripe-gap: 0px;               /* gap inside .section grid */
+  --stripe-pillhead-mb: 8px;       /* pillhead margin inside stripe */
+  --stripe-buffer-bottom: 30px;    /* transparent space AFTER stripe */
+
+  position: relative;
+  isolation: isolate;
+  margin: 0;
+
+  /* top padding = normal; bottom padding = normal + buffer (transparent) */
+  padding: var(--stripe-pad-y) var(--page-pad-inline);
+  padding-bottom: calc(var(--stripe-pad-y) + var(--stripe-buffer-bottom));
+}
+
+/* Full-bleed colored panel only */
+.stripe::before{
+  content:"";
+  position:absolute;
+  z-index:-1;                      /* sits behind content */
+  left: calc(50% - 50vw);
+  width: 100vw;
+
+  /* color height is driven ONLY by bleed values */
+  top:    calc(-1 * var(--stripe-bleed-top));
+  bottom: calc(-1 * var(--stripe-bleed-bottom));
+
+  background: var(--stripe-bg);
+  pointer-events: none;
+}
+
+/* Anchor to right edge when needed */
+.stripe--right::before{
+  left:auto;
+  right:calc(50% - 50vw);
+}
+
+/* tighten the inner section */
+.stripe > .section{
+  padding-block: var(--stripe-section-pad-y);
+  gap: var(--stripe-gap);
+}
+
+/* control pillhead spacing inside */
+.stripe .pillhead{
+  margin-block: var(--stripe-pillhead-mb);
+}
+
+/* Preset you’re using */
+.stripe--wave-dark { --stripe-bg: var(--wave-dark); }
+/* (You can omit offwhite if you’re not using it) */
+
+/* ================= STRIPE LINK STYLING ================= */
+/* Default link color inside stripes */
+.stripe a{
+  color: var(--slate);
+  text-decoration-color: var(--slate);
+  text-underline-offset: .18em;
+  transition: color .2s ease, text-decoration-color .2s ease;
+}
+
+/* Hover & focus color for accessibility */
+.stripe a:hover,
+.stripe a:focus-visible{
+  color: var(--sage);
+  text-decoration-color: var(--sage);
+  outline: none;
+}
+/* ================= STRIPE LINK STYLING ================= */
+/* Default link color inside stripes */
+.stripe a{
+  color: var(--slate);
+  text-decoration-color: var(--slate);
+  text-underline-offset: .18em;
+  transition: color .2s ease, text-decoration-color .2s ease;
+}
+
+/* Hover & focus color for accessibility */
+.stripe a:hover,
+.stripe a:focus-visible{
+  color: var(--sage);
+  text-decoration-color: var(--sage);
+  outline: none;
+}
+
 /* ========= soft fade for stripes ========= */
 .stripe{
   /* global knob: how “tall” the fade is */
-  --stripe-fade: 48px;            /* try 24–48px */
+  --stripe-fade: 36px;            /* try 24–48px */
 }
 
 /* fade both top & bottom */
@@ -961,38 +1052,6 @@ html body .pillhead.pill--sage{
   .stripe{ --stripe-fade: 24px; }
 }
 
-/* ================= STRIPE LINK STYLING ================= */
-/* Default link color inside stripes */
-.stripe a{
-  color: var(--slate);
-  text-decoration-color: var(--slate);
-  text-underline-offset: .18em;
-  transition: color .2s ease, text-decoration-color .2s ease;
-}
-
-/* Hover & focus color for accessibility */
-.stripe a:hover,
-.stripe a:focus-visible{
-  color: var(--sage);
-  text-decoration-color: var(--sage);
-  outline: none;
-}
-/* ================= STRIPE LINK STYLING ================= */
-/* Default link color inside stripes */
-.stripe a{
-  color: var(--slate);
-  text-decoration-color: var(--slate);
-  text-underline-offset: .18em;
-  transition: color .2s ease, text-decoration-color .2s ease;
-}
-
-/* Hover & focus color for accessibility */
-.stripe a:hover,
-.stripe a:focus-visible{
-  color: var(--sage);
-  text-decoration-color: var(--sage);
-  outline: none;
-}
 /* ===== NAV ===== */
 /* NAV FLYOUT: styles only for the tiny round buttons */
 .pill--nav{
