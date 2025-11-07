@@ -1046,100 +1046,22 @@ html body .pillhead.pill--sage{
 
 
 /* ===== Badge-pill cards (hero docs) ===== */
-.hero-docs{
-  /* more breathing room between rows */
+.hero-docs {
   display: grid;
-  gap: clamp(36px, 3vw, 52px);
+
+  /* add clear vertical breathing room */
+  row-gap: clamp(48px, 4vw, 72px); /* more reliable than gap for vertical layouts */
 }
 
-/* Shared sizing knobs for each callout */
-.doc-callout{
-  /* control the circle size + gutter in ONE place */
-  --badge-diam: clamp(132px, 12vw, 150px);   /* bigger circle */
-  --badge-gutter: clamp(14px, 2vw, 24px);    /* space between circle and text */
-  --content-pad-x: clamp(18px, 2.4vw, 28px);
-  margin-block: 20px;  /* right-side padding */
-
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: clamp(10px, 1.4vw, 16px);
-
-  /* left padding now = circle width + gutter */
-  padding: clamp(14px, 2vw, 18px) var(--content-pad-x)
-           clamp(14px, 2vw, 18px) calc(var(--badge-diam) + var(--badge-gutter));
-
-  background: var(--slate);
-  color: #fff;
-  border: 4px solid var(--slate);
-  border-radius: 999px;
-  box-shadow: 0 6px 14px rgba(0,0,0,.15);
-
-  /* extra vertical rhythm between callouts (in addition to grid gap) */
-  margin-block: clamp(2px, 0.6vw, 6px);
-
-  /* make the pill tall enough to “hold” a bigger circle nicely */
-  min-height: calc(var(--badge-diam) * 0.62);
-}
-
-.doc-callout h3{ margin:0 0 .15rem; font-weight:800; }
-.doc-callout p{ margin:0; opacity:.95; }
-
-/* ===== Circle is a true button/link (entire area clickable) ===== */
-.badge--circle{
-  position: absolute;
-  left: -18px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: var(--badge-diam);
-  height: var(--badge-diam);
-  border-radius: 50%;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-
-  cursor: pointer;
-  text-decoration: none;
-  font-weight: 900;
-  line-height: 1.15;
-
-  /* guarantee at least 1em, but scale a bit on larger screens */
-  font-size: clamp(1em, 1.8vw, 1.35rem);
-
-  color: var(--slate);
-  padding: 0 12px; /* allow text wrap inside */
-
-  background:
-    radial-gradient(#fff 62%, transparent 63%),
-    conic-gradient(var(--gold));
-  box-shadow: 0 0 0 6px var(--slate), 0 6px 12px rgba(0,0,0,.15);
-  transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
-}
-
-.badge--circle:hover{
+/* ===== Circle hover: gold fill + black text ===== */
+.badge--circle:hover {
   transform: translateY(calc(-50% - 2px));
-  filter: brightness(1.02);
-color: var(--ink);
-background: var(--gold);
-  box-shadow: 0 0 0 6px var(--gold), 0 8px 16px rgba(0,0,0,.25);
+  filter: brightness(1.05);
+  color: var(--ink); /* black text */
+  background: var(--gold);
+  box-shadow: 0 0 0 6px var(--gold), 0 8px 16px rgba(0, 0, 0, .25);
 }
 
-.badge--circle:focus-visible{
-  outline: 3px solid var(--gold);
-  outline-offset: 4px;
-}
-
-.badge--circle span{
-  display:block;
-  word-wrap: break-word;
-}
-
-/* Optional: slightly smaller circle on phones so layout stays comfy */
-@media (max-width: 560px){
-  .doc-callout{ --badge-diam: clamp(112px, 26vw, 148px); }
-}
 </style>
 </head>
 
