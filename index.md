@@ -111,38 +111,37 @@ hero_tint: .40
 
 <section class="section">
     <div class="hero-docs">
-      <!-- 1) Safety Plan -->
-      <article class="doc-callout doc--gold">
-        <div class="badge"><span>Plan</span></div>
-        <div>
-          <h3>Fieldwork Safety Plan</h3>
-          <p>Your personal contacts, risks, and response steps in one place.</p>
-          <p><a class="btn-doc" href="https://docs.google.com/document/d/1OkEMW4VhpsccA_VZTTEvgBBq5vs0mCOEDg9Xk6f34Ss/edit?usp=sharing" target="_blank" rel="noopener">Open Google Doc</a></p>
-        </div>
-      </article>
 
-      <!-- 2) Collaborator Commitment -->
+      <!-- 1) Checklist -->
       <article class="doc-callout doc--gold">
-        <div class="badge"><span>Team</span></div>
-        <div>
-          <h3>Collaborator Safety Commitment</h3>
-          <p>Shared expectations, boundaries, & accountability for your team.</p>
-          <p><a class="btn-doc" href="https://docs.google.com/document/d/18SmymYAFKUz_drbDhcsx8NWaiNG6-SQflWPj0OaZ76c/edit?usp=sharing" target="_blank" rel="noopener">Open Google Doc</a></p>
-        </div>
-      </article>
-
-      <!-- 3) Checklist -->
-      <article class="doc-callout doc--gold">
-        <div class="badge"><span>List</span></div>
+        <div class="badge"><span><span><a href="https://docs.google.com/document/d/1jdA2Iz-ALuxHU-jHoH5CLHHMJhotDdCoATkuu8lDrug/edit?usp=sharing" target="_blank" rel="noopener">Before You Go</a></span></div>
         <div>
           <h3>Pre-Fieldwork Safety Checklist</h3>
           <p>Step-by-step setup that ties the plan and commitment together.</p>
-          <p><a class="btn-doc" href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing" target="_blank" rel="noopener">Open Google Sheet</a></p>
-        </div>
+       </div>
       </article>
     </div>
 </section>
 </div>
+
+      <!-- 2) Safety Plan -->
+      <article class="doc-callout doc--gold">
+        <div class="badge"><span><a href="https://docs.google.com/document/d/1OkEMW4VhpsccA_VZTTEvgBBq5vs0mCOEDg9Xk6f34Ss/edit?usp=sharing" target="_blank" rel="noopener">Build Your Plan</a></p></span></div>
+        <div>
+          <h3>Fieldwork Safety Plan</h3>
+          <p>Your personal contacts, risks, and response steps in one place.</p>
+         </div>
+      </article>
+
+      <!-- 3) Collaborator Commitment -->
+      <article class="doc-callout doc--gold">
+        <div class="badge"><span><a href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing" target="_blank" rel="noopener">Team Safety Pledge</a></span></div>
+        <div>
+          <h3>Collaborator Safety Commitment</h3>
+          <p>Shared expectations, boundaries, & accountability for your team.</p>
+        </div>
+      </article>
+
 
 
 <!-- 5) TRAINING — its own section -->

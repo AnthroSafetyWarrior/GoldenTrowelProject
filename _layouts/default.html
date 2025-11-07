@@ -886,7 +886,7 @@ background: var(--slate);
 }
 
 /* ===== GLOBAL OUTLINE MODE (no HTML changes) ========================= */
-:root{ --pill-border: 6px; }
+:root{ --pill-border: 8px; }
 
 /* 1) Make copy dark and backgrounds transparent */
 html body :is(.pillband, .pillhead){
@@ -932,7 +932,7 @@ html body .pillhead.pill--sage{
   --stripe-pad-y: 12px;            /* inside padding for content */
   --stripe-section-pad-y: 8px;     /* padding on inner .section */
   --stripe-gap: 0px;               /* gap inside inner .section grid */
-  --stripe-fade: 28px;             /* height of the edge fade */
+  --stripe-fade: 36px;             /* height of the edge fade */
 
   position: relative;
   isolation: isolate;
@@ -1071,7 +1071,7 @@ html body .pillhead.pill--sage{
 /* Left circular badge */
 .doc-callout .badge{
   position:absolute; left:-18px; top:50%; transform:translateY(-50%);
-  width: clamp(82px, 9vw, 108px); height: clamp(82px, 9vw, 108px);
+  width: clamp(108px, 9vw, 220px); height: clamp(108px, 9vw, 220px);
   border-radius: 50%;
   box-shadow: 0 0 0 6px var(--slate), 0 6px 12px rgba(0,0,0,.15);
   display:grid; place-items:center; font-weight:900; color:var(--slate);
