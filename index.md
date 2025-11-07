@@ -47,7 +47,7 @@ hero_tint: .40
   <div class="split">
     <div class="text">
        <h3>A 2014 survey sampling &gt;650 anthropologists revealed high frequencies of harassment and assault, and low frequencies of awareness of reporting procedures (Clancy <em>et&nbsp;al.</em>, 2014; DOI: <a href="https://doi.org/10.1371/journal.pone.0102172"  target="_blank" 
-     rel="noopener noreferrer">10.1371/journal.pone.0102172</a></strong>).</h3></strong>
+     rel="noopener noreferrer">10.1371/journal.pone.0102172</a>).</h3>
     </div>
     <figure class="art">
       <img
@@ -61,73 +61,89 @@ hero_tint: .40
 </div>
 
 
-<!-- 3) PREPARING — pillband -->
-<section class="pillband pill--soil pill--clip-left pill--earlywrap">
-  <div class="section resources">    
-<h2>Preparing for fieldwork includes proactive safety planning.</h2>
-<div class="resources-grid">
-      <article class="resource-card">
+<!--3) START HERE — primary actions -->
+<section class="pillband pill--soil pill--clip-left pill--tight" id="start-here">
+  <div class="section">
+    <h2>Start here: three steps before you go</h2>
+    <p class="lede">Download and customize these core documents. They anchor the rest of your plan.</p>
+
+    <div class="resources-grid resources-grid--flat">
+      <article class="resource-card resource-card--outline">
         <h3>Fieldwork Safety Plan</h3>
-        <p>A personal safety plan template for researchers.</p>
-        <p>
-          <a class="btn-doc"
-  href="https://docs.google.com/document/d/1OkEMW4VhpsccA_VZTTEvgBBq5vs0mCOEDg9Xk6f34Ss/edit?usp=sharing"
-             target="_blank" rel="noopener noreferrer">Open Google Doc</a>
-        </p>
+        <p>Your personal plan: contacts, risks, and response steps.</p>
+        <p><a class="btn-doc" href="https://docs.google.com/document/d/1OkEMW4VhpsccA_VZTTEvgBBq5vs0mCOEDg9Xk6f34Ss/edit?usp=sharing" target="_blank" rel="noopener">Open Google Doc</a></p>
       </article>
 
-      <article class="resource-card">
+      <article class="resource-card resource-card--outline">
         <h3>Collaborator Safety Commitment</h3>
-        <p>A team-wide agreement on ethical and safe fieldwork protocols.</p>
-        <p>
-          <a class="btn-doc"
-             href="https://docs.google.com/document/d/18SmymYAFKUz_drbDhcsx8NWaiNG6-SQflWPj0OaZ76c/edit?usp=sharing"
-             target="_blank" rel="noopener noreferrer">Open Google Doc</a>
-        </p>
+        <p>Team agreement on expectations, boundaries, and accountability.</p>
+        <p><a class="btn-doc" href="https://docs.google.com/document/d/18SmymYAFKUz_drbDhcsx8NWaiNG6-SQflWPj0OaZ76c/edit?usp=sharing" target="_blank" rel="noopener">Open Google Doc</a></p>
+      </article>
+
+      <article class="resource-card resource-card--outline">
+        <h3>Pre-Fieldwork Safety Checklist</h3>
+        <p>Step-by-step setup that ties the plan and commitment together.</p>
+        <p><a class="btn-doc" href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing" target="_blank" rel="noopener">Open Google Sheet</a></p>
       </article>
     </div>
   </div>
 </section>
 
-<section class="section section--prep">
-    <div class="split split--prep">
-      <div class="text">
-        <p>
-          <strong>This website provides essential resources and education for researchers to
-          prevent and report harmful behavior. This website will help you:</strong>
-        </p>
-      <figure class="art">
-        <img
-          src="{{ '/assets/img/prep.png' | relative_url }}"
-          alt="1. Identify local emergency and institutional contacts — police, hospitals, embassies, and campus safety offices.
-2. Review key local laws and policies (e.g., recording, misconduct) with links to verify details.
-3. Learn clear, respectful ways to communicate boundaries that protect your safety and professionalism in research settings.
-4. Customize a fieldwork safety-plan & complete step-by-step checklists to map contacts, risks, and action steps.
-5. Commit to safe fieldwork practices with your collaborators by customizing  and signing the collaborator safety agreement."
-          loading="lazy" decoding="async">
-      </figure>
-    </div>
-  <div class="text text--right"> 
-  <p>
-    A growing body of research suggests that training in boundary-setting and self-defense is
-    not just reactive — it can <strong>shift how we respond under threat</strong>. For example,
-  </p>
-  <ul>
-    <li>empowerment self-defense (ESD) programs have demonstrated increased assertiveness, reduced fear in risky environments, and stronger self-protective decision-making <a href="https://doi.org/10.1177/08862605221082734"  target="_blank" 
-     rel="noopener noreferrer">(Beaujolais, 2023; </a><a href="https://doi.org/10.33043/SSWJ.2.1.63-76"  target="_blank" 
-     rel="noopener noreferrer">Follo, 2022).</a></li>
-    <li>Other efforts in trauma prevention and rape-resistance place such training within evidence-based prevention strategies <a href="https://doi.org/10.1080/10926771.2022.2046224">(Basile, 2022).</a></li>
-  </ul>
-  <p>
-    These suggest that when we practice setting boundaries and preparing responses in advance,
-    we may be less likely to default to appeasement or freeze patterns in moments of threat.
-  </p>
-</div>
-</div>
-</section>
 
 <div class="stripe stripe--wave-dark">
-<!-- 4) SUPPORT — consistent grid utility -->
+<!-- 4) TRAINING — its own section -->
+<section class="section" id="training">
+  <h2 class="pillhead pill--sage pill--clip-left">
+    <a class="pillhead__link" href="{{ '/selfdefense.html' | relative_url }}" target="_blank" rel="noopener">Training that strengthens safety</a>
+  </h2>
+  <p class="lede">Build confidence before you depart: boundary-setting, de-escalation, and evidence-based empowerment self-defense (ESD).</p>
+  <p><a href="{{ '/selfdefense.html' | relative_url }}">Explore training resources →</a></p>
+</section>
+</div>
+
+<!-- 5) SUPPORT — consistent grid utility -->
+<section class="pillband pill--soil pill--clip-left pill--tight" id="start-here">
+  <div class="section">
+    <h2>Start here: three steps before you go</h2>
+    <p class="lede">These are the core documents. Customize them first.</p>
+
+    <div class="hero-docs">
+      <!-- 1) Safety Plan -->
+      <article class="doc-callout doc--gold">
+        <div class="badge"><span>Plan</span></div>
+        <div>
+          <h3>Fieldwork Safety Plan</h3>
+          <p>Your personal contacts, risks, and response steps in one place.</p>
+          <p><a class="btn-doc" href="https://docs.google.com/document/d/1OkEMW4VhpsccA_VZTTEvgBBq5vs0mCOEDg9Xk6f34Ss/edit?usp=sharing" target="_blank" rel="noopener">Open Google Doc</a></p>
+        </div>
+      </article>
+
+      <!-- 2) Collaborator Commitment -->
+      <article class="doc-callout doc--gold">
+        <div class="badge"><span>Team</span></div>
+        <div>
+          <h3>Collaborator Safety Commitment</h3>
+          <p>Shared expectations, boundaries, & accountability for your team.</p>
+          <p><a class="btn-doc" href="https://docs.google.com/document/d/18SmymYAFKUz_drbDhcsx8NWaiNG6-SQflWPj0OaZ76c/edit?usp=sharing" target="_blank" rel="noopener">Open Google Doc</a></p>
+        </div>
+      </article>
+
+      <!-- 3) Checklist -->
+      <article class="doc-callout doc--gold">
+        <div class="badge"><span>List</span></div>
+        <div>
+          <h3>Pre-Fieldwork Safety Checklist</h3>
+          <p>Step-by-step setup that ties the plan and commitment together.</p>
+          <p><a class="btn-doc" href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing" target="_blank" rel="noopener">Open Google Sheet</a></p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+<div class="stripe stripe--wave-dark">
+<!-- 6) SUPPORT — consistent grid utility -->
 <section class="section">
 <h2 class="pillhead pill--slate pill--clip-right">Survivor Support</h2>
 </section>
