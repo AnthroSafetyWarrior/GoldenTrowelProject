@@ -50,7 +50,7 @@ hero_tint: .40
 </section>
 
 
-<div class="stripe">
+ <div class="paper-panel">
 <!-- 2) AUDIENCE — shared split -->
 <section class="section">
 <h2 class="pillhead pill--orange pill--clip-right">Who This Helps & How You Can Use Our Site
@@ -63,8 +63,7 @@ hero_tint: .40
     <figure class="art">
       <img
         src="{{ '/assets/img/audience.png' | relative_url }}"
-        alt="1. Students & Early-Career Researchers: Prepare safely, know your rights, and access confidential support. 2. Faculty & Supervisors: Build transparent, consent-based team protocols and accountability systems. 3. Institutions & Programs: Align policies with field safety best practices and provide clear reporting pathways."
-        loading="lazy" decoding="async">
+        alt="1. Students & Early-Career Researchers: Prepare safely, know your rights, and access confidential support. 2. Faculty & Supervisors: Build transparent, consent-based team protocols and accountability systems. 3. Institutions & Programs: Align policies with field safety best practices and provide clear reporting pathways." loading="lazy" decoding="async">
     </figure>
   </div>
 
@@ -77,26 +76,6 @@ hero_tint: .40
     </figure>
 </div>
 </div>
-</section>
-
-
-<section class="section">
-  <div class="pill-grid"> 
- <article class="card card--glass">
-<h3>Students & Early-Career Researchers</h3>
-     <p>Prepare safely, know your rights, and access confidential support.</p>
-</article>
-
- <article class="card card--glass">
-<h3>Faculty & Supervisors</h3>
-      <p>Build transparent, consent-based team protocols and accountability systems.</p>
-</article>
-
-<article class="card card--glass">
-<h3>Institutions & Programs</h3>
-      <p>Align policies with field safety best practices and provide clear reporting pathways.</p>
-</article>
-  </div>
 </section>
 </div>
 
@@ -121,7 +100,6 @@ hero_tint: .40
   </div>
 </section>
 
-<div class="stripe">
  <div class="paper-panel">
 <!-- 4) START HERE — consistent grid utility -->
 <section class="pillband pill--slate pill--clip-right pill--tight" id="start-here">
@@ -165,7 +143,6 @@ hero_tint: .40
     </div>
 </section>
 </div>
-</div>
 
 
 <!-- 5) TRAINING — its own section -->
@@ -173,7 +150,7 @@ hero_tint: .40
   <h2 class="pillhead pill--sage pill--clip-left">
     <a class="pillhead__link" href="{{ '/selfdefense.html' | relative_url }}" target="_blank" rel="noopener">Training that strengthens safety</a>
   </h2>
-  <p class="lede">Build confidence before you depart: boundary-setting, de-escalation, and evidence-based empowerment self-defense (ESD).</p>
+  <p>Build confidence before you depart: boundary-setting, de-escalation, and evidence-based empowerment self-defense (ESD).</p>
 
 <p> A growing body of research suggests that training in boundary-setting and self-defense is not just reactive — it can <strong>shift how we respond under threat</strong>. For example, </p>
  <ul> 
@@ -187,7 +164,6 @@ hero_tint: .40
 
 
 
-<div class="stripe">
   <div class="paper-panel">
 <!-- 6) SUPPORT — consistent grid utility -->
 <section class="section">
@@ -223,7 +199,6 @@ hero_tint: .40
 </div>
 </section>
 <br>
-</div>
 </div>
 
 <!-- 5) REPORTING — consistent grid utility -->
