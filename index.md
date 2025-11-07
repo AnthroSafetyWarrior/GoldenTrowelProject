@@ -50,7 +50,7 @@ hero_tint: .40
 </section>
 
 
- <div class="stripe">
+ <div class="stripe stripe--wave-dark">
 <!-- 2) AUDIENCE — shared split -->
 <section class="section">
 <h2 class="pillhead pill--orange pill--clip-right">Who This Helps & How You Can Use Our Site
@@ -100,7 +100,7 @@ hero_tint: .40
   </div>
 </section>
 
-<div class="stripe">
+<div class="stripe stripe--wave-dark">
 <!-- 4) START HERE — consistent grid utility -->
 <section class="pillband pill--slate pill--clip-right pill--tight" id="start-here">
   <div class="section">
@@ -164,7 +164,7 @@ hero_tint: .40
 
 
 
-<div class="stripe">
+<div class="stripe stripe--wave-dark">
 <!-- 6) SUPPORT — consistent grid utility -->
 <section class="section">
 <h2 class="pillhead pill--slate pill--clip-right">Survivor Support</h2>
