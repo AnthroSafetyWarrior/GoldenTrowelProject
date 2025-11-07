@@ -922,185 +922,127 @@ html body .pillhead.pill--sage{
 }
 
 
-
-
-/* ===== Kraft-paper stripe (soft speckles + fibers + gentle taper) ===== */
-.stripe--kraft{
-  --kraft-base: var(--wave-dark);     /* base color of the paper */
-  --kraft-fade: 28px;                 /* how soft the top/bottom taper is */
-  --speckle-light: rgba(255,255,255,.08);
-  --speckle-dark:  rgba(0,0,0,.06);
-  --fiber-light:   rgba(255,255,255,.035);
-  --fiber-dark:    rgba(0,0,0,.03);
-}
-
-/* full-bleed panel */
-.stripe--kraft::before{
-  content:"";
-  position:absolute; z-index:-1;
-  left: calc(50% - 50vw); width:100vw;
-  top:   calc(-1 * var(--stripe-bleed-top, 20px));
-  bottom:calc(-1 * var(--stripe-bleed-bottom, 0px));
-
-  /* LAYERS (top → bottom):
-     1) faint vertical fiber wash
-     2) diagonal paper fibers (very subtle)
-     3–5) 3 speckle fields at different scales for organic noise
-     6) base color, tinted by the blends above
-  */
-  background:
-    linear-gradient(0deg, var(--fiber-light), transparent 60%),
-    repeating-linear-gradient(28deg, var(--fiber-dark) 0 2px, transparent 2px 5px),
-    radial-gradient(1px 1px at 18% 22%, var(--speckle-light) 50%, transparent 51%),
-    radial-gradient(1px 1px at 71% 63%, var(--speckle-dark) 50%,  transparent 51%),
-    radial-gradient(1px 1px at 43% 81%, var(--speckle-light) 50%, transparent 51%),
-    var(--kraft-base);
-
-  /* different scales so it doesn’t look tiled */
-  background-size:
-    auto,
-    420px 420px,
-    60px 60px,
-    90px 90px,
-    120px 120px,
-    cover;
-
-  background-blend-mode: overlay, multiply, normal, normal, normal, normal;
-
-  /* ultra-gentle taper into the next section */
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    transparent 0,
-    #000 var(--kraft-fade),
-    #000 calc(100% - var(--kraft-fade)),
-    transparent 100%
-  );
-          mask-image: linear-gradient(
-    to bottom,
-    transparent 0,
-    #000 var(--kraft-fade),
-    #000 calc(100% - var(--kraft-fade)),
-    transparent 100%
-  );
-}
-
-/* optional: tiny inner glow so it feels “moonlit” not heavy */
-.stripe--kraft::after{
-  content:"";
-  position:absolute; z-index:-1;
-  left: calc(50% - 50vw); width:100vw;
-  top:   calc(-1 * var(--stripe-bleed-top, 20px));
-  bottom:calc(-1 * var(--stripe-bleed-bottom, 0px));
-  background:
-    radial-gradient(120% 60% at 50% 10%, rgba(255,255,255,.08), transparent 60%),
-    radial-gradient(120% 60% at 50% 90%, rgba(255,255,255,.06), transparent 60%);
-  pointer-events:none;
-  -webkit-mask-image: inherit; mask-image: inherit; /* match the taper */
-}
-
-/* tweak strength on mobile if you want it even softer */
-@media (max-width:640px){
-  .stripe--kraft{ --kraft-fade: 22px; }
-}
-
 /* ================= STRIPE LINK STYLING ================= */
-/* Default link color inside stripes */
 .stripe a{
-  color: var(--slate);
-  text-decoration-color: var(--slate);
+  color: var(--offwhite);
+  text-decoration-color: var(--offwhite);
   text-underline-offset: .18em;
   transition: color .2s ease, text-decoration-color .2s ease;
 }
 
-/* Hover & focus color for accessibility */
 .stripe a:hover,
 .stripe a:focus-visible{
-  color: var(--sage);
-  text-decoration-color: var(--sage);
-  outline: none;
-}
-/* ================= STRIPE LINK STYLING ================= */
-/* Default link color inside stripes */
-.stripe a{
-  color: var(--slate);
-  text-decoration-color: var(--slate);
-  text-underline-offset: .18em;
-  transition: color .2s ease, text-decoration-color .2s ease;
-}
-
-/* Hover & focus color for accessibility */
-.stripe a:hover,
-.stripe a:focus-visible{
-  color: var(--sage);
-  text-decoration-color: var(--sage);
+  color: var(--gold);
+  text-decoration-color: var(--gold);
   outline: none;
 }
 
-/* ===== Raised, textured stripes (no blur) ===== */
+/* ============= STRIPE BASE: raised, dark wave panel ============= */
 .stripe{
-  /* global knobs */
-  --stripe-bg: var(--wave-dark);
-  --stripe-radius: 18px;                /* corner roundness for the panel */
-  --shadow-main: 0 14px 28px rgba(0,0,0,.16);
-  --shadow-soft: 0 3px 10px rgba(0,0,0,.10);
-  --edge-top:   linear-gradient(to bottom, rgba(255,255,255,.30), rgba(255,255,255,0) 40%);
-  --edge-bottom:linear-gradient(to top,    rgba(0,0,0,.10),       rgba(0,0,0,0) 50%);
-  --grain-alpha: .035;                   /* texture strength; lower = subtler */
-
+  --stripe-bg: var(--wave-dark);       /* your standard dark background */
+  --stripe-radius: 18px;
+  --stripe-bleed-top: 18px;
+  --stripe-bleed-bottom: 22px;
+  --shadow-main: 0 16px 32px rgba(0,0,0,.25);
+  --shadow-soft: 0 3px 12px rgba(0,0,0,.15);
   position: relative;
   isolation: isolate;
   padding: var(--stripe-pad-y, 10px) var(--page-pad-inline);
-  margin: 0;                             /* no extra margins by default */
+  margin: 0;
   padding-bottom: calc(var(--stripe-pad-y, 10px) + var(--stripe-buffer-bottom, 30px));
 }
 
-/* the full-bleed colored panel */
 .stripe::before{
   content:"";
   position:absolute;
   z-index:-1;
-  left: calc(50% - 50vw);               /* full width */
+  left: calc(50% - 50vw);
   width: 100vw;
-  top:   calc(-1 * var(--stripe-bleed-top, 20px));
-  bottom:calc(-1 * var(--stripe-bleed-bottom, 0px));
+  top: calc(-1 * var(--stripe-bleed-top));
+  bottom: calc(-1 * var(--stripe-bleed-bottom));
   background:
-    /* soft paper-ish grain (two layers, super subtle) */
-    repeating-linear-gradient(0deg,
-      rgba(255,255,255,var(--grain-alpha)) 0 2px,
-      transparent 2px 4px),
+    /* faint organic grain so it doesn’t feel flat */
     repeating-linear-gradient(90deg,
-      rgba(0,0,0,calc(var(--grain-alpha) * .8)) 0 1px,
-      transparent 1px 3px),
+      rgba(255,255,255,.03) 0 2px, transparent 2px 6px),
+    repeating-linear-gradient(0deg,
+      rgba(0,0,0,.05) 0 1px, transparent 1px 5px),
     var(--stripe-bg);
-
+  background-blend-mode: overlay, multiply, normal;
   border-radius: var(--stripe-radius);
-  box-shadow: var(--shadow-main), var(--shadow-soft);   /* “lifted” */
+  box-shadow: var(--shadow-main), var(--shadow-soft);
 }
 
-/* top & bottom edge sheen/shadow for depth */
 .stripe::after{
   content:"";
   position:absolute;
   z-index:-1;
   left: calc(50% - 50vw);
   width: 100vw;
-  top:   calc(-1 * var(--stripe-bleed-top, 20px));
-  bottom:calc(-1 * var(--stripe-bleed-bottom, 0px));
+  top: calc(-1 * var(--stripe-bleed-top));
+  bottom: calc(-1 * var(--stripe-bleed-bottom));
   pointer-events:none;
   border-radius: var(--stripe-radius);
-
-  /* thin highlights on the panel edges */
   background:
-    var(--edge-top),
-    var(--edge-bottom);
-  background-repeat: no-repeat, no-repeat;
-  background-size: 100% 18px, 100% 18px;   /* height of edge effects */
+    linear-gradient(to bottom, rgba(255,255,255,.15), rgba(255,255,255,0) 40%),
+    linear-gradient(to top,    rgba(0,0,0,.25),       rgba(0,0,0,0) 50%);
+  background-size: 100% 16px, 100% 16px;
+  background-repeat: no-repeat;
   background-position: top left, bottom left;
 }
 
-/* optional: smaller radius on mobile so panels feel tighter */
-@media (max-width: 640px){
-  .stripe{ --stripe-radius: 12px; --grain-alpha: .03; }
+@media (max-width:640px){
+  .stripe{ --stripe-radius: 12px; }
+}
+
+/* ============= KRAFT PAPER PANEL (for warm organic sections) ============= */
+.paper-panel{
+  --paper-base: color-mix(in srgb, var(--soil) 30%, var(--wave-dark) 70%);
+  --speck: .09;
+  --fiber: .05;
+  --taper: 26px;
+
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 10px 22px rgba(0,0,0,.18), 0 1px 0 rgba(0,0,0,.04);
+
+  background:
+    linear-gradient(0deg, rgba(255,255,255,calc(var(--fiber)*.6)), transparent 60%),
+    repeating-linear-gradient(25deg, rgba(0,0,0,calc(var(--fiber)*.6)) 0 2px, transparent 2px 7px),
+    radial-gradient(1px 1px at 20% 25%, rgba(255,255,255,var(--speck)) 50%, transparent 51%),
+    radial-gradient(1.2px 1.2px at 60% 70%, rgba(0,0,0,calc(var(--speck)*.9)) 50%, transparent 51%),
+    var(--paper-base);
+  background-size: auto, 400px 400px, 70px 70px, 110px 110px, cover;
+  background-blend-mode: overlay, multiply, normal, normal, normal;
+
+  -webkit-mask-image: linear-gradient(to bottom,
+    transparent 0, #000 var(--taper),
+    #000 calc(100% - var(--taper)), transparent 100%);
+          mask-image: linear-gradient(to bottom,
+    transparent 0, #000 var(--taper),
+    #000 calc(100% - var(--taper)), transparent 100%);
+}
+
+/* warm tint so it feels part of the wave-dark family */
+.paper-panel::before{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  --tint: color-mix(in srgb, var(--wave-dark) 75%, var(--soil) 25%);
+  background: linear-gradient(var(--tint), var(--tint));
+  opacity: .45;
+}
+
+/* soft inner light for dimension */
+.paper-panel::after{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:
+    radial-gradient(130% 60% at 50% 15%, rgba(255,255,255,.07), transparent 60%),
+    radial-gradient(130% 60% at 50% 85%, rgba(255,255,255,.06), transparent 60%);
+  mix-blend-mode: soft-light;
+  -webkit-mask-image: inherit; mask-image: inherit;
+}
+
+@media (max-width:640px){
+  .paper-panel{ --speck:.07; --fiber:.04; --taper:22px; }
 }
 
 /* ===== NAV ===== */
