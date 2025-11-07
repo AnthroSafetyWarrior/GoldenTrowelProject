@@ -925,41 +925,50 @@ html body .pillhead.pill--sage{
   --curve-inset: clamp(36px, 8vw, 240px);
 }
 
-/* Full-bleed color stripe wrapper */
+/* Stripe: full-bleed background behind any content */
 .stripe{
-  /* controls */
-  --stripe-bg: var(--wave-dark);                 /* background color */
-  --stripe-pad-y: clamp(28px, 5vw, 48px);        /* inner vertical padding */
-  --stripe-bleed-top: 10px;                      /* extend above content */
-  --stripe-bleed-bottom: 10px;                   /* extend below content */
+  /* controls (override per instance) */
+  --stripe-bg: var(--wave-dark);
+  --stripe-bleed-top: 10px;
+  --stripe-bleed-bottom: 10px;
+
+  /* spacing controls */
+  --stripe-pad-y: 0px;          /* padding on the stripe itself */
+  --stripe-section-pad-y: 0px;  /* padding on the inner .section */
+  --stripe-gap: 0px;            /* grid gap inside .section */
+  --stripe-pillhead-mb: 8px;    /* pillhead top/bottom margin */
 
   position: relative;
   isolation: isolate;
-  margin: 0;                                     /* no extra gap around */
   padding: var(--stripe-pad-y) var(--page-pad-inline);
 }
 
-/* the full-bleed color */
 .stripe::before{
-  content: "";
-  position: absolute;
-  z-index: -1;                                   /* behind your content */
+  content:"";
+  position:absolute;
+  z-index:-1;
+  left: calc(50% - 50vw);
+  width: 100vw;
   top:    calc(-1 * var(--stripe-bleed-top));
   bottom: calc(-1 * var(--stripe-bleed-bottom));
-  left:   calc(50% - 50vw);                      /* anchor to LEFT edge */
-  width:  100vw;
   background: var(--stripe-bg);
 }
 
-/* Anchor to right edge if needed */
-.stripe--right::before{
-  left: auto;
-  right: calc(50% - 50vw);
+/* anchor to right edge if needed */
+.stripe--right::before{ left:auto; right:calc(50% - 50vw); }
+
+/* tighten the content inside the stripe */
+.stripe > .section{
+  padding-block: var(--stripe-section-pad-y);
+  gap: var(--stripe-gap);
 }
 
+/* tame the pillhead margins when inside a stripe */
+.stripe .pillhead{ margin-block: var(--stripe-pillhead-mb); }
+
 /* quick presets */
-.stripe--wave-dark { --stripe-bg: var(--wave-dark); }
-.stripe--offwhite  { --stripe-bg: #eae6df; }
+.stripe--wave-dark{ --stripe-bg: var(--wave-dark); }
+.stripe--offwhite { --stripe-bg: #eae6df; }
 
 </style>
 
@@ -1060,7 +1069,7 @@ html body .pillhead.pill--sage{
 <footer class="legal-footer" role="contentinfo" aria-label="Legal" style="text-align: center">
   © {{ site.time | date: '%Y' }} Golden Trowel Project. All rights reserved.
 <br>  
-The Golden Trowel Project™ name and logo are the property of Samantha Gogol and may not be used without written permission.
+The Golden Trowel Project™ name and logo may not be used without written permission.
 <br>
   <small>This website provides educational information and does not constitute legal advice.
   </small>
