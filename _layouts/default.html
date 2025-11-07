@@ -1226,16 +1226,16 @@ if (!pills.length) return;
 })();
 </script>
 <script>
-/* mark each section with which side it should stripe */
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('main .section').forEach(sec => {
-    const left  = sec.querySelector(':scope > .pillhead.pill--clip-left, :scope > .pillband.pill--clip-left');
-    const right = sec.querySelector(':scope > .pillhead.pill--clip-right, :scope > .pillband.pill--clip-right');
-    sec.classList.toggle('stripe-left',  !!left);
-    sec.classList.toggle('stripe-right', !!right);
+    const hasLeft  = sec.querySelector(':scope > .pillhead.pill--clip-left, :scope > .pillband.pill--clip-left');
+    const hasRight = sec.querySelector(':scope > .pillhead.pill--clip-right, :scope > .pillband.pill--clip-right');
+    sec.classList.toggle('stripe-left',  !!hasLeft);
+    sec.classList.toggle('stripe-right', !!hasRight);
   });
 });
 </script>
+
 
 </body>
 </html>
