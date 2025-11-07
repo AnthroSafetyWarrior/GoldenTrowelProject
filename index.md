@@ -149,6 +149,8 @@ a.hover-sage:hover{
 <!-- 4) SUPPORT — consistent grid utility -->
 <section class="section">
 <h2 class="pillhead pill--slate pill--clip-right">Survivor Support</h2>
+</section>
+<section class="section">
   <div class="split-equal">
     <div class="col"> 
  <h3><a class="hover-sage" href="{{ '/support.html' | relative_url }}"  target="_blank" 
@@ -160,7 +162,6 @@ a.hover-sage:hover{
 <h4><a class="hover-sage" href="https://takebackthenight.org/"  target="_blank" 
      rel="noopener noreferrer"  style="color:var(--slate);">TBTN</a>: <p>Take Back the Night</p></h4></div>
 <p>National Sexual Assault Legal Hotline: Free Legal Assistance for Survivors Call 567-SHATTER (567-742-8837)</p>
-<br>
 <div class="inline-elements">   
 <h4><a class="hover-sage" href="https://www.hotpeachpages.net/a/countries.html"  target="_blank" 
      rel="noopener noreferrer"  style="color:var(--slate);">Hot Peach Pages</a>: <p>International List of Sexual & Domestic Violence Agencies</p></h4></div>
@@ -208,10 +209,10 @@ a.hover-sage:hover{
  <article class="card card--glass">
       <h3>Creating Change</h3>
   <p>
-    Help us understand the current state of fieldwork safety by participating in our  <strong>anonymous survey</strong>. The 
-    <strong><a href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank" rel="noopener">Fieldwork Misconduct Survey</a></strong> 
-    gathers community-driven, anonymous data on harassment and misconduct to update the only major prevalence study (<em>Clancy et&nbsp;al.,&nbsp;2014</em>). 
-    Your participation helps highlight how much change is still needed—and why these resources matter. Together, we can use these data to drive 
+    Help us understand the current state of fieldwork safety by participating in our  <strong>anonymous survey</strong>.</p>
+<p> The <strong><a href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank" rel="noopener">Fieldwork Misconduct Survey</a></strong> 
+    gathers community-driven, anonymous data on harassment and misconduct to update the only major prevalence study (<em>Clancy et&nbsp;al.,&nbsp;2014</em>).</p>
+    <p>Your participation helps highlight how much change is still needed—and why these resources matter. Together, we can use these data to drive 
     accountability and create safer fieldwork environments.
   </p>
  </article>
