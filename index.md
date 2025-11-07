@@ -100,7 +100,7 @@ hero_tint: .40
 <!-- 4) START HERE — consistent grid utility -->
 <section class="pillband pill--slate pill--clip-right pill--tight" id="start-here">
   <div class="section">
-    <h2>Start Here: three steps before you go</h2>
+    <h2>Start Here: Three Steps Before You Go</h2>
 </div>
 </section>
 
@@ -115,7 +115,6 @@ hero_tint: .40
           <p>Step-by-step setup that ties the plan and commitment together.</p>
        </div>
       </article>
-    </div>
 
 
       <!-- 2) Safety Plan -->
@@ -142,7 +141,7 @@ hero_tint: .40
 <!-- 5) TRAINING — its own section -->
 <section class="section" id="training">
 <div class="inline-elements">   
-  <h2 class="pillhead pill--sage pill--clip-left"></h2>
+  <h2 class="pillhead pill--sage pill--clip-left">Training that Strengthens Safety</h2>
 <div class="circle" data-href="{{ '/selfdefense.html' | relative_url }}">
                 <button class="circle-btn" type="button">Self-Defense & Boundaries</button>
 </div>
