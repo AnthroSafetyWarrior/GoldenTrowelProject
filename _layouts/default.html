@@ -922,6 +922,30 @@ main .section::before{
   z-index: -2;                                      /* <— farther back */
 }
 
+/* Side-based stripe color only — no mixing */
+main .section:has(> .pillhead.pill--clip-left),
+main .section:has(> .pillband.pill--clip-left){
+  --section-stripe: var(--wave-dark);       /* the brownish wash */
+}
+
+main .section:has(> .pillhead.pill--clip-right),
+main .section:has(> .pillband.pill--clip-right){
+  --section-stripe: var(--offwhite);        /* light wash = #FAF7F2 */
+}
+
+/* Body background stays the flat sand tone */
+body{ background:#eae6df; }
+
+/* No theme-based stripe overrides anywhere in <main> */
+main .section:has(> .pillhead.pill--orange),
+main .section:has(> .pillband.pill--orange),
+main .section:has(> .pillhead.pill--soil),
+main .section:has(> .pillband.pill--soil),
+main .section:has(> .pillhead.pill--slate),
+main .section:has(> .pillband.pill--slate),
+main .section:has(> .pillhead.pill--sage),
+main .section:has(> .pillband.pill--sage){ /* intentionally blank */ }
+
 </style>
 
 </head>
