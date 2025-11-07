@@ -58,6 +58,19 @@ hero_tint: .40
 </section>
 
 <section class="section">
+  <div class="split-equal">
+    <div class="col"> 
+
+</div>
+
+    <div class="col"> 
+
+</div>
+</div>
+</section>
+
+
+<section class="section">
   <div class="pill-grid"> 
  <article class="card card--glass">
 <h3>Students & Early-Career Researchers</h3>
