@@ -936,6 +936,54 @@ main :is(.pill, .pillband, .pillhead):not(.pill--nav){ --stripe: initial; }
 main :is(.pill, .pillband, .pillhead):not(.pill--nav)::after{
   background: var(--stripe, inherit);
 }
+
+/* === FIX: transparent pills + safe stripes only inside <main> ========= */
+
+/* 0) Make sure the page bg is the color you want */
+:root { --page-bg: #eae6df; }
+body  { background: var(--page-bg); }
+
+/* 1) Neutralize pill/band/heading fills in page content */
+main :is(.pill, .pillband, .pillhead){
+  background: transparent !important;
+  color: var(--ink);
+  position: relative;
+  z-index: 0;            /* establish a stacking context */
+  isolation: isolate;    /* keep the stripe below local content */
+}
+
+/* 2) Kill the full-bleed “before” ribbons just in <main> */
+main :is(.pill, .pillband, .pillhead)::before{
+  content: none !important;
+}
+
+/* 3) Stripe painter: extends from this block down to the next */
+main :is(.pill, .pillband, .pillhead)::after{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: calc(50% - 50vw);          /* full-viewport width */
+  width: 100vw;
+  height: var(--band-h, 0px);      /* set by sizeBands() */
+  background: var(--stripe, transparent);
+  pointer-events: none;
+  z-index: -1;                     /* behind this block & following content */
+}
+/* If clipped RIGHT, anchor to the right edge */
+main :is(.pill, .pillband, .pillhead).pill--clip-right::after{
+  left: auto;
+  right: calc(50% - 50vw);
+}
+
+/* 4) Default stripe colors by side (override per block with --stripe if needed) */
+main :is(.pill, .pillband, .pillhead).pill--clip-left  { --stripe: var(--wave-dark); }
+main :is(.pill, .pillband, .pillhead).pill--clip-right { --stripe: var(--page-bg); }
+
+/* Optional: no side class? fall back to page bg */
+main :is(.pill, .pillband, .pillhead):not(.pill--clip-left):not(.pill--clip-right){
+  --stripe: var(--page-bg);
+}
+
 </style>
 
 </head>
