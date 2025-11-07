@@ -880,7 +880,7 @@ html, body { overflow-x: hidden; }
 :root{ --pill-border: 6px; }
 
 /* 1) Make copy dark and backgrounds transparent */
-html body :is(.pillband, .pillhead, .pill){
+html body :is(.pillband, .pillhead){
   color: var(--ink) !important;
   background: transparent !important;
 }
@@ -914,65 +914,55 @@ html body .pillhead.pill--sage{
 
 
 
-/* ================= STRIPE (full-bleed background wrapper) ================= */
+/* Full-bleed color stripe */
 .stripe{
-  /* ----------- CONTROLS (tweak once, affects all) ----------- */
-  --stripe-bg: var(--wave-dark);   /* background color */
-  --stripe-bleed-top: 20px;        /* how far color extends above */
-  --stripe-bleed-bottom: 0px;     /* how far color extends below */
-  --stripe-pad-y: 8px;             /* padding inside stripe */
-  --stripe-section-pad-y: 0px;     /* padding on inner section */
-  --stripe-gap: 0px;               /* grid gap inside section */
-  --stripe-pillhead-mb: 8px;       /* margin for pillheads inside */
-  --stripe-buffer-bottom: 40px;    /* buffer AFTER stripe before next pill */
+  /* global controls */
+  --stripe-bg: var(--wave-dark);
+  --stripe-bleed-top: 20px;        /* color extends above */
+  --stripe-bleed-bottom: 20px;     /* color extends below */
+  --stripe-pad-y: 0px;             /* padding inside stripe */
+  --stripe-section-pad-y: 0px;     /* padding inside .section */
+  --stripe-gap: 0px;               /* gap inside .section grid */
+  --stripe-pillhead-mb: 8px;       /* pillhead margin inside */
+  --stripe-buffer-bottom: 30px;    /* transparent space AFTER stripe */
 
   position: relative;
   isolation: isolate;
-  margin: 0;
   padding: var(--stripe-pad-y) var(--page-pad-inline);
 }
 
-/* full-bleed color block behind content */
+/* The colored panel (only color) */
 .stripe::before{
   content:"";
   position:absolute;
-  z-index:-1;
+  z-index:-1;                      /* behind content */
   left: calc(50% - 50vw);
   width: 100vw;
   top:    calc(-1 * var(--stripe-bleed-top));
   bottom: calc(-1 * var(--stripe-bleed-bottom));
   background: var(--stripe-bg);
-  pointer-events: none;
 }
 
-/* automatic buffer AFTER each stripe */
+/* Transparent spacer AFTER the stripe (adds real space, no color) */
 .stripe::after{
   content:"";
   display:block;
   height: var(--stripe-buffer-bottom);
 }
 
-/* Anchor to right edge when needed */
-.stripe--right::before{
-  left:auto;
-  right:calc(50% - 50vw);
-}
+/* Anchor to right edge if needed */
+.stripe--right::before{ left:auto; right:calc(50% - 50vw); }
 
-/* tighten the inner section */
+/* Tighten inner content defaults */
 .stripe > .section{
   padding-block: var(--stripe-section-pad-y);
   gap: var(--stripe-gap);
 }
-
-/* control pillhead spacing inside */
-.stripe .pillhead{
-  margin-block: var(--stripe-pillhead-mb);
-}
+.stripe .pillhead{ margin-block: var(--stripe-pillhead-mb); }
 
 /* Quick presets */
-.stripe--wave-dark { --stripe-bg: var(--wave-dark); }
-.stripe--offwhite  { --stripe-bg: #eae6df; }
-
+.stripe--wave-dark{ --stripe-bg: var(--wave-dark); }
+.stripe--offwhite { --stripe-bg: #eae6df; }
 /* ================= STRIPE LINK STYLING ================= */
 /* Default link color inside stripes */
 .stripe a{
