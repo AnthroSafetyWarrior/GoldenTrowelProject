@@ -61,52 +61,15 @@ hero_tint: .40
 </div>
 
 
-<!--3) START HERE — primary actions -->
-<section class="pillband pill--soil pill--clip-left pill--tight" id="start-here">
-  <div class="section">
-    <h2>Start here: three steps before you go</h2>
-    <p class="lede">Download and customize these core documents. They anchor the rest of your plan.</p>
-
-    <div class="resources-grid resources-grid--flat">
-      <article class="resource-card resource-card--outline">
-        <h3>Fieldwork Safety Plan</h3>
-        <p>Your personal plan: contacts, risks, and response steps.</p>
-        <p><a class="btn-doc" href="https://docs.google.com/document/d/1OkEMW4VhpsccA_VZTTEvgBBq5vs0mCOEDg9Xk6f34Ss/edit?usp=sharing" target="_blank" rel="noopener">Open Google Doc</a></p>
-      </article>
-
-      <article class="resource-card resource-card--outline">
-        <h3>Collaborator Safety Commitment</h3>
-        <p>Team agreement on expectations, boundaries, and accountability.</p>
-        <p><a class="btn-doc" href="https://docs.google.com/document/d/18SmymYAFKUz_drbDhcsx8NWaiNG6-SQflWPj0OaZ76c/edit?usp=sharing" target="_blank" rel="noopener">Open Google Doc</a></p>
-      </article>
-
-      <article class="resource-card resource-card--outline">
-        <h3>Pre-Fieldwork Safety Checklist</h3>
-        <p>Step-by-step setup that ties the plan and commitment together.</p>
-        <p><a class="btn-doc" href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing" target="_blank" rel="noopener">Open Google Sheet</a></p>
-      </article>
-    </div>
-  </div>
-</section>
-
-
-<div class="stripe stripe--wave-dark">
-<!-- 4) TRAINING — its own section -->
-<section class="section" id="training">
-  <h2 class="pillhead pill--sage pill--clip-left">
-    <a class="pillhead__link" href="{{ '/selfdefense.html' | relative_url }}" target="_blank" rel="noopener">Training that strengthens safety</a>
-  </h2>
-  <p class="lede">Build confidence before you depart: boundary-setting, de-escalation, and evidence-based empowerment self-defense (ESD).</p>
-  <p><a href="{{ '/selfdefense.html' | relative_url }}">Explore training resources →</a></p>
-</section>
-</div>
-
-<!-- 5) SUPPORT — consistent grid utility -->
+<!-- 3) SUPPORT — consistent grid utility -->
 <section class="pillband pill--soil pill--clip-left pill--tight" id="start-here">
   <div class="section">
     <h2>Start here: three steps before you go</h2>
     <p class="lede">These are the core documents. Customize them first.</p>
+</div>
+</section>
 
+<section class="section">
     <div class="hero-docs">
       <!-- 1) Safety Plan -->
       <article class="doc-callout doc--gold">
@@ -140,6 +103,18 @@ hero_tint: .40
     </div>
   </div>
 </section>
+
+
+<div class="stripe stripe--wave-dark">
+<!-- 4) TRAINING — its own section -->
+<section class="section" id="training">
+  <h2 class="pillhead pill--sage pill--clip-left">
+    <a class="pillhead__link" href="{{ '/selfdefense.html' | relative_url }}" target="_blank" rel="noopener">Training that strengthens safety</a>
+  </h2>
+  <p class="lede">Build confidence before you depart: boundary-setting, de-escalation, and evidence-based empowerment self-defense (ESD).</p>
+  <p><a href="{{ '/selfdefense.html' | relative_url }}">Explore training resources →</a></p>
+</section>
+</div>
 
 
 <div class="stripe stripe--wave-dark">
