@@ -20,6 +20,13 @@ hero_tint: .40
 @media (max-width: 760px){
   .split-equal{ grid-template-columns: 1fr; }
 }
+
+<style>
+a.hover-sage:hover{
+  color: var(--sage);
+  text-decoration-color: var(--sage);
+}
+</style>
 </style>
 
 <!-- 1) Intro – plain background -->
@@ -51,15 +58,15 @@ hero_tint: .40
 </section>
 
 <div class="stripe stripe--wave-dark"
-     style="--stripe-bleed-top:30px; --stripe-bleed-bottom:30px;">
+     style="--stripe-bleed-top:30px; --stripe-bleed-bottom:20px;">
 <!-- 2) PREVALENCE — shared split -->
 <section class="section">
 <h2 class="pillhead pill--orange pill--clip-right">Prevalence of Fieldwork Harassment and Assault
 </h2>
   <div class="split">
     <div class="text">
-       <p>A 2014 survey sampling &gt;650 anthropologists revealed high frequencies of harassment and assault, and low frequencies of awareness of reporting procedures (Clancy <em>et&nbsp;al.</em>, 2014; DOI: <strong><a href="https://doi.org/10.1371/journal.pone.0102172"  target="_blank" 
-     rel="noopener noreferrer"  style="color:var(--slate); hover (color: #3B2A1F;">10.1371/journal.pone.0102172</a></strong>).</p>
+       <p>A 2014 survey sampling &gt;650 anthropologists revealed high frequencies of harassment and assault, and low frequencies of awareness of reporting procedures (Clancy <em>et&nbsp;al.</em>, 2014; DOI: <strong><a class= "hover-sage" href="https://doi.org/10.1371/journal.pone.0102172"  target="_blank" 
+     rel="noopener noreferrer"  style="color:var(--slate);">10.1371/journal.pone.0102172</a></strong>).</p>
     </div>
     <figure class="art">
       <img
@@ -71,6 +78,7 @@ hero_tint: .40
   </div>
 </section>
 </div>
+
 
 <!-- 3) PREPARING — pillband -->
 <section class="pillband pill--soil pill--clip-left pill--earlywrapl">
@@ -137,40 +145,41 @@ hero_tint: .40
 </div>
 </section>
 
-
+<div class="stripe stripe--wave-dark"
+     style="--stripe-bleed-top:30px; --stripe-bleed-bottom:20px;">
 <!-- 4) SUPPORT — consistent grid utility -->
 <section class="section">
 <h2 class="pillhead pill--slate pill--clip-right">Survivor Support</h2>
   <div class="split-equal">
     <div class="col"> 
- <h3><a href="{{ '/support.html' | relative_url }}"  target="_blank" 
-     rel="noopener noreferrer">Supporting You</a></h3>
+ <h3><a class="hover-sage" href="{{ '/support.html' | relative_url }}"  target="_blank" 
+     rel="noopener noreferrer"  style="color:var(--slate);">Supporting You</a></h3>
 <p>Access survivor-centered resources focused on emotional support, recovery, and community care. This page highlights mental-health hotlines, trauma-informed care networks, and guidance on seeking help after an incident—because your safety and well-being come first.</p>
 </div>
    <div class="col">
 <div class="inline-elements">   
-<h4><a href="https://takebackthenight.org/"  target="_blank" 
-     rel="noopener noreferrer">TBTN</a>: <p>Take Back the Night</p></h4></div>
+<h4><a class="hover-sage" href="https://takebackthenight.org/"  target="_blank" 
+     rel="noopener noreferrer"  style="color:var(--slate);">TBTN</a>: <p>Take Back the Night</p></h4></div>
 <p>National Sexual Assault Legal Hotline: Free Legal Assistance for Survivors Call 567-SHATTER (567-742-8837)</p>
 <br>
 <div class="inline-elements">   
-<h4><a href="https://www.hotpeachpages.net/a/countries.html"  target="_blank" 
-     rel="noopener noreferrer">Hot Peach Pages</a>: <p>International List of Sexual & Domestic Violence Agencies</p></h4></div>
+<h4><a class="hover=sage" href="https://www.hotpeachpages.net/a/countries.html"  target="_blank" 
+     rel="noopener noreferrer"  style="color:var(--slate);">Hot Peach Pages</a>: <p>International List of Sexual & Domestic Violence Agencies</p></h4></div>
 <br>
 <div class="inline-elements">   
-<h4><a href="https://www.interaction.org/wp-content/uploads/resource-library/international_centers_for_survivors_of_sexual_assault_45553.pdf"  target="_blank" 
-     rel="noopener noreferrer">interaction.org</a>: <p>Handbook of International Centers for Survivors of Sexual Assault and Harassment</p></h4></div>
+<h4><a class="hover-sage" href="https://www.interaction.org/wp-content/uploads/resource-library/international_centers_for_survivors_of_sexual_assault_45553.pdf"  target="_blank" rel="noopener noreferrer"  style="color:var(--slate);">interaction.org</a>: <p>Handbook of International Centers for Survivors of Sexual Assault and Harassment</p></h4></div>
 <br>
 <div class="inline-elements">   
-<h4><a href="https://rainn.org/"  target="_blank" 
-     rel="noopener noreferrer">RAINN</a>: <p>Rape, Abuse & Incest National Network</p></h4></div>
+<h4><a class="hover-sage" href="https://rainn.org/"  target="_blank" 
+     rel="noopener noreferrer"  style="color:var(--slate);">RAINN</a>: <p>Rape, Abuse & Incest National Network</p></h4></div>
 <br>
 <div class="inline-elements">   
-<h4><a href="https://ilga.org/"  target="_blank" 
-     rel="noopener noreferrer">ILGA World</a>: <p>International Lesbian, Gay, Bisexual, Trans, and Intersex Association</p></h4></div>
+<h4><a class="hover-sage" href="https://ilga.org/"  target="_blank" 
+     rel="noopener noreferrer"  style="color:var(--slate);">ILGA World</a>: <p>International Lesbian, Gay, Bisexual, Trans, and Intersex Association</p></h4></div>
 </div>
 </div>
 </section>
+</div>
 
 <!-- 5) REPORTING — consistent grid utility -->
 <section class="pillband pill--sage pill--clip-left pill--tight">
