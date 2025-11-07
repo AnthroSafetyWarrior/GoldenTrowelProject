@@ -925,6 +925,41 @@ html body .pillhead.pill--sage{
   --curve-inset: clamp(36px, 8vw, 240px);
 }
 
+
+/* Full-bleed color stripe you can wrap around any content */
+.stripe{
+  /* controls */
+  --stripe: var(--wave-dark);                   /* background color */
+  --stripe-pad-y: clamp(28px, 5vw, 48px);       /* inner vertical padding */
+  --stripe-bleed-top:  36px;                    /* how far the color extends above content */
+  --stripe-bleed-bottom: 36px;                  /* how far the color extends below content */
+
+  position: relative;
+  isolation: isolate;
+  padding: var(--stripe-pad-y) var(--page-pad-inline);
+}
+
+.stripe::before{
+  content: "";
+  position: absolute;
+  z-index: -1;                                  /* behind your content */
+  top:    calc(var(--stripe-bleed-top) * -1);
+  bottom: calc(var(--stripe-bleed-bottom) * -1);
+  left:   calc(50% - 50vw);                     /* anchor to LEFT edge by default */
+  width:  100vw;
+  background: var(--stripe);
+}
+
+/* If you want the stripe anchored to the RIGHT edge instead */
+.stripe--right::before{
+  left: auto;
+  right: calc(50% - 50vw);
+}
+
+/* Quick presets if you like */
+.stripe--wave-dark { --stripe: var(--wave-dark); }
+.stripe--offwhite  { --stripe: #eae6df; }       /* exact sand color */
+
 </style>
 
 </head>

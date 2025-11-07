@@ -50,6 +50,8 @@ hero_tint: .40
   </div>
 </section>
 
+<div class="stripe stripe--wave-dark"
+     style="--stripe-bleed-top:60px; --stripe-bleed-bottom:24px;">
 <!-- 2) PREVALENCE — shared split -->
 <section class="section">
 <h2 class="pillhead pill--orange pill--clip-right">Prevalence of Fieldwork Harassment and Assault
@@ -68,9 +70,10 @@ hero_tint: .40
     </figure>
   </div>
 </section>
+</div>
 
 <!-- 3) PREPARING — pillband -->
-<section class="pillband pill--soil pill--clip-left pill--earlywrapl">
+<section class="pillband pill--soil pill--clip-left pill--earlywrap">
   <div class="section resources">    
 <h2>Preparing for fieldwork includes proactive safety planning.</h2>
 <div class="resources-grid">
