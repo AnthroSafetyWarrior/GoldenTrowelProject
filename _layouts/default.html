@@ -890,78 +890,36 @@ html, body { overflow-x: hidden; }
 }
 
 
-/* ===== HARD RESET: page pills/bands/heads are OUTLINE-ONLY in <main> ===== */
+/* HARD RESET: outline-only for pills/bands/heads in <main> */
 main :is(.pill, .pillband, .pillhead):not(.pill--nav){
   color: var(--ink) !important;
   background: transparent !important;
-  position: relative;               /* keep stacking context */
+  position: relative;
   isolation: isolate;
-  z-index: 0;
+  z-index: 0; /* content layer */
 }
 
-/* Turn their ribbons into outlines; kill any fills */
+/* Their ribbons = outlines only (NO fill) and behind content */
 main :is(.pill, .pillband, .pillhead):not(.pill--nav)::before{
   content:"";
   position:absolute;
   inset:0 auto;
-  background: transparent !important;                         /* no fill */
+  background: transparent !important;               /* no fill */
   border: var(--pill-border, 6px) solid var(--pill-color, var(--soil)) !important;
   box-shadow: none !important;
-  z-index: 1;                                                 /* below real content */
+  z-index: -1;                                      /* <— move behind text */
 }
-/* Extra safety: nuke the legacy band fills that were set earlier */
+
+/* Extra safety: nuke any legacy fills */
 main .pill::before,
 main .pillband::before,
 main .pillhead::before{
   background: transparent !important;
 }
 
-/* ===== SECTION STRIPES: strict side colors, no color-mix tints ===== */
-main .section{
-  position: relative;
-  isolation: isolate;
-}
+/* SECTION STRIPES: push farther back so outlines sit above them */
 main .section::before{
-  content:"";
-  position:absolute;
-  top:0; bottom:0;
-  left: calc(50% - 50vw);            /* default: hug left edge */
-  width: 100vw;
-  background: var(--section-stripe, transparent);
-  z-index: -1;                        /* behind content + outlines */
-  pointer-events: none;
-}
-
-/* choose stripe color ONLY by which way the first pillhead/band is clipped */
-main .section:has(> .pillhead.pill--clip-left),
-main .section:has(> .pillband.pill--clip-left){
-  --section-stripe: var(--wave-dark);   /* the brownish wash */
-}
-main .section:has(> .pillhead.pill--clip-right),
-main .section:has(> .pillband.pill--clip-right){
-  --section-stripe: var(--offwhite);    /* the light wash */
-  /* and hug the right edge for right-clipped blocks */
-}
-main .section:has(> .pillhead.pill--clip-right)::before,
-main .section:has(> .pillband.pill--clip-right)::before{
-  left:auto;
-  right: calc(50% - 50vw);
-}
-
-/* IMPORTANT: disable all theme-based stripe overrides */
-main .section{
-  --section-stripe: var(--section-stripe);
-}
-/* If you previously had 'color-mix' overrides, remove them or force neutral: */
-main .section:has(> .pillhead.pill--orange),
-main .section:has(> .pillband.pill--orange),
-main .section:has(> .pillhead.pill--soil),
-main .section:has(> .pillband.pill--soil),
-main .section:has(> .pillhead.pill--slate),
-main .section:has(> .pillband.pill--slate),
-main .section:has(> .pillhead.pill--sage),
-main .section:has(> .pillband.pill--sage){ 
-  /* no override — keep the side-based color */
+  z-index: -2;                                      /* <— farther back */
 }
 
 </style>
