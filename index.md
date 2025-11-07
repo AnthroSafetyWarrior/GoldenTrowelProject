@@ -191,8 +191,10 @@ hero_tint: .40
       <h3>Creating Change</h3>
   <p>
     Help us understand the current state of fieldwork safety by participating in our  <strong>anonymous survey</strong>.</p>
+<br>
 <p> The <strong><a href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank" rel="noopener">Fieldwork Misconduct Survey</a></strong> 
     gathers community-driven, anonymous data on harassment and misconduct to update the only major prevalence study (<em>Clancy et&nbsp;al.,&nbsp;2014</em>).</p>
+<br>
     <p>Your participation helps highlight how much change is still needed—and why these resources matter. Together, we can use these data to drive 
     accountability and create safer fieldwork environments.
   </p>
