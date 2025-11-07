@@ -839,28 +839,27 @@ html, body { overflow-x: hidden; }
 /* Optional: cap the H2 a bit tighter than body copy */
 .pillband.pill--earlywrap h2{
   max-inline-size: clamp(28ch, 44vw, 36ch);
-  text-wrap: balance;}
-
-/* ---- Extra-tight rules for RIGHT-clipped pills on phones ---- */
+  text-wrap: balance;
+}
 @media (max-width: 560px){
 
   /* BAND: earlier wrap + bigger safe gutter near the curve */
-  .pillband.pill--clip-right.pill--earlywrap{
-    --pill-curve-inset: clamp(72px, 22vw, 360px);   /* push text further left */
-    --pill-measure:     clamp(28ch, 80vw, 34ch);    /* shorter line length */
-    min-height: clamp(170px, 24vw, 260px);          /* optional: slightly shorter band */
+  .pillband.pill--clip-right.pill--earlywrapl{
+    --pill-curve-inset: clamp(72px, 22vw, 360px);
+    --pill-measure:     clamp(28ch, 80vw, 34ch);
+    min-height: clamp(170px, 24vw, 260px);
   }
 
-  .pillband.pill--clip-right.pill--earlywrap .section{
+  .pillband.pill--clip-right.pill--earlywrapl .section{
     padding-left: max(var(--pill-pad-inline), calc(var(--pill-curve-inset) + 8px));
   }
 
-  .pillband.pill--clip-right.pill--earlywrap h2{
+  .pillband.pill--clip-right.pill--earlywrapl h2{
     max-inline-size: clamp(24ch, 70vw, 30ch);
     text-wrap: balance;
   }
 
-  .pillband.pill--clip-right.pill--earlywrap :where(p, ul, ol, blockquote){
+  .pillband.pill--clip-right.pill--earlywrapl :where(p, ul, ol, blockquote){
     max-inline-size: 100%;
   }
 
@@ -871,6 +870,7 @@ html, body { overflow-x: hidden; }
     --pill-pad-y:  clamp(20px, 5.5vw, 28px);
   }
 }
+
 
 /* Minimal legal footer */
 .legal-footer{
@@ -889,71 +889,41 @@ html, body { overflow-x: hidden; }
   opacity:.9;
 }
 
+/* ===== GLOBAL OUTLINE MODE (no HTML changes) ========================= */
+:root{ --pill-border: 6px; }
 
-/* ================= OUTLINE-ONLY PILLS/BANDS/HEADS ================= */
-main :is(.pill, .pillband, .pillhead):not(.pill--nav){
+/* 1) Make copy dark and backgrounds transparent */
+html body :is(.pillband, .pillhead, .pill){
   color: var(--ink) !important;
   background: transparent !important;
-  position: relative;
-  isolation: isolate;
-  z-index: 0; /* content layer */
 }
 
-main :is(.pill, .pillband, .pillhead):not(.pill--nav)::before{
-  content:"";
-  position:absolute;
-  inset:0 auto;
-  background: transparent !important;               /* no fill */
-  border: var(--pill-border, 6px) solid var(--pill-color, var(--soil)) !important;
-  box-shadow: none !important;
-  z-index: -1;                                      /* behind text */
-}
-
-/* Belt & suspenders: remove any legacy fills */
-main .pill::before,
-main .pillband::before,
-main .pillhead::before{
+/* 2) Convert full-bleed ribbons to outlines */
+html body :is(.pillband, .pillhead, .pill)::before{
   background: transparent !important;
+  border: var(--pill-border) solid var(--pill-color, var(--soil)) !important;
+  box-shadow: none !important;
+  box-sizing: border-box;
 }
 
-/* Ensure full-bleed ribbon anchors on each clip side */
-main :is(.pill, .pillband, .pillhead).pill--clip-right::before{
-  right: calc(50% - 50vw); left:auto; border-radius: 9999px 0 0 9999px;
-}
-main :is(.pill, .pillband, .pillhead).pill--clip-left::before{
-  left:  calc(50% - 50vw); right:auto; border-radius: 0 9999px 9999px 0;
-}
-
-/* ================= SECTION STRIPES (BEHIND EVERYTHING) ============== */
-main .section{
-  position: relative;
-  isolation: isolate;
+/* 3) Beat the color variants that set white text */
+html body .pillband.pill--orange,
+html body .pillband.pill--soil,
+html body .pillband.pill--slate,
+html body .pillband.pill--sage,
+html body .pillhead.pill--orange,
+html body .pillhead.pill--soil,
+html body .pillhead.pill--slate,
+html body .pillhead.pill--sage{
+  color: var(--ink) !important;
 }
 
-/* Base stripe wash, pushed farther back than pill outlines */
-main .section::before{
-  content:"";
-  position:absolute;
-  top:0; bottom:0;
-  left: calc(50% - 50vw);         /* hug left edge by default */
-  width: 100vw;
-  background: transparent;        /* default: no stripe until class applied */
-  z-index: -2;                    /* farther back than pill ::before */
-  pointer-events: none;
+/* 4) (Nice to have) make outlined pills feel airier */
+.pillband{ min-height: clamp(180px, 26vw, 300px); }
+.pill{
+  margin-block: clamp(16px, 3vw, 28px);
+  --curve-inset: clamp(36px, 8vw, 240px);
 }
-
-/* Explicit, bullet-proof stripe colors */
-main .section.stripe-left::before  { background: var(--wave-dark); }
-main .section.stripe-right::before { background: #eae6df; }
-
-/* When right-striped, anchor the wash to the right edge */
-main .section.stripe-right::before{
-  left: auto;
-  right: calc(50% - 50vw);
-}
-
-/* Body background stays the flat sand tone */
-body{ background:#eae6df; }
 
 </style>
 
@@ -1062,6 +1032,43 @@ The Golden Trowel Project™ name and logo are the property of Samantha Gogol an
 
 
   <!-- Tight layout + portal-on-open so flyouts sit over the page -->
+<script>
+(function () {
+  const header = document.querySelector('header.hero');
+  const band   = header?.querySelector('.nav-gradient');
+  if (!header || !band) return;
+
+  // 1) Move the band after the header so it can span the whole page
+  header.after(band);
+  band.classList.add('is-detached');
+
+  // 2) Create a tiny sentinel right before the band to watch the top edge
+  const sentinel = document.createElement('div');
+  sentinel.style.position = 'relative';
+  sentinel.style.height = '1px';
+  sentinel.style.marginTop = 'calc(var(--seam-gap, 8px) * -1)'; // keep the “kiss” to the wave
+  band.parentNode.insertBefore(sentinel, band);
+
+  // 3) Observer toggles a fixed fallback right when the band hits the top
+  const io = new IntersectionObserver((entries) => {
+    const e = entries[0];
+    const atTop = e.boundingClientRect.top <= 0;
+    // If the sentinel is above the viewport, pin the band with .is-fixed
+    if (atTop) {
+      band.classList.add('is-fixed');
+    } else {
+      band.classList.remove('is-fixed');
+    }
+  }, { root: null, threshold: [0], rootMargin: '0px 0px -1px 0px' });
+
+  io.observe(sentinel);
+
+  // (optional) quick visual sanity check in dev tools
+  // console.log('Nav band detached + observing:', band);
+})();
+</script>
+
+
 <script>
 (() => {
   const wrap  = document.querySelector('.wave-nav');
@@ -1188,52 +1195,6 @@ The Golden Trowel Project™ name and logo are the property of Samantha Gogol an
     });
   })();
 })();
-</script>
-
-<script>
-(function(){
-  const topOf = (el) => el.getBoundingClientRect().top + window.scrollY;
-
-  function sizeBands(){
-// Treat .pill, .pillhead, and .pillband as “stripe blocks” (but never the nav flyout)
-const pills = Array.from(document.querySelectorAll(
-  'main .pill:not(.pill--nav), main .pillhead, main .pillband'
-));
-if (!pills.length) return;
-
-
-    // Per-pill band height down to the next pill (or footer)
-    for (let i = 0; i < pills.length; i++){
-      const cur  = pills[i];
-      const next = pills[i+1];
-      const start = topOf(cur);
-      const end   = next
-        ? topOf(next)
-        : (document.querySelector('.legal-footer')
-            ? topOf(document.querySelector('.legal-footer'))
-            : document.body.scrollHeight);
-      const h = Math.max(0, Math.round(end - start));
-      cur.style.setProperty('--band-h', h + 'px');
-    }
-  }
-
-  const run = () => requestAnimationFrame(sizeBands);
-  window.addEventListener('load',   run, {passive:true});
-  window.addEventListener('resize', run, {passive:true});
-  document.fonts && document.fonts.ready.then(run);
-  const root = document.querySelector('main') || document.body;
-  new MutationObserver(run).observe(root, {childList:true, subtree:true});
-})();
-</script>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('main .section').forEach(sec => {
-    const hasLeft  = sec.querySelector(':scope > .pillhead.pill--clip-left, :scope > .pillband.pill--clip-left');
-    const hasRight = sec.querySelector(':scope > .pillhead.pill--clip-right, :scope > .pillband.pill--clip-right');
-    sec.classList.toggle('stripe-left',  !!hasLeft);
-    sec.classList.toggle('stripe-right', !!hasRight);
-  });
-});
 </script>
 
 
