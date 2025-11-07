@@ -121,8 +121,7 @@ hero_tint: .40
        </div>
       </article>
     </div>
-</section>
-</div>
+
 
       <!-- 2) Safety Plan -->
       <article class="doc-callout doc--gold">
@@ -141,7 +140,8 @@ hero_tint: .40
           <p>Shared expectations, boundaries, & accountability for your team.</p>
         </div>
       </article>
-
+</section>
+</div>
 
 
 <!-- 5) TRAINING — its own section -->
