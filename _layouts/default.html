@@ -97,7 +97,7 @@ header.hero::before{
   
   text-shadow: 0 2px 10px rgba(0,0,0,.35);
 }
-.header-content img.site-logo{ width:clamp(220px,11vw,240px); border-radius:12px; }
+.header-content img.site-logo{ width:clamp(230px,11vw,240px); border-radius:12px; }
 .header-text h1{
   color:#f9eedc; margin:.1em 0; font-size:clamp(2.2rem,6.2vw,3.2rem);
   line-height:1.12; -webkit-text-stroke:1.5px var(--logo-orange);
@@ -809,7 +809,7 @@ html, body { overflow-x: hidden; }
   /* shrink text line length so it wraps sooner */
   --pill-measure: clamp(34ch, 48vw, 42ch);
   /* increase the safe gutter near the curve */
-  --pill-curve-inset: clamp(48px, 14vw, 320px);
+  --pill-curve-inset: clamp(72px, 14vw, 320px);
 }
 
 /* Ensure the section respects the larger curve inset on the clipped side */
@@ -826,7 +826,7 @@ html, body { overflow-x: hidden; }
 
   /* BAND: earlier wrap + bigger safe gutter near the curve */
   .pillband.pill--clip-right.pill--earlywrapl{
-    --pill-curve-inset: clamp(62px, 22vw, 360px);
+    --pill-curve-inset: clamp(72px, 22vw, 360px);
     --pill-measure:     clamp(28ch, 80vw, 34ch);
     min-height: clamp(170px, 24vw, 260px);
   }

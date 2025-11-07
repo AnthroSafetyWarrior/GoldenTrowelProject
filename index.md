@@ -46,8 +46,8 @@ hero_tint: .40
 </h2>
   <div class="split">
     <div class="text">
-       <strong><p>A 2014 survey sampling &gt;650 anthropologists revealed high frequencies of harassment and assault, and low frequencies of awareness of reporting procedures (Clancy <em>et&nbsp;al.</em>, 2014; DOI: <strong><a href="https://doi.org/10.1371/journal.pone.0102172"  target="_blank" 
-     rel="noopener noreferrer">10.1371/journal.pone.0102172</a></strong>).</p></strong>
+       <h3>A 2014 survey sampling &gt;650 anthropologists revealed high frequencies of harassment and assault, and low frequencies of awareness of reporting procedures (Clancy <em>et&nbsp;al.</em>, 2014; DOI: <a href="https://doi.org/10.1371/journal.pone.0102172"  target="_blank" 
+     rel="noopener noreferrer">10.1371/journal.pone.0102172</a></strong>).</h3></strong>
     </div>
     <figure class="art">
       <img
