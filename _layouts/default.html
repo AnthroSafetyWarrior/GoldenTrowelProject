@@ -528,7 +528,7 @@ html, body { overflow-x: hidden; }
 :root{
   /* tweak these 3 to taste */
   --glass-tint:  color-mix(in srgb, var(--off-white) 10%, transparent); /* warm amber haze */
-  --glass-edge:  color-mix(in srgb, var(--soil) 18%, transparent);        /* warm border */
+  --glass-edge:  color-mix(in srgb, var(--wave-mid) 18%, transparent);        /* warm border */
   --glass-shadow: 0 8px 18px rgba(59, 42, 31, .16);                        /* warm brown shadow */
 }
 
@@ -1036,6 +1036,19 @@ html body .pillhead.pill--sage{
   border-color:var(--gold); outline:0;
 }
 
+/* === Unified gap before content pills =============================== */
+/* One knob to control the space right before any .pill */
+:root{
+  --gap-before-pill: clamp(20px, 3vw, 32px);
+}
+
+/* When a .pill comes right after a pillhead or a pillband… */
+:where(.pillhead, .pillband) + .pill{
+  margin-top: var(--gap-before-pill); /* use the single token */
+}
+
+/* …and make sure we’re not stacking margins from both sides */
+:where(.pillhead, .pillband){ margin-bottom: 0; }   /* we drive the gap on the pill */
 
 
 </style>
