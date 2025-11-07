@@ -871,6 +871,19 @@ html, body { overflow-x: hidden; }
   }
 }
 
+/* Exact 50/50 two-column layout; stacks on small screens */
+.split-equal{
+  display:grid;
+  grid-template-columns: 1fr 1fr;         /* equal widths */
+  gap: clamp(16px, 3vw, 28px);
+  align-items:start;
+}
+.split-equal > .col{ min-width:0; }       /* prevent overflow/wrapping issues */
+
+@media (max-width: 760px){
+  .split-equal{ grid-template-columns: 1fr; }
+}
+
 
 /* Minimal legal footer */
 .legal-footer{
@@ -925,24 +938,27 @@ html body .pillhead.pill--sage{
   --curve-inset: clamp(36px, 8vw, 240px);
 }
 
-/* Stripe: full-bleed background behind any content */
-.stripe{
-  /* controls (override per instance) */
-  --stripe-bg: var(--wave-dark);
-  --stripe-bleed-top: 30px;
-  --stripe-bleed-bottom: 15px;
 
-  /* spacing controls */
-  --stripe-pad-y: 8px;          /* padding on the stripe itself */
-  --stripe-section-pad-y: 4px;  /* padding on the inner .section */
-  --stripe-gap: 0px;            /* grid gap inside .section */
-  --stripe-pillhead-mb: 8px;    /* pillhead top/bottom margin */
+
+/* ================= STRIPE (full-bleed background wrapper) ================= */
+.stripe{
+  /* ----------- CONTROLS (tweak once, affects all) ----------- */
+  --stripe-bg: var(--wave-dark);   /* background color */
+  --stripe-bleed-top: 20px;        /* how far color extends above */
+  --stripe-bleed-bottom: 20px;     /* how far color extends below */
+  --stripe-pad-y: 8px;             /* padding inside stripe */
+  --stripe-section-pad-y: 8px;     /* padding on inner section */
+  --stripe-gap: 0px;               /* grid gap inside section */
+  --stripe-pillhead-mb: 8px;       /* margin for pillheads inside */
+  --stripe-buffer-bottom: 40px;    /* buffer AFTER stripe before next pill */
 
   position: relative;
   isolation: isolate;
+  margin: 0;
   padding: var(--stripe-pad-y) var(--page-pad-inline);
 }
 
+/* full-bleed color block behind content */
 .stripe::before{
   content:"";
   position:absolute;
@@ -952,23 +968,53 @@ html body .pillhead.pill--sage{
   top:    calc(-1 * var(--stripe-bleed-top));
   bottom: calc(-1 * var(--stripe-bleed-bottom));
   background: var(--stripe-bg);
+  pointer-events: none;
 }
 
-/* anchor to right edge if needed */
-.stripe--right::before{ left:auto; right:calc(50% - 50vw); }
+/* automatic buffer AFTER each stripe */
+.stripe::after{
+  content:"";
+  display:block;
+  height: var(--stripe-buffer-bottom);
+}
 
-/* tighten the content inside the stripe */
+/* Anchor to right edge when needed */
+.stripe--right::before{
+  left:auto;
+  right:calc(50% - 50vw);
+}
+
+/* tighten the inner section */
 .stripe > .section{
   padding-block: var(--stripe-section-pad-y);
   gap: var(--stripe-gap);
 }
 
-/* tame the pillhead margins when inside a stripe */
-.stripe .pillhead{ margin-block: var(--stripe-pillhead-mb); }
+/* control pillhead spacing inside */
+.stripe .pillhead{
+  margin-block: var(--stripe-pillhead-mb);
+}
 
-/* quick presets */
-.stripe--wave-dark{ --stripe-bg: var(--wave-dark); }
-.stripe--offwhite { --stripe-bg: #eae6df; }
+/* Quick presets */
+.stripe--wave-dark { --stripe-bg: var(--wave-dark); }
+.stripe--offwhite  { --stripe-bg: #eae6df; }
+
+/* ================= STRIPE LINK STYLING ================= */
+/* Default link color inside stripes */
+.stripe a{
+  color: var(--slate);
+  text-decoration-color: var(--slate);
+  text-underline-offset: .18em;
+  transition: color .2s ease, text-decoration-color .2s ease;
+}
+
+/* Hover & focus color for accessibility */
+.stripe a:hover,
+.stripe a:focus-visible{
+  color: var(--sage);
+  text-decoration-color: var(--sage);
+  outline: none;
+}
 
 </style>
 
