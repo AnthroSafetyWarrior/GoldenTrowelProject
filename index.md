@@ -142,7 +142,8 @@ hero_tint: .40
 <!-- 5) TRAINING — its own section -->
 <section class="section" id="training">
   <h2 class="pillhead pill--sage pill--clip-left">
-    <a class="pillhead__link" href="{{ '/selfdefense.html' | relative_url }}" target="_blank" rel="noopener">Training that strengthens safety</a>
+Training that strengthens safety <div class="circle" data-="{{ '/selfdefense.html' | relative_url }}">Self-Defense & Boundary Training">
+                <button class="circle-btn" type="button">Self-Defense & Boundary Training</button>Preparing</button>
   </h2>
   <p>Build confidence before you depart: boundary-setting, de-escalation, and evidence-based empowerment self-defense (ESD).</p>
 

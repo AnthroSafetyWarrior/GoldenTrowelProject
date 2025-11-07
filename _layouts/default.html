@@ -354,7 +354,7 @@ html, body { overflow-x: hidden; }
   position:relative; z-index:0; display:inline-block; font-weight:800; color: var(--pill-text, #fff);
   padding: var(--pillhead-pad-y) var(--pillhead-pad-x);
   margin: clamp(10px,1.5vw,14px) 0 clamp(16px,2.2vw,22px);
-  line-height:1.1; text-wrap: balance;
+  line-height:1.1; text-wrap: wrap;
 }
 .pillhead::before{
   content:""; position:absolute; top:50%; transform:translateY(-50%); height:100%;
@@ -1049,13 +1049,13 @@ html body .pillhead.pill--sage{
 .hero-docs{
   /* more breathing room between rows */
   display: grid;
-  gap: clamp(18px, 3vw, 28px);
+  gap: clamp(36px, 3vw, 52px);
 }
 
 /* Shared sizing knobs for each callout */
 .doc-callout{
   /* control the circle size + gutter in ONE place */
-  --badge-diam: clamp(132px, 12vw, 240px);   /* bigger circle */
+  --badge-diam: clamp(132px, 12vw, 150px);   /* bigger circle */
   --badge-gutter: clamp(14px, 2vw, 24px);    /* space between circle and text */
   --content-pad-x: clamp(18px, 2.4vw, 28px); /* right-side padding */
 
@@ -1112,7 +1112,7 @@ html body .pillhead.pill--sage{
 
   background:
     radial-gradient(#fff 62%, transparent 63%),
-    conic-gradient(var(--gold) 0deg 280deg, transparent 280deg);
+    conic-gradient(var(--gold));
   box-shadow: 0 0 0 6px var(--slate), 0 6px 12px rgba(0,0,0,.15);
   transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
 }
@@ -1120,6 +1120,8 @@ html body .pillhead.pill--sage{
 .badge--circle:hover{
   transform: translateY(calc(-50% - 2px));
   filter: brightness(1.02);
+color: #111;
+background: var(--slate);
   box-shadow: 0 0 0 6px var(--gold), 0 8px 16px rgba(0,0,0,.25);
 }
 
