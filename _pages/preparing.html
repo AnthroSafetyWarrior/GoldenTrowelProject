@@ -10,52 +10,6 @@ hero_tint: .40
 
 <style>
 .split .art{ justify-self: center; }
-.pillhead.pill--sage > a,
-.pill--sage .pillhead__link{
-  color: #111;
-  text-decoration: underline;
-}
-.pillhead.pill--sage > a:visited{ color: var(--offwhite); }
-.pillhead.pill--sage > a:hover{ color: var(--soil); },
-.pillhead.pill--sage > a:focus-visible{
-  color: var(--offwhite);           /* or a darker slate var if you have one */
-  text-decoration: underline;
-}
-
-/* Links inside a sage pillband */
-.pillband.pill--sage a{
-  color:var(--offwhite);
-  text-decoration: underline;
-}
-.pillband.pill--sage a:hover {color: var(--soil)},
-.pillband.pill--sage a:focus-visible{
-  color: var(--offwhite);
-  text-decoration-thickness: 2px;
-}
-
-
-/* Links inside a sage pillband */
-.pillband.pill--orange a{
-  color: var(--gold);
-  text-decoration: underline;
-}
-.pillband.pill--orange a:hover {color: var(--offwhite)},
-.pillband.pill--orange a:focus-visible{
-  color: var(--gold);
-  text-decoration-thickness: 2px;
-}
-
-/* Links inside a sage pillband */
-.pillband.pill--slate a{
-  color: var(--gold);
-  text-decoration: underline;
-}
-.pillband.pill--slate a:hover {color: var(--offwhite)},
-.pillband.pill--slate a:focus-visible{
-  color: var(--gold);
-  text-decoration-thickness: 2px;
-}
-
 /* ========== Fieldwork Safety Plan cards ========== */
 .resources-grid {
   display: flex;
@@ -126,7 +80,8 @@ hero_tint: .40
 <p class="pillhead pill--orange pill--clip-right" style="font-size:1em">Disclaimer: The resources provided on this website are not exhaustive or definitive. Regulations, reporting protocols, and legal requirements may vary by location and institution. Before conducting fieldwork, confirm current information with your university legal services, ethics or Title IX office, or a qualified legal professional.</p>
 </section>
 
-<!-- 5) CHECKLIST — consistent grid utility -->
+<div class="stripe stripe--wave-dark">
+<!-- 3) CHECKLIST — consistent grid utility -->
 <section class="pillband pill--soil pill--clip-left pill--tight">
  <div class="section">
     <h2>How to Prepare for Safer Fieldwork</h2>
@@ -154,8 +109,10 @@ hero_tint: .40
 </div>
 </div>
 </section>
+</div>
 
-<!-- 3) PREPARING — pillband -->
+
+<!-- 4) PREPARING — pillband -->
 <section class="section">
   <h2 class="pillhead pill--slate pill--clip-right">Build Your Fieldwork Safety Plan</h2>
 <div class="section resources">        
@@ -187,7 +144,8 @@ hero_tint: .40
 </section>
 
 
-<!-- 2) SKILLS — shared split -->
+<div class="stripe stripe--wave-dark">
+<!-- 5) SKILLS — shared split -->
 <section class="section">
 <h2 class="pillhead pill--sage pill--clip-left">
 <a class="pillhead__link" href="https://goldentrowelproject.org/selfdefense.html" target="_blank" rel="noopener">Develop Skills that Protect You</a></h2>
@@ -201,8 +159,9 @@ Explore resources for:</p><ul>
 </ul>
 </div>
 </section>
+</div> 
 
-<!-- 2) TITLE IX — shared split -->
+<!-- 6) TITLE IX — shared split -->
 <section class="pillband pill--orange pill--clip-right pill--tight">
  <div class="section">
     <h2>Title IX and Ethics Support</h2>
@@ -210,8 +169,8 @@ Explore resources for:</p><ul>
 </div>
 </section>
 
-
-<!-- 2) TITLE IX — shared split -->
+<div class="stripe stripe--wave-dark">
+<!-- 7) TITLE IX — shared split -->
 <section class="pillband pill--soil pill--clip-left pill--tight">
  <div class="section">
     <h2>Embassy, Consulate & Travel Support</h2>
@@ -254,3 +213,4 @@ Explore resources for:</p><ul>
 
 </div>
 </section>
+</div>
