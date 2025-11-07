@@ -922,21 +922,44 @@ html body .pillhead.pill--sage{
 }
 
 
-/* ================= STRIPE LINK STYLING ================= */
-.stripe a{
-  color: var(--offwhite);
-  text-decoration-color: var(--offwhite);
-  text-underline-offset: .18em;
-  transition: color .2s ease, text-decoration-color .2s ease;
+/* ========= soft fade for stripes ========= */
+.stripe{
+  /* global knob: how “tall” the fade is */
+  --stripe-fade: 36px;            /* try 24–48px */
 }
 
-.stripe a:hover,
-.stripe a:focus-visible{
-  color: var(--gold);
-  text-decoration-color: var(--gold);
-  outline: none;
+/* fade both top & bottom */
+.stripe::before{
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 var(--stripe-fade),
+    #000 calc(100% - var(--stripe-fade)),
+    transparent 100%
+  );
+          mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 var(--stripe-fade),
+    #000 calc(100% - var(--stripe-fade)),
+    transparent 100%
+  );
 }
 
+/* optional modifiers if you only want one side faded */
+.stripe--fade-top::before{
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 40px);
+          mask-image: linear-gradient(to bottom, transparent, #000 40px);
+}
+.stripe--fade-bottom::before{
+  -webkit-mask-image: linear-gradient(to top, transparent, #000 40px);
+          mask-image: linear-gradient(to top, transparent, #000 40px);
+}
+
+/* tighter fade on mobile (optional) */
+@media (max-width: 640px){
+  .stripe{ --stripe-fade: 24px; }
+}
 
 /* pillband soft fade (tunable) */
 .pillband::before,
@@ -964,7 +987,6 @@ html body .pillhead.pill--sage{
     transparent 100%
   );
 }
-
 
 /* ===== NAV ===== */
 /* NAV FLYOUT: styles only for the tiny round buttons */
