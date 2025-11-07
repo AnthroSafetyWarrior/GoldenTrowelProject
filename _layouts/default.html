@@ -889,71 +889,65 @@ html, body { overflow-x: hidden; }
   opacity:.9;
 }
 
-/* ===== OUTLINE + PER-PILL STRIPES (page content only) ================== */
-/* Never touch the nav flyout pills */
-:root { --pill-border: 6px; }
 
-/* Page pills/bands/heads: neutral text & no fills, but DO NOT isolate */
-main :is(.pillband, .pillhead, .pill):not(.pill--nav){
-  color: var(--ink) !important;
-  background: transparent !important;
+/* ===== SECTION STRIPES — paint the background of the whole section ===== */
+/* Never touches nav flyout; only <main> content sections */
+main .section{
   position: relative;
-  z-index: 0;              /* host paints at normal layer */
-  isolation: auto;         /* <-- critical: NO stacking-context here */
+  isolation: isolate;
+  z-index: 0;
 }
 
-/* Outline only the big CONTENT .pill (leave band/head geometry alone) */
-main .pill:not(.pill--nav){
-  margin-block: clamp(16px, 3vw, 28px);
-  --curve-inset: clamp(36px, 8vw, 240px);
-  border: none !important;     /* outline handled by ::before */
-  box-shadow: none !important;
-}
-main .pill:not(.pill--nav)::before{
-  content:"";
-  position:absolute;
-  top:0; bottom:0;
-  width: calc(100vw - var(--pill-margin));
-  left:  calc(50% - 50vw);     /* default anchor = left clip shape */
-  border: var(--pill-border) solid var(--pill-color, var(--soil));
-  background: transparent !important;
-  box-shadow:none !important;
-  box-sizing:border-box;
-  border-radius: 0 9999px 9999px 0;
-}
-main .pill.pill--clip-right:not(.pill--nav)::before{
-  left:auto; right: calc(50% - 50vw);
-  border-radius: 9999px 0 0 9999px;
+/* The wash that sits behind the section’s content */
+main .section::before{
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 calc(50% - 50vw); /* default: hug left edge */
+  width: 100vw;                     /* full bleed */
+  background: var(--section-stripe, transparent);
+  z-index: -1;
+  pointer-events: none;
+  box-shadow: 0 8px 18px rgba(0,0,0,.06); /* subtle depth like your pills */
 }
 
-/* Shared stripe layer: extends to next pill/section and sits BEHIND */
-main :is(.pillband, .pillhead, .pill):not(.pill--nav)::after{
-  content:"";
-  position:absolute;
-  top:0;
-  left: calc(50% - 50vw);
-  width:100vw;
-  height: var(--band-h, 0px);   /* set by sizeBands() */
-  background: var(--stripe, transparent);
-  pointer-events:none;
-  z-index:-1;                   /* <-- now it can sit behind following .section */
+/* If this section contains a RIGHT-clipped pillhead/band, hug the right edge */
+main .section:has(> .pillhead.pill--clip-right),
+main .section:has(> .pillband.pill--clip-right){
+  --section-side: right;
 }
-main :is(.pillband, .pillhead, .pill).pill--clip-right:not(.pill--nav)::after{
-  left:auto; right: calc(50% - 50vw);
+main .section:has(> .pillhead.pill--clip-right)::before,
+main .section:has(> .pillband.pill--clip-right)::before{
+  left: auto;
+  right: calc(50% - 50vw);
 }
 
-/* Stripe color by clip side only */
-main :is(.pill, .pillband, .pillhead).pill--clip-right:not(.pill--nav){ --stripe: #eae6df; }
-main :is(.pill, .pillband, .pillhead).pill--clip-left:not(.pill--nav){  --stripe: var(--wave-dark); }
-
-/* Don’t force white text for themed bands/heads inside <main> */
-main .pillband:is(.pill--orange, .pill--soil, .pill--slate, .pill--sage),
-main .pillhead:is(.pill--orange, .pill--soil, .pill--slate, .pill--sage){
-  color: var(--ink) !important;
+/* Choose the wash color by clip side by default */
+main .section:has(> .pillhead.pill--clip-left),
+main .section:has(> .pillband.pill--clip-left){
+  --section-stripe: var(--wave-dark);
+}
+main .section:has(> .pillhead.pill--clip-right),
+main .section:has(> .pillband.pill--clip-right){
+  --section-stripe: var(--offwhite);
 }
 
-/* Safety: nav flyout never paints bands/stripes */
-.pill--nav::before, .pill--nav::after{ content:none !important; }
+/* Optional: theme overrides if you want a tinted wash that matches the pill */
+main .section:has(> .pillhead.pill--orange),
+main .section:has(> .pillband.pill--orange){
+  --section-stripe: color-mix(in srgb, var(--logo-orange) 14%, transparent);
+}
+main .section:has(> .pillhead.pill--soil),
+main .section:has(> .pillband.pill--soil){
+  --section-stripe: color-mix(in srgb, var(--soil) 12%, transparent);
+}
+main .section:has(> .pillhead.pill--slate),
+main .section:has(> .pillband.pill--slate){
+  --section-stripe: color-mix(in srgb, var(--slate) 12%, transparent);
+}
+main .section:has(> .pillhead.pill--sage),
+main .section:has(> .pillband.pill--sage){
+  --section-stripe: color-mix(in srgb, var(--sage) 12%, transparent);
+}
 
 </style>
 
