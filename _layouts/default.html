@@ -525,12 +525,20 @@ html, body { overflow-x: hidden; }
 .card a:hover{ color:var(--logo-orange); }
 
 /* Ghost/transparent vibe (was inside the pill, but now standalone) */
-.card--glass{
-  /* subtle see-through look over the page background */
-  background: color-mix(in srgb, #baafa8 10%, transparent);
-  backdrop-filter: saturate(110%) blur(2px); box-shadow:0 6px 14px rgba(68, 64, 84, .15); 
-  border: 1px solid color-mix(in srgb, #baafa8 12%, transparent);
+:root{
+  /* tweak these 3 to taste */
+  --glass-tint:  color-mix(in srgb, var(--logo-orange) 10%, transparent); /* warm amber haze */
+  --glass-edge:  color-mix(in srgb, var(--soil) 18%, transparent);        /* warm border */
+  --glass-shadow: 0 8px 18px rgba(59, 42, 31, .16);                        /* warm brown shadow */
 }
+
+.card--glass{
+  background: var(--glass-tint);                 /* warm, semi-transparent */
+  backdrop-filter: saturate(108%) blur(2px);     /* keep subtle */
+  border: 1px solid var(--glass-edge);           /* warm edge */
+  box-shadow: var(--glass-shadow);               /* warm shadow */
+}
+
 
 /* Titles/spacing polish */
 .card h4{ margin:.1rem 0 .35rem; font-size: clamp(1.2rem,4vw,1.3rem); }
