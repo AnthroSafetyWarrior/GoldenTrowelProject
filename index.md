@@ -60,19 +60,16 @@ hero_tint: .40
 <section class="section">
   <div class="split-equal">
     <div class="col"> 
-    <figure class="art">
       <img
         src="{{ '/assets/img/audience.png' | relative_url }}"
-        alt="1. Students & Early-Career Researchers: Prepare safely, know your rights, and access confidential support. 2. Faculty & Supervisors: Build transparent, consent-based team protocols and accountability systems. 3. Institutions & Programs: Align policies with field safety best practices and provide clear reporting pathways." loading="lazy" decoding="async" style="min-width:280px; max-width:360px; height:auto;">
-    </figure>
+        alt="1. Students & Early-Career Researchers: Prepare safely, know your rights, and access confidential support. 2. Faculty & Supervisors: Build transparent, consent-based team protocols and accountability systems. 3. Institutions & Programs: Align policies with field safety best practices and provide clear reporting pathways." loading="lazy" decoding="async">
   </div>
 
     <div class="col"> 
-    <figure class="art">
       <img
         src="{{ '/assets/img/content.png' | relative_url }}"
         alt="1. Prepare: Create your safety plan and set expectations with your team. 2. Support: Find confidential, survivor-centered resources. 3. Report: Learn clear steps for documenting and reporting misconduct."
-        loading="lazy" decoding="async" style="min-width:280px; max-width:360px; height:auto;">
+        loading="lazy" decoding="async">
     </figure>
 </div>
 </div>
@@ -114,7 +111,7 @@ hero_tint: .40
 
       <!-- 1) Checklist -->
       <article class="doc-callout doc--gold">
-        <div class="badge"><span><span><a href="https://docs.google.com/document/d/1jdA2Iz-ALuxHU-jHoH5CLHHMJhotDdCoATkuu8lDrug/edit?usp=sharing" target="_blank" rel="noopener">Before You Go</a></span></div>
+  <a class="badge" href="https://docs.google.com/document/d/1jdA2Iz-ALuxHU-jHoH5CLHHMJhotDdCoATkuu8lDrug/edit?usp=sharing" target="_blank" rel="noopener">Before You Go</a>
         <div>
           <h3>Pre-Fieldwork Safety Checklist</h3>
           <p>Step-by-step setup that ties the plan and commitment together.</p>
@@ -125,7 +122,7 @@ hero_tint: .40
 
       <!-- 2) Safety Plan -->
       <article class="doc-callout doc--gold">
-        <div class="badge"><span><a href="https://docs.google.com/document/d/1OkEMW4VhpsccA_VZTTEvgBBq5vs0mCOEDg9Xk6f34Ss/edit?usp=sharing" target="_blank" rel="noopener">Build Your Plan</a></p></span></div>
+       <a class="badge" href="https://docs.google.com/document/d/1OkEMW4VhpsccA_VZTTEvgBBq5vs0mCOEDg9Xk6f34Ss/edit?usp=sharing" target="_blank" rel="noopener">Build Your Plan</a>
         <div>
           <h3>Fieldwork Safety Plan</h3>
           <p>Your personal contacts, risks, and response steps in one place.</p>
@@ -134,7 +131,7 @@ hero_tint: .40
 
       <!-- 3) Collaborator Commitment -->
       <article class="doc-callout doc--gold">
-        <div class="badge"><span><a href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing" target="_blank" rel="noopener">Team Safety Pledge</a></span></div>
+       <a class="badge"  href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing" target="_blank" rel="noopener">Team Safety Pledge</a>
         <div>
           <h3>Collaborator Safety Commitment</h3>
           <p>Shared expectations, boundaries, & accountability for your team.</p>
