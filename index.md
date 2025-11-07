@@ -38,6 +38,18 @@ hero_tint: .40
 
 
 
+<section class="section audience">
+  <h3>Who this site is for</h3>
+  <div class="audience-grid">
+    <article><strong>Students & Early-Career Researchers</strong><br>
+      Prepare safely, know your rights, and access confidential support.</article>
+    <article><strong>Faculty & Supervisors</strong><br>
+      Build transparent, consent-based team protocols and accountability systems.</article>
+    <article><strong>Institutions & Programs</strong><br>
+      Align policies with field safety best practices and provide clear reporting pathways.</article>
+  </div>
+</section>
+
 
 <div class="stripe stripe--wave-dark">
 <!-- 2) PREVALENCE — shared split -->
@@ -101,7 +113,6 @@ hero_tint: .40
         </div>
       </article>
     </div>
-  </div>
 </section>
 
 
@@ -112,9 +123,17 @@ hero_tint: .40
     <a class="pillhead__link" href="{{ '/selfdefense.html' | relative_url }}" target="_blank" rel="noopener">Training that strengthens safety</a>
   </h2>
   <p class="lede">Build confidence before you depart: boundary-setting, de-escalation, and evidence-based empowerment self-defense (ESD).</p>
+
+<p> A growing body of research suggests that training in boundary-setting and self-defense is not just reactive — it can <strong>shift how we respond under threat</strong>. For example, </p>
+ <ul> 
+<li>empowerment self-defense (ESD) programs have demonstrated increased assertiveness, reduced fear in risky environments, and stronger self-protective decision-making <a href="https://doi.org/10.1177/08862605221082734" target="_blank" rel="noopener noreferrer">(Beaujolais, 2023; </a><a href="https://doi.org/10.33043/SSWJ.2.1.63-76" target="_blank" rel="noopener noreferrer">Follo, 2022).</a></li> 
+<li>Other efforts in trauma prevention and rape-resistance place such training within evidence-based prevention strategies <a href="https://doi.org/10.1080/10926771.2022.2046224">(Basile, 2022).</a></li> 
+</ul> 
+<p> These suggest that when we practice setting boundaries and preparing responses in advance, we may be less likely to default to appeasement or freeze patterns in moments of threat. </p>
+
   <p><a href="{{ '/selfdefense.html' | relative_url }}">Explore training resources →</a></p>
 </section>
-</div>
+
 
 
 <div class="stripe stripe--wave-dark">
