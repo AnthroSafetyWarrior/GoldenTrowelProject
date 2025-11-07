@@ -21,12 +21,11 @@ hero_tint: .40
   .split-equal{ grid-template-columns: 1fr; }
 }
 
-<style>
+
 a.hover-sage:hover{
   color: var(--sage);
   text-decoration-color: var(--sage);
 }
-</style>
 </style>
 
 <!-- 1) Intro – plain background -->
@@ -179,6 +178,7 @@ a.hover-sage:hover{
 </div>
 </div>
 </section>
+<br>
 </div>
 
 <!-- 5) REPORTING — consistent grid utility -->
