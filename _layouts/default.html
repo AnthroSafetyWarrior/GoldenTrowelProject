@@ -890,7 +890,7 @@ html, body { overflow-x: hidden; }
 }
 
 
-/* HARD RESET: outline-only for pills/bands/heads in <main> */
+/* ================= OUTLINE-ONLY PILLS/BANDS/HEADS ================= */
 main :is(.pill, .pillband, .pillhead):not(.pill--nav){
   color: var(--ink) !important;
   background: transparent !important;
@@ -899,7 +899,6 @@ main :is(.pill, .pillband, .pillhead):not(.pill--nav){
   z-index: 0; /* content layer */
 }
 
-/* Their ribbons = outlines only (NO fill) and behind content */
 main :is(.pill, .pillband, .pillhead):not(.pill--nav)::before{
   content:"";
   position:absolute;
@@ -907,44 +906,54 @@ main :is(.pill, .pillband, .pillhead):not(.pill--nav)::before{
   background: transparent !important;               /* no fill */
   border: var(--pill-border, 6px) solid var(--pill-color, var(--soil)) !important;
   box-shadow: none !important;
-  z-index: -1;                                      /* <— move behind text */
+  z-index: -1;                                      /* behind text */
 }
 
-/* Extra safety: nuke any legacy fills */
+/* Belt & suspenders: remove any legacy fills */
 main .pill::before,
 main .pillband::before,
 main .pillhead::before{
   background: transparent !important;
 }
 
-/* SECTION STRIPES: push farther back so outlines sit above them */
+/* Ensure full-bleed ribbon anchors on each clip side */
+main :is(.pill, .pillband, .pillhead).pill--clip-right::before{
+  right: calc(50% - 50vw); left:auto; border-radius: 9999px 0 0 9999px;
+}
+main :is(.pill, .pillband, .pillhead).pill--clip-left::before{
+  left:  calc(50% - 50vw); right:auto; border-radius: 0 9999px 9999px 0;
+}
+
+/* ================= SECTION STRIPES (BEHIND EVERYTHING) ============== */
+main .section{
+  position: relative;
+  isolation: isolate;
+}
+
+/* Base stripe wash, pushed farther back than pill outlines */
 main .section::before{
-  z-index: -2;                                      /* <— farther back */
+  content:"";
+  position:absolute;
+  top:0; bottom:0;
+  left: calc(50% - 50vw);         /* hug left edge by default */
+  width: 100vw;
+  background: transparent;        /* default: no stripe until class applied */
+  z-index: -2;                    /* farther back than pill ::before */
+  pointer-events: none;
 }
 
-/* Side-based stripe color only — no mixing */
-main .section:has(> .pillhead.pill--clip-left),
-main .section:has(> .pillband.pill--clip-left){
-  --section-stripe: var(--wave-dark);       /* the brownish wash */
-}
+/* Explicit, bullet-proof stripe colors */
+main .section.stripe-left::before  { background: var(--wave-dark); }
+main .section.stripe-right::before { background: #eae6df; }
 
-main .section:has(> .pillhead.pill--clip-right),
-main .section:has(> .pillband.pill--clip-right){
-  --section-stripe: var(--offwhite);        /* light wash = #FAF7F2 */
+/* When right-striped, anchor the wash to the right edge */
+main .section.stripe-right::before{
+  left: auto;
+  right: calc(50% - 50vw);
 }
 
 /* Body background stays the flat sand tone */
 body{ background:#eae6df; }
-
-/* No theme-based stripe overrides anywhere in <main> */
-main .section:has(> .pillhead.pill--orange),
-main .section:has(> .pillband.pill--orange),
-main .section:has(> .pillhead.pill--soil),
-main .section:has(> .pillband.pill--soil),
-main .section:has(> .pillhead.pill--slate),
-main .section:has(> .pillband.pill--slate),
-main .section:has(> .pillhead.pill--sage),
-main .section:has(> .pillband.pill--sage){ /* intentionally blank */ }
 
 </style>
 
@@ -1215,6 +1224,17 @@ if (!pills.length) return;
   const root = document.querySelector('main') || document.body;
   new MutationObserver(run).observe(root, {childList:true, subtree:true});
 })();
+</script>
+<script>
+/* mark each section with which side it should stripe */
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('main .section').forEach(sec => {
+    const left  = sec.querySelector(':scope > .pillhead.pill--clip-left, :scope > .pillband.pill--clip-left');
+    const right = sec.querySelector(':scope > .pillhead.pill--clip-right, :scope > .pillband.pill--clip-right');
+    sec.classList.toggle('stripe-left',  !!left);
+    sec.classList.toggle('stripe-right', !!right);
+  });
+});
 </script>
 
 </body>
