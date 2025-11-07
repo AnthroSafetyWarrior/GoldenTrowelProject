@@ -46,6 +46,7 @@ hero_tint: .40
       Our mission is to make accountability, transparency, and consent standard practice — protecting both people and science.</p>
     </section>
   </div>
+  </div>
 </section>
 
 
@@ -54,18 +55,18 @@ hero_tint: .40
 <section class="section">
 <h2 class="pillhead pill--orange pill--clip-right">Our Audience
 </h2>
-</section>
 
-<section class="section">
   <div class="pill-grid"> 
  <article class="card card--glass">
-<h3>Students & Early-Career Researchers<h3>
+<h3>Students & Early-Career Researchers</h3>
      <p>Prepare safely, know your rights, and access confidential support.</p>
 </article>
+
  <article class="card card--glass">
 <h3>Faculty & Supervisors</h3>
       <p>Build transparent, consent-based team protocols and accountability systems.</p>
 </article>
+
 <article class="card card--glass">
 <h3>Institutions & Programs</h3>
       <p>Align policies with field safety best practices and provide clear reporting pathways.</p>
