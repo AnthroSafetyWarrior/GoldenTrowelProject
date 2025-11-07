@@ -51,15 +51,15 @@ hero_tint: .40
 </section>
 
 <div class="stripe stripe--wave-dark"
-     style="--stripe-bleed-top:10px; --stripe-bleed-bottom:10px;">
+     style="--stripe-bleed-top:5px; --stripe-bleed-bottom:5px;">
 <!-- 2) PREVALENCE — shared split -->
 <section class="section">
 <h2 class="pillhead pill--orange pill--clip-right">Prevalence of Fieldwork Harassment and Assault
 </h2>
   <div class="split">
     <div class="text">
-       <p>A 2014 survey sampling &gt;650 anthropologists revealed high frequencies of harassment and assault, and low frequencies of awareness of reporting procedures (Clancy <em>et&nbsp;al.</em>, 2014; DOI: <a href="https://doi.org/10.1371/journal.pone.0102172"  target="_blank" 
-     rel="noopener noreferrer">10.1371/journal.pone.0102172</a>).</p>
+       <p>A 2014 survey sampling &gt;650 anthropologists revealed high frequencies of harassment and assault, and low frequencies of awareness of reporting procedures (Clancy <em>et&nbsp;al.</em>, 2014; DOI: <strong><a href="https://doi.org/10.1371/journal.pone.0102172"  target="_blank" 
+     rel="noopener noreferrer"  style="color:var(--slate); text-decoration-color:var(--slate);">10.1371/journal.pone.0102172</a><strong>).</p>
     </div>
     <figure class="art">
       <img
