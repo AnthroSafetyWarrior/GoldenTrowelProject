@@ -638,32 +638,6 @@ html, body { overflow-x: hidden; }
 }
 
 
-/* ===== NAV ===== */
-/* NAV FLYOUT: styles only for the tiny round buttons */
-.pill--nav{
-  all: unset;
-  display:block;
-  width:260px;
-  text-align:center;
-  padding:.7em 1.1em;
-  font-weight:700;
-  font-size:.95rem;
-  color: var(--soil);
-  background: var(--gold);
-  border: 2px solid var(--gold);
-  border-radius: 999px;
-  text-decoration:none;
-  background-clip:padding-box;
-  cursor:pointer;
-}
-.pill--nav + .pill--nav{ margin-top:-2px; }
-.pill--nav:hover,
-.pill--nav:focus-visible{
-  background:#444054; color:#fff; transform:translateY(-1px);
-  border-color:var(--gold); outline:0;
-}
-
-
 /* === Safer spacing for clipped bands & pills =========================== */
 
 /* LEFT-CLIPPED band: slightly denser vertical padding */
@@ -946,11 +920,11 @@ html body .pillhead.pill--sage{
   --stripe-bg: var(--wave-dark);   /* background color */
   --stripe-bleed-top: 20px;        /* how far color extends above */
   --stripe-bleed-bottom: 0px;     /* how far color extends below */
-  --stripe-pad-y: 0px;             /* padding inside stripe */
+  --stripe-pad-y: 8px;             /* padding inside stripe */
   --stripe-section-pad-y: 0px;     /* padding on inner section */
   --stripe-gap: 0px;               /* grid gap inside section */
   --stripe-pillhead-mb: 8px;       /* margin for pillheads inside */
-  --stripe-buffer-bottom: 30px;    /* buffer AFTER stripe before next pill */
+  --stripe-buffer-bottom: 40px;    /* buffer AFTER stripe before next pill */
 
   position: relative;
   isolation: isolate;
@@ -1015,6 +989,32 @@ html body .pillhead.pill--sage{
   text-decoration-color: var(--sage);
   outline: none;
 }
+/* ===== NAV ===== */
+/* NAV FLYOUT: styles only for the tiny round buttons */
+.pill--nav{
+  all: unset;
+  display:block;
+  width:260px;
+  text-align:center;
+  padding:.7em 1.1em;
+  font-weight:700;
+  font-size:.95rem;
+  color: var(--soil);
+  background: var(--gold);
+  border: 2px solid var(--gold);
+  border-radius: 999px;
+  text-decoration:none;
+  background-clip:padding-box;
+  cursor:pointer;
+}
+.pill--nav + .pill--nav{ margin-top:-2px; }
+.pill--nav:hover,
+.pill--nav:focus-visible{
+  background:#444054; color:#fff; transform:translateY(-1px);
+  border-color:var(--gold); outline:0;
+}
+
+
 
 </style>
 
