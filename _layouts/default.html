@@ -938,100 +938,33 @@ html body .pillhead.pill--sage{
 }
 
 
-/* ============= STRIPE (dark wave, no hatch) ============= */
-.stripe{
-  --stripe-bg: var(--wave-dark);
-  --stripe-radius: 18px;
-  --stripe-bleed-top: 18px;
-  --stripe-bleed-bottom: 22px;
-  --shadow-main: 0 16px 32px rgba(0,0,0,.25);
-  --shadow-soft: 0 3px 12px rgba(0,0,0,.15);
-  position: relative;
-  isolation: isolate;
-  padding: var(--stripe-pad-y, 10px) var(--page-pad-inline);
-  margin: 0;
-  padding-bottom: calc(var(--stripe-pad-y, 10px) + var(--stripe-buffer-bottom, 30px));
+/* pillband soft fade (tunable) */
+.pillband::before,
+.pillhead::before{
+  /* how tall the fade zone is */
+  --fade: 18px;       /* total taper height */
+  --feather: 4px;     /* softness at the very edge (lower = crisper) */
+
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent calc(var(--fade) - var(--feather)),
+    #000        var(--fade),
+    #000        calc(100% - var(--fade)),
+    transparent calc(100% - var(--fade) + var(--feather)),
+    transparent 100%
+  );
+          mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent calc(var(--fade) - var(--feather)),
+    #000        var(--fade),
+    #000        calc(100% - var(--fade)),
+    transparent calc(100% - var(--fade) + var(--feather)),
+    transparent 100%
+  );
 }
 
-.stripe::before{
-  content:"";
-  position:absolute; z-index:-1;
-  left: calc(50% - 50vw); width: 100vw;
-  top: calc(-1 * var(--stripe-bleed-top));
-  bottom: calc(-1 * var(--stripe-bleed-bottom));
-
-  /* SOLID dark wave — removed the cross-hatch */
-  background: var(--stripe-bg);
-
-  border-radius: var(--stripe-radius);
-  box-shadow: var(--shadow-main), var(--shadow-soft);
-}
-
-.stripe::after{
-  content:"";
-  position:absolute; z-index:-1;
-  left: calc(50% - 50vw); width: 100vw;
-  top: calc(-1 * var(--stripe-bleed-top));
-  bottom: calc(-1 * var(--stripe-bleed-bottom));
-  pointer-events:none;
-  border-radius: var(--stripe-radius);
-  background:
-    linear-gradient(to bottom, rgba(255,255,255,.15), rgba(255,255,255,0) 40%),
-    linear-gradient(to top,    rgba(0,0,0,.25),       rgba(0,0,0,0) 50%);
-  background-size: 100% 16px, 100% 16px;
-  background-repeat: no-repeat;
-  background-position: top left, bottom left;
-}
-@media (max-width:640px){ .stripe{ --stripe-radius: 12px; } }
-
-/* ============= KRAFT PAPER (opaque, speckles only) ============= */
-.paper-panel{
-  /* palette-aware base; warm but still in your wave-dark family */
-  --paper-base: color-mix(in srgb, var(--soil) 28%, var(--wave-dark) 72%);
-  --taper: 26px;
-
-  position: relative;
-  border-radius: 14px;
-  overflow: hidden;
-  box-shadow: 0 10px 22px rgba(0,0,0,.18), 0 1px 0 rgba(0,0,0,.04);
-
-  /* OPAQUE base + speckles (no lines, no blend modes) */
-  background:
-    radial-gradient(1px 1px   at 12% 18%, rgba(255,255,255,.11) 50%, transparent 51%),
-    radial-gradient(1.1px 1.1px at 28% 74%, rgba(0,0,0,.10)      50%, transparent 51%),
-    radial-gradient(.9px .9px  at 66% 40%, rgba(255,255,255,.09) 50%, transparent 51%),
-    radial-gradient(1.2px 1.2px at 84% 62%, rgba(0,0,0,.08)      50%, transparent 51%),
-    var(--paper-base);
-  background-size: 70px 70px, 110px 110px, 90px 90px, 130px 130px, cover;
-  background-blend-mode: normal;
-
-  /* gentle deckled taper so seams disappear */
-  -webkit-mask-image: linear-gradient(to bottom,
-    transparent 0, #000 var(--taper),
-    #000 calc(100% - var(--taper)), transparent 100%);
-          mask-image: linear-gradient(to bottom,
-    transparent 0, #000 var(--taper),
-    #000 calc(100% - var(--taper)), transparent 100%);
-}
-
-/* soft tint (lighter than the stripe) — keep subtle */
-.paper-panel::before{
-  content:""; position:absolute; inset:0; pointer-events:none;
-  --tint: color-mix(in srgb, var(--wave-dark) 70%, var(--soil) 30%);
-  background: linear-gradient(var(--tint), var(--tint));
-  opacity: .30; /* reduce if you want more of the speckles */
-}
-
-/* a little inner light for depth; not a blur */
-.paper-panel::after{
-  content:""; position:absolute; inset:0; pointer-events:none;
-  background:
-    radial-gradient(130% 60% at 50% 15%, rgba(255,255,255,.07), transparent 60%),
-    radial-gradient(130% 60% at 50% 85%, rgba(255,255,255,.06), transparent 60%);
-  mix-blend-mode: soft-light;
-  -webkit-mask-image: inherit; mask-image: inherit;
-}
-@media (max-width:640px){ .paper-panel{ --taper:22px; } }
 
 /* ===== NAV ===== */
 /* NAV FLYOUT: styles only for the tiny round buttons */
