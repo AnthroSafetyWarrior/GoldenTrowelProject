@@ -134,18 +134,17 @@ hero_tint: .40
           <p>Shared expectations, boundaries, & accountability for your team.</p>
         </div>
       </article>
+</div>
 </section>
 </div>
 
 
 <!-- 5) TRAINING — its own section -->
 <section class="section" id="training">
-<div class="inline-elements">   
   <h2 class="pillhead pill--sage pill--clip-left">Training that Strengthens Safety</h2>
 <div class="circle" data-href="{{ '/selfdefense.html' | relative_url }}">
                 <button class="circle-btn" type="button">Self-Defense & Boundaries</button>
-</div>
-</div>
+</div></h2>
   <p>Build confidence before you depart: boundary-setting, de-escalation, and evidence-based empowerment self-defense (ESD).</p>
 
 <p> A growing body of research suggests that training in boundary-setting and self-defense is not just reactive — it can <strong>shift how we respond under threat</strong>. For example, </p>
