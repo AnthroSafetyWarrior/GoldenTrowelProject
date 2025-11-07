@@ -889,70 +889,72 @@ html, body { overflow-x: hidden; }
   opacity:.9;
 }
 
-/* ===== OUTLINE + PER-PILL STRIPES — scoped to <main> only ============ */
+/* ===== OUTLINE + PER-PILL STRIPES (page content only) ================== */
+/* Never touch the nav flyout pills */
 :root { --pill-border: 6px; }
 
-/* 1) All page pills/bands/heads render ink text, no fill */
+/* Page pills/bands/heads: neutral text & no fills, but DO NOT isolate */
 main :is(.pillband, .pillhead, .pill):not(.pill--nav){
   color: var(--ink) !important;
   background: transparent !important;
-  position: relative;          /* create local stacking context */
-  isolation: isolate;
-  z-index: 0;                  /* baseline so ::before/::after layer correctly */
+  position: relative;
+  z-index: 0;              /* host paints at normal layer */
+  isolation: auto;         /* <-- critical: NO stacking-context here */
 }
 
-/* 2) Convert their full-bleed ribbons to outlines on ::before */
-main :is(.pillband, .pillhead, .pill):not(.pill--nav)::before{
-  content: "";                 /* keep this — it's the outline! */
-  position: absolute;
-  inset: 0 auto;
-  background: transparent !important;
-  border: var(--pill-border) solid var(--pill-color, var(--soil)) !important;
-  box-shadow: none !important;
-  box-sizing: border-box;
-  z-index: 1;                  /* above the stripe, below real content */
-}
-
-/* Keep comfortable spacing in outline mode (page pills only) */
+/* Outline only the big CONTENT .pill (leave band/head geometry alone) */
 main .pill:not(.pill--nav){
   margin-block: clamp(16px, 3vw, 28px);
   --curve-inset: clamp(36px, 8vw, 240px);
-  border: none !important;     /* outline is handled by ::before */
+  border: none !important;     /* outline handled by ::before */
   box-shadow: none !important;
 }
+main .pill:not(.pill--nav)::before{
+  content:"";
+  position:absolute;
+  top:0; bottom:0;
+  width: calc(100vw - var(--pill-margin));
+  left:  calc(50% - 50vw);     /* default anchor = left clip shape */
+  border: var(--pill-border) solid var(--pill-color, var(--soil));
+  background: transparent !important;
+  box-shadow:none !important;
+  box-sizing:border-box;
+  border-radius: 0 9999px 9999px 0;
+}
+main .pill.pill--clip-right:not(.pill--nav)::before{
+  left:auto; right: calc(50% - 50vw);
+  border-radius: 9999px 0 0 9999px;
+}
 
-/* 3) Stripe painter sits BEHIND everything */
+/* Shared stripe layer: extends to next pill/section and sits BEHIND */
 main :is(.pillband, .pillhead, .pill):not(.pill--nav)::after{
-  content: "";
-  position: absolute;
-  top: 0;
+  content:"";
+  position:absolute;
+  top:0;
   left: calc(50% - 50vw);
-  width: 100vw;
-  height: var(--band-h, 0px);  /* set by sizeBands() JS */
+  width:100vw;
+  height: var(--band-h, 0px);   /* set by sizeBands() */
   background: var(--stripe, transparent);
-  pointer-events: none;
-  z-index: -1;                 /* <-- key: behind border + content */
-  opacity: 1;                  /* no accidental translucency */
+  pointer-events:none;
+  z-index:-1;                   /* <-- now it can sit behind following .section */
 }
-
-/* If clipped right, hug the right edge */
 main :is(.pillband, .pillhead, .pill).pill--clip-right:not(.pill--nav)::after{
-  left: auto; right: calc(50% - 50vw);
+  left:auto; right: calc(50% - 50vw);
 }
 
-/* 4) Force stripe color by clip side only (your desired rule) */
-main :is(.pill, .pillband, .pillhead).pill--clip-right:not(.pill--nav){
-  --stripe: var(--offwhite);
-}
-main :is(.pill, .pillband, .pillhead).pill--clip-left:not(.pill--nav){
-  --stripe: var(--wave-dark);
-}
+/* Stripe color by clip side only */
+main :is(.pill, .pillband, .pillhead).pill--clip-right:not(.pill--nav){ --stripe: #eae6df; }
+main :is(.pill, .pillband, .pillhead).pill--clip-left:not(.pill--nav){  --stripe: var(--wave-dark); }
 
-/* 5) Don’t force white text when bands use theme classes inside <main> */
+/* Don’t force white text for themed bands/heads inside <main> */
 main .pillband:is(.pill--orange, .pill--soil, .pill--slate, .pill--sage),
 main .pillhead:is(.pill--orange, .pill--soil, .pill--slate, .pill--sage){
   color: var(--ink) !important;
 }
+
+/* Safety: nav flyout never paints bands/stripes */
+.pill--nav::before, .pill--nav::after{ content:none !important; }
+
 </style>
 
 </head>
