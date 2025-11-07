@@ -60,11 +60,21 @@ hero_tint: .40
 <section class="section">
   <div class="split-equal">
     <div class="col"> 
-
-</div>
+    <figure class="art">
+      <img
+        src="{{ '/assets/img/audience.png' | relative_url }}"
+        alt="1. Students & Early-Career Researchers: Prepare safely, know your rights, and access confidential support. 2. Faculty & Supervisors: Build transparent, consent-based team protocols and accountability systems. 3. Institutions & Programs: Align policies with field safety best practices and provide clear reporting pathways."
+        loading="lazy" decoding="async">
+    </figure>
+  </div>
 
     <div class="col"> 
-
+    <figure class="art">
+      <img
+        src="{{ '/assets/img/content.png' | relative_url }}"
+        alt="1. Prepare: Create your safety plan and set expectations with your team. 2. Support: Find confidential, survivor-centered resources. 3. Report: Learn clear steps for documenting and reporting misconduct."
+        loading="lazy" decoding="async">
+    </figure>
 </div>
 </div>
 </section>
@@ -111,7 +121,8 @@ hero_tint: .40
   </div>
 </section>
 
-<div class="stripe stripe--kraft">
+<div class="stripe">
+ <div class="paper-panel">
 <!-- 4) START HERE — consistent grid utility -->
 <section class="pillband pill--slate pill--clip-right pill--tight" id="start-here">
   <div class="section">
@@ -154,6 +165,7 @@ hero_tint: .40
     </div>
 </section>
 </div>
+</div>
 
 
 <!-- 5) TRAINING — its own section -->
@@ -176,6 +188,7 @@ hero_tint: .40
 
 
 <div class="stripe">
+  <div class="paper-panel">
 <!-- 6) SUPPORT — consistent grid utility -->
 <section class="section">
 <h2 class="pillhead pill--slate pill--clip-right">Survivor Support</h2>
@@ -210,6 +223,7 @@ hero_tint: .40
 </div>
 </section>
 <br>
+</div>
 </div>
 
 <!-- 5) REPORTING — consistent grid utility -->
