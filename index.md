@@ -27,34 +27,58 @@ hero_tint: .40
     </figure>
 
     <div class="intro-copy">
-      
-      <p>This project was built from urgency — to make fieldwork safer for ourselves, our students, and our colleagues. It offers accessible, customizable tools to help researchers prevent and report sexual misconduct and other forms of behavioral harm during field research.</p>
-      <br>
-       <p>We cannot protect our science without protecting the people who do it. Safety begins with accountability: clearly stated expectations, transparent reporting systems, and a shared commitment to safeguarding not just our data, but each other.
-        We are researchers, educators, and students — and we deserve to work in environments built on dignity, consent, and respect.</p>
-    </div>
-  </div>
-</section>
+    <!-- WHO WE ARE -->
+    <section aria-labelledby="who-we-are">
+      <h3 id="who-we-are" class="sr-only">Who We Are</h3>
+      <p>A collective of researchers, educators, and students committed to building safer, more ethical fieldwork environments across disciplines.</p>
+    </section>
 
+    <!-- WHAT WE DO -->
+    <section aria-labelledby="what-we-do">
+      <h3 id="what-we-do" class="sr-only">What We Do</h3>
+      <p>We provide <em>free, customizable tools</em> that help researchers prepare for fieldwork, establish team accountability, and access survivor-centered reporting and support resources.</p>
+    </section>
 
-
-<section class="section audience">
-  <h3>Who this site is for</h3>
-  <div class="audience-grid">
-    <article><strong>Students & Early-Career Researchers</strong><br>
-      Prepare safely, know your rights, and access confidential support.</article>
-    <article><strong>Faculty & Supervisors</strong><br>
-      Build transparent, consent-based team protocols and accountability systems.</article>
-    <article><strong>Institutions & Programs</strong><br>
-      Align policies with field safety best practices and provide clear reporting pathways.</article>
+    <!-- WHY IT MATTERS -->
+    <section aria-labelledby="why-it-matters">
+      <h3 id="why-it-matters" class="sr-only">Why It Matters</h3>
+      <p>Research should never come at the expense of safety or dignity. 
+      Our mission is to make accountability, transparency, and consent standard practice — protecting both people and science.</p>
+    </section>
   </div>
 </section>
 
 
 <div class="stripe stripe--wave-dark">
-<!-- 2) PREVALENCE — shared split -->
+<!-- 2) AUDIENCE — shared split -->
 <section class="section">
-<h2 class="pillhead pill--orange pill--clip-right">Prevalence of Fieldwork Harassment and Assault
+<h2 class="pillhead pill--orange pill--clip-right">Our Audience
+</h2>
+</section>
+
+<section class="section">
+  <div class="pill-grid"> 
+ <article class="card card--glass">
+<h3>Students & Early-Career Researchers<h3>
+     <p>Prepare safely, know your rights, and access confidential support.</p>
+</article>
+ <article class="card card--glass">
+<h3>Faculty & Supervisors</h3>
+      <p>Build transparent, consent-based team protocols and accountability systems.</p>
+</article>
+<article class="card card--glass">
+<h3>Institutions & Programs</h3>
+      <p>Align policies with field safety best practices and provide clear reporting pathways.</p>
+</article>
+  </div>
+</section>
+</div>
+
+
+
+<!-- 3) PREVALENCE — shared split -->
+<section class="section">
+<h2 class="pillhead pill--soil pill--clip-left">Prevalence of Fieldwork Harassment and Assault
 </h2>
   <div class="split">
     <div class="text">
@@ -70,10 +94,9 @@ hero_tint: .40
     </figure>
   </div>
 </section>
-</div>
 
-
-<!-- 3) SUPPORT — consistent grid utility -->
+<div class="stripe stripe--wave-dark">
+<!-- 4) START HERE — consistent grid utility -->
 <section class="pillband pill--soil pill--clip-left pill--tight" id="start-here">
   <div class="section">
     <h2>Start here: three steps before you go</h2>
@@ -114,10 +137,10 @@ hero_tint: .40
       </article>
     </div>
 </section>
+</div>
 
 
-<div class="stripe stripe--wave-dark">
-<!-- 4) TRAINING — its own section -->
+<!-- 5) TRAINING — its own section -->
 <section class="section" id="training">
   <h2 class="pillhead pill--sage pill--clip-left">
     <a class="pillhead__link" href="{{ '/selfdefense.html' | relative_url }}" target="_blank" rel="noopener">Training that strengthens safety</a>
