@@ -51,7 +51,7 @@ hero_tint: .40
 </section>
 
 <div class="stripe stripe--wave-dark"
-     style="--stripe-bleed-top:10px; --stripe-bleed-bottom:10px;">
+     style="--stripe-bleed-top:5px; --stripe-bleed-bottom:5px;">
 <!-- 2) PREVALENCE — shared split -->
 <section class="section">
 <h2 class="pillhead pill--orange pill--clip-right">Prevalence of Fieldwork Harassment and Assault
