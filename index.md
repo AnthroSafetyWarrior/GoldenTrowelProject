@@ -23,7 +23,7 @@ hero_tint: .40
 
 
 a.hover-sage:hover{
-  color: var(--sage);
+  text-color: var(--sage);
   text-decoration-color: var(--sage);
 }
 </style>
@@ -57,7 +57,7 @@ a.hover-sage:hover{
 </section>
 
 <div class="stripe stripe--wave-dark"
-     style="--stripe-bleed-top:30px; --stripe-bleed-bottom:20px;">
+     style="--stripe-bleed-top:30px; --stripe-bleed-bottom:15px;">
 <!-- 2) PREVALENCE — shared split -->
 <section class="section">
 <h2 class="pillhead pill--orange pill--clip-right">Prevalence of Fieldwork Harassment and Assault
@@ -145,7 +145,7 @@ a.hover-sage:hover{
 </section>
 
 <div class="stripe stripe--wave-dark"
-     style="--stripe-bleed-top:30px; --stripe-bleed-bottom:20px;">
+     style="--stripe-bleed-top:30px; --stripe-bleed-bottom:15px;">
 <!-- 4) SUPPORT — consistent grid utility -->
 <section class="section">
 <h2 class="pillhead pill--slate pill--clip-right">Survivor Support</h2>
@@ -162,7 +162,7 @@ a.hover-sage:hover{
 <p>National Sexual Assault Legal Hotline: Free Legal Assistance for Survivors Call 567-SHATTER (567-742-8837)</p>
 <br>
 <div class="inline-elements">   
-<h4><a class="hover=sage" href="https://www.hotpeachpages.net/a/countries.html"  target="_blank" 
+<h4><a class="hover-sage" href="https://www.hotpeachpages.net/a/countries.html"  target="_blank" 
      rel="noopener noreferrer"  style="color:var(--slate);">Hot Peach Pages</a>: <p>International List of Sexual & Domestic Violence Agencies</p></h4></div>
 <br>
 <div class="inline-elements">   
