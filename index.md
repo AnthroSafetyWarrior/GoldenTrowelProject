@@ -53,9 +53,11 @@ hero_tint: .40
 <div class="stripe stripe--wave-dark">
 <!-- 2) AUDIENCE — shared split -->
 <section class="section">
-<h2 class="pillhead pill--orange pill--clip-right">Our Audience
+<h2 class="pillhead pill--orange pill--clip-right">Who This Helps & How You Can Use Our Site
 </h2>
+</section>
 
+<section class="section">
   <div class="pill-grid"> 
  <article class="card card--glass">
 <h3>Students & Early-Career Researchers</h3>
@@ -98,7 +100,7 @@ hero_tint: .40
 
 <div class="stripe stripe--wave-dark">
 <!-- 4) START HERE — consistent grid utility -->
-<section class="pillband pill--soil pill--clip-left pill--tight" id="start-here">
+<section class="pillband pill--slate pill--clip-right pill--tight" id="start-here">
   <div class="section">
     <h2>Start here: three steps before you go</h2>
     <p class="lede">These are the core documents. Customize them first.</p>
