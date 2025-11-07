@@ -889,156 +889,53 @@ html, body { overflow-x: hidden; }
   opacity:.9;
 }
 
-/* ===== OUTLINE + PER-PILL STRIPES — scoped to page content ============ */
-/* Only target page pills/bands in <main>, never the nav flyout pills */
-:root { --pill-border: 6px; }
+/* ===== Per-pill stripes (no outline mode, pills stay filled) ========== */
+/* 1) Set the true page background once */
+:root { --page-bg: #eae6df; }   /* original page color */
+body  { background: var(--page-bg); }
 
-main :is(.pillband, .pillhead, .pill):not(.pill--nav){
-  color: var(--ink) !important;
-  background: transparent !important;
-}
-
-/* Convert their full-bleed ribbons to outlines */
-main :is(.pillband, .pillhead, .pill):not(.pill--nav)::before{
-  background: transparent !important;
-  border: var(--pill-border) solid var(--pill-color, var(--soil)) !important;
-  box-shadow: none !important;
-  box-sizing: border-box;
-}
-
-/* Beat color variants that force white text (only for bands/heads in main) */
-main .pillband:is(.pill--orange, .pill--soil, .pill--slate, .pill--sage),
-main .pillhead:is(.pill--orange, .pill--soil, .pill--slate, .pill--sage){
-  color: var(--ink) !important;
-}
-
-/* Comfortable spacing in outline mode (page pills only) */
-main .pill:not(.pill--nav){
-  margin-block: clamp(16px, 3vw, 28px);
-  --curve-inset: clamp(36px, 8vw, 240px);
-}
-/* Alternating stripes when no side/theme class is present */
-main .pill:not(.pill--nav):not(.pill--clip-left):not(.pill--clip-right){
-  --stripe: var(--offwhite);
-}
-main .pill:nth-of-type(even):not(.pill--nav):not(.pill--clip-left):not(.pill--clip-right){
-  --stripe: var(--wave-dark);
-}
-
-
-/* ===== Per-pill background stripe (extends to next pill) ============== */
-main .pill:not(.pill--nav){
-  position: relative;
-  isolation: isolate;
-  border: var(--pill-border) solid var(--pill-color, var(--soil)) !important;
-  box-shadow: none !important;
-}
-
-/* kill legacy fill so we’re outline + stripe only */
-main .pill:not(.pill--nav)::before{ content: none !important; }
-
-/* Stripe uses --band-h set by your sizeBands() JS */
-main .pill:not(.pill--nav)::after{
-  content: "";
-  position: absolute;
-  top: 0;
-  left: calc(50% - 50vw);
-  width: 100vw;
-  height: var(--band-h, 0px);
-  z-index: -1;
-  pointer-events: none;
-  background: var(--stripe, transparent);
-}
-/* If pill is clipped right, hug the right side */
-main .pill.pill--clip-right:not(.pill--nav)::after{
-  left: auto; right: calc(50% - 50vw);
-}
-
-/* Defaults for stripe colors (override per pill with --stripe if you like) */
-main .pill.pill--clip-left:not(.pill--nav)  { --stripe: var(--wave-dark); }
-main .pill.pill--clip-right:not(.pill--nav) { --stripe: var(--offwhite); }
-
-/* Optional themed stripes */
-main .pill.pill--orange:not(.pill--nav){ --stripe: color-mix(in srgb, var(--logo-orange) 10%, transparent); }
-main .pill.pill--soil:not(.pill--nav)  { --stripe: color-mix(in srgb, var(--soil) 10%, transparent); }
-main .pill.pill--slate:not(.pill--nav) { --stripe: color-mix(in srgb, var(--slate) 10%, transparent); }
-main .pill.pill--sage:not(.pill--nav)  { --stripe: color-mix(in srgb, var(--sage) 10%, transparent); }
-
-/* Safety: never touch flyout pills */
-.pill--nav::before, .pill--nav::after { content: none !important; }
-
-/* Stripe painter for bands + heads too */
-main :is(.pillband, .pillhead):not(.pill--nav){
-  position: relative;
-  isolation: isolate;
-}
-
-/* kill their legacy fills so we’re outline + stripe only (you already outline via ::before) */
-main :is(.pillband, .pillhead):not(.pill--nav)::before{
-  /* you already set border via ::before above; nothing else to do here */
-}
-
-/* Shared stripe layer */
-main :is(.pillband, .pillhead, .pill):not(.pill--nav)::after{
-  content: "";
-  position: absolute;
-  top: 0;
-  left: calc(50% - 50vw);
-  width: 100vw;
-  height: var(--band-h, 0px);   /* set by JS */
-  z-index: -1;
-  pointer-events: none;
-  background: var(--stripe, transparent);
-}
-
-/* Clip-side alignment like pills */
-main :is(.pillband, .pillhead).pill--clip-right:not(.pill--nav)::after{
-  left: auto; right: calc(50% - 50vw);
-}
-
-/* Defaults per side (override-able with theme classes) */
-main :is(.pillband, .pillhead).pill--clip-left:not(.pill--nav)  { --stripe: var(--wave-dark); }
-main :is(.pillband, .pillhead).pill--clip-right:not(.pill--nav) { --stripe: var(--offwhite); }
-
-/* Optional: themed stripes still win */
-main :is(.pillband, .pillhead).pill--orange:not(.pill--nav){ --stripe: color-mix(in srgb, var(--logo-orange) 10%, transparent); }
-main :is(.pillband, .pillhead).pill--soil:not(.pill--nav)  { --stripe: color-mix(in srgb, var(--soil) 10%, transparent); }
-main :is(.pillband, .pillhead).pill--slate:not(.pill--nav) { --stripe: color-mix(in srgb, var(--slate) 10%, transparent); }
-main :is(.pillband, .pillhead).pill--sage:not(.pill--nav)  { --stripe: color-mix(in srgb, var(--sage) 10%, transparent); }
-
-/* === FORCE STRIPES BY CLIP SIDE ONLY =============================== */
-/* Remove any previous alternation/theme overrides */
+/* 2) Only affect page content (never the nav flyout pills) */
 main :is(.pill, .pillband, .pillhead):not(.pill--nav){
-  --stripe: unset !important;
+  position: relative;
+  isolation: isolate;   /* creates a safe stacking context */
 }
 
-/* Strict side mapping */
-main :is(.pill, .pillband, .pillhead).pill--clip-right:not(.pill--nav){
-  --stripe: var(--offwhite) !important;
-}
-main :is(.pill, .pillband, .pillhead).pill--clip-left:not(.pill--nav){
-  --stripe: var(--wave-dark) !important;
-}
-
-/* Kill the old alternation rules */
-main .pill:not(.pill--nav):not(.pill--clip-left):not(.pill--clip-right){
-  --stripe: unset !important;
-}
-main .pill:nth-of-type(even):not(.pill--nav):not(.pill--clip-left):not(.pill--clip-right){
-  --stripe: unset !important;
-}
-
-/* Kill theme-based stripe overrides */
-main :is(.pill, .pillband, .pillhead)
-     :is(.pill--orange, .pill--soil, .pill--slate, .pill--sage){
-  --stripe: unset !important;
-}
-
-/* Ensure stripe layer isn't translucent */
+/* 3) Stripe layer that extends from this block down to the next block
+      (height is set by your sizeBands() JS via --band-h) */
 main :is(.pill, .pillband, .pillhead):not(.pill--nav)::after{
-  opacity: 1 !important;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: calc(50% - 50vw);      /* anchor to full viewport width */
+  width: 100vw;
+  height: var(--band-h, 0px);  /* computed by JS */
+  z-index: -999;               /* sit far behind all content */
+  pointer-events: none;
+  background: transparent;     /* color set below */
 }
 
+/* 4) If the block is clipped RIGHT, hug the right edge instead */
+main :is(.pill, .pillband, .pillhead).pill--clip-right:not(.pill--nav)::after{
+  left: auto;
+  right: calc(50% - 50vw);
+}
+
+/* 5) Stripe colors by side:
+      - RIGHT-clipped sections blend into the page background
+      - LEFT-clipped sections use the dark wave color */
+main :is(.pill, .pillband, .pillhead).pill--clip-right:not(.pill--nav)::after{
+  background: var(--page-bg);
+}
+main :is(.pill, .pillband, .pillhead).pill--clip-left:not(.pill--nav)::after{
+  background: var(--wave-dark);
+}
+
+/* Optional: allow per-block overrides via a CSS variable if needed
+   (e.g., .pill{ --stripe: pink; }) */
+main :is(.pill, .pillband, .pillhead):not(.pill--nav){ --stripe: initial; }
+main :is(.pill, .pillband, .pillhead):not(.pill--nav)::after{
+  background: var(--stripe, inherit);
+}
 </style>
 
 </head>
