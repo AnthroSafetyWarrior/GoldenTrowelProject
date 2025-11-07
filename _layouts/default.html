@@ -922,105 +922,37 @@ html body .pillhead.pill--sage{
 }
 
 
-/* ================= STRIPE (full-bleed background wrapper) ================= */
+
+/* ================= STRIPE (full-bleed, fading band) ================= */
 .stripe{
-  /* ----------- CONTROLS (tweak once, affects all) ----------- */
-  --stripe-bg: var(--wave-dark);   /* background color */
-  --stripe-bleed-top: 20px;        /* color extends above content */
-  --stripe-bleed-bottom: 0px;      /* color extends below content */
-  --stripe-pad-y: 10px;             /* padding inside the colored area */
+  /* defaults (consistent across all stripes) */
+  --stripe-bg: var(--wave-dark);   /* band color (overridden by modifier) */
+  --stripe-bleed-top: 22px;        /* how far color extends above content */
+  --stripe-bleed-bottom: 22px;     /* how far color extends below content */
+  --stripe-pad-y: 12px;            /* inside padding for content */
   --stripe-section-pad-y: 8px;     /* padding on inner .section */
-  --stripe-gap: 0px;               /* gap inside .section grid */
-  --stripe-pillhead-mb: 8px;       /* pillhead margin inside stripe */
-  --stripe-buffer-bottom: 30px;    /* transparent space AFTER stripe */
+  --stripe-gap: 0px;               /* gap inside inner .section grid */
+  --stripe-fade: 28px;             /* height of the edge fade */
 
   position: relative;
   isolation: isolate;
   margin: 0;
-
-  /* top padding = normal; bottom padding = normal + buffer (transparent) */
   padding: var(--stripe-pad-y) var(--page-pad-inline);
-  padding-bottom: calc(var(--stripe-pad-y) + var(--stripe-buffer-bottom));
 }
 
-/* Full-bleed colored panel only */
+/* full-bleed colored panel with soft fade into page bg */
 .stripe::before{
-  content:"";
-  position:absolute;
-  z-index:-1;                      /* sits behind content */
+  content: "";
+  position: absolute;
+  z-index: -1;
   left: calc(50% - 50vw);
   width: 100vw;
-
-  /* color height is driven ONLY by bleed values */
   top:    calc(-1 * var(--stripe-bleed-top));
   bottom: calc(-1 * var(--stripe-bleed-bottom));
-
   background: var(--stripe-bg);
   pointer-events: none;
-}
 
-/* Anchor to right edge when needed */
-.stripe--right::before{
-  left:auto;
-  right:calc(50% - 50vw);
-}
-
-/* tighten the inner section */
-.stripe > .section{
-  padding-block: var(--stripe-section-pad-y);
-  gap: var(--stripe-gap);
-}
-
-/* control pillhead spacing inside */
-.stripe .pillhead{
-  margin-block: var(--stripe-pillhead-mb);
-}
-
-/* Preset you’re using */
-.stripe--wave-dark { --stripe-bg: var(--wave-dark); }
-/* (You can omit offwhite if you’re not using it) */
-
-/* ================= STRIPE LINK STYLING ================= */
-/* Default link color inside stripes */
-.stripe a{
-  color: var(--slate);
-  text-decoration-color: var(--slate);
-  text-underline-offset: .18em;
-  transition: color .2s ease, text-decoration-color .2s ease;
-}
-
-/* Hover & focus color for accessibility */
-.stripe a:hover,
-.stripe a:focus-visible{
-  color: var(--sage);
-  text-decoration-color: var(--sage);
-  outline: none;
-}
-/* ================= STRIPE LINK STYLING ================= */
-/* Default link color inside stripes */
-.stripe a{
-  color: var(--slate);
-  text-decoration-color: var(--slate);
-  text-underline-offset: .18em;
-  transition: color .2s ease, text-decoration-color .2s ease;
-}
-
-/* Hover & focus color for accessibility */
-.stripe a:hover,
-.stripe a:focus-visible{
-  color: var(--sage);
-  text-decoration-color: var(--sage);
-  outline: none;
-}
-
-/* ========= soft fade for stripes ========= */
-.stripe{
-  /* global knob: how “tall” the fade is */
-  --stripe-fade: 36px;            /* try 24–48px */
-}
-
-/* fade both top & bottom */
-.stripe::before{
+  /* fade to transparent so the page background shows through */
   -webkit-mask-image: linear-gradient(
     to bottom,
     transparent 0,
@@ -1037,20 +969,41 @@ html body .pillhead.pill--sage{
   );
 }
 
-/* optional modifiers if you only want one side faded */
-.stripe--fade-top::before{
-  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 40px);
-          mask-image: linear-gradient(to bottom, transparent, #000 40px);
-}
-.stripe--fade-bottom::before{
-  -webkit-mask-image: linear-gradient(to top, transparent, #000 40px);
-          mask-image: linear-gradient(to top, transparent, #000 40px);
+/* anchor to the right edge when needed (optional) */
+.stripe--right::before{
+  left: auto;
+  right: calc(50% - 50vw);
 }
 
-/* tighter fade on mobile (optional) */
-@media (max-width: 640px){
-  .stripe{ --stripe-fade: 24px; }
+/* tighten the inner section */
+.stripe > .section{
+  padding-block: var(--stripe-section-pad-y);
+  gap: var(--stripe-gap);
 }
+
+/* link styling inside stripes (inherits your palette) */
+.stripe a{
+  color: var(--slate);
+  text-decoration-color: var(--slate);
+  text-underline-offset: .18em;
+  transition: color .2s ease, text-decoration-color .2s ease;
+}
+.stripe a:hover,
+.stripe a:focus-visible{
+  color: var(--sage);
+  text-decoration-color: var(--sage);
+  outline: none;
+}
+
+/* ===== modifiers ===== */
+.stripe--wave-dark{ --stripe-bg: var(--wave-dark); }
+/* (add more like .stripe--slate etc. if you ever need them) */
+
+/* slightly tighter fade on small screens (optional) */
+@media (max-width: 640px){
+  .stripe{ --stripe-fade: 22px; }
+}
+
 
 /* ===== NAV ===== */
 /* NAV FLYOUT: styles only for the tiny round buttons */
@@ -1124,16 +1077,7 @@ html body .pillhead.pill--sage{
   display:grid; place-items:center; font-weight:900; color:var(--slate);
   background:
     radial-gradient(#fff 62%, transparent 63%),                 /* inner white */
-    conic-gradient(var(--gold) 0 285deg, transparent 285deg);   /* gold arc */
-}
-
-/* Optional: tiny gold “wedge” at the bottom like your mock */
-.doc-callout .badge::after{
-  content:""; position:absolute; inset:0;
-  background:
-    radial-gradient(circle at 50% 76%, var(--gold) 0 18%, transparent 19%);
-  border-radius:50%;
-  pointer-events:none;
+    conic-gradient(var(--gold));   /* gold arc */
 }
 
 /* Color variants if you want */

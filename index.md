@@ -63,7 +63,7 @@ hero_tint: .40
     <figure class="art">
       <img
         src="{{ '/assets/img/audience.png' | relative_url }}"
-        alt="1. Students & Early-Career Researchers: Prepare safely, know your rights, and access confidential support. 2. Faculty & Supervisors: Build transparent, consent-based team protocols and accountability systems. 3. Institutions & Programs: Align policies with field safety best practices and provide clear reporting pathways." loading="lazy" decoding="async" style="max-width:200px; height:auto;">
+        alt="1. Students & Early-Career Researchers: Prepare safely, know your rights, and access confidential support. 2. Faculty & Supervisors: Build transparent, consent-based team protocols and accountability systems. 3. Institutions & Programs: Align policies with field safety best practices and provide clear reporting pathways." loading="lazy" decoding="async" style="max-width:360px; height:auto;">
     </figure>
   </div>
 
@@ -72,7 +72,7 @@ hero_tint: .40
       <img
         src="{{ '/assets/img/content.png' | relative_url }}"
         alt="1. Prepare: Create your safety plan and set expectations with your team. 2. Support: Find confidential, survivor-centered resources. 3. Report: Learn clear steps for documenting and reporting misconduct."
-        loading="lazy" decoding="async" style="max-width:200px; height:auto;">
+        loading="lazy" decoding="async" style="max-width:360px; height:auto;">
     </figure>
 </div>
 </div>
