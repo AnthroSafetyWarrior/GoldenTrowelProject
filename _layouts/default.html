@@ -891,12 +891,6 @@ html, body { overflow-x: hidden; }
 
 /* ===== OUTLINE + PER-PILL STRIPES — scoped to page content ============ */
 /* Only target page pills/bands in <main>, never the nav flyout pills */
-:root{
-  --page-bg: #eae6df;  /* this was your original page background */
-  /* keep the rest… */
-}
-body{ background: var(--page-bg); }
-
 :root { --pill-border: 6px; }
 
 main :is(.pillband, .pillhead, .pill):not(.pill--nav){
@@ -1011,39 +1005,6 @@ main :is(.pillband, .pillhead).pill--orange:not(.pill--nav){ --stripe: color-mix
 main :is(.pillband, .pillhead).pill--soil:not(.pill--nav)  { --stripe: color-mix(in srgb, var(--soil) 10%, transparent); }
 main :is(.pillband, .pillhead).pill--slate:not(.pill--nav) { --stripe: color-mix(in srgb, var(--slate) 10%, transparent); }
 main :is(.pillband, .pillhead).pill--sage:not(.pill--nav)  { --stripe: color-mix(in srgb, var(--sage) 10%, transparent); }
-
-/* === FORCE STRIPES BY CLIP SIDE ONLY =============================== */
-/* Remove any previous alternation/theme overrides */
-main :is(.pill, .pillband, .pillhead):not(.pill--nav){
-  --stripe: unset !important;
-}
-
-/* Strict side mapping */
-main :is(.pill, .pillband, .pillhead).pill--clip-right:not(.pill--nav){
-  --stripe: var(--offwhite) !important;
-}
-main :is(.pill, .pillband, .pillhead).pill--clip-left:not(.pill--nav){
-  --stripe: var(--wave-dark) !important;
-}
-
-/* Kill the old alternation rules */
-main .pill:not(.pill--nav):not(.pill--clip-left):not(.pill--clip-right){
-  --stripe: unset !important;
-}
-main .pill:nth-of-type(even):not(.pill--nav):not(.pill--clip-left):not(.pill--clip-right){
-  --stripe: unset !important;
-}
-
-/* Kill theme-based stripe overrides */
-main :is(.pill, .pillband, .pillhead)
-     :is(.pill--orange, .pill--soil, .pill--slate, .pill--sage){
-  --stripe: unset !important;
-}
-
-/* Ensure stripe layer isn't translucent */
-main :is(.pill, .pillband, .pillhead):not(.pill--nav)::after{
-  opacity: 1 !important;
-}
 
 </style>
 
