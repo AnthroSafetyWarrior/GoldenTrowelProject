@@ -890,63 +890,78 @@ html, body { overflow-x: hidden; }
 }
 
 
-/* ===== SECTION STRIPES — paint the background of the whole section ===== */
-/* Never touches nav flyout; only <main> content sections */
-main .section{
-  position: relative;
+/* ===== HARD RESET: page pills/bands/heads are OUTLINE-ONLY in <main> ===== */
+main :is(.pill, .pillband, .pillhead):not(.pill--nav){
+  color: var(--ink) !important;
+  background: transparent !important;
+  position: relative;               /* keep stacking context */
   isolation: isolate;
   z-index: 0;
 }
 
-/* The wash that sits behind the section’s content */
-main .section::before{
-  content: "";
-  position: absolute;
-  inset: 0 auto 0 calc(50% - 50vw); /* default: hug left edge */
-  width: 100vw;                     /* full bleed */
-  background: var(--section-stripe, transparent);
-  z-index: -1;
-  pointer-events: none;
-  box-shadow: 0 8px 18px rgba(0,0,0,.06); /* subtle depth like your pills */
+/* Turn their ribbons into outlines; kill any fills */
+main :is(.pill, .pillband, .pillhead):not(.pill--nav)::before{
+  content:"";
+  position:absolute;
+  inset:0 auto;
+  background: transparent !important;                         /* no fill */
+  border: var(--pill-border, 6px) solid var(--pill-color, var(--soil)) !important;
+  box-shadow: none !important;
+  z-index: 1;                                                 /* below real content */
+}
+/* Extra safety: nuke the legacy band fills that were set earlier */
+main .pill::before,
+main .pillband::before,
+main .pillhead::before{
+  background: transparent !important;
 }
 
-/* If this section contains a RIGHT-clipped pillhead/band, hug the right edge */
+/* ===== SECTION STRIPES: strict side colors, no color-mix tints ===== */
+main .section{
+  position: relative;
+  isolation: isolate;
+}
+main .section::before{
+  content:"";
+  position:absolute;
+  top:0; bottom:0;
+  left: calc(50% - 50vw);            /* default: hug left edge */
+  width: 100vw;
+  background: var(--section-stripe, transparent);
+  z-index: -1;                        /* behind content + outlines */
+  pointer-events: none;
+}
+
+/* choose stripe color ONLY by which way the first pillhead/band is clipped */
+main .section:has(> .pillhead.pill--clip-left),
+main .section:has(> .pillband.pill--clip-left){
+  --section-stripe: var(--wave-dark);   /* the brownish wash */
+}
 main .section:has(> .pillhead.pill--clip-right),
 main .section:has(> .pillband.pill--clip-right){
-  --section-side: right;
+  --section-stripe: var(--offwhite);    /* the light wash */
+  /* and hug the right edge for right-clipped blocks */
 }
 main .section:has(> .pillhead.pill--clip-right)::before,
 main .section:has(> .pillband.pill--clip-right)::before{
-  left: auto;
+  left:auto;
   right: calc(50% - 50vw);
 }
 
-/* Choose the wash color by clip side by default */
-main .section:has(> .pillhead.pill--clip-left),
-main .section:has(> .pillband.pill--clip-left){
-  --section-stripe: var(--wave-dark);
+/* IMPORTANT: disable all theme-based stripe overrides */
+main .section{
+  --section-stripe: var(--section-stripe);
 }
-main .section:has(> .pillhead.pill--clip-right),
-main .section:has(> .pillband.pill--clip-right){
-  --section-stripe: var(--offwhite);
-}
-
-/* Optional: theme overrides if you want a tinted wash that matches the pill */
+/* If you previously had 'color-mix' overrides, remove them or force neutral: */
 main .section:has(> .pillhead.pill--orange),
-main .section:has(> .pillband.pill--orange){
-  --section-stripe: color-mix(in srgb, var(--logo-orange) 14%, transparent);
-}
+main .section:has(> .pillband.pill--orange),
 main .section:has(> .pillhead.pill--soil),
-main .section:has(> .pillband.pill--soil){
-  --section-stripe: color-mix(in srgb, var(--soil) 12%, transparent);
-}
+main .section:has(> .pillband.pill--soil),
 main .section:has(> .pillhead.pill--slate),
-main .section:has(> .pillband.pill--slate){
-  --section-stripe: color-mix(in srgb, var(--slate) 12%, transparent);
-}
+main .section:has(> .pillband.pill--slate),
 main .section:has(> .pillhead.pill--sage),
-main .section:has(> .pillband.pill--sage){
-  --section-stripe: color-mix(in srgb, var(--sage) 12%, transparent);
+main .section:has(> .pillband.pill--sage){ 
+  /* no override — keep the side-based color */
 }
 
 </style>
