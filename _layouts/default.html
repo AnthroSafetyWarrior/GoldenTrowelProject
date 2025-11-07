@@ -804,6 +804,7 @@ html, body { overflow-x: hidden; }
   z-index: -1;
 }
 
+@media (max-width: 560px){
 /* Early-wrap utility just for bands that need it */
 .pillband.pill--earlywrap{
   /* shrink text line length so it wraps sooner */
@@ -811,7 +812,7 @@ html, body { overflow-x: hidden; }
   /* increase the safe gutter near the curve */
   --pill-curve-inset: clamp(72px, 14vw, 320px);
 }
-
+}
 /* Ensure the section respects the larger curve inset on the clipped side */
 .pillband.pill--clip-left.pill--earlywrap .section{
   padding-right: max(var(--pill-pad-inline), var(--pill-curve-inset));
