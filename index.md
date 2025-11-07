@@ -57,7 +57,7 @@ a.hover-sage:hover{
 </section>
 
 <div class="stripe stripe--wave-dark"
-     style="--stripe-bleed-top:30px; --stripe-bleed-bottom:15px;">
+     style="--stripe-bleed-top:30px; --stripe-bleed-bottom:10px;">
 <!-- 2) PREVALENCE — shared split -->
 <section class="section">
 <h2 class="pillhead pill--orange pill--clip-right">Prevalence of Fieldwork Harassment and Assault
@@ -145,7 +145,7 @@ a.hover-sage:hover{
 </section>
 
 <div class="stripe stripe--wave-dark"
-     style="--stripe-bleed-top:30px; --stripe-bleed-bottom:15px;">
+     style="--stripe-bleed-top:30px; --stripe-bleed-bottom:10px;">
 <!-- 4) SUPPORT — consistent grid utility -->
 <section class="section">
 <h2 class="pillhead pill--slate pill--clip-right">Survivor Support</h2>
