@@ -140,6 +140,8 @@ hero_tint: .40
       </article>
 </div>
 </section>
+<br>
+<br>
 </div>
 
 
@@ -195,7 +197,7 @@ hero_tint: .40
 
 <!-- 5) REPORTING — consistent grid utility -->
 <!-- FINAL SECTION — Creating Change + Closing CTA -->
-<section class="pillband pill--sage pill--clip-right pill--tight">
+<section class="pillband pill--sage pill--clip-left pill--tight">
   <div class="section">
     <h2>Creating Change in Fieldwork</h2>
     <p class="lede">Help us understand the current state of fieldwork safety by participating in our <strong>anonymous survey</strong>.</p>
@@ -203,20 +205,14 @@ hero_tint: .40
 </section>
 
 <section class="section">
- <div class="text">
+<div class="intro-title">
 <p> The <strong><a href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank" rel="noopener">Fieldwork Misconduct Survey</a></strong> gathers community-driven, anonymous data on harassment and misconduct to update the only major prevalence study (<em>Clancy et&nbsp;al.,&nbsp;2014</em>).</p> 
 <br> 
-<p>Your participation helps highlight how much change is still needed—and why these resources matter. Together, we can use these data to drive accountability and create safer fieldwork environments. </p>
+<p>Your participation helps highlight how much change is still needed—and why these resources matter. Together, we can use these data to drive accountability and create safer fieldwork environments.
+<strong><em>No names, emails, or identifying details are collected; results are stored and reported in aggregate.</em></strong></p>
 <br>
-  <p><em>No names, emails, or identifying details are collected; results are stored and reported in aggregate.</em></p>
-  </div>
-</section>
-
-<!-- HOMEPAGE CLOSING LINE -->
-<section class="section intro" style="text-align:center; margin-top:2rem;">
-  <blockquote style="font-size:1.25rem; font-weight:500; line-height:1.6; color:var(--slate); max-width:720px; margin:0 auto;">
-    We believe safety and accountability make better science. Explore our resources to build a field culture rooted in respect.
-  </blockquote>
+<p><strong>
+    We believe safety and accountability make better science. Explore our resources to build a field culture rooted in respect.</strong></p>
 </section>
 
   </div>
