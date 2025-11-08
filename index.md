@@ -200,43 +200,35 @@ hero_tint: .40
 </div>
 
 <!-- 5) REPORTING — consistent grid utility -->
-<section class="pillband pill--sage pill--clip-left pill--tight">
- <div class="section">
-    <h2>Finding support for sexual misconduct in the field is possible whether you conduct research domestically or internationally.</h2>
-    <p class="lede">Whether you wish to file a report or not, there are resources available to support you.</p>
-</div>
-</section> 
-  
-<section class="section">
-  <div class="pill-grid"> 
- <article class="card card--glass">
-      <h3>Prevention</h3>
-      <p>The <strong><a href="https://docs.google.com/document/d/1jdA2Iz-ALuxHU-jHoH5CLHHMJhotDdCoATkuu8lDrug/edit?usp=sharing" target="_blank" rel="noopener">Pre-Fieldwork Safety Checklist</a></strong> helps you plan proactively—identifying risks, setting clear expectations, and documenting safety measures before entering the field. The <strong><a href="https://docs.google.com/document/d/1OkEMW4VhpsccA_VZTTEvgBBq5vs0mCOEDg9Xk6f34Ss/edit?usp=sharing" target="_blank" rel="noopener">Fieldwork Safety Plan</a></strong> helps you identify local resources and set in place an action plan and the <strong><a href="Collaborator Safety Commitment" target="_blank" rel="noopener">Fieldwork Safety Plan</a></strong> initiates conversations about safety standard among our collaborators and sets clear expectations.</p> 
-Preparing for Travel
-<br>
-<p><strong><a href="{{ '/travelprep.html' | relative_url }}">Preparing for Travel</a></strong> 
-</article>
+<!-- FINAL SECTION — Creating Change + Closing CTA -->
+<section class="pillband pill--sage pill--clip-right pill--tight">
+  <div class="section">
+    <h2>Creating Change in Fieldwork</h2>
+    <p class="lede">
+      Help us understand and improve the culture of fieldwork by sharing your experience through our
+      <a href="/survey.html" target="_blank" rel="noopener">anonymous Fieldwork Misconduct Survey</a>.
+    </p>
 
-<article class="card card--glass">
-      <h3>Action</h3>
- <p>The <strong><a href="https://docs.google.com/document/d/1MJgV6zWpse_j56-pG34uMZzVBxhifiIYZdU-F7TGbes/edit?usp=sharing" target="_blank" rel="noopener">Emergency Procedure Checklist</a></strong> outlines step-by-step actions prior to and following sexual misconduct outlining how to collect evidence, who to contact, how to document, and how to ensure inter-institutional accountability.</p>
-<br>   
-<p>Find clear, verified paths to <strong><a href="{{ '/reporting.html' | relative_url }}"  target="_blank" rel="noopener noreferrer">report misconduct</a></strong> through your institution, funding agencies, embassies, and local authorities—with documentation tools designed to preserve your evidence and amplify your voice.
-      </p>
-    </article>
+    <p>
+      Your participation provides essential, community-driven data to update the only major study on fieldwork
+      harassment and assault (<em>Clancy et&nbsp;al., 2014</em>). No identifying information is collected — responses are stored
+      in aggregate to protect privacy and amplify collective voices.
+    </p>
 
- <article class="card card--glass">
-      <h3>Creating Change</h3>
-  <p>
-    Help us understand the current state of fieldwork safety by participating in our  <strong>anonymous survey</strong>.</p>
-<br>
-<p> The <strong><a href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank" rel="noopener">Fieldwork Misconduct Survey</a></strong> 
-    gathers community-driven, anonymous data on harassment and misconduct to update the only major prevalence study (<em>Clancy et&nbsp;al.,&nbsp;2014</em>).</p>
-<br>
-    <p>Your participation helps highlight how much change is still needed—and why these resources matter. Together, we can use these data to drive 
-    accountability and create safer fieldwork environments.
-  </p>
- </article>
+    <p style="margin-top:1.2rem; display:flex; flex-wrap:wrap; gap:.8rem;">
+      <a class="btn-doc" href="/survey.html" target="_blank" rel="noopener">Take the Survey</a>
+      <a class="btn-doc" href="/support.html#confidentiality" target="_blank" rel="noopener">Find Support</a>
+    </p>
+  </div>
+</section>
+
+<!-- HOMEPAGE CLOSING LINE -->
+<section class="section intro" style="text-align:center; margin-top:2rem;">
+  <blockquote style="font-size:1.25rem; font-weight:500; line-height:1.6; color:var(--slate); max-width:720px; margin:0 auto;">
+    “We believe safety and accountability make better science. Explore our resources to build a field culture rooted in respect.”
+  </blockquote>
+</section>
+
   </div>
 </section>
 
