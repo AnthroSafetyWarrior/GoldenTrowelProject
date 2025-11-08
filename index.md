@@ -108,12 +108,6 @@ hero_tint: .40
 </section>
 
 
-<section class="pillband pill--slate pill--clip-right pill--tight" id="start-here">
-  <div class="section">
-    <h2>Start Here: Three Steps Before You Go</h2>
-</div>
-</section>
-
 <section class="section">
     <div class="hero-docs">
 
@@ -205,6 +199,7 @@ hero_tint: .40
   <div class="section">
     <h2>Creating Change in Fieldwork</h2>
     <p class="lede">Help us understand the current state of fieldwork safety by participating in our <strong>anonymous survey</strong>.</p>
+</div>
 </section>
 
 <section class="section">
@@ -220,7 +215,7 @@ hero_tint: .40
 <!-- HOMEPAGE CLOSING LINE -->
 <section class="section intro" style="text-align:center; margin-top:2rem;">
   <blockquote style="font-size:1.25rem; font-weight:500; line-height:1.6; color:var(--slate); max-width:720px; margin:0 auto;">
-    “We believe safety and accountability make better science. Explore our resources to build a field culture rooted in respect.”
+    We believe safety and accountability make better science. Explore our resources to build a field culture rooted in respect.
   </blockquote>
 </section>
 
