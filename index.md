@@ -52,9 +52,11 @@ hero_tint: .40
 
  <div class="stripe stripe--wave-dark">
 <!-- 2) AUDIENCE — shared split -->
-<section class="section">
-<h2 class="pillhead pill--orange pill--clip-right">Who This Helps & How You Can Use Our Site
-</h2>
+<section class="pillband pill--orange pill--clip-right pill--tight">
+ <div class="section">
+    <h2>Who This Helps & How You Can Use Our Site</h2>
+    <p class="lede">The Golden Trowel Project™ offers practical tools and information for everyone involved in research — whether you’re preparing for your first field season or guiding a team in the field.</p>
+</div>
 </section>
 
 <section class="section">
@@ -62,13 +64,13 @@ hero_tint: .40
     <div class="col"> 
       <img
         src="{{ '/assets/img/audience.png' | relative_url }}"
-        alt="1. Students & Early-Career Researchers: Prepare safely, know your rights, and access confidential support. 2. Faculty & Supervisors: Build transparent, consent-based team protocols and accountability systems. 3. Institutions & Programs: Align policies with field safety best practices and provide clear reporting pathways." loading="lazy" decoding="async">
+        alt="Who This Helps: 1. Students & Early-Career Researchers: Prepare safely, know your rights, and access confidential support. 2. Faculty & Supervisors: Build transparent, consent-based team protocols and accountability systems. 3. Institutions & Programs: Align policies with field safety best practices and provide clear reporting pathways." loading="lazy" decoding="async">
   </div>
 
     <div class="col"> 
       <img
         src="{{ '/assets/img/content.png' | relative_url }}"
-        alt="1. Prepare: Create your safety plan and set expectations with your team. 2. Support: Find confidential, survivor-centered resources. 3. Report: Learn clear steps for documenting and reporting misconduct."
+        alt="How You Can Use Our Site: 1. Prepare: Create your safety plan and set expectations with your team. 2. Support: Find confidential, survivor-centered resources. 3. Report: Learn clear steps for documenting and reporting misconduct."
         loading="lazy" decoding="async">
 </div>
 </div>
@@ -98,6 +100,14 @@ hero_tint: .40
 
 <div class="stripe stripe--wave-dark">
 <!-- 4) START HERE — consistent grid utility -->
+<section class="pillband pill--slate pill--clip-right pill--tight">
+ <div class="section">
+    <h2>Get Ready for the Field: Three Steps to Start Safely</h2>
+    <p class="lede">Each template can be customized to your needs and downloaded for your records or shared with your team.</p>
+</div>
+</section>
+
+
 <section class="pillband pill--slate pill--clip-right pill--tight" id="start-here">
   <div class="section">
     <h2>Start Here: Three Steps Before You Go</h2>
@@ -128,7 +138,7 @@ hero_tint: .40
 
       <!-- 3) Collaborator Commitment -->
       <article class="doc-callout doc--gold">
-       <a class="badge badge--circle"  href="https://docs.google.com/spreadsheets/d/1ZjhKX9xpNuL4AG_rvhCvbrSp2nIuF4NTJd0CaRwR53U/edit?usp=sharing" target="_blank" rel="noopener">CLICK HERE for Team Safety Pledge</a>
+       <a class="badge badge--circle"  href="https://docs.google.com/document/d/18SmymYAFKUz_drbDhcsx8NWaiNG6-SQflWPj0OaZ76c/edit?usp=sharing" target="_blank" rel="noopener">CLICK HERE for Team Safety Pledge</a>
         <div>
           <h3>Collaborator Safety Commitment</h3>
           <p>Shared expectations, boundaries, & accountability for your team.</p>
@@ -139,22 +149,15 @@ hero_tint: .40
 </div>
 
 
-<!-- 5) TRAINING — its own section -->
-<section class="section" id="training">
-  <h2 class="pillhead pill--sage pill--clip-left">Training that Strengthens Safety</h2>
-<div class="circle" data-href="{{ '/selfdefense.html' | relative_url }}">
-                <button class="circle-btn" type="button">Self-Defense & Boundaries</button>
-</div></h2>
-  <p>Build confidence before you depart: boundary-setting, de-escalation, and evidence-based empowerment self-defense (ESD).</p>
-
-<p> A growing body of research suggests that training in boundary-setting and self-defense is not just reactive — it can <strong>shift how we respond under threat</strong>. For example, </p>
- <ul> 
-<li>empowerment self-defense (ESD) programs have demonstrated increased assertiveness, reduced fear in risky environments, and stronger self-protective decision-making <a href="https://doi.org/10.1177/08862605221082734" target="_blank" rel="noopener noreferrer">(Beaujolais, 2023; </a><a href="https://doi.org/10.33043/SSWJ.2.1.63-76" target="_blank" rel="noopener noreferrer">Follo, 2022).</a></li> 
-<li>Other efforts in trauma prevention and rape-resistance place such training within evidence-based prevention strategies <a href="https://doi.org/10.1080/10926771.2022.2046224">(Basile, 2022).</a></li> 
-</ul> 
-<p> These suggest that when we practice setting boundaries and preparing responses in advance, we may be less likely to default to appeasement or freeze patterns in moments of threat. </p>
-
-  <p><a href="{{ '/selfdefense.html' | relative_url }}">Explore training resources →</a></p>
+<!-- 5) TRAVEL — its own section -->
+<section class="pillband pill--sage pill--clip-left pill--tight">
+ <div class="section">
+    <h2>Preparing for Travel: Know Before You Go</h2>
+    <p class="lede">Understanding local laws, cultural expectations, and support systems helps you make informed choices in the field. This section links to trusted resources on travel safety, recording laws, and international research preparation.</p>
+</div>
+</section>
+<section class="section">
+[WORKING ON BUILDING THS OUT]
 </section>
 
 
@@ -199,7 +202,7 @@ hero_tint: .40
 <!-- 5) REPORTING — consistent grid utility -->
 <section class="pillband pill--sage pill--clip-left pill--tight">
  <div class="section">
-    <h2>Reporting sexual misconduct in the field is possible whether you conduct research domestically or internationally.</h2>
+    <h2>Finding support for sexual misconduct in the field is possible whether you conduct research domestically or internationally.</h2>
     <p class="lede">Whether you wish to file a report or not, there are resources available to support you.</p>
 </div>
 </section> 
@@ -208,9 +211,11 @@ hero_tint: .40
   <div class="pill-grid"> 
  <article class="card card--glass">
       <h3>Prevention</h3>
-      <p>The <strong><a href="https://docs.google.com/document/d/1jdA2Iz-ALuxHU-jHoH5CLHHMJhotDdCoATkuu8lDrug/edit?usp=sharing" target="_blank" rel="noopener">Pre-Fieldwork Safety Checklist</a></strong> helps you plan proactively—identifying risks, setting clear expectations, and documenting safety measures before entering the field. It also includes options for capturing proof of misconduct to support reporting without fear of dismissal.
-      </p>
-    </article>
+      <p>The <strong><a href="https://docs.google.com/document/d/1jdA2Iz-ALuxHU-jHoH5CLHHMJhotDdCoATkuu8lDrug/edit?usp=sharing" target="_blank" rel="noopener">Pre-Fieldwork Safety Checklist</a></strong> helps you plan proactively—identifying risks, setting clear expectations, and documenting safety measures before entering the field. The <strong><a href="https://docs.google.com/document/d/1OkEMW4VhpsccA_VZTTEvgBBq5vs0mCOEDg9Xk6f34Ss/edit?usp=sharing" target="_blank" rel="noopener">Fieldwork Safety Plan</a></strong> helps you identify local resources and set in place an action plan and the <strong><a href="Collaborator Safety Commitment" target="_blank" rel="noopener">Fieldwork Safety Plan</a></strong> initiates conversations about safety standard among our collaborators and sets clear expectations.</p> 
+Preparing for Travel
+<br>
+<p><strong><a href="{{ '/travelprep.html' | relative_url }}">Preparing for Travel</a></strong> 
+</article>
 
 <article class="card card--glass">
       <h3>Action</h3>

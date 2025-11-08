@@ -928,7 +928,7 @@ html body .pillhead.pill--sage{
   /* defaults (consistent across all stripes) */
   --stripe-bg: var(--wave-dark);   /* band color (overridden by modifier) */
   --stripe-bleed-top: 22px;        /* how far color extends above content */
-  --stripe-bleed-bottom: 22px;     /* how far color extends below content */
+  --stripe-bleed-bottom: 32px;     /* how far color extends below content */
   --stripe-pad-y: 12px;            /* inside padding for content */
   --stripe-section-pad-y: 8px;     /* padding on inner .section */
   --stripe-gap: 0px;               /* gap inside inner .section grid */
@@ -1106,7 +1106,7 @@ html body .pillhead.pill--sage{
   line-height: 1.15;
 
   /* guarantee at least 1em, but scale a bit on larger screens */
-  font-size: clamp(1em, 1.8vw, 1.35rem);
+  font-size: clamp(1em, 1.8vw, 1.25rem);
 
   color: var(--slate);
   padding: 0 12px; /* allow text wrap inside */
@@ -1121,12 +1121,12 @@ html body .pillhead.pill--sage{
 .badge--circle:hover{
   transform: translateY(calc(-50% - 2px));
   filter: brightness(1.02);
-color: var(--ink);
 background: var(--gold);
   box-shadow: 0 0 0 6px var(--gold), 0 8px 16px rgba(0,0,0,.25);
 }
 
-.badge--circle:focus-visible{
+
+}.badge--circle:focus-visible{
   outline: 3px solid var(--gold);
   outline-offset: 4px;
 }
@@ -1134,6 +1134,11 @@ background: var(--gold);
 .badge--circle span{
   display:block;
   word-wrap: break-word;
+}
+
+.badge a:hover,
+.badge a:focus-visible{
+  color: var(--soil);;
 }
 
 /* Optional: slightly smaller circle on phones so layout stays comfy */
@@ -1194,7 +1199,7 @@ background: var(--gold);
                 <button class="circle-btn" type="button">Preparing</button>
                 <div class="flyout">
 <a class="pill pill--nav" href="https://docs.google.com/document/d/1jdA2Iz-ALuxHU-jHoH5CLHHMJhotDdCoATkuu8lDrug/edit?usp=sharing" target="_blank" rel="noopener">Pre-Fieldwork Safety Checklist</a>
-                  <a class="pill pill--nav" href="{{ '/yourrights.html' | relative_url }}">Know Your Rights</a>
+                  <a class="pill pill--nav" href="{{ '/travelprep.html' | relative_url }}">Know Your Rights</a>
  <a class="pill pill--nav" href="{{ '/selfdefense.html' | relative_url }}">Self-Defense & Boundary Training</a>
                 </div>
               </div>
