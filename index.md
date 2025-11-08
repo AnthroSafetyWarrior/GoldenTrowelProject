@@ -204,21 +204,16 @@ hero_tint: .40
 <section class="pillband pill--sage pill--clip-right pill--tight">
   <div class="section">
     <h2>Creating Change in Fieldwork</h2>
-    <p class="lede">
-      Help us understand and improve the culture of fieldwork by sharing your experience through our
-      <a href="/survey.html" target="_blank" rel="noopener">anonymous Fieldwork Misconduct Survey</a>.
-    </p>
+    <p class="lede">Help us understand the current state of fieldwork safety by participating in our <strong>anonymous survey</strong>.</p>
+</section>
 
-    <p>
-      Your participation provides essential, community-driven data to update the only major study on fieldwork
-      harassment and assault (<em>Clancy et&nbsp;al., 2014</em>). No identifying information is collected — responses are stored
-      in aggregate to protect privacy and amplify collective voices.
-    </p>
-
-    <p style="margin-top:1.2rem; display:flex; flex-wrap:wrap; gap:.8rem;">
-      <a class="btn-doc" href="/survey.html" target="_blank" rel="noopener">Take the Survey</a>
-      <a class="btn-doc" href="/support.html#confidentiality" target="_blank" rel="noopener">Find Support</a>
-    </p>
+<section class="section">
+ <div class="text">
+<p> The <strong><a href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank" rel="noopener">Fieldwork Misconduct Survey</a></strong> gathers community-driven, anonymous data on harassment and misconduct to update the only major prevalence study (<em>Clancy et&nbsp;al.,&nbsp;2014</em>).</p> 
+<br> 
+<p>Your participation helps highlight how much change is still needed—and why these resources matter. Together, we can use these data to drive accountability and create safer fieldwork environments. </p>
+<br>
+  <p><em>No names, emails, or identifying details are collected; results are stored and reported in aggregate.</em></p>
   </div>
 </section>
 
