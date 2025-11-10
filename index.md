@@ -185,14 +185,12 @@ hero_tint: .40
       </article>
 </div>
 </section>
-<br>
-<br>
 </div>
 
 
 
 
-<div class="stripe stripe--wave-dark">
+<div class="stripe stripe--wave-mid">
 <!-- 6) SUPPORT — consistent grid utility -->
 <section class="section">
 <h2 class="pillhead pill--orange pill--clip-right">Survivor Support</h2>
