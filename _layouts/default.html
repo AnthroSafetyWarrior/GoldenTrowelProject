@@ -113,60 +113,41 @@ header.hero::before{
 /* One token, used by both the wave and the sticky band */
 
 
-/* --- ONE knob to keep wave + band perfectly flush --- */
-:root{
-  /* tweak this if you want a tighter or looser tuck */
-  --wave-overlap: clamp(6px, 0.8vw, 10px);
-}
+/* keep one seam value */
+:root{ --wave-overlap: clamp(8px, 1vw, 12px); }
 
-/* Hero keeps a bottom margin equal to the overlap */
-header.hero { margin-bottom: var(--wave-overlap); }
-
-/* The wave pulls the next band upward by the same amount */
+/* pull the SVG up *one extra pixel* to defeat sub-pixel rounding */
 .hero-wave svg{
   display:block;
-  margin-bottom: calc(var(--wave-overlap) * -1);
+  margin-bottom: calc((var(--wave-overlap) + 1px) * -1);
+  transform: translateZ(0);                 /* force same raster layer */
+  backface-visibility: hidden;
 }
 
-/* The gradient band is always sticky (no JS classes needed) */
+/* band stays sticky and hugs the wave */
 .nav-gradient{
   position: sticky;
   top: 0;
   z-index: 3000;
-  margin-top: calc(var(--wave-overlap) * -1); /* visually “hug” the wave */
-  overflow: hidden;
-  background: linear-gradient(to bottom,
-    var(--wave-dark) 0%,
-    color-mix(in srgb, var(--wave-dark) 75%, var(--wave-mid)) 22%,
-    var(--wave-mid) 46%,
-    color-mix(in srgb, var(--wave-mid) 65%, #eae6df) 58%,
-    color-mix(in srgb, var(--wave-mid) 35%, #eae6df) 80%,
-    #eae6df 100%);
-  box-shadow: 0 6px 14px rgba(0,0,0,.12);
-  backdrop-filter: saturate(110%) blur(2px);
+  margin-top: calc(var(--wave-overlap) * -1);
+  background-clip: padding-box;             /* don’t bleed the gradient edge */
 }
 
-/* Kill the old JS-driven states so they don’t fight this */
-.nav-gradient.is-detached,
-.nav-gradient.is-fixed{
-  position: sticky !important;
-  top: 0 !important;
-  margin-top: calc(var(--wave-overlap) * -1) !important;
-  left:auto; right:auto;
-  transform:none;
+/* --- SEAM SHIELD ------------------------------------------------------- */
+/* a thin strip painted in the same color as the top of the gradient */
+.nav-gradient::before{
+  content:"";
+  position:absolute;
+  left:0; right:0;
+  top:-2px;                                 /* overlap the SVG edge */
+  height:4px;                               /* tiny, but enough to cover */
+  background: var(--wave-dark);             /* EXACTLY the same as gradient start */
+  z-index: 1;
+  pointer-events: none;
 }
 
-header.hero {
-  margin-bottom: var(--seam-gap);
-}
-
-/* Fallback when JS toggles .is-fixed */
-.nav-gradient.is-fixed{
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 4000;           /* above content */
-  margin-top: 0;           /* ignore the seam while fixed */
-}
+/* make sure the SVG isn't drawing its own background */
+header.hero{ background: transparent; }
 
 
 /* Keep the page from side-scrolling at all */
