@@ -184,6 +184,7 @@ hero_tint: .40
         </div>
       </article>
 </div>
+<br>
 </section>
 
 
