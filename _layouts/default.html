@@ -110,19 +110,19 @@ header.hero::before{
 /* ============== Crest waves + band ============== */
 .hero-wave{ position:relative; }
 /* space between the wave and the gradient band */
-/* One token, used by both the wave and the sticky band */
-
-
-:root{ --wave-overlap: clamp(9px); }
-
-/* band hugs the wave above it */
-.nav-gradient{
+/* NEW: wrapper that actually does the sticking */
+.nav-sticky{
   position: sticky;
   top: 0;
-  z-index: 3000;
-  margin-top: calc(var(--wave-overlap) * -1); /* overlaps the crest */
-  overflow: hidden;
+  z-index: 3000;           /* above content */
+  /* nothing else here; no overflow, no transform, no filters */
+}
 
+/* the visual band stays exactly the same, but no overflow */
+.nav-gradient{
+  /* was: position: sticky;  <-- remove */
+  /* was: top: 0;            <-- remove */
+  margin-top: calc(var(--wave-overlap) * -1);
   background: linear-gradient(
     to bottom,
     var(--wave-dark) 0%,
@@ -133,22 +133,27 @@ header.hero::before{
     #eae6df 100%
   );
   background-clip: padding-box;
-  box-shadow: 0 6px 14px rgba(0,0,0,.12);
-  backdrop-filter: saturate(110%) blur(2px);
+
+  /* soften or remove the “overlap” look */
+  box-shadow: 0 3px 8px rgba(0,0,0,.08);   /* or comment this line out */
+  /* was: overflow: hidden;  <-- remove this line */
+  isolation: isolate;                      /* keeps its ::before on top only */
 }
 
-/* seam shield to defeat sub-pixel gaps */
+/* seam shield stays */
 .nav-gradient::before{
   content:"";
   position:absolute; left:0; right:0;
-  top:-3px;              /* cover the SVG edge */
-  height:6px;            /* tiny but forgiving */
+  top:-3px; height:6px;
   background: var(--wave-dark);
   pointer-events:none;
 }
 
-/* keep page from side-scrolling */
+/* keep the page from side-scrolling as you already had */
 html, body { overflow-x: hidden; }
+
+/* Give the scroller a safe minimum height in case JS hasn’t run yet */
+.wave-nav{ min-height: 112px; }
 
 /* --- Horizontal scroller --- */
 .wave-nav{
@@ -1166,7 +1171,8 @@ background: var(--gold);
   </header>
 
   <!-- Gradient band + scrollable circles -->
-      <div class="nav-gradient">
+  <div class="nav-sticky">
+  <div class="nav-gradient">
         <section class="wave-nav" aria-label="Primary navigation">
           <div class="wave-track">
             <svg class="wave" preserveAspectRatio="none" aria-hidden="true"></svg>
@@ -1219,6 +1225,7 @@ background: var(--gold);
             </nav>
           </div>
         </section>
+</div>
 </div>
 
   <main>
