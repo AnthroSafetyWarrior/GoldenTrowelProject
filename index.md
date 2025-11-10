@@ -50,7 +50,7 @@ hero_tint: .40
 </section>
 
 
- <div class="stripe stripe--wave-dark">
+ <div class="stripe stripe--wave-mid">
 <!-- 2) AUDIENCE — shared split -->
 <section class="pillband pill--orange pill--clip-right pill--tight">
  <div class="section">
@@ -98,7 +98,7 @@ hero_tint: .40
   </div>
 </section>
 
-<div class="stripe stripe--wave-dark">
+<div class="stripe stripe--wave-mid">
 <!-- 4) START HERE — consistent grid utility -->
 <section class="pillband pill--slate pill--clip-right pill--tight">
  <div class="section">
@@ -185,7 +185,6 @@ hero_tint: .40
       </article>
 </div>
 </section>
-</div>
 
 
 
