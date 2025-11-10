@@ -177,10 +177,11 @@ hero_tint: .40
 
       <!-- 3) place -->
       <article class="doc-callout doc--gold">
-       <a class="badge badge--circle"  href="LINK" target="_blank" rel="noopener">CLICK HERE place</a>
+       <a class="badge badge--circle"   href="{{ '/travelprep.html' | relative_url }}" target="_blank" rel="noopener">CLICK HERE to Prepare for Travel</a>
         <div>
-          <h3>place</h3>
-          <p>stuff</p>
+          <h3>Prepare for Travel</h3>
+          <p>Explore key safety and cultural guidance for your fieldwork destination — including <strong>local laws</strong>, <strong>recording regulations</strong>, <strong>embassy contacts</strong>, <strong>LGBTQ+ rights</strong>, and <strong>cultural expectations</strong> &
+      <strong>etiquette</strong> before you go.</p>
         </div>
       </article>
 </div>
@@ -188,6 +189,17 @@ hero_tint: .40
 </section>
 
 
+                  <a class="pill pill--nav" href="{{ '/travelprep.html' | relative_url }}">Preparing for Travel</a>
+ <a class="pill pill--nav" href="{{ '/selfdefense.html' | relative_url }}">Self-Defense & Boundary Training</a>
+                </div>
+              </div>
+
+              <div class="circle" data-href="{{ '/support.html' | relative_url }}">
+                <button class="circle-btn" type="button">Support</button>
+                <div class="flyout">
+    <a class="pill pill--nav" href="{{ '/titleIXsupport.html' | relative_url }}">Title IX / Ethics Support</a>
+ <a class="pill pill--nav" href="{{ '/embassy.html' | relative_url }}">Embassy, Consulate & Travel Support</a>
+                  </div>
 
 
 <div class="stripe stripe--wave-mid">
