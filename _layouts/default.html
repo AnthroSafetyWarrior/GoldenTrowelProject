@@ -113,18 +113,27 @@ header.hero::before{
 /* One token, used by both the wave and the sticky band */
 
 
-/* The wave pulls the next band upward by exactly this amount */
-.hero-wave svg{
-  display:block;
-  margin-bottom: calc(var(--seam-gap) * -1);
+/* --- ONE knob to keep wave + band perfectly flush --- */
+:root{
+  /* tweak this if you want a tighter or looser tuck */
+  --wave-overlap: clamp(6px, 0.8vw, 10px);
 }
 
-/* Sticky band sits up into the wave by the same amount */
-/* default state while still in the header */
+/* Hero keeps a bottom margin equal to the overlap */
+header.hero { margin-bottom: var(--wave-overlap); }
+
+/* The wave pulls the next band upward by the same amount */
+.hero-wave svg{
+  display:block;
+  margin-bottom: calc(var(--wave-overlap) * -1);
+}
+
+/* The gradient band is always sticky (no JS classes needed) */
 .nav-gradient{
-  position: relative;   /* not sticky yet */
-  top: auto;
+  position: sticky;
+  top: 0;
   z-index: 3000;
+  margin-top: calc(var(--wave-overlap) * -1); /* visually “hug” the wave */
   overflow: hidden;
   background: linear-gradient(to bottom,
     var(--wave-dark) 0%,
@@ -137,15 +146,14 @@ header.hero::before{
   backdrop-filter: saturate(110%) blur(2px);
 }
 
-header.hero{ --seam-gap: clamp(7.3px, 0.8vw, 7.3px); }
-
-/* once JS moves the band after the header */
-.nav-gradient.is-detached {
-  position: sticky;
-  top: 0;
-  z-index: 3000;
-  margin-top: calc(var(--seam-gap) * -1); 
- transform: none;   /* visually hug the wave edge */
+/* Kill the old JS-driven states so they don’t fight this */
+.nav-gradient.is-detached,
+.nav-gradient.is-fixed{
+  position: sticky !important;
+  top: 0 !important;
+  margin-top: calc(var(--wave-overlap) * -1) !important;
+  left:auto; right:auto;
+  transform:none;
 }
 
 header.hero {

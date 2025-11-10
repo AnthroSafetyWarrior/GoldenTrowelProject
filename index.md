@@ -278,7 +278,6 @@ hero_tint: .40
 <br>
 </div>
 
-<!-- 5) REPORTING — consistent grid utility -->
 <!-- FINAL SECTION — Creating Change + Closing CTA -->
 <section class="pillband pill--soil pill--clip-left pill--tight">
   <div class="section">
