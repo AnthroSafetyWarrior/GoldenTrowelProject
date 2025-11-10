@@ -113,7 +113,7 @@ hero_tint: .40
 
       <!-- 1) Checklist -->
       <article class="doc-callout doc--gold">
-  <a class="badge badge--circle" href="https://docs.google.com/document/d/1jdA2Iz-ALuxHU-jHoH5CLHHMJhotDdCoATkuu8lDrug/edit?usp=sharing" target="_blank" rel="noopener">CLICK HERE Before You Go</a>
+  <a class="badge badge--circle" href="https://docs.google.com/document/d/1jdA2Iz-ALuxHU-jHoH5CLHHMJhotDdCoATkuu8lDrug/edit?usp=sharing" target="_blank" rel="noopener">CLICK HERE for Before You Go Checklist</a>
         <div>
           <h3>Pre-Fieldwork Safety Checklist</h3>
           <p>Step-by-step setup that ties the plan and commitment together.</p>

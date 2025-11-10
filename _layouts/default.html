@@ -110,13 +110,18 @@ header.hero::before{
 /* ============== Crest waves + band ============== */
 .hero-wave{ position:relative; }
 /* space between the wave and the gradient band */
-/* NEW: wrapper that actually does the sticking */
-.nav-sticky{
-  position: sticky;
+/* fixed fallback mode: identical stacking as sticky */
+.nav-sticky.is-fixed{
+  position: fixed;
   top: 0;
-  z-index: 3000;           /* above content */
-  /* nothing else here; no overflow, no transform, no filters */
+  left: 0;
+  right: 0;
+  z-index: 3000;
 }
+
+/* default sentinel takes no space; we’ll size it in JS when fixed */
+#nav-sentinel{ height: 0; }
+
 
 /* the visual band stays exactly the same, but no overflow */
 .nav-gradient{
@@ -1171,7 +1176,8 @@ background: var(--gold);
   </header>
 
   <!-- Gradient band + scrollable circles -->
-  <div class="nav-sticky">
+<div id="nav-sentinel" aria-hidden="true"></div>  
+<div class="nav-sticky">
   <div class="nav-gradient">
         <section class="wave-nav" aria-label="Primary navigation">
           <div class="wave-track">
@@ -1382,6 +1388,35 @@ function draw(){
 })();
 </script>
 
+<script>
+(() => {
+  const sticky = document.querySelector('.nav-sticky');
+  const sentinel = document.getElementById('nav-sentinel');
+  if (!sticky || !sentinel) return;
+
+  // Keep the page from “jumping” by reserving height when we fix the bar
+  const setReserve = () => {
+    if (sticky.classList.contains('is-fixed')) {
+      sentinel.style.height = sticky.offsetHeight + 'px';
+    } else {
+      sentinel.style.height = '0px';
+    }
+  };
+
+  // Prefer IntersectionObserver (super smooth)
+  const io = new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) {
+      sticky.classList.remove('is-fixed');
+    } else {
+      sticky.classList.add('is-fixed');
+    }
+    setReserve();
+  }, { threshold: 0, rootMargin: '0px 0px 0px 0px' });
+
+  io.observe(sentinel);
+  addEventListener('resize', setReserve, { passive: true });
+})();
+</script>
 
 </body>
 </html>
