@@ -114,7 +114,7 @@ header.hero::before{
 
 
 /* keep one seam value */
-:root{ --wave-overlap: clamp(8px, 1vw, 12px); }
+:root{ --wave-overlap: clamp(10px, 1.6vw, 16px); }
 
 /* pull the SVG up *one extra pixel* to defeat sub-pixel rounding */
 .hero-wave svg{
@@ -1253,43 +1253,6 @@ The Golden Trowel Project™ name and logo may not be used without written permi
 
 
   <!-- Tight layout + portal-on-open so flyouts sit over the page -->
-<script>
-(function () {
-  const header = document.querySelector('header.hero');
-  const band   = header?.querySelector('.nav-gradient');
-  if (!header || !band) return;
-
-  // 1) Move the band after the header so it can span the whole page
-  header.after(band);
-  band.classList.add('is-detached');
-
-  // 2) Create a tiny sentinel right before the band to watch the top edge
-  const sentinel = document.createElement('div');
-  sentinel.style.position = 'relative';
-  sentinel.style.height = '1px';
-  sentinel.style.marginTop = 'calc(var(--seam-gap, 8px) * -1)'; // keep the “kiss” to the wave
-  band.parentNode.insertBefore(sentinel, band);
-
-  // 3) Observer toggles a fixed fallback right when the band hits the top
-  const io = new IntersectionObserver((entries) => {
-    const e = entries[0];
-    const atTop = e.boundingClientRect.top <= 0;
-    // If the sentinel is above the viewport, pin the band with .is-fixed
-    if (atTop) {
-      band.classList.add('is-fixed');
-    } else {
-      band.classList.remove('is-fixed');
-    }
-  }, { root: null, threshold: [0], rootMargin: '0px 0px -1px 0px' });
-
-  io.observe(sentinel);
-
-  // (optional) quick visual sanity check in dev tools
-  // console.log('Nav band detached + observing:', band);
-})();
-</script>
-
-
 <script>
 (() => {
   const wrap  = document.querySelector('.wave-nav');
