@@ -156,26 +156,17 @@ hero_tint: .40
 <section class="section">
     <div class="hero-docs">
 
-        <!-- 3) place -->
+        <!-- 1) TRAINING -->
       <article class="doc-callout doc--gold">
-       <a class="badge badge--circle"  href="LINK" target="_blank" rel="noopener">CLICK HERE place</a>
+       <a class="badge badge--circle"  href="LINK" target="_blank" rel="noopener">CLICK HERE learn Empowerment Self Defense</a>
         <div>
-          <h3>place</h3>
-          <p>stuff</p>
+          <h3>Self-Defense & Boundary Setting Training</h3>
+          <p><strong><a href="https://www.esdprofessionals.org/empowerment-self-defense/" rel="noopener">Empowerment Self-Defense (ESD)</a></strong> builds your skillset in how to expand your awareness, assess your options, recognize threatening behavior, assert boundaries, de-escalate heightened situations, escape to safety, and physically defend yourself.</p>
         </div>
       </article>
 
 
-      <!-- 3) place -->
-      <article class="doc-callout doc--gold">
-       <a class="badge badge--circle"  href="LINK" target="_blank" rel="noopener">CLICK HERE place</a>
-        <div>
-          <h3>place</h3>
-          <p>stuff</p>
-        </div>
-      </article>
-
-      <!-- 3) place -->
+      <!-- 2) PREPARE -->
       <article class="doc-callout doc--gold">
        <a class="badge badge--circle"   href="{{ '/travelprep.html' | relative_url }}" target="_blank" rel="noopener">CLICK HERE to Prepare for Travel</a>
         <div>
@@ -184,22 +175,20 @@ hero_tint: .40
       <strong>etiquette</strong> before you go.</p>
         </div>
       </article>
+
+
+      <!-- 3) ETHICS -->
+      <article class="doc-callout doc--gold">
+       <a class="badge badge--circle"  href="LINK" target="_blank" rel="noopener">CLICK HERE place</a>
+        <div>
+          <h3>place</h3>
+          <p>stuff</p>
+        </div>
+      </article>
+
 </div>
 <br>
 </section>
-
-
-                  <a class="pill pill--nav" href="{{ '/travelprep.html' | relative_url }}">Preparing for Travel</a>
- <a class="pill pill--nav" href="{{ '/selfdefense.html' | relative_url }}">Self-Defense & Boundary Training</a>
-                </div>
-              </div>
-
-              <div class="circle" data-href="{{ '/support.html' | relative_url }}">
-                <button class="circle-btn" type="button">Support</button>
-                <div class="flyout">
-    <a class="pill pill--nav" href="{{ '/titleIXsupport.html' | relative_url }}">Title IX / Ethics Support</a>
- <a class="pill pill--nav" href="{{ '/embassy.html' | relative_url }}">Embassy, Consulate & Travel Support</a>
-                  </div>
 
 
 <div class="stripe stripe--wave-mid">
