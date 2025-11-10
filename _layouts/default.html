@@ -1270,39 +1270,37 @@ background: var(--gold);
 <footer class="legal-footer" role="contentinfo" aria-label="Footer">
   <div class="footer-container">
     <div class="footer-brand">
-      <img src="/assets/img/logo-footer.png" alt="Golden Trowel Project logo" class="footer-logo" style="max-width:150px;>
+ <img
+  src="{{ '/assets/img/IMG_3241.PNG' | absolute_url }}?v={{ site.time | date: '%s' }}"
+  alt="Logo for the Golden Trowel Project."
+  loading="lazy" decoding="async" fetchpriority="low"
+  style="max-width:150px; height:auto; display:block; margin-inline:auto;">
       <p>© {{ site.time | date: '%Y' }} Golden Trowel Project™. All rights reserved.</p>
     </div>
 
     <div class="footer-links">
-      <h4>Quick Links</h4>
-      <ul>
-        <li><a href="{{ '/' | relative_url }}">Home</a></li>
-        <li><a href="{{ '/aboutus.html' | relative_url }}">About Us</a></li>
-        <li><a href="{{ '/reporting.html' | relative_url }}">Reporting</a></li>
-        <li><a href="{{ '/support.html' | relative_url }}">Support</a></li>
-        <li><a href="{{ '/privacy-policy.html' | relative_url }}">Privacy Policy</a></li>
-        <li><a href="{{ '/terms-of-use.html' | relative_url }}">Terms of Use</a></li>
-      </ul>
-    </div>
+<footer class="legal-footer" role="contentinfo" aria-label="Legal">
+  <nav class="footer-links" aria-label="Footer navigation">
+    <a href="{{ '/' | relative_url }}">Home</a>
+    <span class="divider">|</span>
+    <a href="{{ '/aboutus.html' | relative_url }}">About</a>
+    <span class="divider">|</span>
+    <a href="{{ '/support.html' | relative_url }}">Support</a>
+    <span class="divider">|</span>
+    <a href="{{ '/reporting.html' | relative_url }}">Reporting</a>
+    <span class="divider">|</span>
+    <a href="{{ '/privacy-policy.html' | relative_url }}">Privacy</a>
+    <span class="divider">|</span>
+    <a href="{{ '/terms-of-use.html' | relative_url }}">Terms</a>
+  </nav>
 
-    <div class="footer-contact">
-      <h4>Connect with us</h4>
-      <p>Email: <a href="mailto:anthrosafetywarrior@gmail.com">anthrosafetywarrior@gmail.com</a></p>
-      <div class="footer-social">
-        <a href="https://twitter.com/yourhandle" target="_blank" rel="noopener noreferrer">Twitter</a>
-        <a href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="https://www.instagram.com/yourhandle" target="_blank" rel="noopener noreferrer">Instagram</a>
-      </div>
-    </div>
-  </div>
+  <p>© {{ site.time | date: '%Y' }} Golden Trowel Project™. All rights reserved.</p>
+  <p>The Golden Trowel Project™ name and logo may not be used without written permission.</p>
+  <small>This website provides educational information and does not constitute legal advice.</small>
 
-  <div class="footer-legal">
-    <p>The Golden Trowel Project™ name and logo may not be used without written permission.</p>
-    <p><small>This website provides educational information and does not constitute legal advice.</small></p>
-  </div>
-
+           <div data-href="{{ '/' | relative_url }}">
   <button class="back-to-top" aria-label="Back to top">↑</button>
+</div>
 </footer>
 
 
