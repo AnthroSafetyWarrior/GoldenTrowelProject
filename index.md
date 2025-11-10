@@ -113,50 +113,6 @@ hero_tint: .40
 
       <!-- 1) Checklist -->
       <article class="doc-callout doc--gold">
-  <a class="badge badge--circle" href="https://docs.google.com/document/d/1jdA2Iz-ALuxHU-jHoH5CLHHMJhotDdCoATkuu8lDrug/edit?usp=sharing" target="_blank" rel="noopener">CLICK HERE for Before You Go Checklist</a>
-        <div>
-          <h3>Pre-Fieldwork Safety Checklist</h3>
-          <p>Step-by-step setup that ties the plan and commitment together.</p>
-       </div>
-      </article>
-
-
-      <!-- 2) Safety Plan -->
-      <article class="doc-callout doc--gold">
-       <a class="badge badge--circle" href="https://docs.google.com/document/d/1OkEMW4VhpsccA_VZTTEvgBBq5vs0mCOEDg9Xk6f34Ss/edit?usp=sharing" target="_blank" rel="noopener">CLICK HERE to Build Your Plan</a>
-        <div>
-          <h3>Fieldwork Safety Plan</h3>
-          <p>Your personal contacts, risks, and response steps in one place.</p>
-         </div>
-      </article>
-
-      <!-- 3) Collaborator Commitment -->
-      <article class="doc-callout doc--gold">
-       <a class="badge badge--circle"  href="https://docs.google.com/document/d/18SmymYAFKUz_drbDhcsx8NWaiNG6-SQflWPj0OaZ76c/edit?usp=sharing" target="_blank" rel="noopener">CLICK HERE for Team Safety Pledge</a>
-        <div>
-          <h3>Collaborator Safety Commitment</h3>
-          <p>Shared expectations, boundaries, & accountability for your team.</p>
-        </div>
-      </article>
-<br>
-<br>
-</div>
-</section>
-</div>
-
-
-<!-- 5) TRAVEL — its own section -->
-<section class="pillband pill--sage pill--clip-left pill--tight">
- <div class="section">
-    <h2>Preparing for Travel: Know Before You Go</h2>
-    <p class="lede">Understanding local laws, cultural expectations, and support systems helps you make informed choices in the field. This section links to trusted resources on travel safety, recording laws, and international research preparation.</p>
-  </div>
-</section>
-<section class="section">
-    <div class="hero-docs">
-
-      <!-- 1) Checklist -->
-      <article class="doc-callout doc--gold">
   <a class="badge badge--circle" href="https://docs.google.com/document/d/1jdA2Iz-ALuxHU-jHoH5CLHHMJhotDdCoATkuu8lDrug/edit?usp=sharing" target="_blank" rel="noopener">CLICK HERE Before You Go</a>
         <div>
           <h3>Pre-Fieldwork Safety Checklist</h3>
@@ -184,15 +140,17 @@ hero_tint: .40
       </article>
 </div>
 </section>
+<br>
+<br>
 </div>
 
 
-
-
-<div class="stripe stripe--wave-dark">
-<!-- 6) SUPPORT — consistent grid utility -->
-<section class="section">
-<h2 class="pillhead pill--orange pill--clip-right">Survivor Support</h2>
+<!-- 5) TRAVEL — its own section -->
+<section class="pillband pill--sage pill--clip-left pill--tight">
+ <div class="section">
+    <h2>Preparing for Travel: Know Before You Go</h2>
+    <p class="lede">Understanding local laws, cultural expectations, and support systems helps you make informed choices in the field. This section links to trusted resources on travel safety, recording laws, and international research preparation.</p>
+  </div>
 </section>
 
 <section class="section">
@@ -230,3 +188,65 @@ hero_tint: .40
 <br>
 <br>
 </div>
+
+
+
+
+<div class="stripe stripe--wave-dark">
+<!-- 6) SUPPORT — consistent grid utility -->
+<section class="section">
+<h2 class="pillhead pill--orange pill--clip-right">Survivor Support</h2>
+</section>
+<section class="section">
+  <div class="split-equal">
+    <div class="col"> 
+ <h3><a href="{{ '/???.html' | relative_url }}"  target="_blank" 
+     rel="noopener noreferrer">STUFF</a></h3>
+<p>Access survivor-centered resources focused on emotional support, recovery, and community care. This page highlights mental-health hotlines, trauma-informed care networks, and guidance on seeking help after an incident—because your safety and well-being come first.</p>
+</div>
+   <div class="col">
+<div class="inline-elements">   
+<h4><a href="https://takebackthenight.org/"  target="_blank" 
+     rel="noopener noreferrer">TBTN</a>: <p>Take Back the Night</p></h4></div>
+<p>National Sexual Assault Legal Hotline: Free Legal Assistance for Survivors Call 567-SHATTER (567-742-8837)</p>
+<div class="inline-elements">   
+<h4><a href="https://www.hotpeachpages.net/a/countries.html"  target="_blank" 
+     rel="noopener noreferrer" >Hot Peach Pages</a>: <p>International List of Sexual & Domestic Violence Agencies</p></h4></div>
+<br>
+<div class="inline-elements">   
+<h4><a href="https://www.interaction.org/wp-content/uploads/resource-library/international_centers_for_survivors_of_sexual_assault_45553.pdf"  target="_blank" rel="noopener noreferrer">interaction.org</a>: <p>Handbook of International Centers for Survivors of Sexual Assault and Harassment</p></h4></div>
+<br>
+<div class="inline-elements">   
+<h4><a href="https://rainn.org/"  target="_blank" 
+     rel="noopener noreferrer" >RAINN</a>: <p>Rape, Abuse & Incest National Network</p></h4></div>
+<br>
+<div class="inline-elements">   
+<h4><a href="https://ilga.org/"  target="_blank" 
+     rel="noopener noreferrer" >ILGA World</a>: <p>International Lesbian, Gay, Bisexual, Trans, and Intersex Association</p></h4></div>
+</div>
+</div>
+</section>
+<br>
+</div>
+
+<!-- FINAL SECTION — Creating Change + Closing CTA -->
+<section class="pillband pill--soil pill--clip-left pill--tight">
+  <div class="section">
+    <h2>Creating Change in Fieldwork</h2>
+    <p class="lede">Help us understand the current state of fieldwork safety by participating in our <strong>anonymous survey</strong>.</p>
+</div>
+</section>
+
+<section class="section">
+<div class="text">
+<p> The <strong><a href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank" rel="noopener">Fieldwork Misconduct Survey</a></strong> gathers community-driven, anonymous data on harassment and misconduct to update the only major prevalence study (<em>Clancy et&nbsp;al.,&nbsp;2014</em>).</p> 
+<br> 
+<p>Your participation helps highlight how much change is still needed—and why these resources matter. Together, we can use these data to drive accountability and create safer fieldwork environments.
+<strong><em>No names, emails, or identifying details are collected; results are stored and reported in aggregate.</em></strong></p>
+<br>
+<p><strong>
+    We believe safety and accountability make better science. Explore our resources to build a field culture rooted in respect.</strong></p>
+  </div>
+</section>
+
+
