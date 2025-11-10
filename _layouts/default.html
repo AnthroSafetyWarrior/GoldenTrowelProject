@@ -1169,6 +1169,20 @@ background: var(--gold);
 @media (max-width: 560px){
   .doc-callout{ --badge-diam: clamp(112px, 26vw, 148px); }
 }
+
+.footer-nav {
+  margin-bottom: 0.6rem;
+  font-size: .95rem;
+}
+.footer-nav a {
+  color: #fff;
+  text-decoration: underline;
+  margin: 0 0.4em;
+}
+.footer-nav a:hover {
+  color: var(--gold);
+}
+
 </style>
 </head>
 
@@ -1296,8 +1310,7 @@ background: var(--gold);
   <small>The Golden Trowel Project™ name and logo may not be used without written permission.</p>
   <small>This website provides educational information and does not constitute legal advice.</small>
 
-           <div class="back-to-top" data-href="{{ '/' | relative_url }}">
-  <button class="back-to-top" aria-label="Back to top">↑</button> </div>
+<button class="back-to-top" aria-label="Back to top">↑</button>
 </div>
 </div>
 </footer>
