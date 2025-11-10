@@ -1318,6 +1318,28 @@ background: var(--gold);
 
 
   <!-- Tight layout + portal-on-open so flyouts sit over the page -->
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const backToTopBtn = document.querySelector(".back-to-top");
+  if (!backToTopBtn) return;
+
+  // Show button when user scrolls down 400px
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 400) {
+      backToTopBtn.classList.add("visible");
+    } else {
+      backToTopBtn.classList.remove("visible");
+    }
+  });
+
+  // Smooth scroll to top on click
+  backToTopBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+});
+</script>
+
 <script>
 (() => {
   const wrap  = document.querySelector('.wave-nav');
