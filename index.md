@@ -138,10 +138,10 @@ hero_tint: .40
           <p>Shared expectations, boundaries, & accountability for your team.</p>
         </div>
       </article>
+<br>
+<br>
 </div>
 </section>
-<br>
-<br>
 </div>
 
 
@@ -184,8 +184,6 @@ hero_tint: .40
       </article>
 </div>
 </section>
-<br>
-<br>
 </div>
 
 
