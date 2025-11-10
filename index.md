@@ -171,21 +171,29 @@ hero_tint: .40
        <a class="badge badge--circle"   href="{{ '/travelprep.html' | relative_url }}" target="_blank" rel="noopener">CLICK HERE to Prepare for Travel</a>
         <div>
           <h3>Prepare for Travel</h3>
-          <p>Explore key safety and cultural guidance for your fieldwork destination — including <strong>local laws</strong>, <strong>recording regulations</strong>, <strong>embassy contacts</strong>, <strong>LGBTQ+ rights</strong>, and <strong>cultural expectations</strong> &
+          <p>Explore key safety and cultural guidance for your fieldwork destination — including <strong>local laws</strong>, <strong>recording regulations</strong>, <strong>LGBTQ+ rights</strong>, and <strong>cultural expectations</strong> &
       <strong>etiquette</strong> before you go.</p>
         </div>
       </article>
 
 
-      <!-- 3) ETHICS -->
+      <!-- 3) ETHICS OFFICES -->
       <article class="doc-callout doc--gold">
-       <a class="badge badge--circle"  href="LINK" target="_blank" rel="noopener">CLICK HERE place</a>
+       <a class="badge badge--circle"   href="{{ '/ethicsprep.html' | relative_url }}" target="_blank" rel="noopener">CLICK HERE to Find Your Institution's Ethics Office</a>
         <div>
           <h3>place</h3>
           <p>stuff</p>
         </div>
       </article>
 
+    <!-- 3) EMBASSY -->
+      <article class="doc-callout doc--gold">
+       <a class="badge badge--circle"   href="{{ '/embassyprep.html' | relative_url }}" target="_blank" rel="noopener">CLICK HERE to Find Your Local Embassy/Consulate</a>
+        <div>
+          <h3>Find my Embassy / Consulate</h3>
+          <p>Locate the embassy or consulate serving your fieldwork area, and learn how local offices can provide support, guidance, and emergency assistance while you’re abroad.</p>
+        </div>
+      </article>
 </div>
 <br>
 </section>
