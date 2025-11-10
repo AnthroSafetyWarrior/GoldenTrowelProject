@@ -124,15 +124,28 @@ header.hero::before{
   backface-visibility: hidden;
 }
 
-/* band stays sticky and hugs the wave */
 .nav-gradient{
   position: sticky;
   top: 0;
   z-index: 3000;
   margin-top: calc(var(--wave-overlap) * -1);
-  background-clip: padding-box;             /* don’t bleed the gradient edge */
-}
+  overflow: hidden;
 
+  /* the actual band fill — this was missing */
+  background: linear-gradient(
+    to bottom,
+    var(--wave-dark) 0%,
+    color-mix(in srgb, var(--wave-dark) 75%, var(--wave-mid)) 22%,
+    var(--wave-mid) 46%,
+    color-mix(in srgb, var(--wave-mid) 65%, #eae6df) 58%,
+    color-mix(in srgb, var(--wave-mid) 35%, #eae6df) 80%,
+    #eae6df 100%
+  );
+
+  background-clip: padding-box;
+  box-shadow: 0 6px 14px rgba(0,0,0,.12);
+  backdrop-filter: saturate(110%) blur(2px);
+}
 /* --- SEAM SHIELD ------------------------------------------------------- */
 /* a thin strip painted in the same color as the top of the gradient */
 .nav-gradient::before{
@@ -1299,38 +1312,49 @@ The Golden Trowel Project™ name and logo may not be used without written permi
     wrap.style.height = h + 'px';
   }
 
-  function draw(){
-    const size   = getCircleSize();
-    const wrapW  = wrap.clientWidth;
-    const count  = circles.length;
+function draw(){
+  const size   = getCircleSize();
+  const wrapW  = wrap.clientWidth;
+  const count  = circles.length;
 
-    const EDGE   = Math.max(28, Math.round(size * 0.65));  // extra scroll-room at both ends
-    const GAPMIN = Math.round(size * 0.9);                 // responsive gaps
-    const GAPMAX = Math.round(size * 2.0);
+  const EDGE   = Math.max(28, Math.round(size * 0.65));  // scroll padding
+  const GAPMIN = Math.round(size * 0.9);
+  const GAPMAX = Math.round(size * 2.0);
 
-    // pick a gap that fills the row nicely
-    const gapFit = (wrapW - 2*EDGE - count*size) / Math.max(1, (count - 1));
-    const gap    = Math.max(GAPMIN, Math.min(gapFit, GAPMAX));
+  // pick a gap that fills the row nicely
+  const gapFit = (wrapW - 2*EDGE - count*size) / Math.max(1, (count - 1));
+  const gap    = Math.max(GAPMIN, Math.min(gapFit, GAPMAX));
 
-    // total width, including the “ghost” padders
-    const rowWidth = count*size + (count-1)*gap;
-    const neededWidth = rowWidth + 2*EDGE;
+  // row geometry
+  const rowWidth    = count*size + (count-1)*gap;
+  const neededWidth = rowWidth + 2*EDGE;
 
-    // tell CSS how wide our end padders should be (for ::before/::after)
-    track.style.setProperty('--edge-pad', EDGE + 'px');
-    track.style.width = Math.max(wrapW, Math.ceil(neededWidth)) + 'px';
+  // ---- NEW: decide if everything fits without scrolling
+  const fits = neededWidth <= (wrapW + 1); // +1px tolerance for rounding
 
-    const TOP = Math.max(2, Math.round(size * 0.08));
-    circles.forEach((circleEl, i) => {
-      const left = EDGE + i*(size + gap);
-      circleEl.style.left = left + 'px';
-      circleEl.style.top  = TOP  + 'px';
+  // edge padding for positioning
+  const pad = fits ? Math.max(0, Math.floor((wrapW - rowWidth)/2)) : EDGE;
 
-      const href = circleEl.getAttribute('data-href');
-      const btn  = circleEl.querySelector('.circle-btn');
-      if (btn && href) btn.onclick = () => { location.href = href; };
-    });
-  }
+  // tell CSS how wide our end padders should be
+  track.style.setProperty('--edge-pad', pad + 'px');
+
+  // track width + overflow behavior
+  track.style.width = (fits ? wrapW : Math.ceil(neededWidth)) + 'px';
+  wrap.style.overflowX   = fits ? 'hidden' : 'auto';
+  wrap.style.scrollSnapType = fits ? 'none' : 'x proximity';
+  wrap.classList.toggle('nav--static', fits);
+
+  const TOP = Math.max(2, Math.round(size * 0.08));
+  circles.forEach((circleEl, i) => {
+    const left = pad + i*(size + gap);
+    circleEl.style.left = left + 'px';
+    circleEl.style.top  = TOP  + 'px';
+
+    const href = circleEl.getAttribute('data-href');
+    const btn  = circleEl.querySelector('.circle-btn');
+    if (btn && href) btn.onclick = () => { location.href = href; };
+  });
+}
 
   setHeight(); draw();
   addEventListener('resize', () => { setHeight(); draw(); }, { passive:true });
