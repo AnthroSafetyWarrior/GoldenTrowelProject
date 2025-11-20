@@ -181,8 +181,8 @@ hero_tint: .40
       <article class="doc-callout doc--gold">
        <a class="badge badge--circle"   href="{{ '/ethicsprep.html' | relative_url }}" target="_blank" rel="noopener">CLICK HERE to Find Your Institution's Ethics Office</a>
         <div>
-          <h3>place</h3>
-          <p>stuff</p>
+          <h3>Find Your Institution's Ethics Office</h3>
+         <p>Ethics offices provide guidance, advocacy, and clarity when facing unethical or harmful behavior in academic spaces or during research. Learn what protections apply to you, who you can safely talk to, and how your institution can support you through next steps.</p>
         </div>
       </article>
 
