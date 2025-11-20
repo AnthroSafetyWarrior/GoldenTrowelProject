@@ -857,11 +857,11 @@ html, body { overflow-x: hidden; }
 }
 .split-equal > .col{ min-width:0; }       /* prevent overflow/wrapping issues */
 
-.split-equal .img{ width:clamp(320px,32vw,380px); height:auto; display:block; }
+.split-equal > .col img{ width:clamp(320px,32vw,380px); height:auto; display:block; }
 
 
 
-@media (max-width: 740px){
+@media (max-width: 760px){
   .split-equal{ grid-template-columns: 1fr; }
 }
 
@@ -1196,6 +1196,18 @@ background: var(--gold);
 /* Ensure spacing under pillband inside stripes */
 .stripe > .section .hero-docs{
   margin-top: clamp(40px, 5vw, 72px);
+}
+
+/* --- Extra space between the three safety callouts --- */
+.hero-docs{
+  display: flex;                 /* simpler than grid here */
+  flex-direction: column;
+  gap: clamp(38px, 4vw, 64px);   /* adjust to taste */
+}
+
+/* remove the tiny extra margin on each pill */
+.hero-docs .doc-callout{
+  margin-block: 0;
 }
 
 </style>
