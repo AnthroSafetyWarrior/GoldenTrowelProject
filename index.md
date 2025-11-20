@@ -188,7 +188,7 @@ hero_tint: .40
 
     <!-- 3) EMBASSY -->
       <article class="doc-callout doc--gold">
-       <a class="badge badge--circle"   href="{{ '/embassyprep.html' | relative_url }}" target="_blank" rel="noopener">CLICK HERE to Find Your Local Embassy/Consulate</a>
+       <a class="badge badge--circle"   href="{{ '/embassyprep.html' | relative_url }}" target="_blank" rel="noopener">CLICK HERE to Find Your Local Embassy / Consulate</a>
         <div>
           <h3>Find my Embassy / Consulate</h3>
           <p>Locate the embassy or consulate serving your fieldwork area, and learn how local offices can provide support, guidance, and emergency assistance while you’re abroad.</p>
@@ -208,7 +208,7 @@ hero_tint: .40
   <div class="split-equal">
     <div class="col"> 
  <h3><a href="{{ '/???.html' | relative_url }}"  target="_blank" 
-     rel="noopener noreferrer">STUFF</a></h3>
+     rel="noopener noreferrer">Supporting You</a></h3>
 <p>Access survivor-centered resources focused on emotional support, recovery, and community care. This page highlights mental-health hotlines, trauma-informed care networks, and guidance on seeking help after an incident—because your safety and well-being come first.</p>
 </div>
    <div class="col">
