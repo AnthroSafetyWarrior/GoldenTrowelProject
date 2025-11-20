@@ -857,7 +857,7 @@ html, body { overflow-x: hidden; }
 }
 .split-equal > .col{ min-width:0; }       /* prevent overflow/wrapping issues */
 
-@media (max-width: 640px){
+@media (max-width: 690px){
   .split-equal{ grid-template-columns: 1fr; }
 }
 
@@ -1109,6 +1109,11 @@ html body .pillhead.pill--sage{
 .doc-callout h3{ margin:0 0 .15rem; font-weight:800; }
 .doc-callout p{ margin:0; opacity:.95; }
 
+/* Give the circular hero cards breathing room under a pillband */
+.pillband + .section .hero-docs{
+  margin-top: clamp(24px, 3vw, 40px);
+}
+
 /* ===== Circle is a true button/link (entire area clickable) ===== */
 .badge--circle{
   position: absolute;
@@ -1163,7 +1168,7 @@ background: var(--gold);
 /* When the circular badge itself is hovered/focused, text is soil */
 .badge.badge--circle:hover,
 .badge.badge--circle:focus-visible{
-  color: var(--soil);
+  color: var(--orange);
 }
 
 
