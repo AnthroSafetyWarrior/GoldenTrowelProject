@@ -119,7 +119,8 @@ hero_tint: .40
           <p>Step-by-step setup that ties the plan and commitment together.</p>
        </div>
       </article>
-<hr style="height:30pt; visibility:hidden;" />
+
+<br style="height:30pt; visibility:hidden;" />
 
       <!-- 2) Safety Plan -->
       <article class="doc-callout doc--gold">
@@ -129,7 +130,9 @@ hero_tint: .40
           <p>Your personal contacts, risks, and response steps in one place.</p>
          </div>
       </article>
-<hr style="height:30pt; visibility:hidden;" />
+
+<br style="height:30pt; visibility:hidden;" />
+
       <!-- 3) Collaborator Commitment -->
       <article class="doc-callout doc--gold">
        <a class="badge badge--circle"  href="https://docs.google.com/document/d/18SmymYAFKUz_drbDhcsx8NWaiNG6-SQflWPj0OaZ76c/edit?usp=sharing" target="_blank" rel="noopener">CLICK HERE for Team Safety Pledge</a>
