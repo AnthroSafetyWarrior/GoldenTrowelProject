@@ -120,8 +120,6 @@ hero_tint: .40
        </div>
       </article>
 
-<hr style="height:10pt; visibility:hidden;" />
-
       <!-- 2) Safety Plan -->
       <article class="doc-callout doc--gold">
        <a class="badge badge--circle" href="https://docs.google.com/document/d/1OkEMW4VhpsccA_VZTTEvgBBq5vs0mCOEDg9Xk6f34Ss/edit?usp=sharing" target="_blank" rel="noopener">CLICK HERE to Build Your Plan</a>
@@ -131,7 +129,6 @@ hero_tint: .40
          </div>
       </article>
 
-<br style="height:10pt; visibility:hidden;" />
 
       <!-- 3) Collaborator Commitment -->
       <article class="doc-callout doc--gold">
