@@ -221,13 +221,16 @@ hero_tint: .40
      rel="noopener noreferrer">TBTN</a>: <p>Take Back the Night</p></h4></div>
 <p>National Sexual Assault Legal Hotline: Free Legal Assistance for Survivors Call 567-SHATTER (567-742-8837)</p>
 <br>
+
 <div class="inline-elements">   
 <h4><a href="https://www.hotpeachpages.net/a/countries.html"  target="_blank" 
      rel="noopener noreferrer" >Hot Peach Pages</a>: <p>International List of Sexual & Domestic Violence Agencies</p></h4></div>
 <br>
+
 <div class="inline-elements">   
 <h4><a href="https://www.interaction.org/wp-content/uploads/resource-library/international_centers_for_survivors_of_sexual_assault_45553.pdf"  target="_blank" rel="noopener noreferrer">interaction.org</a>: <p>Handbook of International Centers for Survivors of Sexual Assault and Harassment</p></h4></div>
 <br>
+
 <div class="inline-elements">   
 <h4><a href="https://rainn.org/"  target="_blank" 
      rel="noopener noreferrer" >RAINN</a>: <p>Rape, Abuse & Incest National Network</p></h4></div>
