@@ -857,7 +857,11 @@ html, body { overflow-x: hidden; }
 }
 .split-equal > .col{ min-width:0; }       /* prevent overflow/wrapping issues */
 
-@media (max-width: 690px){
+.split-equal .img{ width:clamp(320px,32vw,380px); height:auto; display:block; }
+
+
+
+@media (max-width: 740px){
   .split-equal{ grid-template-columns: 1fr; }
 }
 
@@ -1168,7 +1172,7 @@ background: var(--gold);
 /* When the circular badge itself is hovered/focused, text is soil */
 .badge.badge--circle:hover,
 .badge.badge--circle:focus-visible{
-  color: var(--orange);
+  color: var(--logo-orange);
 }
 
 
@@ -1188,6 +1192,10 @@ background: var(--gold);
 }
 ..legal-footer a {:hover {
   color: #fff;
+}
+/* Ensure spacing under pillband inside stripes */
+.stripe > .section .hero-docs{
+  margin-top: clamp(40px, 5vw, 72px);
 }
 
 </style>
