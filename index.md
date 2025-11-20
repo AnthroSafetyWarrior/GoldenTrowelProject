@@ -131,7 +131,7 @@ hero_tint: .40
          </div>
       </article>
 
-<hr style="height:10pt; visibility:hidden;" />
+<br style="height:10pt; visibility:hidden;" />
 
       <!-- 3) Collaborator Commitment -->
       <article class="doc-callout doc--gold">
