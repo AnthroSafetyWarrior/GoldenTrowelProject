@@ -140,7 +140,7 @@ header.hero::before{
   background-clip: padding-box;
 
   /* soften or remove the “overlap” look */
-  box-shadow: 0 3px 8px rgba(0,0,0,.08);   /* or comment this line out */
+  box-shadow: 0 10px 8px rgba(0,0,0,.08);   /* or comment this line out */
   /* was: overflow: hidden;  <-- remove this line */
   isolation: isolate;                      /* keeps its ::before on top only */
 }
@@ -1081,7 +1081,7 @@ html body .pillhead.pill--sage{
   /* control the circle size + gutter in ONE place */
   --badge-diam: clamp(132px, 12vw, 160px);   /* bigger circle */
   --badge-gutter: clamp(14px, 2vw, 24px);    /* space between circle and text */
-  --content-pad-x: clamp(18px, 2.4vw, 28px);
+  --content-pad-x: clamp(20px, 2.4vw, 28px);
   margin-block: 20px;  /* right-side padding */
 
   position: relative;
@@ -1123,7 +1123,6 @@ html body .pillhead.pill--sage{
   align-items: center;
   justify-content: center;
   text-align: center;
-a color:var(--soil);
 
   cursor: pointer;
   text-decoration: none;
@@ -1161,10 +1160,12 @@ background: var(--gold);
   word-wrap: break-word;
 }
 
-.badge a:hover,
-.badge a:focus-visible{
+/* When the circular badge itself is hovered/focused, text is soil */
+.badge.badge--circle:hover,
+.badge.badge--circle:focus-visible{
   color: var(--soil);
 }
+
 
 /* Optional: slightly smaller circle on phones so layout stays comfy */
 @media (max-width: 560px){
