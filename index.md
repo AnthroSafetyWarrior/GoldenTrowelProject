@@ -120,7 +120,7 @@ hero_tint: .40
        </div>
       </article>
 
-<br style="height:30pt; visibility:hidden;" />
+<br style="height:20pt; visibility:hidden;" />
 
       <!-- 2) Safety Plan -->
       <article class="doc-callout doc--gold">
@@ -131,7 +131,7 @@ hero_tint: .40
          </div>
       </article>
 
-<br style="height:30pt; visibility:hidden;" />
+<br style="height:20pt; visibility:hidden;" />
 
       <!-- 3) Collaborator Commitment -->
       <article class="doc-callout doc--gold">
@@ -206,7 +206,9 @@ hero_tint: .40
 <!-- 6) SUPPORT — consistent grid utility -->
 <section class="section">
 <h2 class="pillhead pill--orange pill--clip-right">Survivor Support</h2>
-
+</section>
+<br>
+<section class="section">
   <div class="split-equal">
     <div class="col"> 
  <h3><a href="{{ 'support.html' | relative_url }}"  target="_blank" 
