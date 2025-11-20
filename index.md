@@ -120,7 +120,7 @@ hero_tint: .40
        </div>
       </article>
 
-<br style="height:20pt; visibility:hidden;" />
+<br style="height:10pt; visibility:hidden;" />
 
       <!-- 2) Safety Plan -->
       <article class="doc-callout doc--gold">
@@ -131,7 +131,7 @@ hero_tint: .40
          </div>
       </article>
 
-<br style="height:20pt; visibility:hidden;" />
+<br style="height:10pt; visibility:hidden;" />
 
       <!-- 3) Collaborator Commitment -->
       <article class="doc-callout doc--gold">
