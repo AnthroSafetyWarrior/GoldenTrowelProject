@@ -119,7 +119,7 @@ hero_tint: .40
           <p>Step-by-step setup that ties the plan and commitment together.</p>
        </div>
       </article>
-<br>
+<hr style="height:30pt; visibility:hidden;" />
 
       <!-- 2) Safety Plan -->
       <article class="doc-callout doc--gold">
@@ -129,7 +129,7 @@ hero_tint: .40
           <p>Your personal contacts, risks, and response steps in one place.</p>
          </div>
       </article>
-<br>
+<hr style="height:30pt; visibility:hidden;" />
       <!-- 3) Collaborator Commitment -->
       <article class="doc-callout doc--gold">
        <a class="badge badge--circle"  href="https://docs.google.com/document/d/18SmymYAFKUz_drbDhcsx8NWaiNG6-SQflWPj0OaZ76c/edit?usp=sharing" target="_blank" rel="noopener">CLICK HERE for Team Safety Pledge</a>
@@ -203,11 +203,10 @@ hero_tint: .40
 <!-- 6) SUPPORT — consistent grid utility -->
 <section class="section">
 <h2 class="pillhead pill--orange pill--clip-right">Survivor Support</h2>
-</section>
-<section class="section">
+
   <div class="split-equal">
     <div class="col"> 
- <h3><a href="{{ '/???.html' | relative_url }}"  target="_blank" 
+ <h3><a href="{{ 'support.html' | relative_url }}"  target="_blank" 
      rel="noopener noreferrer">Supporting You</a></h3>
 <p>Access survivor-centered resources focused on emotional support, recovery, and community care. This page highlights mental-health hotlines, trauma-informed care networks, and guidance on seeking help after an incident—because your safety and well-being come first.</p>
 </div>
