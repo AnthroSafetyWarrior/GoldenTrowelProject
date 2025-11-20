@@ -1074,6 +1074,13 @@ html body .pillhead.pill--sage{
 
 
 /* ===== Badge-pill cards (hero docs) ===== */
+.stripe > .hero-docs{
+  /* more breathing room between rows */
+  display: grid;
+  gap: clamp(46px, 3vw, 52px);
+}
+
+
 .hero-docs{
   /* more breathing room between rows */
   display: grid;
@@ -1193,22 +1200,7 @@ background: var(--gold);
 ..legal-footer a {:hover {
   color: #fff;
 }
-/* Ensure spacing under pillband inside stripes */
-.stripe > .section .hero-docs{
-  margin-top: clamp(40px, 5vw, 72px);
-}
 
-/* --- Extra space between the three safety callouts --- */
-.hero-docs{
-  display: flex;                 /* simpler than grid here */
-  flex-direction: column;
-  gap: clamp(38px, 4vw, 64px);   /* adjust to taste */
-}
-
-/* remove the tiny extra margin on each pill */
-.hero-docs .doc-callout{
-  margin-block: 0;
-}
 
 </style>
 </head>
