@@ -140,7 +140,7 @@ header.hero::before{
   background-clip: padding-box;
 
   /* soften or remove the “overlap” look */
-  box-shadow: 0 10px 8px rgba(0,0,0,.08);   /* or comment this line out */
+  box-shadow: 0px 2px 1px 1px rgba(0,0,0,.08);   /* or comment this line out */
   /* was: overflow: hidden;  <-- remove this line */
   isolation: isolate;                      /* keeps its ::before on top only */
 }
@@ -857,7 +857,7 @@ html, body { overflow-x: hidden; }
 }
 .split-equal > .col{ min-width:0; }       /* prevent overflow/wrapping issues */
 
-@media (max-width: 760px){
+@media (max-width: 640px){
   .split-equal{ grid-template-columns: 1fr; }
 }
 
@@ -1073,7 +1073,7 @@ html body .pillhead.pill--sage{
 .hero-docs{
   /* more breathing room between rows */
   display: grid;
-  gap: clamp(36px, 3vw, 52px);
+  gap: clamp(46px, 3vw, 52px);
 }
 
 /* Shared sizing knobs for each callout */
