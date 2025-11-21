@@ -300,6 +300,33 @@ hero_tint: .40                        # optional (0–1: higher = more maroon ov
   margin-inline: 0; /* optional, if you want it perfectly edge-to-edge */
 }
 
+
+/* =========================================================
+   UNIFY all accordion + region button typography sitewide
+   ========================================================= */
+.region-toggle,
+.accordion {
+  font-family:
+    "Segoe UI",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Helvetica Neue",
+    Roboto,
+    Arial,
+    sans-serif !important;
+
+  font-size: clamp(1.05rem, 2.1vw, 1.15rem) !important;
+  font-weight: 700 !important;
+  line-height: 1.45 !important;
+  letter-spacing: 0 !important;
+}
+
+/* Ensure visual consistency when expanded */
+.region-toggle[aria-expanded="true"],
+.accordion[aria-expanded="true"] {
+  font-weight: 700 !important;
+}
+
 </style>
 
 
