@@ -9,10 +9,15 @@ hero_tint: .40
 ---
 <style>
 /* Only FLUSH sections (accordion wrappers) lose their side padding */
-.stripe .section .section.intro {
+.stripe .section .section-intro {
   padding-inline: 0 !important;
   margin-inline: 0; /* optional, if you want it perfectly edge-to-edge */
 }
+
+.stripe .section :where(p, span, div, strong, em, a, li){
+  font: inherit;
+  line-height: inherit;
+  padding: inherit
 </style>
 
 
@@ -31,19 +36,19 @@ Use these explanations as reference points when reviewing your fieldwork safety 
 <br>
 <article class="card card--glass" style="text-align:center">
   <nav class="footer-links" aria-label="Footer navigation" style="text-align:center"><strong> On this Page:
-    <a href="{{ '/preparing.html' | relative_url }}#consent">Consent</a>
+    <a href="{{ '/definitions.html' | relative_url }}#consent">Consent</a>
     <span class="divider">|</span>
-    <a href="{{ '/preparing.html' | relative_url }}#misconduct">Sexual Misconduct</a>
+    <a href="{{ '/definitions.html' | relative_url }}#misconduct">Sexual Misconduct</a>
     <span class="divider">|</span>
-    <a href="{{ '/preparing.html' | relative_url }}#harass">Sexual Harassment</a>
+    <a href="{{ '/definitions.html' | relative_url }}#harass">Sexual Harassment</a>
     <span class="divider">|</span>
-    <a href="{{ '/preparing.html' | relative_url }}#assault">Sexual Assault</a>
+    <a href="{{ '/definitions.html' | relative_url }}#assault">Sexual Assault</a>
     <span class="divider">|</span>
-    <a href="{{ '/preparing.html' | relative_url }}#coercion">Coercion</a>
-   </strong> </nav> </article>
-    <a href="{{ '/preparing.html' | relative_url }}#stalking">Stalking</a>
-   </strong> </nav> </article>
-    <a href="{{ '/preparing.html' | relative_url }}#retaliation">Retaliation</a>
+    <a href="{{ '/definitions.html' | relative_url }}#coercion">Coercion</a>
+   <span class="divider">|</span>
+    <a href="{{ '/definitions.html' | relative_url }}#stalking">Stalking</a>
+    <span class="divider">|</span>
+    <a href="{{ '/definitions.html' | relative_url }}#retaliation">Retaliation</a>
 </strong></nav></article>
 </section>
 
