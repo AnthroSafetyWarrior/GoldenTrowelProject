@@ -159,7 +159,7 @@ hero_tint: .40
 
         <!-- 1) TRAINING -->
       <article class="doc-callout doc--gold">
-       <a class="badge badge--circle"  href="{{ '/selfdefense.html' | relative_url }}" target="_blank" rel="noopener">CLICK HERE for Empowerment Self Defense</a>
+       <a class="badge badge--circle"  href="{{ '/selfdefense.html' | relative_url }}" target="_blank" rel="noopener">CLICK HERE for ESD Training</a>
         <div>
           <h3>Self-Defense & Boundary Setting Training</h3>
           <p><strong><a href="https://www.esdprofessionals.org/empowerment-self-defense/" rel="noopener">Empowerment Self-Defense (ESD)</a></strong> builds your skillset in how to expand your awareness, assess your options, recognize threatening behavior, assert boundaries, de-escalate heightened situations, escape to safety, and physically defend yourself.</p>
