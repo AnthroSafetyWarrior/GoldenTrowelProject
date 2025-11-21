@@ -52,7 +52,7 @@ hero_tint: .40
   </div>
 <br>
 <article class="card card--glass" style="text-align:center">
-  <nav class="footer-links" aria-label="Footer navigation" style="text-align:center"><strong>
+  <nav class="footer-links" aria-label="Footer navigation" style="text-align:center"><strong> On this Page:
     <a href="{{ '/index.html' | relative_url }}#audience">Who This Helps</a>
     <span class="divider">|</span>
     <a href="{{ '/index.html' | relative_url }}#data">Why This is Important</a>
@@ -64,9 +64,7 @@ hero_tint: .40
     <a href="{{ '/index.html' | relative_url }}#surv">Survivor Support</a>
     <span class="divider">|</span>
     <a href="{{ '/index.html' | relative_url }}#change">Change</a>
-    <span class="divider">|</span>
-   </strong> 
-</nav>
+   </strong> </nav> </article>
 
 </section>
 
