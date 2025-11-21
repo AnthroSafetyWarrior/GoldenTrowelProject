@@ -321,9 +321,9 @@ hero_tint: .40                        # optional (0–1: higher = more maroon ov
   color: inherit;
 }
 /* Only FLUSH sections (accordion wrappers) lose their side padding */
-.stripe .section.section--flush {
-  padding-inline: 0 !important;
-  margin-inline: 0; /* optional, if you want it perfectly edge-to-edge */
+.section.section--flush{
+  padding-block: 0;       /* no extra top/bottom padding */
+  margin-block: 0;        /* no extra vertical margin */
 }
 </style>
 
