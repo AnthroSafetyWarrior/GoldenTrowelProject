@@ -234,7 +234,7 @@ hero_tint: .40                        # optional (0–1: higher = more maroon ov
     Roboto,
     Arial,
     sans-serif;
-  font-size: clamp(0.95rem, 2.4vw, 1.05rem);
+  font-size: clamp(1rem, 2.4vw, 1.1rem);
   line-height: 1.5;
 }
 
@@ -264,7 +264,21 @@ hero_tint: .40                        # optional (0–1: higher = more maroon ov
   font-size: clamp(1rem, 2.4vw, 1.05rem);  /* match outside stripe */
   font-weight: 700;
   line-height: 1.45;
-  color: inherit;
+  /* ✨ remove `color: inherit;` here */
+}
+
+/* Make sure interactive bits are actually black inside stripes */
+.stripe .region-toggle,
+.stripe .accordion{
+  color: #000;
+}
+
+/* Tables: keep body cells black & headers white */
+.stripe .row-panel th{
+  color: #fff;
+}
+.stripe .row-panel td{
+  color: #000;
 }
 
 /* Nested elements inside table cells should inherit typography */
