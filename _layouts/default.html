@@ -37,7 +37,7 @@
   --wave-dark:#baafa8;
 
   /* Scroll circle lift */
-  --circle-lift:-4px;
+  --circle-lift:-2px;
 
   /* Pills (single source of truth) */
   --pill-radius: 50px;
@@ -140,7 +140,7 @@ header.hero::before{
 .nav-gradient{
   /* was: position: sticky;  <-- remove */
   /* was: top: 0;            <-- remove */
-  margin-top: calc(var(--wave-overlap) * -1);
+  margin-top: -1;
   background: linear-gradient(
     to bottom,
     var(--wave-dark) 0%,
@@ -152,10 +152,6 @@ header.hero::before{
   );
   background-clip: padding-box;
 
-/* Pull nav band upward to eliminate the gap under the crest waves */
-.nav-gradient {
-  transform: translateY(-6px);
-}
 
   /* soften or remove the “overlap” look */
   box-shadow: 0px 3px 1px 1px rgba(0,0,0,.06);   /* or comment this line out */
