@@ -175,6 +175,7 @@ hero_tint: .40                        # optional (0–1: higher = more maroon ov
   outline-offset: 2px;
 }
 
+
 /* =========================
    Injected row-panel (full width under the row)
    ========================= */
@@ -273,11 +274,19 @@ hero_tint: .40                        # optional (0–1: higher = more maroon ov
   /* ✨ remove `color: inherit;` here */
 }
 
-/* Make sure interactive bits are actually black inside stripes */
-.stripe .region-toggle,
-.stripe .accordion{
+/* Default text color inside stripes when closed */
+.stripe .region-toggle:not([aria-expanded="true"]),
+.stripe .accordion:not([aria-expanded="true"]) {
   color: #000;
 }
+
+/* Keep slate + white when open, even inside stripes */
+.stripe .region-toggle[aria-expanded="true"],
+.stripe .accordion[aria-expanded="true"] {
+  background: var(--slate);
+  color: #fff;
+}
+
 
 /* Tables: keep body cells black & headers white */
 .stripe .row-panel th{
@@ -336,7 +345,17 @@ hero_tint: .40                        # optional (0–1: higher = more maroon ov
   padding-inline: 0 !important;
   margin-inline: 0; /* optional, if you want it perfectly edge-to-edge */
 }
+/* Correct table font-weights inside stripes */
+.stripe .row-panel th {
+  font-weight: 700 !important;  /* headers stay bold */
+}
+
+.stripe .row-panel td {
+  font-weight: 400 !important;  /* body cells normal weight */
+}
+
 </style>
+
 
 
 
@@ -356,13 +375,15 @@ If you need information for an institution missing from the list, please let us 
 
 <article class="card card--glass" style="text-align:center">
   <nav class="footer-links" aria-label="Footer navigation" style="text-align:center"><strong>
+    <a href="{{ '/ethicssupport.html' | relative_url }}#conf">Confidential vs Non-Confidential</a>
+    <span class="divider">|</span>
     <a href="{{ '/ethicssupport.html' | relative_url }}#asia">Asia</a>
     <span class="divider">|</span>
     <a href="{{ '/ethicssupport.html' | relative_url }}#africa">Africa</a>
     <span class="divider">|</span>
-    <a href="{{ '/ethicssupport.html' | relative_url }}#nam">North America</a>
+    <a href="{{ '/ethicssupport.html' | relative_url }}#nam">N America</a>
     <span class="divider">|</span>
-    <a href="{{ '/ethicssupport.html' | relative_url }}#sam">South America</a>
+    <a href="{{ '/ethicssupport.html' | relative_url }}#sam">S America</a>
     <span class="divider">|</span>
     <a href="{{ '/ethicssupport.html' | relative_url }}#europe">Europe</a>
     <span class="divider">|</span>
@@ -442,7 +463,63 @@ If you need information for an institution missing from the list, please let us 
   </p>
 </section>
 
+<div class="stripe stripe--wave-mid"> 
+<!-- 4) CONFIDENTIAL SUPPORT/NONCONFIDENTIAL SUPPORT -->
+<section id=conf class="pillband pill--slate pill--clip-right pill--tight">
+ <div class="section">
+    <h2>Finding the Right Support for You</h2>
+    <p class="lede">You are in control of how you seek help. Understanding the difference between <strong>confidential</strong> and <strong>non-confidential</strong> resources can help you choose what feels safest and most supportive for your needs.</p>
+</div>
+</section>
 
+  <section class="section">
+  <div class="split-equal">
+    <div class="col">
+    <!-- CONFIDENTIAL -->
+      <h3><strong>Confidential Support</strong></h3>
+      <p>
+        Confidential resources do <em>not</em> share your name or details with others
+        unless you give written permission or there is an immediate threat of harm to yourself or someone else.
+        Speaking with them will <strong>not automatically start an investigation</strong> or formal report.
+      </p>
+      <ul>
+        <li>Campus or community <strong>advocacy centers</strong> (e.g., the Aurora Center, RAINN hotline, or local crisis centers)</li>
+        <li><strong>Licensed mental-health professionals</strong> such as counselors, therapists, and psychologists</li>
+        <li><strong>Medical providers</strong> (nurses, physicians, sexual-assault nurse examiners) who can provide treatment or evidence collection while keeping information private</li>
+        <li><strong>Faith leaders or clergy</strong> acting in a pastoral-care role</li>
+        <li><strong>24/7 confidential hotlines</strong> (e.g., National Sexual Assault Hotline 1-800-656-4673, National Domestic Violence Hotline 1-800-799-SAFE)</li>
+      </ul>
+      <p class="note">
+        Confidential resources are often the best place to start if you want to talk through your options,
+        receive emotional support, or explore reporting later on your own timeline.
+      </p>
+    </div>
+
+    <!-- NON-CONFIDENTIAL -->
+ <div class="col"> 
+      <h3><strong>Non-Confidential Support</strong></h3>
+      <p>
+        Non-confidential (or “responsible”) resources are required to share certain information with others,
+        such as campus Title IX or Ethics offices, or law enforcement. They exist to ensure safety and accountability,
+        but your privacy may be limited once a report is made.
+      </p>
+      <ul>
+        <li><strong>Title IX / Equity and Ethics Offices</strong> – usually required to take action once notified</li>
+        <li><strong>Faculty, staff, teaching assistants, and supervisors</strong> who are designated as mandatory reporters</li>
+        <li><strong>Campus security or police departments</strong></li>
+        <li><strong>Human Resources offices</strong> for workplace incidents</li>
+        <li><strong>Advocacy or awareness organizations</strong> like Take Back the Night – they are public and advocacy-focused, not confidential counseling services</li>
+      </ul>
+      <p class="note">
+        Non-confidential resources can help you file formal complaints, request accommodations,
+        or pursue legal or disciplinary action. If you aren’t sure whether a resource must report,
+        you can ask them before sharing personal details.
+      </p>
+    </div>
+
+  </div>
+</section>
+</div>
 
 <!-- 4) ASIA — consistent grid utility -->
 <section id=asia class="pillband pill--sage pill--clip-left pill--tight">

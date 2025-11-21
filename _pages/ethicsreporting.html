@@ -176,6 +176,7 @@ hero_tint: .40                        # optional (0–1: higher = more maroon ov
   outline-offset: 2px;
 }
 
+
 /* =========================
    Injected row-panel (full width under the row)
    ========================= */
@@ -274,11 +275,19 @@ hero_tint: .40                        # optional (0–1: higher = more maroon ov
   /* ✨ remove `color: inherit;` here */
 }
 
-/* Make sure interactive bits are actually black inside stripes */
-.stripe .region-toggle,
-.stripe .accordion{
+/* Default text color inside stripes when closed */
+.stripe .region-toggle:not([aria-expanded="true"]),
+.stripe .accordion:not([aria-expanded="true"]) {
   color: #000;
 }
+
+/* Keep slate + white when open, even inside stripes */
+.stripe .region-toggle[aria-expanded="true"],
+.stripe .accordion[aria-expanded="true"] {
+  background: var(--slate);
+  color: #fff;
+}
+
 
 /* Tables: keep body cells black & headers white */
 .stripe .row-panel th{
@@ -337,7 +346,17 @@ hero_tint: .40                        # optional (0–1: higher = more maroon ov
   padding-inline: 0 !important;
   margin-inline: 0; /* optional, if you want it perfectly edge-to-edge */
 }
+/* Correct table font-weights inside stripes */
+.stripe .row-panel th {
+  font-weight: 700 !important;  /* headers stay bold */
+}
+
+.stripe .row-panel td {
+  font-weight: 400 !important;  /* body cells normal weight */
+}
+
 </style>
+
 
 
 
