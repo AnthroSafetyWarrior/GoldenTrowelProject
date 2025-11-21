@@ -180,7 +180,7 @@ hero_tint: .40
 
       <!-- 3) ETHICS OFFICES -->
       <article class="doc-callout doc--gold">
-       <a class="badge badge--circle"   href="{{ '/ethicsprep.html' | relative_url }}" target="_blank" rel="noopener">CLICK HERE to Find Your Institution's Ethics Office</a>
+       <a class="badge badge--circle"   href="{{ '/ethicsprep.html' | relative_url }}" target="_blank" rel="noopener">CLICK HERE to for Ethics Offices</a>
         <div>
           <h3>Find Your Institution's Ethics Office</h3>
          <p>Ethics offices provide guidance, advocacy, and clarity when facing unethical or harmful behavior in academic spaces or during research. Learn what protections apply to you, who you can safely talk to, and how your institution can support you through next steps.</p>
@@ -189,7 +189,7 @@ hero_tint: .40
 
     <!-- 3) EMBASSY -->
       <article class="doc-callout doc--gold">
-       <a class="badge badge--circle"   href="{{ '/embassyprep.html' | relative_url }}" target="_blank" rel="noopener">CLICK HERE to Find Your Local Embassy / Consulate</a>
+       <a class="badge badge--circle"   href="{{ '/embassyprep.html' | relative_url }}" target="_blank" rel="noopener">CLICK HERE for Embassy / Consulate</a>
         <div>
           <h3>Find my Embassy / Consulate</h3>
           <p>Locate the embassy or consulate serving your fieldwork area, and learn how local offices can provide support, guidance, and emergency assistance while you’re abroad.</p>

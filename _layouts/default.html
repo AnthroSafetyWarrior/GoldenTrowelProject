@@ -99,7 +99,7 @@ header.hero::before{
 }
 .header-content img.site-logo{ width:clamp(230px,11vw,240px); border-radius:12px; }
 .header-text h1{
-  color:#f9eedc; margin:.1em 0; font-size:clamp(2.2rem,6.2vw,3.2rem);
+  color:#f9eedc; margin:.1em 0; font-size:clamp(2.3rem,6.2vw,3.2rem);
   line-height:1.12; -webkit-text-stroke:1.5px var(--logo-orange);
 }
 .header-text p{
@@ -140,7 +140,7 @@ header.hero::before{
   background-clip: padding-box;
 
   /* soften or remove the “overlap” look */
-  box-shadow: 0px 2px 1px 1px rgba(0,0,0,.08);   /* or comment this line out */
+  box-shadow: 0px 3px 1px 1px rgba(0,0,0,.08);   /* or comment this line out */
   /* was: overflow: hidden;  <-- remove this line */
   isolation: isolate;                      /* keeps its ::before on top only */
 }
@@ -149,7 +149,7 @@ header.hero::before{
 .nav-gradient::before{
   content:"";
   position:absolute; left:0; right:0;
-  top:-2px; height:6px;
+  top:-3px; height:6px;
   background: var(--wave-dark);
   pointer-events:none;
 }
