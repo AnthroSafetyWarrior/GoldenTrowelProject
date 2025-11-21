@@ -175,6 +175,50 @@ hero_tint: .40                        # optional (0–1: higher = more maroon ov
   outline-offset: 2px;
 }
 
+.stripe .accordion{
+  display:block;
+  width:100%;
+  background: var(--gold);
+  color:#000;
+  cursor:pointer;
+  padding:.6em .9em;
+  border:none;
+  border-radius:12px;
+  text-align:center;
+ font-family:
+    "Segoe UI",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Helvetica Neue",
+    Roboto,
+    Arial,
+    sans-serif;
+  font-size:1.1rem;
+  font-weight:bold;
+  transition: background-color .2s ease;
+  position: relative;
+  z-index: 1;
+  touch-action: manipulation;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.stripe .accordion:hover{ background: var(--sage); color:#000; }
+.stripe .accordion[aria-expanded="true"]{
+  background: var(--slate);
+  color:#fff;
+  border-bottom-left-radius:0;
+  border-bottom-right-radius:0;
+}
+
+/* keyboard focus */
+.stripe .accordion:focus-visible,
+.stripe .region-toggle:focus-visible{
+  outline: 3px solid var(--sage);
+  outline-offset: 2px;
+}
+
 /* =========================
    Injected row-panel (full width under the row)
    ========================= */
@@ -1360,7 +1404,7 @@ If you need information for an institution missing from the list, please let us 
 <!---------United Arab Emirates-----------> 
    <div class="country">
       <button class="accordion" aria-expanded="false" aria-controls="UnitedArabEmirates-panel" id="UnitedArabEmirates-btn">United Arab Emirates</button>
-      <div class="panel" id="[UnitedArabEmirates]-panel" role="region" aria-labelledby="UnitedArabEmirates-btn">
+      <div class="panel" id="UnitedArabEmirates-panel" role="region" aria-labelledby="UnitedArabEmirates-btn">
       <table>
     <tr>
      <th scope="col">Institution</th>
@@ -4470,11 +4514,12 @@ If you need information for an institution missing from the list, please let us 
      </div>
      </div>
 
-<!---------Liechtenstein-----------> 
+<!---------Liechtenstein----------->
    <div class="country">
       <button class="accordion" aria-expanded="false" aria-controls="Liechtenstein-panel" id="Liechtenstein-btn">Liechtenstein</button>
       <div class="panel" id="Liechtenstein-panel" role="region" aria-labelledby="Liechtenstein-btn">
-    <tr>
+      <table>    
+<tr>
      <th scope="col">Institution</th>
       <th scope="col">Title IX / Ethics Office</th>
      </tr>
