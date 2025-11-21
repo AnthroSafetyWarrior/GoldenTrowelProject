@@ -296,13 +296,13 @@ hero_tint: .40                        # optional (0–1: higher = more maroon ov
 }
 
 /* Remove leftover padding only in stripe accordion sections */
-.stripe .section > section.section--flush {
+.stripe .section {
   padding-inline: 0 !important;
 }
 
 /* Ensure the pillband border doesn’t add extra width */
 .stripe .pillband {
-  padding-inline: 0 !important;
+  padding-inline: 10px !important;
   max-width: var(--maxw);
   margin-inline: auto;
 }
