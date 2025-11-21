@@ -289,7 +289,7 @@ hero_tint: .40                        # optional (0–1: higher = more maroon ov
 }
 
 /* Remove leftover padding only in stripe accordion sections */
-.stripe .section {
+.stripe .section > section.section--flush {
   padding-inline: 0 !important;
 }
 
@@ -336,14 +336,15 @@ If you need information for an institution missing from the list, please let us 
 </article>
 </section>
 
+<div class="stripe stripe--wave-mid">
 <!-- 2) DISCLAIMER — shared split -->
 <section class="section disclaimer-wrap">
-<p class="pillhead pill--orange pill--clip-right" style="font-size:1em">Disclaimer: The resources provided on this website are not exhaustive or definitive. Regulations, reporting protocols, and legal requirements may vary by location and institution. Before conducting fieldwork, confirm current information with your university legal services, ethics or Title IX office, or a qualified legal professional.</p>
+<p class="pillhead pill--orange pill--clip-right">Disclaimer: The resources provided on this website are not exhaustive or definitive. Regulations, reporting protocols, and legal requirements may vary by location and institution. Before conducting fieldwork, confirm current information with your university legal services, ethics or Title IX office, or a qualified legal professional.</p>
 </section>
+</div>
 
 <section class="section">
 <h2 class="pillhead pill--soil pill--clip-left">How Title IX / Ethics Offices Can Help</h2>
-
 <div class="intro-title">
 <p>
 </p>
