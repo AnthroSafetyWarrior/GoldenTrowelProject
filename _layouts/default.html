@@ -957,7 +957,7 @@ html body .pillhead.pill--sage{
   --stripe-bg: var(--wave-mid);   /* band color (overridden by modifier) */
   --stripe-bleed-top: 18px;        /* how far color extends above content */
   --stripe-bleed-bottom: 18px;     /* how far color extends below content */
-  --stripe-pad-y: 22px;            /* inside padding for content */
+  --stripe-pad-y: 30px;            /* inside padding for content */
   --stripe-section-pad-y: 8px;     /* padding on inner .section */
   --stripe-gap: 0px;               /* gap inside inner .section grid */
   --stripe-fade: 36px;             /* height of the edge fade */
@@ -965,7 +965,6 @@ html body .pillhead.pill--sage{
   position: relative;
   isolation: isolate;
   margin: 0;
-  margin-bottom: 10px;
   padding: var(--stripe-pad-y) var(--page-pad-inline);
 }
 
@@ -1023,8 +1022,6 @@ html body .pillhead.pill--sage{
   text-decoration-color: var(--sage);
   outline: none;
 }
-
-.stripe :last-child::after { margin-bottom: 50px; }
 
 /* ===== modifiers ===== */
 .stripe--wave-dark{ --stripe-bg: var(--wave-dark); }
