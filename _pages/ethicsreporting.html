@@ -288,19 +288,6 @@ hero_tint: .40                        # optional (0–1: higher = more maroon ov
   color: #000;
 }
 
-/* Nested elements inside table cells should inherit typography */
-.stripe .row-panel td :where(p, span, div, strong, em, a, li){
-  font: inherit;
-  line-height: inherit;
-  color: inherit;
-}
-/* Only FLUSH sections (accordion wrappers) lose their side padding */
-.stripe .section.section--flush {
-  padding-inline: 0 !important;
-  margin-inline: 0; /* optional, if you want it perfectly edge-to-edge */
-}
-
-
 /* =========================================================
    UNIFY all accordion + region button typography sitewide
    ========================================================= */
@@ -327,6 +314,17 @@ hero_tint: .40                        # optional (0–1: higher = more maroon ov
   font-weight: 700 !important;
 }
 
+/* Nested elements inside table cells should inherit typography */
+.stripe .row-panel td :where(p, span, div, strong, em, a, li){
+  font: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+/* Only FLUSH sections (accordion wrappers) lose their side padding */
+.stripe .section.section--flush {
+  padding-inline: 0 !important;
+  margin-inline: 0; /* optional, if you want it perfectly edge-to-edge */
+}
 </style>
 
 
