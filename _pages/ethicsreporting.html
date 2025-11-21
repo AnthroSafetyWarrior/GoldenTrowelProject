@@ -294,18 +294,12 @@ hero_tint: .40                        # optional (0–1: higher = more maroon ov
   line-height: inherit;
   color: inherit;
 }
-
-/* Remove leftover padding only in stripe accordion sections */
-.stripe .section {
+/* Only FLUSH sections (accordion wrappers) lose their side padding */
+.stripe .section.section--flush {
   padding-inline: 0 !important;
+  margin-inline: 0; /* optional, if you want it perfectly edge-to-edge */
 }
 
-/* Ensure the pillband border doesn’t add extra width */
-.stripe .pillband {
-    padding-block: clamp(20px, 3.6vw, 32px)!important;
-  max-width: var(--maxw);
-  margin-inline: auto;
-}
 </style>
 
 
