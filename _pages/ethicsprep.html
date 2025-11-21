@@ -51,7 +51,7 @@ hero_tint: .40                        # optional (0–1: higher = more maroon ov
   box-shadow: 0 2px 8px rgba(0,0,0,.08);
   min-width: 0;
 }
-.country-section .wrap{
+.stripe .country-section .wrap{
   display:grid;
   grid-template-columns: 1fr;
   gap: clamp(10px, 1.6vw, 16px);
@@ -59,6 +59,16 @@ hero_tint: .40                        # optional (0–1: higher = more maroon ov
   /* NEW: give everything inside the card a slate gutter */
   padding-inline: var(--grid-inset);
 }
+
+ .country-section .wrap{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap: clamp(10px, 1.6vw, 16px);
+  min-width: 0;
+  /* NEW: give everything inside the card a slate gutter */
+  padding-inline: var(--grid-inset);
+}
+
 
 /* If accordion is nested in .section, avoid double padding */
 .section > * { min-width: 0; }
