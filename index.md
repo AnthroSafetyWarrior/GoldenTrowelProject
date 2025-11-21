@@ -143,8 +143,6 @@ hero_tint: .40
       </article>
 </div>
 </section>
-<br>
-<br>
 </div>
 
  
@@ -218,26 +216,26 @@ hero_tint: .40
    <div class="col">
 <div class="inline-elements">   
 <h4><a href="https://takebackthenight.org/"  target="_blank" 
-     rel="noopener noreferrer">TBTN</a>: <p>Take Back the Night</p></h4></div>
+     rel="noopener noreferrer">TBTN</a>: <p><strong>Take Back the Night</strong></p></h4></div>
 <p>National Sexual Assault Legal Hotline: Free Legal Assistance for Survivors Call 567-SHATTER (567-742-8837)</p>
 <br>
 
 <div class="inline-elements">   
 <h4><a href="https://www.hotpeachpages.net/a/countries.html"  target="_blank" 
-     rel="noopener noreferrer" >Hot Peach Pages</a>: <p>International List of Sexual & Domestic Violence Agencies</p></h4></div>
+     rel="noopener noreferrer" >Hot Peach Pages</a>: <p><strong>International List of Sexual & Domestic Violence Agencies</strong></p></h4></div>
 <br>
 
 <div class="inline-elements">   
-<h4><a href="https://www.interaction.org/wp-content/uploads/resource-library/international_centers_for_survivors_of_sexual_assault_45553.pdf"  target="_blank" rel="noopener noreferrer">interaction.org</a>: <p>Handbook of International Centers for Survivors of Sexual Assault and Harassment</p></h4></div>
+<h4><a href="https://www.interaction.org/wp-content/uploads/resource-library/international_centers_for_survivors_of_sexual_assault_45553.pdf"  target="_blank" rel="noopener noreferrer">interaction.org</a>: <p><strong>Handbook of International Centers for Survivors of Sexual Assault and Harassment</strong></p></h4></div>
 <br>
 
 <div class="inline-elements">   
 <h4><a href="https://rainn.org/"  target="_blank" 
-     rel="noopener noreferrer" >RAINN</a>: <p>Rape, Abuse & Incest National Network</p></h4></div>
+     rel="noopener noreferrer" >RAINN</a>: <p><strong>Rape, Abuse & Incest National Network</strong></p></h4></div>
 <br>
 <div class="inline-elements">   
 <h4><a href="https://ilga.org/"  target="_blank" 
-     rel="noopener noreferrer" >ILGA World</a>: <p>International Lesbian, Gay, Bisexual, Trans, and Intersex Association</p></h4></div>
+     rel="noopener noreferrer" >ILGA World</a>: <p><strong>International Lesbian, Gay, Bisexual, Trans, and Intersex Association</strong></p></h4></div>
 </div>
 </div>
 </section>
@@ -253,7 +251,6 @@ hero_tint: .40
 </section>
 
 <section class="section">
-<div class="text">
 <p> The <strong><a href="https://forms.gle/YjAmqWd9xDC5WCJk8" target="_blank" rel="noopener">Fieldwork Misconduct Survey</a></strong> gathers community-driven, anonymous data on harassment and misconduct to update the only major prevalence study (<em>Clancy et&nbsp;al.,&nbsp;2014</em>).</p> 
 <br> 
 <p>Your participation helps highlight how much change is still needed—and why these resources matter. Together, we can use these data to drive accountability and create safer fieldwork environments.
@@ -261,7 +258,6 @@ hero_tint: .40
 <br>
 <p><strong>
     We believe safety and accountability make better science. Explore our resources to build a field culture rooted in respect.</strong></p>
-  </div>
 </section>
 
 
