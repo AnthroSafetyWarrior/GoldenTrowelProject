@@ -33,6 +33,9 @@ hero_tint: .40
       <p>A collective of researchers, educators, and students committed to building safer, more ethical fieldwork environments across disciplines.</p>
     </section>
 
+
+
+
     <!-- WHAT WE DO -->
     <section aria-labelledby="what-we-do">
       <h3 id="what-we-do" class="sr-only">What We Do</h3>
@@ -47,12 +50,30 @@ hero_tint: .40
     </section>
   </div>
   </div>
+<br>
+<article class="card card--glass" style="text-align:center">
+  <nav class="footer-links" aria-label="Footer navigation" style="text-align:center"><strong>
+    <a href="{{ '/index.html' | relative_url }}#audience">Who This Helps</a>
+    <span class="divider">|</span>
+    <a href="{{ '/index.html' | relative_url }}#data">Why This is Important</a>
+    <span class="divider">|</span>
+    <a href="{{ '/index.html' | relative_url }}#docs">Pre-Fieldwork Prep Docs</a>
+    <span class="divider">|</span>
+    <a href="{{ '/index.html' | relative_url }}#know">Know Before You Go</a>
+    <span class="divider">|</span>
+    <a href="{{ '/index.html' | relative_url }}#surv">Survivor Support</a>
+    <span class="divider">|</span>
+    <a href="{{ '/index.html' | relative_url }}#change">Change</a>
+    <span class="divider">|</span>
+   </strong> 
+</nav>
+
 </section>
 
 
  <div class="stripe stripe--wave-mid">
 <!-- 2) AUDIENCE — shared split -->
-<section class="pillband pill--orange pill--clip-right pill--tight">
+<section id=audience class="pillband pill--orange pill--clip-right pill--tight">
  <div class="section">
     <h2>Who This Helps & How You Can Use Our Site</h2>
     <p class="lede">The Golden Trowel Project™ offers practical tools and information for everyone involved in research — whether you’re preparing for your first field season or guiding a team in the field.</p>
@@ -80,7 +101,7 @@ hero_tint: .40
 
 
 <!-- 3) PREVALENCE — shared split -->
-<section class="section">
+<section id=data class="section">
 <h2 class="pillhead pill--soil pill--clip-left">Prevalence of Fieldwork Harassment and Assault
 </h2>
   <div class="split">
@@ -100,7 +121,7 @@ hero_tint: .40
 
 <div class="stripe stripe--wave-mid">
 <!-- 4) START HERE — consistent grid utility -->
-<section class="pillband pill--slate pill--clip-right pill--tight">
+<section id=docs class="pillband pill--slate pill--clip-right pill--tight">
  <div class="section">
     <h2>Get Ready for the Field: Three Steps to Start Safely</h2>
     <p class="lede">Each template can be customized to your needs and downloaded for your records or shared with your team.</p>
@@ -147,7 +168,7 @@ hero_tint: .40
 
  
 <!-- 5) TRAVEL — its own section -->
-<section class="pillband pill--sage pill--clip-left pill--tight">
+<section id=know class="pillband pill--sage pill--clip-left pill--tight">
  <div class="section">
     <h2>Preparing for Travel: Know Before You Go</h2>
     <p class="lede">Understanding local laws, cultural expectations, and support systems helps you make informed choices in the field. This section links to trusted resources on travel safety, recording laws, and international research preparation.</p>
@@ -202,7 +223,7 @@ hero_tint: .40
 
 <div class="stripe stripe--wave-mid">
 <!-- 6) SUPPORT — consistent grid utility -->
-<section class="section">
+<section id=surv class="section">
 <h2 class="pillhead pill--orange pill--clip-right">Survivor Support</h2>
 </section>
 <br>
@@ -243,7 +264,7 @@ hero_tint: .40
 </div>
 
 <!-- FINAL SECTION — Creating Change + Closing CTA -->
-<section class="pillband pill--soil pill--clip-left pill--tight">
+<section id=change class="pillband pill--soil pill--clip-left pill--tight">
   <div class="section">
     <h2>Creating Change in Fieldwork</h2>
     <p class="lede">Help us understand the current state of fieldwork safety by participating in our <strong>anonymous survey</strong>.</p>
