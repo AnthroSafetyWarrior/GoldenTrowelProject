@@ -71,7 +71,17 @@ hero_tint: .40                        # optional (0–1: higher = more maroon ov
 
 
 /* If accordion is nested in .section, avoid double padding */
+.stripe  .section > * { min-width: 0; }
 .section > * { min-width: 0; }
+
+.stripe  .section .country-section{
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+  padding-inline: 0;
+  padding-block: clamp(16px, 2.5vw, 28px);
+}
+
 .section .country-section{
   width: 100%;
   max-width: none;
