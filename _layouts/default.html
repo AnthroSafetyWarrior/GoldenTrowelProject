@@ -152,6 +152,11 @@ header.hero::before{
   );
   background-clip: padding-box;
 
+/* Pull nav band upward to eliminate the gap under the crest waves */
+.nav-gradient {
+  transform: translateY(-4px);
+}
+
   /* soften or remove the “overlap” look */
   box-shadow: 0px 3px 1px 1px rgba(0,0,0,.06);   /* or comment this line out */
   /* was: overflow: hidden;  <-- remove this line */
@@ -162,7 +167,7 @@ header.hero::before{
 .nav-gradient::before{
   content:"";
   position:absolute; left:0; right:0;
-  top:-3px; height:7px;
+  top:-3px; height:6px;
   background: var(--wave-dark);
   pointer-events:none;
 }
