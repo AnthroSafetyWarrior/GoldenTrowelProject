@@ -1234,6 +1234,20 @@ margin-bottom: 10px
   color: #fff;
 }
 
+/* === Normalize stripe padding to match regular sections === */
+.stripe{
+  /* keep the fade + bleed, but don't add extra layout padding */
+  --stripe-pad-y: 0;
+
+  /* make inner section use the normal section padding */
+  --stripe-section-pad-y: clamp(36px, 5vw, 56px);
+}
+
+/* ensure inner .section behaves like a normal section */
+.stripe > .section{
+  padding-block: var(--stripe-section-pad-y);
+  gap: var(--stripe-gap);
+}
 
 </style>
 </head>
