@@ -1502,6 +1502,7 @@ if (btn && href) {
         backHome();
       };
 
+
       /* ---------- DESKTOP (mouse/trackpad) ---------- */
       if (!isCoarse) {
         btn.addEventListener('pointerenter', show);
@@ -1518,16 +1519,15 @@ if (btn && href) {
           hideTimer = setTimeout(hide, 150);
         });
 
-        // Desktop click goes straight to main page (if no sub-items, the href is used normally)
+        // DESKTOP: always navigate to main page on click
         btn.addEventListener('click', (e) => {
-          const hasItems = !!fly.querySelector('.pill--nav, .pill');
-          if (!hasItems && href) {
-            // no submenu → just navigate
+          if (href) {
             window.location.href = href;
           }
-          // if there *are* items, hover already shows them; click can be ignored or used as normal
         }, { passive: true });
       }
+
+
 
       /* ---------- MOBILE / TOUCH (coarse pointer) ---------- */
       if (isCoarse) {
