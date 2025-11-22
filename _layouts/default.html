@@ -1214,11 +1214,8 @@ margin-bottom: 10px
 /* Fix disclaimer pillhead curve overlap — shift text right on phones */
 @media (max-width: 760px) {
 .stripe  .pillband.pill--clip-right {
-    --pillband-pad-x: clamp(1.8em, 6vw, 2em);
+    --pillband-pad-x: clamp(1.4em, 6vw, 2em);
     --pillband-pad-y: clamp(2em, 4.5vw, 2.3em);
-
-    /* bump the whole text block to the right */
-    padding-left: calc(var(--pillband-pad-x) + 5px);
   }
 }
 </style>
