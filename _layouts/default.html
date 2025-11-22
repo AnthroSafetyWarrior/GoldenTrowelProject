@@ -208,28 +208,6 @@ html, body { overflow-x: hidden; }
 .wave-track::before{ left:0; }
 .wave-track::after { right:0; }
 
-/* default sentinel: let JS set this once */
-#nav-sentinel{
-  height: 0;              /* this will be overridden inline by JS */
-}
-
-/* sticky wrapper */
-.nav-sticky{
-  position: relative;
-  z-index: 3000;
-  /* tiny easing when it “locks” to the top */
-  transition: transform .18s ease-out;
-  will-change: transform;
-}
-
-/* fixed state */
-.nav-sticky.is-fixed{
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  transform: translateY(0);
-}
 
 /* Circles layer */
 .circle-nav{ position:absolute; inset:0; pointer-events:none; z-index:5; transform:translateY(var(--circle-lift, -3px)); }
@@ -1418,40 +1396,163 @@ Institution Ethics Support</a>
   <!-- Tight layout + portal-on-open so flyouts sit over the page -->
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-  const nav      = document.querySelector('.nav-sticky');
-  const sentinel = document.getElementById('nav-sentinel');
+document.addEventListener("DOMContentLoaded", () => {
+  const backToTopBtn = document.querySelector(".back-to-top");
+  if (!backToTopBtn) return;
 
-  if (!nav || !sentinel) return;
-
-  // 1) Measure nav once and give the sentinel a fixed spacer height
-  //    so content doesn't jump when nav becomes fixed.
-  const navHeight = nav.offsetHeight;
-  sentinel.style.height = navHeight + 'px';
-
-  // 2) Use IntersectionObserver just to toggle the fixed class.
-  //    No more changing sentinel height on each toggle.
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        // When the sentinel scrolls OFF the top, fix the nav
-        if (entry.boundingClientRect.top < 0 && !entry.isIntersecting) {
-          nav.classList.add('is-fixed');
-        } else {
-          nav.classList.remove('is-fixed');
-        }
-      });
-    },
-    {
-      root: null,
-      // small negative margin so we don't “chatter” at exactly 0px
-      rootMargin: '-4px 0px 0px 0px',
-      threshold: 0
+  // Show button when user scrolls down 400px
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 400) {
+      backToTopBtn.classList.add("visible");
+    } else {
+      backToTopBtn.classList.remove("visible");
     }
-  );
+  });
 
-  observer.observe(sentinel);
+  // Smooth scroll to top on click
+  backToTopBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
 });
+</script>
+
+<script>
+(() => {
+  const wrap  = document.querySelector('.wave-nav');
+  const track = wrap?.querySelector('.wave-track');
+  const circles = track?.querySelectorAll('.circle') || [];
+  if (!wrap || !track || !circles.length) return;
+
+  const rootStyle = getComputedStyle(document.documentElement);
+
+  const getCircleSize = () => {
+    const any = circles[0];
+    return any ? (any.offsetWidth || parseFloat(getComputedStyle(any).getPropertyValue('--size'))) : 96;
+  };
+
+  function setHeight(){
+    const size = getCircleSize();
+    const lift  = parseFloat(rootStyle.getPropertyValue('--circle-lift')) || 0;
+    const extra = Math.max(0, -lift) + 12;
+    const h = Math.max(110, Math.round(size * 1.12) + extra);
+    wrap.style.height = h + 'px';
+  }
+
+function draw(){
+  const size   = getCircleSize();
+  const wrapW  = wrap.clientWidth;
+  const count  = circles.length;
+
+  const EDGE   = Math.max(28, Math.round(size * 0.65));  // scroll padding
+  const GAPMIN = Math.round(size * 0.9);
+  const GAPMAX = Math.round(size * 2.0);
+
+  // pick a gap that fills the row nicely
+  const gapFit = (wrapW - 2*EDGE - count*size) / Math.max(1, (count - 1));
+  const gap    = Math.max(GAPMIN, Math.min(gapFit, GAPMAX));
+
+  // row geometry
+  const rowWidth    = count*size + (count-1)*gap;
+  const neededWidth = rowWidth + 2*EDGE;
+
+  // ---- NEW: decide if everything fits without scrolling
+  const fits = neededWidth <= (wrapW + 1); // +1px tolerance for rounding
+
+  // edge padding for positioning
+  const pad = fits ? Math.max(0, Math.floor((wrapW - rowWidth)/2)) : EDGE;
+
+  // tell CSS how wide our end padders should be
+  track.style.setProperty('--edge-pad', pad + 'px');
+
+  // track width + overflow behavior
+  track.style.width = (fits ? wrapW : Math.ceil(neededWidth)) + 'px';
+  wrap.style.overflowX   = fits ? 'hidden' : 'auto';
+  wrap.style.scrollSnapType = fits ? 'none' : 'x proximity';
+  wrap.classList.toggle('nav--static', fits);
+
+  const TOP = Math.max(2, Math.round(size * 0.08));
+  circles.forEach((circleEl, i) => {
+    const left = pad + i*(size + gap);
+    circleEl.style.left = left + 'px';
+    circleEl.style.top  = TOP  + 'px';
+
+    const href = circleEl.getAttribute('data-href');
+    const btn  = circleEl.querySelector('.circle-btn');
+    if (btn && href) btn.onclick = () => { location.href = href; };
+  });
+}
+
+  setHeight(); draw();
+  addEventListener('resize', () => { setHeight(); draw(); }, { passive:true });
+
+  /* Flyouts portal (unchanged behavior) */
+  (function portalizeFlyouts(){
+    const circlesAll = track.querySelectorAll('.circle');
+    circlesAll.forEach(circle => {
+      const btn = circle.querySelector('.circle-btn');
+      const fly = circle.querySelector('.flyout');
+      if (!btn || !fly) return;
+
+      let placeholder = null;
+      let hideTimer = null;
+
+      const toBody = () => {
+        if (fly.parentElement === document.body) return;
+        placeholder = document.createElement('span');
+        placeholder.hidden = true;
+        circle.appendChild(placeholder);
+        document.body.appendChild(fly);
+      };
+      const backHome = () => {
+        if (!placeholder) return;
+        placeholder.replaceWith(fly);
+        placeholder = null;
+      };
+
+      const positionFlyout = () => {
+        const r = btn.getBoundingClientRect();
+        fly.classList.add('is-floating');
+        fly.style.left = Math.round(r.left + r.width/2) + 'px';
+        fly.style.top  = Math.round(r.bottom + 8) + 'px';
+        fly.style.display = 'flex';
+      };
+
+      const show = () => { clearTimeout(hideTimer); toBody(); positionFlyout(); };
+      const hide = () => {
+        fly.classList.remove('is-floating');
+        fly.style.left = fly.style.top = '';
+        fly.style.display = 'none';
+        backHome();
+      };
+
+      btn.addEventListener('pointerenter', show);
+      btn.addEventListener('pointerleave', () => { hideTimer = setTimeout(hide, 120); });
+      fly.addEventListener('pointerenter', () => clearTimeout(hideTimer));
+      fly.addEventListener('pointerleave', () => { hideTimer = setTimeout(hide, 120); });
+
+      btn.addEventListener('focus', show);
+      btn.addEventListener('blur',  () => { hideTimer = setTimeout(hide, 150); });
+
+      let armed = false;
+      btn.addEventListener('click', (e) => {
+        const hasItems = fly.querySelector('.pill');
+        if (!hasItems) return;
+        if (!armed) {
+          e.preventDefault();
+          show();
+          armed = true;
+          setTimeout(() => armed = false, 1200);
+        }
+      }, { passive:false });
+
+      addEventListener('scroll', hide, { passive:true });
+      addEventListener('resize', () => { hide(); positionFlyout(); }, { passive:true });
+      document.addEventListener('click', (ev) => {
+        if (!fly.contains(ev.target) && !btn.contains(ev.target)) hide();
+      }, { passive:true });
+    });
+  })();
+})();
 </script>
 
 <script>
@@ -1460,29 +1561,28 @@ document.addEventListener('DOMContentLoaded', function () {
   const sentinel = document.getElementById('nav-sentinel');
   if (!sticky || !sentinel) return;
 
-  // Keep the page from “jumping” by reserving height when we fix the bar
-  const setReserve = () => {
-    if (sticky.classList.contains('is-fixed')) {
-      sentinel.style.height = sticky.offsetHeight + 'px';
-    } else {
-      sentinel.style.height = '0px';
-    }
-  };
+  // Measure nav height once up front
+  const reserve = sticky.offsetHeight;
+  sentinel.style.height = reserve + 'px';
 
-  // Prefer IntersectionObserver (super smooth)
+  // Smooth toggle with small hysteresis
+  let lastState = false;
   const io = new IntersectionObserver(([entry]) => {
-    if (entry.isIntersecting) {
-      sticky.classList.remove('is-fixed');
-    } else {
-      sticky.classList.add('is-fixed');
+    const shouldFix = entry.boundingClientRect.top < 0 && !entry.isIntersecting;
+    if (shouldFix !== lastState) {
+      sticky.classList.toggle('is-fixed', shouldFix);
+      lastState = shouldFix;
     }
-    setReserve();
-  }, { threshold: 0, rootMargin: '0px 0px 0px 0px' });
+  }, {
+    threshold: 0,
+    rootMargin: '-6px 0px 0px 0px'
+  });
 
   io.observe(sentinel);
-  addEventListener('resize', setReserve, { passive: true });
 })();
 </script>
+
+
 
 </body>
 </html>
