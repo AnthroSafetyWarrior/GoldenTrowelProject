@@ -73,7 +73,15 @@ hero_tint: .40
   transform: scale(1.05);
 }
 
-@media (max-width:760px){.section .disclaimer-wrap{  padding-left:30px;}
+/* Fix disclaimer pillhead text touching the curve on phones */
+@media (max-width: 760px) {
+  .stripe .disclaimer-wrap .pillhead {
+    --pillhead-pad-x: clamp(1.8em, 6vw, 2.6em);
+    --pillhead-pad-y: clamp(1.9em, 4.5vw, 2.3em);
+    max-inline-size: 42ch; /* earlier wrapping */
+  }
+}
+
 </style>
 
 <!-- 1) Intro – plain background -->
