@@ -1222,6 +1222,16 @@ margin-bottom: 10px
     --pillband-pad-y: clamp(2em, 4.5vw, 2.3em);
   }
 }
+
+@media (max-width: 760px) {
+  .header-text h1{
+    -webkit-text-stroke: 0;              /* no outline on small screens */
+    text-shadow:
+      0 0 3px #6b3c11,
+      0 0 8px rgba(0,0,0,.35);           /* keep a soft glow instead */
+  }
+}
+
 </style>
 </head>
 
