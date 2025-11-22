@@ -1229,6 +1229,33 @@ margin-bottom: 10px
 }
 
 .stripe .section.disclaimer-wrap p{font-weight: 700; font-size:1em }
+/* When a pillband is the direct child of a stripe */
+.stripe > .pillband{
+  width: min(100%, var(--maxw));
+  margin-inline: auto;
+
+  /* show some stripe color above/below the pillband */
+  padding-block: clamp(24px, 4vw, 40px);
+
+  /* stripe already handles side padding */
+  padding-inline: 0;
+
+  /* avoid stacking big outer margins from the pillband itself */
+  margin-block: clamp(10px, 2vw, 18px);
+}
+
+/* Keep the inner .section inside the pillband nice and tight */
+.stripe > .pillband > .section{
+  padding: 0;                 /* no extra padding inside wrapper */
+  display: grid;
+  gap: clamp(8px, 1.6vw, 14px);
+}
+
+/* Extra bleed ONLY when the stripe directly wraps a pillband */
+.stripe:has(> .pillband){
+  --stripe-bleed-top: 32px;
+  --stripe-bleed-bottom: 32px;
+}
 
 
 .footer-nav {
@@ -1244,43 +1271,6 @@ margin-bottom: 10px
   color: #fff;
 }
 
-/* === Stripe + Pillband spacing normalizer ========================= */
-/* Make sure this is AFTER all other .stripe / .pillband rules */
-
-/* 1) Stripe itself: no extra vertical padding */
-html body .stripe{
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
-
-  /* shrink the fade band so it doesn’t look huge */
-  --stripe-bleed-top: 8px;
-  --stripe-bleed-bottom: 8px;
-  --stripe-fade: 24px;
-}
-
-/* 2) Pillbands inside stripes: no forced tall min-height */
-html body .stripe > .pillband{
-  min-height: 0 !important;
-  margin-block: clamp(18px, 3.6vw, 28px) !important;  /* same rhythm as your good section */
-}
-
-/* 3) Inner .section inside that pillband:
-      use the same vertical padding as a normal .section,
-      but let the stripe handle side padding */
-html body .stripe > .pillband > .section{
-  padding-top:    clamp(36px, 5vw, 56px) !important;
-  padding-bottom: clamp(36px, 5vw, 56px) !important;
-  padding-left:  0 !important;
-  padding-right: 0 !important;
-}
-
-/* (Optional) if you ever put a plain .section directly in a stripe */
-html body .stripe > .section{
-  padding-top:    clamp(36px, 5vw, 56px) !important;
-  padding-bottom: clamp(36px, 5vw, 56px) !important;
-  padding-left:  0 !important;
-  padding-right: 0 !important;
-}
 
 </style>
 </head>
