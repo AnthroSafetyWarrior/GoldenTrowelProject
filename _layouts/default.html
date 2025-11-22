@@ -1519,38 +1519,5 @@ function draw(){
 })();
 </script>
 
-<script>
-(() => {
-  const sticky = document.querySelector('.nav-sticky');
-  const sentinel = document.getElementById('nav-sentinel');
-  if (!sticky || !sentinel) return;
-
-  // Keep the page from “jumping” by reserving height when we fix the bar
-  const setReserve = () => {
-    if (sticky.classList.contains('is-fixed')) {
-      sentinel.style.height = sticky.offsetHeight + 'px';
-    } else {
-      sentinel.style.height = '0px';
-    }
-  };
-
-  // Prefer IntersectionObserver (super smooth)
-  const io = new IntersectionObserver(([entry]) => {
-    if (entry.isIntersecting) {
-      sticky.classList.remove('is-fixed');
-    } else {
-      sticky.classList.add('is-fixed');
-    }
-    setReserve();
-  }, { threshold: 0, rootMargin: '0px 0px 0px 0px' });
-
-  io.observe(sentinel);
-  addEventListener('resize', setReserve, { passive: true });
-})();
-</script>
-
-
-
-
 </body>
 </html>
