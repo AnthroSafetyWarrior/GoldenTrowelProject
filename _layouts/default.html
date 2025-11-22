@@ -657,20 +657,16 @@ html, body { overflow-x: hidden; }
 
 /* LEFT-CLIPPED band: slightly denser vertical padding */
 .pillband.pill--clip-left .section{
-  padding-block: clamp(16px, 2.6vw, 28px);
+    --pillhead-pad-y: clamp(1.8em, 2.1vw, 2em);
+  --pillhead-pad-x: clamp(1.1em, 2.2vw, 1.5em);
 }
 
 /* === Right-clipped pillband spacing (clean + responsive) === */
 
 /* Default & small screens — tight but safe */
 .pillband.pill--clip-right .section{
-  padding-block: clamp(28px, 4.8vw, 52px);
-  padding-top:   clamp(44px, 5.6vw, 64px);
-  /* Left side: use normal padding or a small curve buffer */
-  padding-left: max(
-    var(--pill-pad-inline),
-    calc(var(--pill-curve-inset) + 36px)
-  );
+   --pillhead-pad-y: clamp(1.8em, 2.1vw, 2em);
+  --pillhead-pad-x: clamp(1.1em, 2.2vw, 1.5em);
 }
 
 /* Keep title off the curve */
