@@ -11,19 +11,18 @@ hero_tint: .40
 <style>
 
 .split{
-  --left-min: 380px;
-  --right-min: 380px;
+  --left-min: 460px;
   --gap: clamp(26px, 2vw, 48px);
 
-  --img-min: 300px;
+  --img-min: 460px;
   --img-ideal: 28vw;
-  --img-max: 440px;
+  --img-max: 550px;
 
-  --text-measure: 54ch;
+  --text-measure: 40ch;
 
   display: grid;
   grid-template-columns: minmax(var(--left-min),1fr) minmax(var(--img-min),auto);
-  align-items: center;
+  align-items: start;
   column-gap: var(--gap);
 }
 .split .art{ justify-self: center; }
