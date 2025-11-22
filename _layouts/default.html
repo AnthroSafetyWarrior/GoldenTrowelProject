@@ -138,7 +138,7 @@ header.hero::before{
 
 /* the visual band stays exactly the same, but no overflow */
 .nav-gradient{
- position: sticky;
+ position: relative;
   background: linear-gradient(
     to bottom,
     var(--wave-dark) 0%,
@@ -1242,6 +1242,17 @@ margin-bottom: 10px
 }
 .legal-footer a :hover {
   color: #fff;
+}
+
+/* Fix disclaimer pillhead curve overlap — shift text right on phones */
+@media (max-width: 760px) {
+  .stripe .disclaimer-wrap .pillhead {
+    --pillhead-pad-x: clamp(1.8em, 6vw, 2.6em);
+    --pillhead-pad-y: clamp(1.9em, 4.5vw, 2.3em);
+
+    /* bump the whole text block to the right */
+    padding-left: calc(var(--pillhead-pad-x) + 14px);
+  }
 }
 
 
