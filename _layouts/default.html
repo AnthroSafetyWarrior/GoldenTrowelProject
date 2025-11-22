@@ -1054,29 +1054,6 @@ html body .pillhead.pill--sage{
   .stripe{ --stripe-fade: 22px; }
 }
 
-/* === Normalize stripes so they match normal section spacing === */
-
-/* 1) Remove extra vertical padding from the stripe wrapper itself */
-.stripe {
-  padding-top: 0;
-  padding-bottom: 0;
-
-  /* 2) Make the colored band hug the content a bit more */
-  --stripe-bleed-top: 6px;
-  --stripe-bleed-bottom: 6px;
-  --stripe-fade: 22px;
-}
-
-/* 3) Tighten pillbands when they live inside a stripe */
-.stripe .pillband {
-  margin-block: clamp(10px, 2.2vw, 18px);
-}
-
-/* 4) If you ever put a plain .section directly in a stripe,
-      keep its vertical padding the same as a normal .section */
-.stripe > .section {
-  padding-block: clamp(36px, 5vw, 56px);
-}
 
 /* ===== NAV ===== */
 /* NAV FLYOUT: styles only for the tiny round buttons */
@@ -1265,6 +1242,30 @@ margin-bottom: 10px
 }
 .legal-footer a :hover {
   color: #fff;
+}
+
+/* === Fix tall pillbands, especially inside stripes === */
+
+/* Undo the global min-height override from outline mode */
+.pillband{
+  min-height: auto;
+}
+
+/* If you still want bigger pillbands, keep using explicit variants */
+.pillband:not(.pill--tight){
+  /* optional: restore a gentle minimum height if you like */
+  min-height: clamp(200px, 24vw, 260px);
+}
+
+/* Inside stripes, keep pillbands compact */
+.stripe .pillband{
+  min-height: auto;
+  margin-block: clamp(10px, 2vw, 18px);
+}
+
+.stripe .pillband .section{
+  /* use the tighter 'pill--tight' padding you already defined */
+  padding-block: clamp(20px, 3.6vw, 32px);
 }
 
 </style>
