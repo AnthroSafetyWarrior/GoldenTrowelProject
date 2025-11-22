@@ -965,20 +965,21 @@ html body .pillhead.pill--sage{
 
 /* ================= STRIPE (full-bleed, fading band) ================= */
 .stripe{
-  /* defaults (consistent across all stripes) */
-  --stripe-bg: var(--wave-mid);   /* band color (overridden by modifier) */
-  --stripe-bleed-top: 18px;        /* how far color extends above content */
-  --stripe-bleed-bottom: 18px;     /* how far color extends below content */
-  --stripe-pad-y: 20px;            /* inside padding for content */
-  --stripe-section-pad-y: 10px;     /* padding on inner .section */
-  --stripe-gap:10px;               /* gap inside inner .section grid */
-  --stripe-fade: 36px;             /* height of the edge fade */
+  /* defaults (visual only) */
+  --stripe-bg: var(--wave-mid);
+  --stripe-bleed-top: 18px;
+  --stripe-bleed-bottom: 18px;
+  --stripe-gap: 18px;      /* match normal .section gap */
+  --stripe-fade: 36px;
 
   position: relative;
   isolation: isolate;
   margin: 0;
-  padding: var(--stripe-pad-y) var(--page-pad-inline);
+
+  /* ❗ No extra top/bottom padding – only side padding */
+  padding: 0 var(--page-pad-inline);
 }
+
 
 /* full-bleed colored panel with soft fade into page bg */
 .stripe::before{
@@ -1016,10 +1017,19 @@ html body .pillhead.pill--sage{
 }
 
 /* tighten the inner section */
+/* Make sections inside stripes feel like normal sections */
 .stripe > .section{
-  padding-block: var(--stripe-section-pad-y);
-  gap: var(--stripe-gap);
+  width: min(100%, var(--maxw));
+  margin-inline: auto;
+
+  /* same vertical padding as .section, but no extra side padding
+     (stripe already handles side padding) */
+  padding: clamp(36px, 5vw, 56px) 0;
+
+  display: grid;
+  gap: clamp(18px, 2.4vw, 28px);
 }
+
 
 /* link styling inside stripes (inherits your palette) */
 .stripe a{
@@ -1232,25 +1242,6 @@ margin-bottom: 10px
 }
 .legal-footer a :hover {
   color: #fff;
-}
-
-/* === Normalize stripe padding to match regular sections === */
-.stripe{
-  /* keep the fade + bleed, but don't add extra layout padding */
-  --stripe-pad-y: 0;
-
-  /* make inner section use the normal section padding */
-  --stripe-section-pad-y: clamp(36px, 5vw, 56px);
-}
-
-/* ensure inner .section behaves like a normal section */
-.stripe > .section{
-  padding-block: var(--stripe-section-pad-y);
-  gap: var(--stripe-gap);
-}
-/* when a stripe wraps non-section content, don't add extra padding */
-.stripe:not(:has(> .section)){
-  padding-block: 0;
 }
 
 </style>
