@@ -1244,28 +1244,42 @@ margin-bottom: 10px
   color: #fff;
 }
 
-/* === Fix tall pillbands, especially inside stripes === */
+/* === Stripe + Pillband spacing normalizer ========================= */
+/* Make sure this is AFTER all other .stripe / .pillband rules */
 
-/* Undo the global min-height override from outline mode */
-.pillband{
-  min-height: auto;
+/* 1) Stripe itself: no extra vertical padding */
+html body .stripe{
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+
+  /* shrink the fade band so it doesn’t look huge */
+  --stripe-bleed-top: 8px;
+  --stripe-bleed-bottom: 8px;
+  --stripe-fade: 24px;
 }
 
-/* If you still want bigger pillbands, keep using explicit variants */
-.pillband:not(.pill--tight){
-  /* optional: restore a gentle minimum height if you like */
-  min-height: clamp(200px, 24vw, 260px);
+/* 2) Pillbands inside stripes: no forced tall min-height */
+html body .stripe > .pillband{
+  min-height: 0 !important;
+  margin-block: clamp(18px, 3.6vw, 28px) !important;  /* same rhythm as your good section */
 }
 
-/* Inside stripes, keep pillbands compact */
-.stripe .pillband{
-  min-height: auto;
-  margin-block: clamp(10px, 2vw, 18px);
+/* 3) Inner .section inside that pillband:
+      use the same vertical padding as a normal .section,
+      but let the stripe handle side padding */
+html body .stripe > .pillband > .section{
+  padding-top:    clamp(36px, 5vw, 56px) !important;
+  padding-bottom: clamp(36px, 5vw, 56px) !important;
+  padding-left:  0 !important;
+  padding-right: 0 !important;
 }
 
-.stripe .pillband .section{
-  /* use the tighter 'pill--tight' padding you already defined */
-  padding-block: clamp(20px, 3.6vw, 32px);
+/* (Optional) if you ever put a plain .section directly in a stripe */
+html body .stripe > .section{
+  padding-top:    clamp(36px, 5vw, 56px) !important;
+  padding-bottom: clamp(36px, 5vw, 56px) !important;
+  padding-left:  0 !important;
+  padding-right: 0 !important;
 }
 
 </style>
