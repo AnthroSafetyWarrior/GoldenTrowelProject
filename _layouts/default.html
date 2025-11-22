@@ -659,6 +659,9 @@ html, body { overflow-x: hidden; }
 .pillband.pill--clip-left .section{
     --pillhead-pad-y: clamp(1.8em, 2.1vw, 2em);
   --pillhead-pad-x: clamp(1.1em, 2.2vw, 1.5em);
+  padding: var(--pillhead-pad-y) var(--pillhead-pad-x);
+  margin: clamp(10px,1.5vw,14px) 0 clamp(16px,2.2vw,22px);
+  line-height:1.1; text-wrap: wrap;
 }
 
 /* === Right-clipped pillband spacing (clean + responsive) === */
@@ -667,6 +670,9 @@ html, body { overflow-x: hidden; }
 .pillband.pill--clip-right .section{
    --pillhead-pad-y: clamp(1.8em, 2.1vw, 2em);
   --pillhead-pad-x: clamp(1.1em, 2.2vw, 1.5em);
+  padding: var(--pillhead-pad-y) var(--pillhead-pad-x);
+  margin: clamp(10px,1.5vw,14px) 0 clamp(16px,2.2vw,22px);
+  line-height:1.1; text-wrap: wrap;
 }
 
 /* Keep title off the curve */
