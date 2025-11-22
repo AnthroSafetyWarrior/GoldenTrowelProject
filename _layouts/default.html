@@ -669,7 +669,7 @@ html, body { overflow-x: hidden; }
 /* Default & small screens — tight but safe */
 .pillband .pill--clip-right .section{
    --pillband-pad-y: clamp(1.8em, 2.1vw, 2em);
-  --pillband-pad-x: clamp(1.1em, 2.2vw, 1.5em);
+  --pillband-pad-x: clamp(0.8em, 2.2vw, 1.5em);
   padding: var(--pillband-pad-y) var(--pillband-pad-x);
   margin: clamp(10px,1.5vw,14px) 0 clamp(16px,2.2vw,22px);
   line-height:1.1; text-wrap: wrap;
@@ -1206,7 +1206,7 @@ margin-bottom: 10px
     --pillhead-pad-y: clamp(1.9em, 4.5vw, 2.3em);
 
     /* bump the whole text block to the right */
-    padding-left: calc(var(--pillhead-pad-x) + 20px);
+    padding-left: calc(var(--pillhead-pad-x) + 25px);
   }
 }
 
@@ -1516,5 +1516,49 @@ function draw(){
 })();
 </script>
 
+<script>
+(() => {
+  const sticky   = document.querySelector('.nav-sticky');
+  const sentinel = document.getElementById('nav-sentinel');
+  if (!sticky || !sentinel) return;
+
+  let triggerY = 0;
+  let isFixed  = false;
+
+  function measure() {
+    // Temporarily unfix so we can measure the natural position
+    if (isFixed) {
+      sticky.classList.remove('is-fixed');
+      sentinel.style.height = '0px';
+      isFixed = false;
+    }
+
+    const rect = sticky.getBoundingClientRect();
+    triggerY   = rect.top + window.scrollY;
+
+    // Apply correct state based on current scroll
+    onScroll();
+  }
+
+  function onScroll() {
+    const shouldFix = window.scrollY >= triggerY;
+
+    // Avoid useless DOM work
+    if (shouldFix === isFixed) return;
+
+    isFixed = shouldFix;
+    sticky.classList.toggle('is-fixed', isFixed);
+
+    // Reserve space so the page doesn't jump
+    sentinel.style.height = isFixed ? sticky.offsetHeight + 'px' : '0px';
+  }
+
+  // Initial setup
+  measure();
+  window.addEventListener('scroll', onScroll,  { passive: true });
+  window.addEventListener('resize', measure,   { passive: true });
+  window.addEventListener('load',   measure);
+})();
+</script>
 </body>
 </html>
