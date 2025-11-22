@@ -210,7 +210,7 @@ html, body { overflow-x: hidden; }
 
 
 /* Circles layer */
-.circle-nav{ position:absolute; inset:0; pointer-events:none; z-index:5; transform:translateY(var(--circle-lift, -3px)); }
+.circle-nav{ position:absolute; inset:0; pointer-events:none; z-index:5; transform:translateY(var(--circle-lift, -4px)); }
 .circle{ position:absolute; pointer-events:auto; --size:clamp(90px,9.25vw,112px); width:var(--size); height:var(--size);
          scroll-snap-align: center; }
 
@@ -658,7 +658,7 @@ html, body { overflow-x: hidden; }
 /* LEFT-CLIPPED band: slightly denser vertical padding */
 .pillband .pill--clip-left .section{
     --pillband-pad-y: clamp(1.8em, 2.1vw, 2em);
-  --pillband-pad-x: clamp(1.3em, 2.2vw, 1.5em);
+  --pillband-pad-x: clamp(1.1em, 2.2vw, 1.5em);
   padding: var(--pillband-pad-y) var(--pillband-pad-x);
   margin: clamp(10px,1.5vw,14px) 0 clamp(16px,2.2vw,22px);
   line-height:1.1; text-wrap: wrap;
@@ -669,7 +669,7 @@ html, body { overflow-x: hidden; }
 /* Default & small screens — tight but safe */
 .pillband .pill--clip-right .section{
    --pillband-pad-y: clamp(1.8em, 2.1vw, 2em);
-  --pillband-pad-x: clamp(1.3em, 2.2vw, 1.5em);
+  --pillband-pad-x: clamp(1.1em, 2.2vw, 1.5em);
   padding: var(--pillband-pad-y) var(--pillband-pad-x);
   margin: clamp(10px,1.5vw,14px) 0 clamp(16px,2.2vw,22px);
   line-height:1.1; text-wrap: wrap;
@@ -1206,7 +1206,7 @@ margin-bottom: 10px
     --pillhead-pad-y: clamp(1.9em, 4.5vw, 2.3em);
 
     /* bump the whole text block to the right */
-    padding-left: calc(var(--pillhead-pad-x) + 14px);
+    padding-left: calc(var(--pillhead-pad-x) + 20px);
   }
 }
 
@@ -1214,7 +1214,7 @@ margin-bottom: 10px
 /* Fix disclaimer pillhead curve overlap — shift text right on phones */
 @media (max-width: 760px) {
 .stripe  .pillband.pill--clip-right {
-    --pillband-pad-x: clamp(1.8em, 6vw, 2.2em);
+    --pillband-pad-x: clamp(1.8em, 6vw, 2em);
     --pillband-pad-y: clamp(2em, 4.5vw, 2.3em);
 
     /* bump the whole text block to the right */
