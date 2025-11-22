@@ -658,7 +658,7 @@ html, body { overflow-x: hidden; }
 /* LEFT-CLIPPED band: slightly denser vertical padding */
 .pillband.pill--clip-left .section{
     --pillband-pad-y: clamp(1.8em, 2.1vw, 2em);
-  --pillband-pad-x: clamp(1.1em, 2.2vw, 1.5em);
+  --pillband-pad-x: clamp(1.3em, 2.2vw, 1.5em);
   padding: var(--pillband-pad-y) var(--pillband-pad-x);
   margin: clamp(10px,1.5vw,14px) 0 clamp(16px,2.2vw,22px);
   line-height:1.1; text-wrap: wrap;
@@ -669,7 +669,7 @@ html, body { overflow-x: hidden; }
 /* Default & small screens — tight but safe */
 .pillband.pill--clip-right .section{
    --pillband-pad-y: clamp(1.8em, 2.1vw, 2em);
-  --pillband-pad-x: clamp(1.1em, 2.2vw, 1.5em);
+  --pillband-pad-x: clamp(1.3em, 2.2vw, 1.5em);
   padding: var(--pillband-pad-y) var(--pillband-pad-x);
   margin: clamp(10px,1.5vw,14px) 0 clamp(16px,2.2vw,22px);
   line-height:1.1; text-wrap: wrap;
@@ -1214,7 +1214,7 @@ margin-bottom: 10px
 /* Fix disclaimer pillhead curve overlap — shift text right on phones */
 @media (max-width: 760px) {
 .stripe  .pillband.pill--clip-right {
-    --pillband-pad-x: clamp(1.8em, 6vw, 2.6em);
+    --pillband-pad-x: clamp(1.8em, 6vw, 2.2em);
     --pillband-pad-y: clamp(2em, 4.5vw, 2.3em);
 
     /* bump the whole text block to the right */
@@ -1542,7 +1542,10 @@ function draw(){
     isFixed = shouldFix;
     sticky.classList.toggle('is-fixed', isFixed);
     setReserve(isFixed);
-  }, {
+  }, {git pull origin main
+git add .
+git commit -m "updating pages"
+git push
     threshold: [0],
     // tiny negative margin to avoid “chatter” right at 0px
     rootMargin: '-4px 0px 0px 0px'
