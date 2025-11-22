@@ -10,6 +10,34 @@ hero_tint: .40
 
 <style>
 
+/* GLOBAL split */
+.split{
+  --left-min: 380px;
+  --right-min: 380px;
+  --gap: clamp(26px, 2vw, 48px);
+
+  --img-min: 460px;
+  --img-ideal: 28vw;
+  --img-max: 580px;
+
+  --text-measure: 54ch;
+
+  display: grid;
+  grid-template-columns: minmax(var(--left-min),1fr) minmax(var(--img-min),auto);
+  align-items: center;
+  column-gap: var(--gap);
+}
+.split .art{ justify-self: center; max-inline-size: var(--img-max); }
+.split .art img{ width: clamp(var(--img-min), var(--img-ideal), var(--img-max)); height: auto; display: block; }
+.split .text{ hyphens:auto; overflow-wrap:anywhere; }
+@media (max-width:1040px){
+  .split{ --left-min:340px; --left-max:460px; --text-measure:50ch; --gap: clamp(12px,1.2vw,18px); }
+}
+@media (max-width:760px){
+  .split{ grid-template-columns:1fr; justify-items:start; }
+  .split .art{ justify-self:start; }
+}
+
 .resource-card {
   background: radial-gradient(circle at 30% 30%, #ffd85b, #fac441 80%);
   border: 4px solid var(--slate);
@@ -103,16 +131,15 @@ hero_tint: .40
 </div>
 </section>
 
-<section class="section">
-<div class="intro-row">
-    <figure class="intro-graphic">
-
+<section class="section section--prep">
+       <div class="split split--prep"> 
+<figure class="art">
       <img
         src="{{ '/assets/img/Safety-checklist.png' | absolute_url }}?v={{ site.time | date: '%s' }}" alt="Pre-Fieldwork Safety Checklist example"
   loading="lazy" decoding="async" fetchpriority="low">
  </figure>
 
-    <div class="intro-copy">
+ <div class="text text--right"> 
 <p>Quicklinks:</p>
 <ul>
 <li><strong><a href="{{ '/travelprep.html' | relative_url }}">Preparing for Travel</a></strong></li>
