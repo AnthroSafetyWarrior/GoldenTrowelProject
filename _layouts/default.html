@@ -1229,14 +1229,7 @@ margin-bottom: 10px
 }
 
 .stripe .section.disclaimer-wrap p{font-weight: 700; font-size:1em }
-.stripe .section.disclaimer-wrap .pillhead{
-  --pillhead-pad-y: clamp(1.8em, 2.1vw, 2em);
-  --pillhead-pad-x: clamp(1.1em, 2.2vw, 1.5em);
-  position:relative; z-index:0; display:inline-block; font-weight:800; color: var(--pill-text, #fff);
-  padding: var(--pillhead-pad-y) var(--pillhead-pad-x);
-  margin: clamp(10px,1.5vw,14px) 0 clamp(16px,2.2vw,22px);
-  line-height:1.1; text-wrap: wrap;
-}
+
 
 .footer-nav {
   margin-bottom: 0.6rem;
@@ -1251,6 +1244,17 @@ margin-bottom: 10px
   color: #fff;
 }
 
+/* Extra breathing room for the disclaimer pillhead on small screens */
+@media (max-width: 640px){
+  .stripe .disclaimer-wrap .pillhead{
+    /* more space between text and the curve */
+    --pillhead-pad-x: clamp(1.6em, 7vw, 2.4em);
+    --pillhead-pad-y: clamp(1.9em, 5vw, 2.2em);
+
+    /* optional: slightly narrower text column so it wraps sooner */
+    max-inline-size: 40ch;
+  }
+}
 
 </style>
 </head>
