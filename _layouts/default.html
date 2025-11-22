@@ -1229,33 +1229,6 @@ margin-bottom: 10px
 }
 
 .stripe .section.disclaimer-wrap p{font-weight: 700; font-size:1em }
-/* When a pillband is the direct child of a stripe */
-.stripe > .pillband{
-  width: min(100%, var(--maxw));
-  margin-inline: auto;
-
-  /* show some stripe color above/below the pillband */
-  padding-block: clamp(24px, 4vw, 40px);
-
-  /* stripe already handles side padding */
-  padding-inline: 0;
-
-  /* avoid stacking big outer margins from the pillband itself */
-  margin-block: clamp(10px, 2vw, 18px);
-}
-
-/* Keep the inner .section inside the pillband nice and tight */
-.stripe > .pillband > .section{
-  padding: 0;                 /* no extra padding inside wrapper */
-  display: grid;
-  gap: clamp(8px, 1.6vw, 14px);
-}
-
-/* Extra bleed ONLY when the stripe directly wraps a pillband */
-.stripe:has(> .pillband){
-  --stripe-bleed-top: 32px;
-  --stripe-bleed-bottom: 32px;
-}
 
 
 .footer-nav {
