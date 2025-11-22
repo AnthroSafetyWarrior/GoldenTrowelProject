@@ -9,6 +9,23 @@ hero_tint: .40
 ---
 
 <style>
+
+.split{
+  --left-min: 380px;
+  --right-min: 380px;
+  --gap: clamp(26px, 2vw, 48px);
+
+  --img-min: 300px;
+  --img-ideal: 28vw;
+  --img-max: 440px;
+
+  --text-measure: 54ch;
+
+  display: grid;
+  grid-template-columns: minmax(var(--left-min),1fr) minmax(var(--img-min),auto);
+  align-items: center;
+  column-gap: var(--gap);
+}
 .split .art{ justify-self: center; }
 /* ========== Fieldwork Safety Plan cards ========== */
 .resources-grid {
@@ -95,11 +112,10 @@ hero_tint: .40
    </strong> </nav> </article>
 </section>
 
-<div class="stripe stripe--wave-mid">
+<div class="stripe stripe--wave-mid"> 
 <!-- 2) DISCLAIMER — shared split -->
 <section class="section disclaimer-wrap">
-<p class="pillband pill--orange pill--clip-right pill--tight">
-Disclaimer: The resources provided on this website are not exhaustive or definitive. Regulations, reporting protocols, and legal requirements may vary by location and institution. Before conducting fieldwork, confirm current information with your university legal services, ethics or Title IX office, or a qualified legal professional.</p>
+<p class="pillhead pill--orange pill--clip-right">Disclaimer: The resources provided on this website are not exhaustive or definitive. Regulations, reporting protocols, and legal requirements may vary by location and institution. Before conducting fieldwork, confirm current information with your university legal services, ethics or Title IX office, or a qualified legal professional.</p>
 </section>
 </div>
 
