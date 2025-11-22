@@ -1210,23 +1210,23 @@ margin-bottom: 10px
 
 /* Fix disclaimer pillhead curve overlap — shift text right on phones */
 @media (max-width: 760px) {
-  .pillband {
+  .pill--clip-right {
     --pillhead-pad-x: clamp(1.8em, 6vw, 2.6em);
     --pillhead-pad-y: clamp(1.9em, 4.5vw, 2.3em);
 
     /* bump the whole text block to the right */
-    padding-left: calc(var(--pillhead-pad-x) + 14px);
+    padding-left: calc(var(--pillhead-pad-x) + 5px);
   }
 }
 
 /* Fix disclaimer pillhead curve overlap — shift text right on phones */
 @media (max-width: 760px) {
-.stripe  .pillband {
+.stripe  .pill--clip-right {
     --pillhead-pad-x: clamp(1.8em, 6vw, 2.6em);
     --pillhead-pad-y: clamp(1.9em, 4.5vw, 2.3em);
 
     /* bump the whole text block to the right */
-    padding-left: calc(var(--pillhead-pad-x) + 14px);
+    padding-left: calc(var(--pillhead-pad-x) + 5px);
   }
 }
 </style>
