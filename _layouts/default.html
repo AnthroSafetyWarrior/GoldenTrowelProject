@@ -138,7 +138,7 @@ header.hero::before{
 
 /* the visual band stays exactly the same, but no overflow */
 .nav-gradient{
- position: relative;
+/* was: position: sticky; <-- remove */ /* was: top: 0; <-- remove */ margin-top: calc(var(--wave-overlap) * -1);
   background: linear-gradient(
     to bottom,
     var(--wave-dark) 0%,
