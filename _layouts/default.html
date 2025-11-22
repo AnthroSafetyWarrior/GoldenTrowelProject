@@ -656,7 +656,7 @@ html, body { overflow-x: hidden; }
 /* === Safer spacing for clipped bands & pills =========================== */
 
 /* LEFT-CLIPPED band: slightly denser vertical padding */
-.pillband.pill--clip-left .section{
+.pillband .pill--clip-left .section{
     --pillband-pad-y: clamp(1.8em, 2.1vw, 2em);
   --pillband-pad-x: clamp(1.3em, 2.2vw, 1.5em);
   padding: var(--pillband-pad-y) var(--pillband-pad-x);
@@ -667,7 +667,7 @@ html, body { overflow-x: hidden; }
 /* === Right-clipped pillband spacing (clean + responsive) === */
 
 /* Default & small screens — tight but safe */
-.pillband.pill--clip-right .section{
+.pillband .pill--clip-right .section{
    --pillband-pad-y: clamp(1.8em, 2.1vw, 2em);
   --pillband-pad-x: clamp(1.3em, 2.2vw, 1.5em);
   padding: var(--pillband-pad-y) var(--pillband-pad-x);
@@ -1521,42 +1521,31 @@ function draw(){
 
 <script>
 (() => {
-  const sticky   = document.querySelector('.nav-sticky');
+  const sticky = document.querySelector('.nav-sticky');
   const sentinel = document.getElementById('nav-sentinel');
   if (!sticky || !sentinel) return;
 
-  const setReserve = (fixed) => {
-    sentinel.style.height = fixed ? sticky.offsetHeight + 'px' : '0px';
+  // Keep the page from “jumping” by reserving height when we fix the bar
+  const setReserve = () => {
+    if (sticky.classList.contains('is-fixed')) {
+      sentinel.style.height = sticky.offsetHeight + 'px';
+    } else {
+      sentinel.style.height = '0px';
+    }
   };
 
-  let isFixed = false;
-
+  // Prefer IntersectionObserver (super smooth)
   const io = new IntersectionObserver(([entry]) => {
-    // Fix when sentinel has scrolled past the top and is no longer visible
-    const shouldFix =
-      entry.boundingClientRect.top < 0 && entry.intersectionRatio === 0;
-
-    // Avoid re-toggling if state didn't actually change
-    if (shouldFix === isFixed) return;
-
-    isFixed = shouldFix;
-    sticky.classList.toggle('is-fixed', isFixed);
-    setReserve(isFixed);
-  }, {git pull origin main
-git add .
-git commit -m "updating pages"
-git push
-    threshold: [0],
-    // tiny negative margin to avoid “chatter” right at 0px
-    rootMargin: '-4px 0px 0px 0px'
-  });
+    if (entry.isIntersecting) {
+      sticky.classList.remove('is-fixed');
+    } else {
+      sticky.classList.add('is-fixed');
+    }
+    setReserve();
+  }, { threshold: 0, rootMargin: '0px 0px 0px 0px' });
 
   io.observe(sentinel);
-
-  // If the nav height changes (e.g., responsive), update spacer only when fixed
-  window.addEventListener('resize', () => {
-    if (isFixed) setReserve(true);
-  }, { passive: true });
+  addEventListener('resize', setReserve, { passive: true });
 })();
 </script>
 
