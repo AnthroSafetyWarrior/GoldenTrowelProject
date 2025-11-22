@@ -812,54 +812,6 @@ html, body { overflow-x: hidden; }
   z-index: -1;
 }
 
-@media (max-width: 560px){
-/* Early-wrap utility just for bands that need it */
-.pillband.pill--earlywrap{
-  /* shrink text line length so it wraps sooner */
-  --pill-measure: clamp(34ch, 48vw, 42ch);
-  /* increase the safe gutter near the curve */
-  --pill-curve-inset: clamp(72px, 14vw, 320px);
-}
-}
-/* Ensure the section respects the larger curve inset on the clipped side */
-.pillband.pill--clip-left.pill--earlywrap .section{
-  padding-right: max(var(--pill-pad-inline), var(--pill-curve-inset));
-}
-
-/* Optional: cap the H2 a bit tighter than body copy */
-.pillband.pill--earlywrap h2{
-  max-inline-size: clamp(24ch, 44vw, 38ch);
-  text-wrap: wrap;
-}
-@media (max-width: 560px){
-
-  /* BAND: earlier wrap + bigger safe gutter near the curve */
-  .pillband.pill--clip-right.pill--earlywrapl{
-    --pill-curve-inset: clamp(72px, 22vw, 360px);
-    --pill-measure:     clamp(28ch, 80vw, 34ch);
-    min-height: clamp(170px, 24vw, 260px);
-  }
-
-  .pillband.pill--clip-right.pill--earlywrapl .section{
-    padding-left: max(var(--pill-pad-inline), calc(var(--pill-curve-inset) + 8px));
-  }
-
-  .pillband.pill--clip-right.pill--earlywrapl h2{
-    max-inline-size: clamp(24ch, 70vw, 30ch);
-    text-wrap: wrap;
-  }
-
-  .pillband.pill--clip-right.pill--earlywrapl :where(p, ul, ol, blockquote){
-    max-inline-size: 100%;
-  }
-
-  /* CONTENT PILL: deeper inset on the curved side */
-  .pill.pill--clip-right{
-    --curve-inset: clamp(72px, 22vw, 360px);
-    --pill-pad-x:  clamp(16px, 4.5vw, 22px);
-    --pill-pad-y:  clamp(20px, 5.5vw, 28px);
-  }
-}
 
 /* Exact 50/50 two-column layout; stacks on small screens */
 .split-equal{
@@ -1256,7 +1208,27 @@ margin-bottom: 10px
   }
 }
 
+/* Fix disclaimer pillhead curve overlap — shift text right on phones */
+@media (max-width: 760px) {
+  .pillband {
+    --pillhead-pad-x: clamp(1.8em, 6vw, 2.6em);
+    --pillhead-pad-y: clamp(1.9em, 4.5vw, 2.3em);
 
+    /* bump the whole text block to the right */
+    padding-left: calc(var(--pillhead-pad-x) + 14px);
+  }
+}
+
+/* Fix disclaimer pillhead curve overlap — shift text right on phones */
+@media (max-width: 760px) {
+.stripe  .pillband {
+    --pillhead-pad-x: clamp(1.8em, 6vw, 2.6em);
+    --pillhead-pad-y: clamp(1.9em, 4.5vw, 2.3em);
+
+    /* bump the whole text block to the right */
+    padding-left: calc(var(--pillhead-pad-x) + 14px);
+  }
+}
 </style>
 </head>
 
@@ -1561,24 +1533,27 @@ function draw(){
   const sentinel = document.getElementById('nav-sentinel');
   if (!sticky || !sentinel) return;
 
-  // Measure nav height once up front
-  const reserve = sticky.offsetHeight;
-  sentinel.style.height = reserve + 'px';
-
-  // Smooth toggle with small hysteresis
-  let lastState = false;
-  const io = new IntersectionObserver(([entry]) => {
-    const shouldFix = entry.boundingClientRect.top < 0 && !entry.isIntersecting;
-    if (shouldFix !== lastState) {
-      sticky.classList.toggle('is-fixed', shouldFix);
-      lastState = shouldFix;
+  // Keep the page from “jumping” by reserving height when we fix the bar
+  const setReserve = () => {
+    if (sticky.classList.contains('is-fixed')) {
+      sentinel.style.height = sticky.offsetHeight + 'px';
+    } else {
+      sentinel.style.height = '0px';
     }
-  }, {
-    threshold: 0,
-    rootMargin: '-6px 0px 0px 0px'
-  });
+  };
+
+  // Prefer IntersectionObserver (super smooth)
+  const io = new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) {
+      sticky.classList.remove('is-fixed');
+    } else {
+      sticky.classList.add('is-fixed');
+    }
+    setReserve();
+  }, { threshold: 0, rootMargin: '0px 0px 0px 0px' });
 
   io.observe(sentinel);
+  addEventListener('resize', setReserve, { passive: true });
 })();
 </script>
 
