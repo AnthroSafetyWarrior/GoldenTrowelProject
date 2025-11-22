@@ -657,9 +657,9 @@ html, body { overflow-x: hidden; }
 
 /* LEFT-CLIPPED band: slightly denser vertical padding */
 .pillband.pill--clip-left .section{
-    --pillhead-pad-y: clamp(1.8em, 2.1vw, 2em);
-  --pillhead-pad-x: clamp(1.1em, 2.2vw, 1.5em);
-  padding: var(--pillhead-pad-y) var(--pillhead-pad-x);
+    --pillband-pad-y: clamp(1.8em, 2.1vw, 2em);
+  --pillband-pad-x: clamp(1.1em, 2.2vw, 1.5em);
+  padding: var(--pillband-pad-y) var(--pillband-pad-x);
   margin: clamp(10px,1.5vw,14px) 0 clamp(16px,2.2vw,22px);
   line-height:1.1; text-wrap: wrap;
 }
@@ -668,9 +668,9 @@ html, body { overflow-x: hidden; }
 
 /* Default & small screens — tight but safe */
 .pillband.pill--clip-right .section{
-   --pillhead-pad-y: clamp(1.8em, 2.1vw, 2em);
-  --pillhead-pad-x: clamp(1.1em, 2.2vw, 1.5em);
-  padding: var(--pillhead-pad-y) var(--pillhead-pad-x);
+   --pillband-pad-y: clamp(1.8em, 2.1vw, 2em);
+  --pillband-pad-x: clamp(1.1em, 2.2vw, 1.5em);
+  padding: var(--pillband-pad-y) var(--pillband-pad-x);
   margin: clamp(10px,1.5vw,14px) 0 clamp(16px,2.2vw,22px);
   line-height:1.1; text-wrap: wrap;
 }
@@ -1214,11 +1214,11 @@ margin-bottom: 10px
 /* Fix disclaimer pillhead curve overlap — shift text right on phones */
 @media (max-width: 760px) {
 .stripe  .pillband.pill--clip-right {
-    --pillhead-pad-x: clamp(1.8em, 6vw, 2.6em);
-    --pillhead-pad-y: clamp(1.9em, 4.5vw, 2.3em);
+    --pillband-pad-x: clamp(1.8em, 6vw, 2.6em);
+    --pillband-pad-y: clamp(2em, 4.5vw, 2.3em);
 
     /* bump the whole text block to the right */
-    padding-left: calc(var(--pillhead-pad-x) + 5px);
+    padding-left: calc(var(--pillband-pad-x) + 5px);
   }
 }
 </style>
@@ -1521,33 +1521,42 @@ function draw(){
 
 <script>
 (() => {
-  const sticky = document.querySelector('.nav-sticky');
+  const sticky   = document.querySelector('.nav-sticky');
   const sentinel = document.getElementById('nav-sentinel');
   if (!sticky || !sentinel) return;
 
-  // Keep the page from “jumping” by reserving height when we fix the bar
-  const setReserve = () => {
-    if (sticky.classList.contains('is-fixed')) {
-      sentinel.style.height = sticky.offsetHeight + 'px';
-    } else {
-      sentinel.style.height = '0px';
-    }
+  const setReserve = (fixed) => {
+    sentinel.style.height = fixed ? sticky.offsetHeight + 'px' : '0px';
   };
 
-  // Prefer IntersectionObserver (super smooth)
+  let isFixed = false;
+
   const io = new IntersectionObserver(([entry]) => {
-    if (entry.isIntersecting) {
-      sticky.classList.remove('is-fixed');
-    } else {
-      sticky.classList.add('is-fixed');
-    }
-    setReserve();
-  }, { threshold: 0, rootMargin: '0px 0px 0px 0px' });
+    // Fix when sentinel has scrolled past the top and is no longer visible
+    const shouldFix =
+      entry.boundingClientRect.top < 0 && entry.intersectionRatio === 0;
+
+    // Avoid re-toggling if state didn't actually change
+    if (shouldFix === isFixed) return;
+
+    isFixed = shouldFix;
+    sticky.classList.toggle('is-fixed', isFixed);
+    setReserve(isFixed);
+  }, {
+    threshold: [0],
+    // tiny negative margin to avoid “chatter” right at 0px
+    rootMargin: '-4px 0px 0px 0px'
+  });
 
   io.observe(sentinel);
-  addEventListener('resize', setReserve, { passive: true });
+
+  // If the nav height changes (e.g., responsive), update spacer only when fixed
+  window.addEventListener('resize', () => {
+    if (isFixed) setReserve(true);
+  }, { passive: true });
 })();
 </script>
+
 
 
 
