@@ -71,13 +71,14 @@ hero_tint: .40
 
  <div class="stripe stripe--wave-mid">
 <!-- 2) AUDIENCE — shared split -->
+<section class="section">
 <section id=audience class="pillband pill--orange pill--clip-right pill--tight">
  <div class="section">
     <h2>Who This Helps & How You Can Use Our Site</h2>
     <p class="lede">The Golden Trowel Project™ offers practical tools and information for everyone involved in research — whether you’re preparing for your first field season or guiding a team in the field.</p>
 </div>
 </section>
-
+</section>
 <section class="section">
   <div class="split-equal">
     <div class="col"> 
@@ -119,13 +120,14 @@ hero_tint: .40
 
 <div class="stripe stripe--wave-mid">
 <!-- 4) START HERE — consistent grid utility -->
+<section class="section">
 <section id=docs class="pillband pill--slate pill--clip-right pill--tight">
  <div class="section">
     <h2>Get Ready for the Field: Three Steps to Start Safely</h2>
     <p class="lede">Each template can be customized to your needs and downloaded for your records or shared with your team.</p>
 </div>
 </section>
-
+</section>
 
 <section class="section">
     <div class="hero-docs">
