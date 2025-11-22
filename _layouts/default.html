@@ -1248,6 +1248,10 @@ margin-bottom: 10px
   padding-block: var(--stripe-section-pad-y);
   gap: var(--stripe-gap);
 }
+/* when a stripe wraps non-section content, don't add extra padding */
+.stripe:not(:has(> .section)){
+  padding-block: 0;
+}
 
 </style>
 </head>
