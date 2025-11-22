@@ -1441,23 +1441,28 @@ function draw(){
     circleEl.style.left = left + 'px';
     circleEl.style.top  = TOP  + 'px';
 
-    const href = circleEl.getAttribute('data-href');
-    const btn  = circleEl.querySelector('.circle-btn');
-    if (btn && href) btn.onclick = () => { location.href = href; };
+const href = circleEl.getAttribute('data-href');
+const btn  = circleEl.querySelector('.circle-btn');
+if (btn && href) {
+  // Store the href for later; navigation will be handled in portalizeFlyouts
+  btn.dataset.href = href;
+}
   });
 }
 
   setHeight(); draw();
   addEventListener('resize', () => { setHeight(); draw(); }, { passive:true });
-
-  /* Flyouts portal (unchanged behavior) */
+  /* Flyouts portal (desktop hover + mobile tap) */
   (function portalizeFlyouts(){
     const circlesAll = track.querySelectorAll('.circle');
+    const isCoarse = window.matchMedia("(pointer: coarse)").matches || 'ontouchstart' in window;
+
     circlesAll.forEach(circle => {
       const btn = circle.querySelector('.circle-btn');
       const fly = circle.querySelector('.flyout');
       if (!btn || !fly) return;
 
+      const href = btn.dataset.href || circle.getAttribute('data-href') || "";
       let placeholder = null;
       let hideTimer = null;
 
@@ -1468,6 +1473,7 @@ function draw(){
         circle.appendChild(placeholder);
         document.body.appendChild(fly);
       };
+
       const backHome = () => {
         if (!placeholder) return;
         placeholder.replaceWith(fly);
@@ -1482,34 +1488,82 @@ function draw(){
         fly.style.display = 'flex';
       };
 
-      const show = () => { clearTimeout(hideTimer); toBody(); positionFlyout(); };
+      const show = () => {
+        clearTimeout(hideTimer);
+        toBody();
+        positionFlyout();
+      };
+
       const hide = () => {
         fly.classList.remove('is-floating');
-        fly.style.left = fly.style.top = '';
+        fly.style.left = '';
+        fly.style.top  = '';
         fly.style.display = 'none';
         backHome();
       };
 
-      btn.addEventListener('pointerenter', show);
-      btn.addEventListener('pointerleave', () => { hideTimer = setTimeout(hide, 120); });
-      fly.addEventListener('pointerenter', () => clearTimeout(hideTimer));
-      fly.addEventListener('pointerleave', () => { hideTimer = setTimeout(hide, 120); });
+      /* ---------- DESKTOP (mouse/trackpad) ---------- */
+      if (!isCoarse) {
+        btn.addEventListener('pointerenter', show);
+        btn.addEventListener('pointerleave', () => {
+          hideTimer = setTimeout(hide, 120);
+        });
+        fly.addEventListener('pointerenter', () => clearTimeout(hideTimer));
+        fly.addEventListener('pointerleave', () => {
+          hideTimer = setTimeout(hide, 120);
+        });
 
-      btn.addEventListener('focus', show);
-      btn.addEventListener('blur',  () => { hideTimer = setTimeout(hide, 150); });
+        btn.addEventListener('focus', show);
+        btn.addEventListener('blur', () => {
+          hideTimer = setTimeout(hide, 150);
+        });
 
-      let armed = false;
-      btn.addEventListener('click', (e) => {
-        const hasItems = fly.querySelector('.pill');
-        if (!hasItems) return;
-        if (!armed) {
+        // Desktop click goes straight to main page (if no sub-items, the href is used normally)
+        btn.addEventListener('click', (e) => {
+          const hasItems = !!fly.querySelector('.pill--nav, .pill');
+          if (!hasItems && href) {
+            // no submenu → just navigate
+            window.location.href = href;
+          }
+          // if there *are* items, hover already shows them; click can be ignored or used as normal
+        }, { passive: true });
+      }
+
+      /* ---------- MOBILE / TOUCH (coarse pointer) ---------- */
+      if (isCoarse) {
+        let armedForMain = false;
+        let armTimer = null;
+
+        btn.addEventListener('click', (e) => {
+          const hasItems = !!fly.querySelector('.pill--nav, .pill');
+
+          if (!hasItems) {
+            // No dropdown → just go directly
+            if (href) window.location.href = href;
+            return;
+          }
+
+          // There *is* a dropdown
           e.preventDefault();
-          show();
-          armed = true;
-          setTimeout(() => armed = false, 1200);
-        }
-      }, { passive:false });
 
+          // If flyout is not open, open it and arm for second tap
+          const isOpen = fly.style.display === 'flex' && fly.classList.contains('is-floating');
+          if (!isOpen) {
+            show();
+            armedForMain = true;
+            clearTimeout(armTimer);
+            armTimer = setTimeout(() => { armedForMain = false; }, 1500);
+            return;
+          }
+
+          // If already open and we’re armed → second tap goes to main page
+          if (isOpen && armedForMain && href) {
+            window.location.href = href;
+          }
+        }, { passive:false });
+      }
+
+      // Universal listeners for both modes
       addEventListener('scroll', hide, { passive:true });
       addEventListener('resize', () => { hide(); positionFlyout(); }, { passive:true });
       document.addEventListener('click', (ev) => {
@@ -1517,6 +1571,8 @@ function draw(){
       }, { passive:true });
     });
   })();
+
+  
 })();
 </script>
 
