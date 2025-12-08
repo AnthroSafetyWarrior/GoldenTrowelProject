@@ -1232,6 +1232,39 @@ margin-bottom: 10px
   }
 }
 
+
+.quick-exit {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 99999;
+
+  background: #fac441; /* gold */
+  color: #111;
+  border: none;
+  padding: 0.6em 1.4em;
+  font-size: 1rem;
+  font-weight: 700;
+
+  border-radius: 999px; /* pill shape */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+
+  cursor: pointer;
+  transition: background 0.2s;
+
+  /* Make sure tap targets are large enough on phones */
+  touch-action: manipulation;
+}
+
+.quick-exit:hover {
+  background: #f7d879;
+}
+
+.quick-exit:active {
+  background: #e3b838;
+}
+
+
 </style>
 </head>
 
@@ -1328,6 +1361,8 @@ Institution Ethics Support</a>
 </div>
 </div>
 
+<button class="quick-exit" onclick="quickExit()">EXIT</button>
+
   <main>
     {{ content }}
   </main>
@@ -1366,6 +1401,15 @@ Institution Ethics Support</a>
 </div>
 </footer>
 
+
+
+
+<script>
+  function quickExit() {
+    // Redirect without adding to history
+    window.location.replace("https://www.google.com");
+  }
+</script>
 
 
   <!-- Tight layout + portal-on-open so flyouts sit over the page -->
