@@ -78,8 +78,7 @@ hero_tint: .40
     <p class="lede">The Golden Trowel Project™ offers practical tools and information for everyone involved in research — whether you’re preparing for your first field season or guiding a team in the field.</p>
 </div>
 </section>
-</section>
-<section class="section">
+
   <div class="split-equal">
     <div class="col"> 
       <img
