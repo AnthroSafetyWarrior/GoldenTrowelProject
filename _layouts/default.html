@@ -1235,24 +1235,25 @@ margin-bottom: 10px
 
 .quick-exit {
   position: fixed;
-  top: 12px;
-  right: 12px;
+  top: 82px; /* adjust this depending on your nav height */
+  right: 0;  
+
   z-index: 99999;
 
-  background: #fac441; /* gold */
+  background: #fac441;
   color: #111;
   border: none;
-  padding: 0.6em 1.4em;
+
+  padding: 0.65em 1.4em;
   font-size: 1rem;
   font-weight: 700;
 
-  border-radius: 999px; /* pill shape */
+  border-radius: 999px 0 0 999px; /* pill on left, flat on right */
+
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 
   cursor: pointer;
   transition: background 0.2s;
-
-  /* Make sure tap targets are large enough on phones */
   touch-action: manipulation;
 }
 
@@ -1360,9 +1361,10 @@ Institution Ethics Support</a>
         </section>
 </div>
 </div>
+<button class="quick-exit" onclick="quickExit()">EXIT</button>
 
   <main>
-<button class="quick-exit" onclick="quickExit()">EXIT</button>
+
     {{ content }}
   </main>
 
@@ -1405,10 +1407,10 @@ Institution Ethics Support</a>
 
 <script>
   function quickExit() {
-    // Redirect without adding to history
     window.location.replace("https://www.google.com");
   }
 </script>
+
 
 
   <!-- Tight layout + portal-on-open so flyouts sit over the page -->
