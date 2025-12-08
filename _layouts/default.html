@@ -1235,8 +1235,10 @@ margin-bottom: 10px
 
 .quick-exit {
   position: fixed;
-  top: 82px; /* adjust this depending on your nav height */
-  right: 0;  
+
+  /* Positioning — centered in upper third */
+  top: 22vh;          /* moves it down from the top in a responsive way */
+  right: 0;           /* still clipped-right */
 
   z-index: 99999;
 
@@ -1244,27 +1246,29 @@ margin-bottom: 10px
   color: #111;
   border: none;
 
-  padding: 0.65em 1.4em;
-  font-size: 1rem;
+  /* Larger size */
+  padding: 0.9em 1.8em;
+  font-size: 1.15rem;
   font-weight: 700;
 
-  border-radius: 999px 0 0 999px; /* pill on left, flat on right */
+  /* Clip-right pill */
+  border-radius: 999px 0 0 999px;
 
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.25);
 
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.2s, transform 0.15s;
   touch-action: manipulation;
 }
 
 .quick-exit:hover {
   background: #f7d879;
+  transform: translateX(-2px);
 }
 
 .quick-exit:active {
   background: #e3b838;
 }
-
 
 </style>
 </head>
