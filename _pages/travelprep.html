@@ -354,28 +354,38 @@ hero_tint: .40                       # optional (0–1: higher = more maroon ove
   font-weight: 400 !important;  /* body cells normal weight */
 }
 
-/* ============================================================
-   FINAL FIX — completely remove all left/right padding inside
-   stripe region wrappers so buttons can fully stretch
-   ============================================================ */
+/* ================================================
+   FIX: Make region buttons inside stripes match
+   width + gutter of non-striped regions
+   ================================================ */
 
-.stripe .country-section,
-.stripe .country-section .wrap,
+/* Remove ONLY the extra stripe padding */
 .stripe .region,
 .stripe .region-body {
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  margin-left: 0 !important;
-  margin-right: 0 !important;
+  padding-inline: var(--grid-inset) !important;
 }
 
-/* Make sure the region-toggle and accordion grid can stretch */
-.stripe .region-toggle,
+/* Country-section inside stripes shouldn't add extra padding */
+.stripe .country-section {
+  padding-inline: 0 !important;
+}
+
+/* Keep the internal wrap using the SAME gutter as outside stripes */
+.stripe .country-section .wrap {
+  padding-inline: var(--grid-inset) !important;
+}
+
+/* Ensure region buttons inside stripes behave exactly like outside */
+.stripe .region-toggle {
+  width: 100%;
+  max-width: var(--region-btn-max);
+  margin-inline: auto;
+}
+
+/* Accordion grids inside stripes should follow the same rule */
 .stripe .accordion-grid {
-  width: 100% !important;
-  max-width: var(--region-btn-max) !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
+  max-width: var(--region-btn-max);
+  margin-inline: auto;
 }
 
 
