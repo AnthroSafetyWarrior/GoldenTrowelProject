@@ -127,9 +127,8 @@ hero_tint: .40
     <p class="lede">Each template can be customized to your needs and downloaded for your records or shared with your team.</p>
 </div>
 </section>
-</section>
 
-<section class="section">
+
     <div class="hero-docs">
 
       <!-- 1) Checklist -->
@@ -226,7 +225,6 @@ hero_tint: .40
 <section id=surv class="section">
 <h2 class="pillhead pill--orange pill--clip-right">Survivor Support</h2>
 </section>
-<br>
 <section class="section">
   <div class="split-equal">
     <div class="col"> 
