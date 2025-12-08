@@ -354,6 +354,39 @@ hero_tint: .40                        # optional (0–1: higher = more maroon ov
   font-weight: 400 !important;  /* body cells normal weight */
 }
 
+/* ================================================
+   FIX: Make region buttons inside stripes match
+   width + gutter of non-striped regions
+   ================================================ */
+
+/* Remove ONLY the extra stripe padding */
+.stripe .region,
+.stripe .region-body {
+  padding-inline: var(--grid-inset) !important;
+}
+
+/* Country-section inside stripes shouldn't add extra padding */
+.stripe .country-section {
+  padding-inline: 0 !important;
+}
+
+/* Keep the internal wrap using the SAME gutter as outside stripes */
+.stripe .country-section .wrap {
+  padding-inline: var(--grid-inset) !important;
+}
+
+/* Ensure region buttons inside stripes behave exactly like outside */
+.stripe .region-toggle {
+  width: 100%;
+  max-width: var(--region-btn-max);
+  margin-inline: auto;
+}
+
+/* Accordion grids inside stripes should follow the same rule */
+.stripe .accordion-grid {
+  max-width: var(--region-btn-max);
+  margin-inline: auto;
+}
 </style>
 
 
@@ -1420,6 +1453,7 @@ If you need information for an institution missing from the list, please let us 
 
 
 <div class="stripe stripe--wave-mid">
+<br>
 <!-- 4) AFRICA — consistent grid utility -->
 <section id=africa class="pillband pill--orange pill--clip-right pill--tight">
  <div class="section">
@@ -3247,6 +3281,7 @@ If you need information for an institution missing from the list, please let us 
 
 
 <div class="stripe stripe--wave-mid">
+<br>
 <!-- 4) SAM — consistent grid utility -->
 <section id=sam class="pillband pill--slate pill--clip-right pill--tight">
  <div class="section">
@@ -4617,6 +4652,7 @@ If you need information for an institution missing from the list, please let us 
 
 
 <div class="stripe stripe--wave-mid">
+<br>
 <!-- 4) OCEANIA — consistent grid utility -->
 <section id=oceania class="pillband pill--orange pill--clip-right pill--tight">
  <div class="section">
