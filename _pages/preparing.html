@@ -12,11 +12,11 @@ hero_tint: .40
 
 /* GLOBAL split */
 .split{
-  --left-min: 600px;
+  --left-min: 340px;
   --right-min: 380px;
   --gap: clamp(26px, 2vw, 48px);
 
-  --img-min: 600px;
+  --img-min: 330px;
   --img-ideal: 28vw;
   --img-max: 640px;
 
@@ -28,7 +28,11 @@ hero_tint: .40
   column-gap: var(--gap);
 }
 .split .art{ justify-self: center; max-inline-size: var(--img-max); }
-.split .art img{ width: clamp(var(--img-min), var(--img-ideal), var(--img-max)); height: auto; display: block; }
+.split .art img {
+  max-width: 100%;
+  width: clamp(330px, var(--img-ideal), var(--img-max));
+}
+
 .split .text{ hyphens:auto; overflow-wrap:anywhere; }
 @media (max-width:1040px){
   .split{ --left-min:340px; --left-max:460px; --text-measure:50ch; --gap: clamp(12px,1.2vw,18px); }
@@ -140,16 +144,16 @@ hero_tint: .40
  </figure>
 
  <div class="text text--right"> 
-<p>Quicklinks:</p>
+<p>Quicklinks to prepare for travel to your fieldwork country:</p>
 <ul>
-<li><strong><a href="{{ '/travelprep.html' | relative_url }}">Preparing for Travel</a></strong> by reviewing:</li>
+<li><strong><a href="{{ '/travelprep.html' | relative_url }}">Prepare for Travel</a></strong> by reviewing:</li>
 <ul><li>travel advisories,</li>
 <li>general safety,</li>
 <li>LGBTQ+ safety,</li>
 <li>cultural etiquette,</li>
 <li>recording law,</li>
 <li>sexual misconduct law,</li>
-<li>and non-citizen protections in your fieldwork country.</li></ul>
+<li>and non-citizen protections.</li></ul>
 <li><strong<strong><a href="{{ '/ethicsprep.html' | relative_url }}">Find my Institution's Ethics Office</a></strong></li>
 <li><strong<strong><a href="{{ '/embassyprep.html' | relative_url }}">Find My Local Embassy/Consulate</a></strong></li>
 </ul>
